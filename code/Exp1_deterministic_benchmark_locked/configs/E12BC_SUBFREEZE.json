@@ -1,0 +1,56 @@
+{
+  "freeze_id": "FLASHIR-E12BC-EXPLORATORY-FREEZE-20260905",
+  "created_before_results": true,
+  "status": "EXPLORATORY_POST_CONFIRMATORY",
+  "source": "development F1.1 only; no held-out scenario altered",
+  "E12b": {
+    "name": "Binary branching attacker-state scalability",
+    "depths": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "expected_reachable_states": [
+      15,
+      31,
+      63,
+      127,
+      255,
+      511,
+      1023
+    ],
+    "replicates": 10,
+    "branching_factor": 2,
+    "candidate_query_count": 1,
+    "certificate_subset_evals": 2,
+    "goal_count": "2^depth",
+    "objective": "isolate state/goal branching with one critical query"
+  },
+  "E12c": {
+    "name": "Independent query/basis certificate scalability",
+    "query_counts": [
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16
+    ],
+    "replicates": 5,
+    "reachable_states": 2,
+    "goal_count": 1,
+    "expected_subset_evals": "2^k",
+    "objective": "isolate exhaustive certificate subset search while state graph stays tiny"
+  },
+  "solver_limits": {
+    "max_expansions": 100000,
+    "max_subset_evals": 100000
+  },
+  "claim_boundary": "Exploratory synthetic computational stress tests; not production SOC topology or theoretical complexity proof."
+}

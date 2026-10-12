@@ -1,0 +1,23 @@
+{
+ "experiment": "E43 harness-mode serial cross-check",
+ "seed": 43100218,
+ "blocks": [
+  {
+   "name": "g5-ignore-serial-check",
+   "arms": [
+    "A1",
+    "A4d"
+   ],
+   "grace_s": 5,
+   "workload": "ignore-term",
+   "delays_ms": [
+    0,
+    100,
+    4500,
+    7000
+   ],
+   "n": 3,
+   "n_control": 3
+  }
+ ]
+}

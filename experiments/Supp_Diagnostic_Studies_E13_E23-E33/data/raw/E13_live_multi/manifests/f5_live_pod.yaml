@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: flashir-multi
+  namespace: flashir-e13
+  labels:
+    flag-a: "true"
+    flag-b: "true"
+    flag-c: "true"
+    flag-d: "true"
+    flag-e: "true"
+    flag-f: "true"
+spec:
+  containers:
+  - name: hold
+    image: registry.k8s.io/pause:3.10.1

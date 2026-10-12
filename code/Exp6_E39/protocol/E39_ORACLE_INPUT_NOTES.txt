@@ -1,0 +1,40 @@
+E39 ORACLE INPUT NOTES (analysis side -> runner side), 2026-09-26
+===================================================================
+Written by the analysis/oracle builder for the runner builder (coordination via files only). The oracle
+(analysis/oracle_e39.py) reads protocol/E39_RECORD_SCHEMA.json field names plus the aliases below; items
+marked REQUIRED make trials UNKNOWN (or the gate refuse) if missing. Nothing here edits runner files.
+
+REQUIRED
+ R1 Audit policy (deploy/audit-policy.yaml, copied from E38v2) currently logs only configmaps update/patch and
+    pods delete. E39 also needs RequestResponse for: pods patch/update (A4d writer + arrivals + A4m mirror
+    PATCH), pods/status updates by system:node (attribution of 409s to kubelet status writes; responseObject RV needed), networkpolicies create (E39-E), in the e39-* test namespaces; and level None for e39-load.
+    Without it every A4d/A4m/E trial loses its audit evidence (primary falls back to trial RVs, secondary
+    becomes UNKNOWN).
+ R2 deploy/kind-config.yaml still names cluster e38v2 and mounts ~/e38v2r_20260926 paths; E39 must use name
+    e39 and $E paths (the rerun cluster e38v2 is live and protected).
+ R3 E39-G cut writes must be in the trial record with audit ids and RVs. Accepted locations: "cut_writes"
+    (preferred), "pre_gate_writes", "condition_writes", "setup_writes", "cut": {"writes": [...]}, or
+    "writer_arrivals" (for G conditions they are treated as cuts). fixture.initial_values may hold the
+    post-cut state (conditions_e39.initial_values) - accepted iff exactly the cut objects are false.
+    A single annotation PATCH "pod-annotations:k1,k2,k3" is accepted (one revision, several objects).
+ R4 409 attribution: the oracle parses "ResourceVersion in object meta: <rv>" from the audit responseStatus
+    message of the DELETE (fallback: delete.response_message). Please record delete.response_message =
+    Status.message (commit_delete currently stores only Status.reason = "Conflict").
+ R5 E39-D: the record's load_level is the effective (throttled) level (LoadProcess.snapshot); please ALSO
+    record requested_level (nominal). The gate accepts a level below the scheduled one only for throttled
+    trials (host.load_throttled) or when requested_level equals the schedule.
+ R6 SCHEDULE.json: schema e39.schedule.v1, top-level run_id + schedule_seed, per trial: trial_id, stage,
+    block, experiment (A..G), arm, condition, delta_ms, rep, schedule_seed, and where applicable
+    lambda_per_s, injected_latency_ms, acquisition_mode, planning_mode, load_level, action_type,
+    client_impl, pair_id, guard_order. Stage-2 trials: E39-A only, trial_id >= 100001.
+ R7 E39-C records: acquisition {t_start_mono_ns, t_plan_end_mono_ns, t_end_mono_ns, refresh_ms, gate_ms,
+    justified} (as PairedAcquisitionDriver) plus schema/status/pair_id/guard_order; if a DELETE follows the
+    guard, delete.t_send_mono_ns gives the end-to-end latency, otherwise the guard latency (incl. planning)
+    is used and labelled.
+
+RECOMMENDED
+ - E39-B arrivals: object = the policy object or annotation key (a Pod name is accepted and inferred);
+   use seq_key so every arrival is a distinct commit (identical no-op PATCHes sharing one RV are merged).
+ - A4m: mirror.mirror_audit_id (joins the mirror PATCH in the audit log); mirror_commit_rv null = not mirrored.
+ - E39-E webhook log entries: object_name = NetworkPolicy name (join key when no request uid).
+ - F: client_impl and go_client_version on every F record; arms A1_dcji_go / A4d_commit_direct_go.

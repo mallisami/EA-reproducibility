@@ -1,0 +1,73 @@
+{
+ "calibration": {
+  "baseline_direct_ms": 1.3487149999999999,
+  "baseline_proxy0_ms": 1.6688025,
+  "proxy_overhead_ms": 0.3200875000000001,
+  "n": 30,
+  "per_delay": [
+   {
+    "requested_ms": 0.0,
+    "mean_added_ms": 0.06613453333333338,
+    "median_added_ms": 0.010686500000000043,
+    "err_mean_ms": 0.06613453333333338,
+    "err_p95_abs_ms": 0.28840524999999995,
+    "err_max_abs_ms": 0.9569105000000002,
+    "n": 30
+   },
+   {
+    "requested_ms": 50.0,
+    "mean_added_ms": 51.011170533333335,
+    "median_added_ms": 50.982953,
+    "err_mean_ms": 1.0111705333333347,
+    "err_p95_abs_ms": 1.774712250000001,
+    "err_max_abs_ms": 2.7095364999999987,
+    "n": 30
+   },
+   {
+    "requested_ms": 200.0,
+    "mean_added_ms": 201.0974224,
+    "median_added_ms": 201.04301500000003,
+    "err_mean_ms": 1.0974224000000021,
+    "err_p95_abs_ms": 1.5939687500000026,
+    "err_max_abs_ms": 1.9181534999999883,
+    "n": 30
+   },
+   {
+    "requested_ms": 1000.0,
+    "mean_added_ms": 1001.3104191666666,
+    "median_added_ms": 1001.166462,
+    "err_mean_ms": 1.3104191666666982,
+    "err_p95_abs_ms": 2.042612999999982,
+    "err_max_abs_ms": 3.505984500000068,
+    "n": 30
+   }
+  ]
+ },
+ "acceptance": [
+  {
+   "c": 0.0,
+   "median_err_ms": 0.010686500000000043,
+   "ok": true
+  },
+  {
+   "c": 50.0,
+   "median_err_ms": 0.982953000000002,
+   "ok": true
+  },
+  {
+   "c": 200.0,
+   "median_err_ms": 1.0430150000000253,
+   "ok": true
+  },
+  {
+   "c": 1000.0,
+   "median_err_ms": 1.166462000000024,
+   "ok": true
+  }
+ ],
+ "c200_writer_cm_get_ms": 1.8191169999999999,
+ "c200_responder_list_ms": 1.0670609999999998,
+ "c200_responder_pod_get_ms": 1.6625640000000002,
+ "c200_responder_cm_get_ms": 202.987914,
+ "PASS": true
+}

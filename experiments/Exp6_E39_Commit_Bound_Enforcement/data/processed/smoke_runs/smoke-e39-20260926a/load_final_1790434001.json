@@ -1,0 +1,23 @@
+{
+ "load_level": "idle",
+ "requested_level": "idle",
+ "target_rps": 0.0,
+ "load_observed_rps": 0.0,
+ "host": {
+  "cpu_pct": 46.89,
+  "free_ram_mb": 9620.0,
+  "load_throttled": false
+ },
+ "completed": 4481,
+ "errors": 0,
+ "dropped_ticks": 95,
+ "op_counts": {
+  "get": 2692,
+  "patch": 908,
+  "list": 881
+ },
+ "status_counts": {
+  "200": 4481
+ },
+ "events": []
+}

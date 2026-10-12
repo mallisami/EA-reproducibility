@@ -1,0 +1,323 @@
+{
+  "scenario_id": "E15.F2.6",
+  "title": "Load-Balancer Backend Slot Rebinding",
+  "family": "F2",
+  "realism_tier": "R2",
+  "scenario_role": "positive_ea_toctou",
+  "development": false,
+  "action": {
+    "action_type": "restrict_scope",
+    "target_reference": "lb-slot/3",
+    "target_snapshot": {
+      "identifier": "lb-slot/3",
+      "resource_uid": "U1"
+    },
+    "queue_semantics": "single_exactly_once_attempt",
+    "execution_precondition": {
+      "predicate": "p_target_resolves"
+    },
+    "authorization": {
+      "predicate": "p_authorized",
+      "must_remain_valid": true
+    }
+  },
+  "attacker_capability_tier": "C3",
+  "initial_state": {
+    "timestamp_s": 0,
+    "facts": {
+      "original_malicious": true,
+      "F2_6_binding": "U1",
+      "irrelevant_metric": 0,
+      "action_authorized": true,
+      "e15_benign_noise": false
+    },
+    "resources": [],
+    "processes": [],
+    "network_bindings": [
+      {
+        "identifier": "lb-slot/3",
+        "resource_uid": "U1"
+      }
+    ],
+    "sessions": [],
+    "context": {
+      "materialization": {
+        "parameterization_id": "P1",
+        "template_id": "F2.6",
+        "description": "Minimal canonical topology."
+      }
+    },
+    "evidence": [],
+    "queue": []
+  },
+  "predicates": {
+    "p_original_malicious": {
+      "path": "/facts/original_malicious",
+      "op": "eq",
+      "value": true,
+      "evidence_class": "H",
+      "description": "Original network-bound resource was malicious."
+    },
+    "p_same_binding": {
+      "path": "/facts/F2_6_binding",
+      "op": "eq",
+      "value": "U1",
+      "evidence_class": "B",
+      "description": "Network identifier still denotes the original malicious resource."
+    },
+    "p_target_resolves": {
+      "path": "/facts/F2_6_binding",
+      "op": "ne",
+      "value": null,
+      "evidence_class": "B",
+      "description": "Network identifier resolves to a concrete target."
+    },
+    "p_authorized": {
+      "path": "/facts/action_authorized",
+      "op": "eq",
+      "value": true,
+      "evidence_class": "DERIVED",
+      "description": "Response executor remains technically authorized."
+    }
+  },
+  "policy_profiles": {
+    "balanced": {
+      "justification": {
+        "predicate": "p_original_malicious"
+      },
+      "binding": {
+        "predicate": "p_same_binding"
+      },
+      "scope": true
+    }
+  },
+  "transitions": [
+    {
+      "transition_id": "irrelevant_change",
+      "title": "Irrelevant telemetry change",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.1,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/irrelevant_metric",
+          "value": 1
+        }
+      ],
+      "notes": "",
+      "adversarially_induced": false,
+      "causal_parent_ids": []
+    },
+    {
+      "transition_id": "release_original",
+      "title": "Attacker releases original binding",
+      "actor": "attacker",
+      "capability_tier": "C3",
+      "duration_s": 0.9,
+      "cost_ops": 1,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/F2_6_binding",
+          "value": null
+        }
+      ],
+      "notes": "",
+      "adversarially_induced": true,
+      "causal_parent_ids": []
+    },
+    {
+      "transition_id": "assign_successor",
+      "title": "Platform/allocator maps identifier to benign successor",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 1.1,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/F2_6_binding",
+          "value": "U2"
+        }
+      ],
+      "notes": "",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "release_original"
+      ]
+    },
+    {
+      "transition_id": "e15_benign_noise",
+      "title": "Concurrent benign irrelevant state update",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.0,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/e15_benign_noise",
+          "value": true
+        }
+      ],
+      "notes": "E15 concurrency control; benign and excluded from attacker model.",
+      "adversarially_induced": false,
+      "causal_parent_ids": [],
+      "benign_actor_class": "controller"
+    },
+    {
+      "transition_id": "e15_benign_01_release_original",
+      "title": "Benign concurrency mirror: Attacker releases original binding",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.9,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/F2_6_binding",
+          "value": null
+        }
+      ],
+      "notes": "E15 benign mirror of frozen state transition; excluded from attacker operation count.",
+      "adversarially_induced": false,
+      "causal_parent_ids": [],
+      "benign_actor_class": "controller"
+    },
+    {
+      "transition_id": "e15_benign_02_assign_successor",
+      "title": "Benign concurrency mirror: Platform/allocator maps identifier to benign successor",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 1.1,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/F2_6_binding",
+          "value": "U2"
+        }
+      ],
+      "notes": "E15 benign mirror of frozen state transition; excluded from attacker operation count.",
+      "adversarially_induced": false,
+      "causal_parent_ids": [
+        "e15_benign_01_release_original"
+      ],
+      "benign_actor_class": "controller"
+    }
+  ],
+  "worlds": {
+    "W0": {
+      "commit_deadline_s": 5,
+      "transition_path": [],
+      "expected_commit": "EXECUTE",
+      "expected_attack_path_completed": false,
+      "control_semantics": "stable",
+      "expected_commit_by_policy": {
+        "balanced": "EXECUTE"
+      }
+    },
+    "W1": {
+      "commit_deadline_s": 5,
+      "transition_path": [
+        "irrelevant_change"
+      ],
+      "expected_commit": "EXECUTE",
+      "expected_attack_path_completed": false,
+      "control_semantics": "irrelevant_change",
+      "expected_commit_by_policy": {
+        "balanced": "EXECUTE"
+      }
+    },
+    "W2": {
+      "commit_deadline_s": 5,
+      "transition_path": [
+        "release_original",
+        "assign_successor"
+      ],
+      "expected_commit": "ABORT_REPLAN",
+      "expected_attack_path_completed": true,
+      "control_semantics": "ea_toctou",
+      "expected_commit_by_policy": {
+        "balanced": "ABORT_REPLAN"
+      }
+    },
+    "W3": {
+      "commit_deadline_s": 0.4,
+      "transition_path": [
+        "release_original",
+        "assign_successor"
+      ],
+      "expected_commit": "EXECUTE",
+      "expected_attack_path_completed": false,
+      "control_semantics": "deadline_miss",
+      "expected_commit_by_policy": {
+        "balanced": "EXECUTE"
+      }
+    }
+  },
+  "provenance": {
+    "platform_basis": "Dynamic network/service identity is explicitly modeled and is not assumed to be immutable.",
+    "incident_basis": "SOC queues a network-targeted containment action from a malicious binding.",
+    "policy_basis": "The action remains valid only while the identifier denotes the original malicious resource.",
+    "limitations": "Specific reuse/reassignment mechanics require environment-specific validation."
+  },
+  "severity": "S2",
+  "notes": "Held-out network-identity rebinding template. | E15 derived concurrency overlay; frozen base scenario unchanged.",
+  "primary_policy": "balanced",
+  "justification_bases_by_policy": {
+    "balanced": [
+      [
+        "p_original_malicious"
+      ]
+    ]
+  },
+  "justification_bases": [
+    [
+      "p_original_malicious"
+    ]
+  ],
+  "parameterizations": [
+    {
+      "id": "P1",
+      "description": "Minimal topology with only essential resources and evidence."
+    },
+    {
+      "id": "P2",
+      "description": "Distractor topology with benign resources and irrelevant evidence."
+    },
+    {
+      "id": "P3",
+      "description": "Noisy SOC context with non-material alerts and unrelated transitions."
+    },
+    {
+      "id": "P4",
+      "description": "High-impact variant with larger benign background or higher criticality."
+    }
+  ],
+  "native_controls": [],
+  "refresh_model": {
+    "cost_unit": "normalized_query_unit",
+    "query_costs": {
+      "immutable:p_original_malicious": 0.0,
+      "query:/facts/F2_6_binding": 1.0
+    },
+    "predicate_query_ids": {
+      "p_original_malicious": "immutable:p_original_malicious",
+      "p_same_binding": "query:/facts/F2_6_binding",
+      "p_target_resolves": "query:/facts/F2_6_binding"
+    },
+    "query_observed_at_s": {
+      "immutable:p_original_malicious": 0.0,
+      "query:/facts/F2_6_binding": 0.0
+    }
+  }
+}

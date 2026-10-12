@@ -1,0 +1,26 @@
+{
+  "version": "5.1.0-e3-long-horizon",
+  "prespecified_templates": [
+    "F2.2",
+    "F4.5"
+  ],
+  "prespecified_delays_s": [
+    60,
+    300
+  ],
+  "raw_rows": 16,
+  "template_level_rows": 4,
+  "p1_p4_mismatch_count": 0,
+  "unknown_timeout_count": 0,
+  "all_long_horizon_cells_exploitable": true,
+  "B0_unsafe_template_cells": 4,
+  "B2_unsafe_template_cells": 0,
+  "B4_unsafe_template_cells": 0,
+  "B6_unsafe_template_cells": 0,
+  "primary_e3_hash_before": "45f613804d66ceffd8f8c770fd2c2d30aba02985221031511c4808acb0497561",
+  "primary_e3_hash_after": "45f613804d66ceffd8f8c770fd2c2d30aba02985221031511c4808acb0497561",
+  "primary_e3_unchanged": true,
+  "frozen_input_hash_mismatches": [],
+  "protocol_deviations": [],
+  "status": "PASS"
+}

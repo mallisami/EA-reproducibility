@@ -1,0 +1,1 @@
+These numeric tables were extracted from the updated 2026-10-12 Supplement. They are presentation inputs, not newly collected observations. Run `python scripts/verify_figure_inputs.py` to compare them against the retained canonical experimental results before plotting.

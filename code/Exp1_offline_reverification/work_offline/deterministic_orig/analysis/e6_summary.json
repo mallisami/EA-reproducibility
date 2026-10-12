@@ -1,0 +1,132 @@
+{
+  "by_defense": {
+    "B0": {
+      "W2_templates": 5,
+      "unsafe_W2": 5,
+      "UCR": 1.0,
+      "mean_W2_query_cost": 0.0,
+      "median_W2_query_cost": 0.0,
+      "control_rows": 15,
+      "false_abort_controls": 0,
+      "FAR": 0.0,
+      "mean_control_query_cost": 0.0
+    },
+    "B3": {
+      "W2_templates": 5,
+      "unsafe_W2": 0,
+      "UCR": 0.0,
+      "mean_W2_query_cost": 1.0,
+      "median_W2_query_cost": 1.0,
+      "control_rows": 15,
+      "false_abort_controls": 0,
+      "FAR": 0.0,
+      "mean_control_query_cost": 1.0
+    },
+    "B4": {
+      "W2_templates": 5,
+      "unsafe_W2": 0,
+      "UCR": 0.0,
+      "mean_W2_query_cost": 1.0,
+      "median_W2_query_cost": 1.0,
+      "control_rows": 15,
+      "false_abort_controls": 0,
+      "FAR": 0.0,
+      "mean_control_query_cost": 1.0
+    },
+    "B5": {
+      "W2_templates": 5,
+      "unsafe_W2": 0,
+      "UCR": 0.0,
+      "mean_W2_query_cost": 0.0,
+      "median_W2_query_cost": 0.0,
+      "control_rows": 15,
+      "false_abort_controls": 0,
+      "FAR": 0.0,
+      "mean_control_query_cost": 0.0
+    },
+    "B6": {
+      "W2_templates": 5,
+      "unsafe_W2": 0,
+      "UCR": 0.0,
+      "mean_W2_query_cost": 1.0,
+      "median_W2_query_cost": 1.0,
+      "control_rows": 15,
+      "false_abort_controls": 0,
+      "FAR": 0.0,
+      "mean_control_query_cost": 0.6666666666666666
+    }
+  },
+  "coverage": {
+    "heldout_positive_templates_total": 23,
+    "native_precondition_applicable_positive_templates": 5,
+    "coverage_fraction": 0.21739130434782608,
+    "coverage_percent": 21.73913043478261,
+    "F1_heldout_native_coverage": "5/5",
+    "nonapplicable_positive_templates": 18,
+    "development_F1.1_native_applicable": true
+  },
+  "mechanism": {
+    "per_template": [
+      {
+        "template_id": "F1.2",
+        "native_predicate_id": "p_same_uid",
+        "native_predicate_W2": false,
+        "native_predicate_controls": {
+          "W0": true,
+          "W1": true,
+          "W3": true
+        },
+        "B5_W2_decision": "ABORT_REPLAN",
+        "B5_query_cost": 0.0
+      },
+      {
+        "template_id": "F1.3",
+        "native_predicate_id": "p_same_uid",
+        "native_predicate_W2": false,
+        "native_predicate_controls": {
+          "W0": true,
+          "W1": true,
+          "W3": true
+        },
+        "B5_W2_decision": "ABORT_REPLAN",
+        "B5_query_cost": 0.0
+      },
+      {
+        "template_id": "F1.4",
+        "native_predicate_id": "p_same_uid",
+        "native_predicate_W2": false,
+        "native_predicate_controls": {
+          "W0": true,
+          "W1": true,
+          "W3": true
+        },
+        "B5_W2_decision": "ABORT_REPLAN",
+        "B5_query_cost": 0.0
+      },
+      {
+        "template_id": "F1.5",
+        "native_predicate_id": "p_same_uid",
+        "native_predicate_W2": false,
+        "native_predicate_controls": {
+          "W0": true,
+          "W1": true,
+          "W3": true
+        },
+        "B5_W2_decision": "ABORT_REPLAN",
+        "B5_query_cost": 0.0
+      },
+      {
+        "template_id": "F1.6",
+        "native_predicate_id": "p_same_uid",
+        "native_predicate_W2": false,
+        "native_predicate_controls": {
+          "W0": true,
+          "W1": true,
+          "W3": true
+        },
+        "B5_W2_decision": "ABORT_REPLAN",
+        "B5_query_cost": 0.0
+      }
+    ]
+  }
+}

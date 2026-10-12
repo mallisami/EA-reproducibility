@@ -1,0 +1,13 @@
+LICENSE: TO BE DECIDED BY THE AUTHORS BEFORE ANY PUBLIC RELEASE
+
+This reproducibility package accompanies the manuscript
+"Freshness Is Not Binding: Evidence-to-Action Races and Conditional Enforcement in Kubernetes Incident Response"
+and is currently a private review artifact. No license to redistribute is granted until the authors replace this file
+with the final public-release license notice.
+
+Open decisions for the authors before public release:
+  - Code (code, scripts): choose an appropriate software license (for example MIT, Apache-2.0 or BSD-3-Clause).
+  - Data and documentation (experiments, provenance): choose an appropriate data/documentation license (for example CC BY 4.0).
+  - Manuscript and supplement are outside this reproducibility package.
+  - Third-party material: none redistributed (vendored wheel bundle and compiled binaries withheld; see
+    provenance/REDACTION_REGISTER.csv).

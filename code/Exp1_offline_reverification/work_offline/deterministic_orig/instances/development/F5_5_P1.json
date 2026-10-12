@@ -1,0 +1,322 @@
+{
+  "instance_id": "F5.5-P1",
+  "template_id": "F5.5",
+  "parameterization_id": "P1",
+  "split": "development",
+  "materialization_version": "3.1.0",
+  "causal_core_hash": "ea2c853089aa1213d5438a6a6989ff78db20728c34967ff41c68bfd5b0fcfb35",
+  "template_hash": "3297408cb1f0578fa62f3093a832731968fabd7b95df4e388c7ab0427489003a",
+  "scenario": {
+    "scenario_id": "F5.5",
+    "title": "Unequal Transition Costs Under Deadline",
+    "family": "F5",
+    "realism_tier": "R3",
+    "development": true,
+    "action": {
+      "action_type": "restrict_scope",
+      "target_reference": "response/U1",
+      "target_snapshot": {
+        "uid": "U1"
+      },
+      "queue_semantics": "single_exactly_once_attempt",
+      "authorization": {
+        "predicate": "p_authorized",
+        "must_remain_valid": true
+      },
+      "execution_precondition": true
+    },
+    "attacker_capability_tier": "C2",
+    "initial_state": {
+      "timestamp_s": 0,
+      "facts": {
+        "basis1_a": true,
+        "basis1_b": true,
+        "basis2_c": true,
+        "basis2_d": true,
+        "irrelevant_state": 0,
+        "action_authorized": true
+      },
+      "resources": [],
+      "processes": [],
+      "network_bindings": [],
+      "sessions": [],
+      "context": {
+        "materialization": {
+          "parameterization_id": "P1",
+          "template_id": "F5.5",
+          "description": "Minimal canonical topology."
+        }
+      },
+      "evidence": [],
+      "queue": []
+    },
+    "predicates": {
+      "p_a": {
+        "path": "/facts/basis1_a",
+        "op": "eq",
+        "value": true,
+        "evidence_class": "L",
+        "description": "Basis 1 A."
+      },
+      "p_b": {
+        "path": "/facts/basis1_b",
+        "op": "eq",
+        "value": true,
+        "evidence_class": "L",
+        "description": "Basis 1 B."
+      },
+      "p_c": {
+        "path": "/facts/basis2_c",
+        "op": "eq",
+        "value": true,
+        "evidence_class": "L",
+        "description": "Basis 2 C."
+      },
+      "p_d": {
+        "path": "/facts/basis2_d",
+        "op": "eq",
+        "value": true,
+        "evidence_class": "L",
+        "description": "Basis 2 D."
+      },
+      "p_authorized": {
+        "path": "/facts/action_authorized",
+        "op": "eq",
+        "value": true,
+        "evidence_class": "DERIVED",
+        "description": "Response executor remains technically authorized."
+      }
+    },
+    "policy_profiles": {
+      "balanced": {
+        "justification": {
+          "any": [
+            {
+              "all": [
+                {
+                  "predicate": "p_a"
+                },
+                {
+                  "predicate": "p_b"
+                }
+              ]
+            },
+            {
+              "all": [
+                {
+                  "predicate": "p_c"
+                },
+                {
+                  "predicate": "p_d"
+                }
+              ]
+            }
+          ]
+        },
+        "binding": true,
+        "scope": true
+      }
+    },
+    "primary_policy": "balanced",
+    "justification_bases": [
+      [
+        "p_a",
+        "p_b"
+      ],
+      [
+        "p_c",
+        "p_d"
+      ]
+    ],
+    "transitions": [
+      {
+        "transition_id": "irrelevant_change",
+        "title": "Unrelated state change",
+        "actor": "environment",
+        "capability_tier": "NONE",
+        "duration_s": 0.1,
+        "cost_ops": 0,
+        "preconditions": true,
+        "effects": [
+          {
+            "op": "set",
+            "path": "/facts/irrelevant_state",
+            "value": 1
+          }
+        ],
+        "notes": "",
+        "adversarially_induced": false,
+        "causal_parent_ids": []
+      },
+      {
+        "transition_id": "cut_basis1",
+        "title": "Cheap fast cut of basis 1",
+        "actor": "attacker",
+        "capability_tier": "C1",
+        "duration_s": 1.0,
+        "cost_ops": 1,
+        "preconditions": true,
+        "effects": [
+          {
+            "op": "set",
+            "path": "/facts/basis1_a",
+            "value": false
+          }
+        ],
+        "notes": "",
+        "adversarially_induced": true,
+        "causal_parent_ids": []
+      },
+      {
+        "transition_id": "cut_basis2_slow",
+        "title": "Cheap but slow cut of basis 2",
+        "actor": "attacker",
+        "capability_tier": "C1",
+        "duration_s": 8.0,
+        "cost_ops": 1,
+        "preconditions": true,
+        "effects": [
+          {
+            "op": "set",
+            "path": "/facts/basis2_c",
+            "value": false
+          }
+        ],
+        "notes": "",
+        "adversarially_induced": true,
+        "causal_parent_ids": []
+      },
+      {
+        "transition_id": "cut_basis2_fast",
+        "title": "Costly but fast cut of basis 2",
+        "actor": "attacker",
+        "capability_tier": "C2",
+        "duration_s": 1.0,
+        "cost_ops": 3,
+        "preconditions": true,
+        "effects": [
+          {
+            "op": "set",
+            "path": "/facts/basis2_d",
+            "value": false
+          }
+        ],
+        "notes": "",
+        "adversarially_induced": true,
+        "causal_parent_ids": []
+      }
+    ],
+    "worlds": {
+      "W0": {
+        "commit_deadline_s": 5,
+        "transition_path": [],
+        "expected_commit": "EXECUTE",
+        "expected_attack_path_completed": false,
+        "control_semantics": "stable",
+        "expected_commit_by_policy": {
+          "balanced": "EXECUTE"
+        }
+      },
+      "W1": {
+        "commit_deadline_s": 5,
+        "transition_path": [
+          "irrelevant_change"
+        ],
+        "expected_commit": "EXECUTE",
+        "expected_attack_path_completed": false,
+        "control_semantics": "irrelevant_change",
+        "expected_commit_by_policy": {
+          "balanced": "EXECUTE"
+        }
+      },
+      "W2": {
+        "commit_deadline_s": 5,
+        "transition_path": [
+          "cut_basis1",
+          "cut_basis2_fast"
+        ],
+        "expected_commit": "ABORT_REPLAN",
+        "expected_attack_path_completed": true,
+        "control_semantics": "ea_toctou",
+        "expected_commit_by_policy": {
+          "balanced": "ABORT_REPLAN"
+        }
+      },
+      "W3": {
+        "commit_deadline_s": 1.5,
+        "transition_path": [
+          "cut_basis1",
+          "cut_basis2_fast"
+        ],
+        "expected_commit": "EXECUTE",
+        "expected_attack_path_completed": false,
+        "notes": "Same fast invalidating path as W2, but only its first cut completes before commit; the second basis survives.",
+        "control_semantics": "deadline_miss",
+        "expected_commit_by_policy": {
+          "balanced": "EXECUTE"
+        }
+      }
+    },
+    "parameterizations": [
+      {
+        "id": "P1",
+        "description": "Minimal topology with only essential resources and evidence."
+      },
+      {
+        "id": "P2",
+        "description": "Distractor topology with benign resources and irrelevant evidence."
+      },
+      {
+        "id": "P3",
+        "description": "Noisy SOC context with non-material alerts and unrelated transitions."
+      },
+      {
+        "id": "P4",
+        "description": "High-impact variant with larger benign background or higher criticality."
+      }
+    ],
+    "provenance": {
+      "platform_basis": "Controlled synthetic optimization scenario.",
+      "incident_basis": "Two independent active justifications with alternative attacker transitions.",
+      "policy_basis": "Action remains justified while either basis remains complete.",
+      "limitations": "Costs/times are controlled values to test deadline-aware path selection."
+    },
+    "severity": "S1",
+    "notes": "Development case proving deadline changes feasible minimum-cost attack choice.",
+    "justification_bases_by_policy": {
+      "balanced": [
+        [
+          "p_a",
+          "p_b"
+        ],
+        [
+          "p_c",
+          "p_d"
+        ]
+      ]
+    },
+    "refresh_model": {
+      "cost_unit": "normalized_query_unit",
+      "query_costs": {
+        "query:/facts/basis1_a": 1.0,
+        "query:/facts/basis1_b": 1.0,
+        "query:/facts/basis2_c": 1.0,
+        "query:/facts/basis2_d": 1.0
+      },
+      "predicate_query_ids": {
+        "p_a": "query:/facts/basis1_a",
+        "p_b": "query:/facts/basis1_b",
+        "p_c": "query:/facts/basis2_c",
+        "p_d": "query:/facts/basis2_d"
+      },
+      "query_observed_at_s": {
+        "query:/facts/basis1_a": 0.0,
+        "query:/facts/basis1_b": 0.0,
+        "query:/facts/basis2_c": 0.0,
+        "query:/facts/basis2_d": 0.0
+      }
+    },
+    "native_controls": [],
+    "scenario_role": "positive_ea_toctou"
+  }
+}

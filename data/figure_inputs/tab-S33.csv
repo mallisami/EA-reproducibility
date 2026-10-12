@@ -1,0 +1,8 @@
+subset,b1_10,b11_20,b21_30,b31_39,overall
+Client gates A0--A2; asynchronous conditions; 0--2 ms,359/360,357/360,359/360,324/324,1399/1404
+External-state webhook A3; scope + application policy; 0--5 ms,0/120,0/120,0/120,0/108,0/468
+External-state webhook A3; evidence; 0--2 ms,32/40,31/40,32/40,30/36,125/156
+Extended client revalidation A1; all asynchronous cells,183/330,189/330,189/330,168/297,729/1287
+Extended external-state webhook A3; all asynchronous cells,94/330,95/330,103/330,94/297,386/1287
+Mirrored binding A4m; all asynchronous cells,186/325,184/329,185/328,167/296,722/1278
+Direct binding A4d; all asynchronous cells,0/330,0/330,0/330,0/297,0/1287

@@ -1,0 +1,10 @@
+e39-goclient BUILD_INFO
+=======================
+go_version: go version go1.27.1 linux/amd64
+client_go_version: k8s.io/client-go v0.37.0
+k8s_api_version: k8s.io/api v0.37.0
+apimachinery_version: k8s.io/apimachinery v0.37.0
+golang_x_sys_version: golang.org/x/sys v0.47.0
+go.sum_sha256: b71d045a9d9a5015db223bc978276e37f0050ab062ba64324ae52780c6cd4cfc
+binary_bin/e39-goclient_sha256: 6c7a68fc972d0d9a60123a2d2e3d987d874df11ed07a23470e96d8afac7398b7
+built_utc: 2026-09-26T13:47:11Z

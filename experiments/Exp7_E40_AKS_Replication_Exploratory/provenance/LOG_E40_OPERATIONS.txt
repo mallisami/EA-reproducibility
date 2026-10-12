@@ -1,0 +1,49 @@
+2026-09-26T14:24:02Z prep_code done from ops/dryprep_lock.json
+2026-09-26T15:23:00Z prep_code done from /home/azureuser/e39_20260926/protocol/LOCK_E39.json
+2026-09-26T15:23:15Z CLUSTER CREATE START version=1.36.3
+2026-09-26T15:36:25Z BLOCKED: az aks create rejected (BadRequest): Standard_B2s not allowed for AKS in this subscription in southeastasia; no resources created. Stopping per protocol; awaiting user decision on SKU/region.
+2026-09-26T16:56:17Z CLUSTER CREATE START region=koreasouth size=Standard_D2as_v5 version=1.36.3
+2026-09-26T17:01:18Z CLUSTER CREATE END region=koreasouth size=Standard_D2as_v5 provisioningState=Succeeded
+NAME                                STATUS   ROLES    AGE     VERSION   INTERNAL-IP   EXTERNAL-IP   OS-IMAGE             KERNEL-VERSION             CONTAINER-RUNTIME
+aks-nodepool1-17619524-vmss000000   Ready    <none>   8m41s   v1.36.3   10.224.0.4    <none>        Ubuntu 24.04.4 LTS   6.8.0-1067-azure (amd64)   containerd://2.3.3-2
+can-i delete pods as responder: yes (expect yes)
+can-i patch configmaps as responder: no (expect no)
+can-i patch pods as writer: yes (expect yes)
+can-i delete pods as writer: no (expect no)
+can-i patch pods as mirror: yes (expect yes)
+can-i watch pods as reset: yes (expect yes)
+2026-09-26T17:08:37Z deploy smoke1 done
+2026-09-26T17:08:39Z tokens created (6h) for responder writer reset mirror
+2026-09-26T17:09:07Z code configmaps applied
+2026-09-26T17:09:09Z runner job ready: e40-runner-fmnfg
+2026-09-26T17:16:36Z RECREATE: waiting for previous cluster deletion (lead cancelled at 17:09Z)
+2026-09-26T17:28:37Z RECREATE: waiting for previous cluster deletion (lead cancelled at 17:09Z)
+2026-09-26T17:28:40Z RECREATE: previous cluster gone (aks list empty=yes, MC_ group exists=false)
+2026-09-26T17:28:42Z CLUSTER CREATE START region=koreasouth size=Standard_D2as_v5 version=1.36.3
+2026-09-26T17:34:08Z CLUSTER CREATE END region=koreasouth size=Standard_D2as_v5 provisioningState=Succeeded
+NAME                                STATUS   ROLES    AGE    VERSION   INTERNAL-IP   EXTERNAL-IP   OS-IMAGE             KERNEL-VERSION             CONTAINER-RUNTIME
+aks-nodepool1-22627011-vmss000000   Ready    <none>   118s   v1.36.3   10.224.0.4    <none>        Ubuntu 24.04.4 LTS   6.8.0-1067-azure (amd64)   containerd://2.3.3-2
+can-i delete pods as responder: yes (expect yes)
+can-i patch configmaps as responder: no (expect no)
+can-i patch pods as writer: yes (expect yes)
+can-i delete pods as writer: no (expect no)
+can-i patch pods as mirror: yes (expect yes)
+can-i watch pods as reset: yes (expect yes)
+2026-09-26T17:34:41Z deploy smoke1 done
+2026-09-26T17:34:42Z tokens created (6h) for responder writer reset mirror
+2026-09-26T17:34:46Z code configmaps applied
+2026-09-26T17:34:49Z runner job ready: e40-runner-8t2ww
+2026-09-26T17:42:01Z launched run smoke1 in e40-runner-8t2ww (lock: none, unlocked smoke)
+can-i delete pods as responder: yes (expect yes)
+can-i patch configmaps as responder: no (expect no)
+can-i patch pods as writer: yes (expect yes)
+can-i delete pods as writer: no (expect no)
+can-i patch pods as mirror: yes (expect yes)
+can-i watch pods as reset: yes (expect yes)
+2026-09-26T17:44:58Z deploy a20260926 done
+2026-09-26T17:45:03Z launched run a20260926 in e40-runner-8t2ww (lock: protocol/LOCK_E40.json)
+2026-09-26T18:13:53Z CLUSTER DELETE START
+2026-09-26T18:20:39Z CLUSTER DELETE END; aks list: 
+2026-09-26T18:20:40Z MC_ check (az group exists): ERROR: Operation returned an invalid status 'Forbidden'
+2026-09-26T18:20:41Z aks show after delete: Message: The Resource 'Microsoft.ContainerService/managedClusters/e40-aks' under resource group 'mcb-experiments' was not found. For more details please go to h
+2026-09-26T18:21:00Z cluster deleted (aks list empty, aks show NotFound); MC_ group not readable by VM identity (Forbidden). Lifetime recreate 17:28:42Z -> delete end 18:20:39Z.

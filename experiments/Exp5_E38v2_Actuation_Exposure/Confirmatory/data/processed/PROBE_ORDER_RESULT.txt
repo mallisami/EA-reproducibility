@@ -1,0 +1,4 @@
+ops 195 audit-joined 195 committed 193 distinct RVs 193
+all: n=193 pairwise RV-vs-stageTimestamp concordant=18510 discordant=18 ties=0 (agreement 0.99903); adjacent concordant 176/192; patch-vs-delete disagreements RV rule vs v1.2 secondary (DELETE RC) 4/3306, vs tertiary/v1 rule (DELETE received) 40/3306
+sequential: n=70 pairwise RV-vs-stageTimestamp concordant=2415 discordant=0 ties=0 (agreement 1.00000); adjacent concordant 69/69; patch-vs-delete disagreements RV rule vs v1.2 secondary (DELETE RC) 0/600, vs tertiary/v1 rule (DELETE received) 0/600
+concurrent: n=123 pairwise RV-vs-stageTimestamp concordant=7485 discordant=18 ties=0 (agreement 0.99760); adjacent concordant 106/122; patch-vs-delete disagreements RV rule vs v1.2 secondary (DELETE RC) 4/1026, vs tertiary/v1 rule (DELETE received) 40/1026

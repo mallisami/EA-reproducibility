@@ -1,0 +1,228 @@
+{
+ "schema": "e42.schedule.v1",
+ "run_id": "e42s-20260930",
+ "schedule_seed": 93042270,
+ "design": {
+  "arms": [
+   "A1_dcji",
+   "A4d_commit_direct"
+  ],
+  "deltas_ms": [
+   0.0,
+   0.5,
+   1.0,
+   2.0,
+   5.0,
+   10.0,
+   20.0,
+   50.0
+  ],
+  "n_per_cell": 1,
+  "conditions": [
+   "benign_target_annotation_churn",
+   "no_write"
+  ],
+  "stage2_topup": false
+ },
+ "n_trials": 18,
+ "trials": [
+  {
+   "schema": "e42.schedule.item.v1",
+   "run_id": "e42s-20260930",
+   "trial_id": 8,
+   "block": 0,
+   "rep": 0,
+   "arm": "A1_dcji",
+   "condition": "benign_target_annotation_churn",
+   "delta_ms": 50.0,
+   "schedule_seed": 93042270
+  },
+  {
+   "schema": "e42.schedule.item.v1",
+   "run_id": "e42s-20260930",
+   "trial_id": 11,
+   "block": 0,
+   "rep": 0,
+   "arm": "A4d_commit_direct",
+   "condition": "benign_target_annotation_churn",
+   "delta_ms": 0.5,
+   "schedule_seed": 93042270
+  },
+  {
+   "schema": "e42.schedule.item.v1",
+   "run_id": "e42s-20260930",
+   "trial_id": 5,
+   "block": 0,
+   "rep": 0,
+   "arm": "A1_dcji",
+   "condition": "benign_target_annotation_churn",
+   "delta_ms": 5.0,
+   "schedule_seed": 93042270
+  },
+  {
+   "schema": "e42.schedule.item.v1",
+   "run_id": "e42s-20260930",
+   "trial_id": 4,
+   "block": 0,
+   "rep": 0,
+   "arm": "A1_dcji",
+   "condition": "benign_target_annotation_churn",
+   "delta_ms": 2.0,
+   "schedule_seed": 93042270
+  },
+  {
+   "schema": "e42.schedule.item.v1",
+   "run_id": "e42s-20260930",
+   "trial_id": 12,
+   "block": 0,
+   "rep": 0,
+   "arm": "A4d_commit_direct",
+   "condition": "benign_target_annotation_churn",
+   "delta_ms": 1.0,
+   "schedule_seed": 93042270
+  },
+  {
+   "schema": "e42.schedule.item.v1",
+   "run_id": "e42s-20260930",
+   "trial_id": 1,
+   "block": 0,
+   "rep": 0,
+   "arm": "A1_dcji",
+   "condition": "benign_target_annotation_churn",
+   "delta_ms": 0.0,
+   "schedule_seed": 93042270
+  },
+  {
+   "schema": "e42.schedule.item.v1",
+   "run_id": "e42s-20260930",
+   "trial_id": 2,
+   "block": 0,
+   "rep": 0,
+   "arm": "A1_dcji",
+   "condition": "benign_target_annotation_churn",
+   "delta_ms": 0.5,
+   "schedule_seed": 93042270
+  },
+  {
+   "schema": "e42.schedule.item.v1",
+   "run_id": "e42s-20260930",
+   "trial_id": 10,
+   "block": 0,
+   "rep": 0,
+   "arm": "A4d_commit_direct",
+   "condition": "benign_target_annotation_churn",
+   "delta_ms": 0.0,
+   "schedule_seed": 93042270
+  },
+  {
+   "schema": "e42.schedule.item.v1",
+   "run_id": "e42s-20260930",
+   "trial_id": 9,
+   "block": 0,
+   "rep": 0,
+   "arm": "A1_dcji",
+   "condition": "no_write",
+   "delta_ms": null,
+   "schedule_seed": 93042270
+  },
+  {
+   "schema": "e42.schedule.item.v1",
+   "run_id": "e42s-20260930",
+   "trial_id": 13,
+   "block": 0,
+   "rep": 0,
+   "arm": "A4d_commit_direct",
+   "condition": "benign_target_annotation_churn",
+   "delta_ms": 2.0,
+   "schedule_seed": 93042270
+  },
+  {
+   "schema": "e42.schedule.item.v1",
+   "run_id": "e42s-20260930",
+   "trial_id": 15,
+   "block": 0,
+   "rep": 0,
+   "arm": "A4d_commit_direct",
+   "condition": "benign_target_annotation_churn",
+   "delta_ms": 10.0,
+   "schedule_seed": 93042270
+  },
+  {
+   "schema": "e42.schedule.item.v1",
+   "run_id": "e42s-20260930",
+   "trial_id": 17,
+   "block": 0,
+   "rep": 0,
+   "arm": "A4d_commit_direct",
+   "condition": "benign_target_annotation_churn",
+   "delta_ms": 50.0,
+   "schedule_seed": 93042270
+  },
+  {
+   "schema": "e42.schedule.item.v1",
+   "run_id": "e42s-20260930",
+   "trial_id": 16,
+   "block": 0,
+   "rep": 0,
+   "arm": "A4d_commit_direct",
+   "condition": "benign_target_annotation_churn",
+   "delta_ms": 20.0,
+   "schedule_seed": 93042270
+  },
+  {
+   "schema": "e42.schedule.item.v1",
+   "run_id": "e42s-20260930",
+   "trial_id": 18,
+   "block": 0,
+   "rep": 0,
+   "arm": "A4d_commit_direct",
+   "condition": "no_write",
+   "delta_ms": null,
+   "schedule_seed": 93042270
+  },
+  {
+   "schema": "e42.schedule.item.v1",
+   "run_id": "e42s-20260930",
+   "trial_id": 3,
+   "block": 0,
+   "rep": 0,
+   "arm": "A1_dcji",
+   "condition": "benign_target_annotation_churn",
+   "delta_ms": 1.0,
+   "schedule_seed": 93042270
+  },
+  {
+   "schema": "e42.schedule.item.v1",
+   "run_id": "e42s-20260930",
+   "trial_id": 14,
+   "block": 0,
+   "rep": 0,
+   "arm": "A4d_commit_direct",
+   "condition": "benign_target_annotation_churn",
+   "delta_ms": 5.0,
+   "schedule_seed": 93042270
+  },
+  {
+   "schema": "e42.schedule.item.v1",
+   "run_id": "e42s-20260930",
+   "trial_id": 6,
+   "block": 0,
+   "rep": 0,
+   "arm": "A1_dcji",
+   "condition": "benign_target_annotation_churn",
+   "delta_ms": 10.0,
+   "schedule_seed": 93042270
+  },
+  {
+   "schema": "e42.schedule.item.v1",
+   "run_id": "e42s-20260930",
+   "trial_id": 7,
+   "block": 0,
+   "rep": 0,
+   "arm": "A1_dcji",
+   "condition": "benign_target_annotation_churn",
+   "delta_ms": 20.0,
+   "schedule_seed": 93042270
+  }
+ ]
+}

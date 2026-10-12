@@ -1,0 +1,11 @@
+{
+  "run_id": "e3820260919094024",
+  "planned": 56,
+  "written": 56,
+  "attempts_started": 56,
+  "completed": true,
+  "interruption": null,
+  "raw_sha256": "3202e3526ab2bc908886d068cb73bf5414468abbd6388560e8189533f35b9b9c",
+  "finished_at_utc": "2026-09-19T09:42:36Z",
+  "namespace_left_intact": "Manual cleanup only after data verification."
+}

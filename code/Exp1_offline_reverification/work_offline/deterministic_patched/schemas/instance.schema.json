@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "instance.schema.json",
+  "title": "FlashIR Materialized Incident",
+  "type": "object",
+  "required": [
+    "instance_id",
+    "template_id",
+    "parameterization_id",
+    "split",
+    "materialization_version",
+    "causal_core_hash",
+    "template_hash",
+    "scenario"
+  ],
+  "properties": {
+    "instance_id": {
+      "type": "string"
+    },
+    "template_id": {
+      "type": "string"
+    },
+    "parameterization_id": {
+      "enum": [
+        "P1",
+        "P2",
+        "P3",
+        "P4"
+      ]
+    },
+    "split": {
+      "enum": [
+        "development",
+        "heldout"
+      ]
+    },
+    "materialization_version": {
+      "const": "3.1.0"
+    },
+    "causal_core_hash": {
+      "type": "string"
+    },
+    "template_hash": {
+      "type": "string"
+    },
+    "scenario": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": false
+}

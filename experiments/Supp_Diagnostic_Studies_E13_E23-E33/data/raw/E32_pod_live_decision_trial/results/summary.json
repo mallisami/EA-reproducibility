@@ -1,0 +1,15 @@
+{
+  "n_total": 60,
+  "mismatches": 0,
+  "attack_trials": 20,
+  "deadline_feasible_count": 20,
+  "deadline_feasible_rate": 1.0,
+  "transition_duration_s_min": 0.054067599994596094,
+  "transition_duration_s_max": 1.9471552000031807,
+  "transition_duration_s_mean": 0.24924156999913977,
+  "deadline_s": 5.0,
+  "planner_certificate": [
+    "p_binding",
+    "p_target_resolves"
+  ]
+}

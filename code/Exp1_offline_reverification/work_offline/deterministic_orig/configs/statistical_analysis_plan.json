@@ -1,0 +1,91 @@
+{
+  "independent_unit": "scenario_template",
+  "nested_units": [
+    "parameterization_id"
+  ],
+  "primary_heldout_positive_templates": 23,
+  "primary_heldout_positive_incidents": 92,
+  "negative_control_templates": [
+    "F5.6"
+  ],
+  "primary_endpoint": {
+    "name": "Unsafe Commit Rate (UCR)",
+    "event": "commit_decision=EXECUTE AND authorization_valid_at_commit=true AND actuation_effectful=true AND valid_at_commit=false",
+    "denominator": "eligible positive EA-TOCTOU W2 trials with attack path completed and oracle attack_goal=true",
+    "cluster": "scenario_template"
+  },
+  "secondary_endpoints": {
+    "WTCR": "Unsafe effectful commit with binding_valid_at_commit=false among target-rebinding positive trials.",
+    "VCR": "EXECUTE among trials valid at commit.",
+    "FAR": "ABORT_REPLAN among trials valid at commit.",
+    "QueryCost": "normalized physical query units per commit attempt.",
+    "C_star": "minimum attacker operation count among feasible effectful EA-TOCTOU paths.",
+    "T_star": "minimum elapsed time among minimum-cost feasible paths, per solver lexicographic objective.",
+    "ExploitabilityRate": "proportion of scenario/condition cells with solver status EXPLOITABLE; UNKNOWN reported separately."
+  },
+  "confirmatory_comparisons": [
+    {
+      "id": "C1",
+      "comparison": "B6 vs B0 on UCR",
+      "direction": "B6 lower",
+      "test": "paired McNemar on matched incident outcomes; cluster-bootstrap risk difference CI by scenario template",
+      "family": "security_superiority"
+    },
+    {
+      "id": "C2",
+      "comparison": "B6 vs B2(primary TTL=2s) on UCR",
+      "direction": "B6 lower or equal",
+      "test": "paired McNemar; cluster-bootstrap risk difference CI",
+      "family": "security_superiority"
+    },
+    {
+      "id": "C3",
+      "comparison": "B6 vs B3 on UCR where B3 applicable",
+      "direction": "B6 lower or equal",
+      "test": "paired McNemar; cluster-bootstrap risk difference CI",
+      "family": "security_superiority"
+    },
+    {
+      "id": "C4",
+      "comparison": "B6 vs B4 security non-inferiority",
+      "direction": "upper 95% CI of UCR(B6)-UCR(B4) < 0.05",
+      "margin_absolute": 0.05,
+      "test": "cluster-bootstrap paired risk-difference CI by scenario template",
+      "family": "security_noninferiority"
+    },
+    {
+      "id": "C5",
+      "comparison": "B6 vs B4 QueryCost",
+      "direction": "B6 lower",
+      "test": "paired Wilcoxon signed-rank plus cluster-bootstrap median/mean paired-difference CI",
+      "family": "efficiency"
+    }
+  ],
+  "multiplicity": {
+    "procedure": "Holm",
+    "alpha": 0.05,
+    "scope": "C1-C3 security-superiority family; C4 and C5 are separately prespecified objectives"
+  },
+  "confidence_intervals": {
+    "binary_rates": "95% Wilson interval for descriptive rates; cluster bootstrap for paired differences",
+    "bootstrap_clusters": "scenario_template",
+    "bootstrap_replicates": 10000,
+    "bootstrap_seed": 20260905
+  },
+  "mixed_effects": {
+    "formula": "UnsafeCommit ~ log1p(Delta) + Defense + AttackFamily + CapabilityTier + (1|ScenarioTemplate)",
+    "use": "E3/E4 pooled sensitivity model, not substitute for primary paired comparisons",
+    "report": "odds ratios, 95% CI, two-sided p-values"
+  },
+  "runtime": {
+    "summary": "median and IQR",
+    "paired_test": "Wilcoxon signed-rank where applicable"
+  },
+  "missingness": {
+    "solver_unknown": "Never recoded as NOT_EXPLOITABLE. Report count. Solver-specific rates exclude unknown with two worst-case sensitivity bounds.",
+    "B6_unknown": "Defense trial retained because B6 uses frozen FullRefresh fail-safe.",
+    "infra_failure": "One exact rerun allowed. If repeat fails, mark INFRA_FAILURE, exclude from endpoint denominator, report count; never replace scenario.",
+    "not_applicable_baseline": "Excluded only from that baseline's pairwise denominator and reported explicitly."
+  },
+  "no_adaptive_sampling": "No new templates or P variants may be added after seeing held-out primary results. Any later extra scenarios are external sensitivity experiments and cannot alter primary inference."
+}

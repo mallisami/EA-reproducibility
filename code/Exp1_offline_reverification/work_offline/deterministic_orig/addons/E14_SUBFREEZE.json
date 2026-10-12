@@ -1,0 +1,33 @@
+{
+  "experiment": "E14",
+  "version": "8.1.0-pre-run",
+  "freeze_id": "FLASHIR-E14-DEADLINE-DISCRIMINATION-FREEZE-20260906",
+  "status": "FROZEN_BEFORE_E14_OUTPUT",
+  "classification": "mechanistic stress test; not a new confirmatory efficacy endpoint",
+  "purpose": "Demonstrate that deadline pruning can change the minimum commit-state certificate, rather than only changing exploitability classification.",
+  "source_scenario": "scenarios/dev/F5_5.json",
+  "source_scenario_role": "development template already present in the locked v8.0 controlled inputs",
+  "profile": "balanced",
+  "attacker_capability": "C2",
+  "conditions": {
+    "short_deadline_s": 1.5,
+    "primary_deadline_s": 5.0,
+    "no_deadline_proxy_horizon_s": 100.0
+  },
+  "no_deadline_proxy_definition": "100 s exceeds the sum of all one-use transition durations in F5.5 and therefore includes every transition ordering the finite DCJI state graph can enumerate.",
+  "prespecified_outputs": [
+    "planner status",
+    "goal-state count",
+    "critical query IDs",
+    "normalized critical-query cost",
+    "expanded states",
+    "subset evaluations"
+  ],
+  "prespecified_interpretation": [
+    "The short deadline tests the no-feasible-invalidating-path case.",
+    "The 5 s deadline is the constrained certificate condition.",
+    "The 100 s condition is the finite-graph no-deadline proxy.",
+    "A smaller constrained certificate demonstrates practical value of deadline pruning; this add-on is descriptive/mechanistic and does not alter locked E1-E12/E15/E16 claims."
+  ],
+  "overwrite_rule": "The run script refuses to overwrite an existing E14 result file."
+}

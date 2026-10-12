@@ -1,0 +1,212 @@
+{
+  "by_variant": {
+    "Full DCJI": {
+      "positive_W2_templates": 23,
+      "unsafe_positive_W2_templates": 0,
+      "UCR": 0.0,
+      "control_rows": 72,
+      "false_abort_control_rows": 0,
+      "FAR": 0.0,
+      "mean_W2_query_cost": 1.2608695652173914,
+      "median_W2_query_cost": 1.0,
+      "mean_control_query_cost": 0.8055555555555556,
+      "mean_planning_runtime_s": 0.0004501166521767237
+    },
+    "NoDeadline": {
+      "positive_W2_templates": 23,
+      "unsafe_positive_W2_templates": 0,
+      "UCR": 0.0,
+      "control_rows": 72,
+      "false_abort_control_rows": 0,
+      "FAR": 0.0,
+      "mean_W2_query_cost": 1.2608695652173914,
+      "median_W2_query_cost": 1.0,
+      "mean_control_query_cost": 1.2083333333333333,
+      "mean_planning_runtime_s": 0.0004279199565545518
+    },
+    "NoRealizability": {
+      "positive_W2_templates": 23,
+      "unsafe_positive_W2_templates": 0,
+      "UCR": 0.0,
+      "control_rows": 72,
+      "false_abort_control_rows": 0,
+      "FAR": 0.0,
+      "mean_W2_query_cost": 1.9130434782608696,
+      "median_W2_query_cost": 1.0,
+      "mean_control_query_cost": 1.875,
+      "mean_planning_runtime_s": 3.964560870451311e-05
+    },
+    "SingleBasis": {
+      "positive_W2_templates": 23,
+      "unsafe_positive_W2_templates": 3,
+      "UCR": 0.13043478260869565,
+      "control_rows": 72,
+      "false_abort_control_rows": 0,
+      "FAR": 0.0,
+      "mean_W2_query_cost": 1.0,
+      "median_W2_query_cost": 1.0,
+      "mean_control_query_cost": 0.6388888888888888,
+      "mean_planning_runtime_s": 0.0006711943478283343
+    }
+  },
+  "by_family": {
+    "F1": {
+      "Full DCJI": {
+        "n": 5,
+        "unsafe": 0,
+        "UCR": 0.0,
+        "mean_query_cost": 1.0
+      },
+      "NoDeadline": {
+        "n": 5,
+        "unsafe": 0,
+        "UCR": 0.0,
+        "mean_query_cost": 1.0
+      },
+      "NoRealizability": {
+        "n": 5,
+        "unsafe": 0,
+        "UCR": 0.0,
+        "mean_query_cost": 1.0
+      },
+      "SingleBasis": {
+        "n": 5,
+        "unsafe": 0,
+        "UCR": 0.0,
+        "mean_query_cost": 1.0
+      }
+    },
+    "F2": {
+      "Full DCJI": {
+        "n": 5,
+        "unsafe": 0,
+        "UCR": 0.0,
+        "mean_query_cost": 1.0
+      },
+      "NoDeadline": {
+        "n": 5,
+        "unsafe": 0,
+        "UCR": 0.0,
+        "mean_query_cost": 1.0
+      },
+      "NoRealizability": {
+        "n": 5,
+        "unsafe": 0,
+        "UCR": 0.0,
+        "mean_query_cost": 1.0
+      },
+      "SingleBasis": {
+        "n": 5,
+        "unsafe": 0,
+        "UCR": 0.0,
+        "mean_query_cost": 1.0
+      }
+    },
+    "F3": {
+      "Full DCJI": {
+        "n": 5,
+        "unsafe": 0,
+        "UCR": 0.0,
+        "mean_query_cost": 1.0
+      },
+      "NoDeadline": {
+        "n": 5,
+        "unsafe": 0,
+        "UCR": 0.0,
+        "mean_query_cost": 1.0
+      },
+      "NoRealizability": {
+        "n": 5,
+        "unsafe": 0,
+        "UCR": 0.0,
+        "mean_query_cost": 2.0
+      },
+      "SingleBasis": {
+        "n": 5,
+        "unsafe": 0,
+        "UCR": 0.0,
+        "mean_query_cost": 1.0
+      }
+    },
+    "F4": {
+      "Full DCJI": {
+        "n": 5,
+        "unsafe": 0,
+        "UCR": 0.0,
+        "mean_query_cost": 1.0
+      },
+      "NoDeadline": {
+        "n": 5,
+        "unsafe": 0,
+        "UCR": 0.0,
+        "mean_query_cost": 1.0
+      },
+      "NoRealizability": {
+        "n": 5,
+        "unsafe": 0,
+        "UCR": 0.0,
+        "mean_query_cost": 1.0
+      },
+      "SingleBasis": {
+        "n": 5,
+        "unsafe": 0,
+        "UCR": 0.0,
+        "mean_query_cost": 1.0
+      }
+    },
+    "F5": {
+      "Full DCJI": {
+        "n": 3,
+        "unsafe": 0,
+        "UCR": 0.0,
+        "mean_query_cost": 3.0
+      },
+      "NoDeadline": {
+        "n": 3,
+        "unsafe": 0,
+        "UCR": 0.0,
+        "mean_query_cost": 3.0
+      },
+      "NoRealizability": {
+        "n": 3,
+        "unsafe": 0,
+        "UCR": 0.0,
+        "mean_query_cost": 6.333333333333333
+      },
+      "SingleBasis": {
+        "n": 3,
+        "unsafe": 3,
+        "UCR": 1.0,
+        "mean_query_cost": 1.0
+      }
+    }
+  },
+  "cost_vs_full": {
+    "NoDeadline": {
+      "mean_delta": 0.0,
+      "median_delta": 0.0,
+      "lower": 0,
+      "equal": 23,
+      "higher": 0
+    },
+    "NoRealizability": {
+      "mean_delta": 0.6521739130434783,
+      "median_delta": 0.0,
+      "lower": 0,
+      "equal": 15,
+      "higher": 8
+    },
+    "SingleBasis": {
+      "mean_delta": -0.2608695652173913,
+      "median_delta": 0.0,
+      "lower": 3,
+      "equal": 20,
+      "higher": 0
+    }
+  },
+  "single_basis_unsafe_templates": [
+    "F5.2",
+    "F5.3",
+    "F5.4"
+  ]
+}

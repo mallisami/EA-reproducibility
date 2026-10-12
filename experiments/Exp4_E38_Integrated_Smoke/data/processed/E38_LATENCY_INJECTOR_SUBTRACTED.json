@@ -1,0 +1,37 @@
+{
+  "DCJI": {
+    "n": 26,
+    "refresh_mean": 15.140266423086779,
+    "refresh_median": 14.464196000015363,
+    "refresh_min": 13.454931000014767,
+    "refresh_max": 20.338906999968458,
+    "gate_mean": 16.72453611539766,
+    "gate_median": 16.060886500024935,
+    "gate_min": 14.88125899998704,
+    "gate_max": 22.281071999983396,
+    "during_acq_refresh_minus_injector": [
+      14.044,
+      15.03
+    ]
+  },
+  "FullRefresh": {
+    "n": 26,
+    "refresh_mean": 21.137488000000864,
+    "refresh_median": 19.848087999998825,
+    "refresh_min": 19.012329999997746,
+    "refresh_max": 26.001137999992352,
+    "gate_mean": 22.849657769234348,
+    "gate_median": 21.607215000025462,
+    "gate_min": 20.479373000038322,
+    "gate_max": 27.52161499997601,
+    "during_acq_refresh_minus_injector": [
+      24.889,
+      19.208
+    ]
+  },
+  "effect_verified_trials": 22,
+  "effect_verified_by_method": {
+    "DCJI": 12,
+    "FullRefresh": 10
+  }
+}

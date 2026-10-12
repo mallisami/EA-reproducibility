@@ -1,0 +1,286 @@
+{
+  "scenario_id": "F1.14",
+  "title": "Deployment Object Recreation (notif-gateway)",
+  "family": "F1",
+  "realism_tier": "R1",
+  "scenario_role": "positive_ea_toctou",
+  "development": false,
+  "action": {
+    "action_type": "delete_or_stop_workload",
+    "target_reference": "deployment/notif-gateway",
+    "target_snapshot": {
+      "kind": "Deployment",
+      "name": "notif-gateway",
+      "uid": "X14A"
+    },
+    "queue_semantics": "single_exactly_once_attempt",
+    "execution_precondition": {
+      "predicate": "p_target_resolves"
+    },
+    "authorization": {
+      "predicate": "p_authorized",
+      "must_remain_valid": true
+    }
+  },
+  "attacker_capability_tier": "C1",
+  "initial_state": {
+    "timestamp_s": 0,
+    "facts": {
+      "original_compromised": true,
+      "F1_14_current_uid": "X14A",
+      "irrelevant_annotation": "v1",
+      "action_authorized": true
+    },
+    "resources": [
+      {
+        "kind": "Deployment",
+        "name": "notif-gateway",
+        "uid": "X14A",
+        "active": true,
+        "security_state": "compromised"
+      },
+      {
+        "kind": "Deployment",
+        "name": "notif-gateway",
+        "uid": "X14B",
+        "active": false,
+        "security_state": "clean"
+      }
+    ],
+    "processes": [],
+    "network_bindings": [],
+    "sessions": [],
+    "context": {},
+    "evidence": [],
+    "queue": []
+  },
+  "predicates": {
+    "p_original_compromised": {
+      "path": "/facts/original_compromised",
+      "op": "eq",
+      "value": true,
+      "evidence_class": "H",
+      "description": "Historical compromise applies to the original object."
+    },
+    "p_same_uid": {
+      "path": "/facts/F1_14_current_uid",
+      "op": "eq",
+      "value": "X14A",
+      "evidence_class": "B",
+      "description": "Reusable logical reference still resolves to the original UID."
+    },
+    "p_target_resolves": {
+      "path": "/facts/F1_14_current_uid",
+      "op": "ne",
+      "value": null,
+      "evidence_class": "B",
+      "description": "Target reference resolves to a concrete object."
+    },
+    "p_authorized": {
+      "path": "/facts/action_authorized",
+      "op": "eq",
+      "value": true,
+      "evidence_class": "DERIVED",
+      "description": "Response executor remains technically authorized."
+    }
+  },
+  "policy_profiles": {
+    "balanced": {
+      "justification": {
+        "predicate": "p_original_compromised"
+      },
+      "binding": {
+        "predicate": "p_same_uid"
+      },
+      "scope": true
+    }
+  },
+  "transitions": [
+    {
+      "transition_id": "irrelevant_change",
+      "title": "Irrelevant metadata change",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.1,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/irrelevant_annotation",
+          "value": "v2"
+        }
+      ],
+      "notes": "",
+      "adversarially_induced": false,
+      "causal_parent_ids": []
+    },
+    {
+      "transition_id": "remove_original",
+      "title": "Attacker removes original compromised object",
+      "actor": "attacker",
+      "capability_tier": "C1",
+      "duration_s": 0.8,
+      "cost_ops": 1,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/F1_14_current_uid",
+          "value": null
+        },
+        {
+          "op": "set",
+          "path": "/resources/0/active",
+          "value": false
+        }
+      ],
+      "notes": "",
+      "adversarially_induced": true,
+      "causal_parent_ids": []
+    },
+    {
+      "transition_id": "create_successor",
+      "title": "Controller/platform creates clean successor under reusable reference",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.8,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/F1_14_current_uid",
+          "value": "X14B"
+        },
+        {
+          "op": "set",
+          "path": "/resources/1/active",
+          "value": true
+        }
+      ],
+      "notes": "",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "remove_original"
+      ]
+    }
+  ],
+  "worlds": {
+    "W0": {
+      "commit_deadline_s": 5,
+      "transition_path": [],
+      "control_semantics": "stable",
+      "expected_commit_by_policy": {
+        "balanced": "EXECUTE"
+      },
+      "expected_commit": "EXECUTE",
+      "expected_attack_path_completed": true
+    },
+    "W1": {
+      "commit_deadline_s": 5,
+      "transition_path": [
+        "irrelevant_change"
+      ],
+      "control_semantics": "irrelevant_change",
+      "expected_commit_by_policy": {
+        "balanced": "EXECUTE"
+      },
+      "expected_commit": "EXECUTE",
+      "expected_attack_path_completed": true
+    },
+    "W2": {
+      "commit_deadline_s": 5,
+      "transition_path": [
+        "remove_original",
+        "create_successor"
+      ],
+      "control_semantics": "ea_toctou",
+      "expected_commit_by_policy": {
+        "balanced": "ABORT_REPLAN"
+      },
+      "expected_commit": "ABORT_REPLAN",
+      "expected_attack_path_completed": true
+    },
+    "W3": {
+      "commit_deadline_s": 0.4,
+      "transition_path": [
+        "remove_original",
+        "create_successor"
+      ],
+      "control_semantics": "deadline_miss",
+      "expected_commit_by_policy": {
+        "balanced": "EXECUTE"
+      },
+      "expected_commit": "EXECUTE",
+      "expected_attack_path_completed": false
+    }
+  },
+  "provenance": {
+    "platform_basis": "Deployment logical references may be reused while immutable object identity changes.",
+    "incident_basis": "A queued response is selected against a confirmed compromised object.",
+    "policy_basis": "Historical compromise remains valid only for the original resource instance.",
+    "limitations": "Exact replacement timing is environment-specific and is parameterized."
+  },
+  "severity": "S1",
+  "notes": "v9 extended confirmatory pilot template (Deployment); same causal structure as locked F1.2/F1.3, new resource kind/capability/deadline/severity combination.",
+  "primary_policy": "balanced",
+  "justification_bases_by_policy": {
+    "balanced": [
+      [
+        "p_original_compromised"
+      ]
+    ]
+  },
+  "justification_bases": [
+    [
+      "p_original_compromised"
+    ]
+  ],
+  "parameterizations": [
+    {
+      "id": "P1",
+      "description": "Minimal topology with only essential resources and evidence."
+    },
+    {
+      "id": "P2",
+      "description": "Distractor topology with benign resources and irrelevant evidence."
+    },
+    {
+      "id": "P3",
+      "description": "Noisy SOC context with non-material alerts and unrelated transitions."
+    },
+    {
+      "id": "P4",
+      "description": "High-impact variant with larger benign background or higher criticality."
+    }
+  ],
+  "native_controls": [
+    {
+      "control_id": "native_uid_precondition",
+      "control_type": "uid_precondition",
+      "predicate_ids": [
+        "p_same_uid"
+      ],
+      "normalized_cost_units": 0.0,
+      "applicable": true,
+      "notes": "Atomic immutable-identity precondition; live behavior is validated separately."
+    }
+  ],
+  "refresh_model": {
+    "cost_unit": "normalized_query_unit",
+    "query_costs": {
+      "immutable:p_original_compromised": 0.0,
+      "query:/facts/F1_14_current_uid": 1.0
+    },
+    "predicate_query_ids": {
+      "p_original_compromised": "immutable:p_original_compromised",
+      "p_same_uid": "query:/facts/F1_14_current_uid",
+      "p_target_resolves": "query:/facts/F1_14_current_uid"
+    },
+    "query_observed_at_s": {
+      "immutable:p_original_compromised": 0.0,
+      "query:/facts/F1_14_current_uid": 0.0
+    }
+  }
+}

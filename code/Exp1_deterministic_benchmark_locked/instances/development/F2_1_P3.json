@@ -1,0 +1,372 @@
+{
+  "instance_id": "F2.1-P3",
+  "template_id": "F2.1",
+  "parameterization_id": "P3",
+  "split": "development",
+  "materialization_version": "3.1.0",
+  "causal_core_hash": "4a5e884f69f8c629b4a5d7ab7a3829a0462e0d786fa482d3e457dab7202682d2",
+  "template_hash": "036eb3e31e1f8af4638b15f1a4a77b94632b54b0814226e85770626a8a611383",
+  "scenario": {
+    "scenario_id": "F2.1",
+    "title": "Pod-IP Rebinding",
+    "family": "F2",
+    "realism_tier": "R2",
+    "development": true,
+    "action": {
+      "action_type": "block_network_identity",
+      "target_reference": "ip/10.0.0.17",
+      "target_snapshot": {
+        "ip": "10.0.0.17",
+        "resource_uid": "U1"
+      },
+      "queue_semantics": "single_exactly_once_attempt",
+      "authorization": {
+        "predicate": "p_authorized",
+        "must_remain_valid": true
+      },
+      "execution_precondition": {
+        "predicate": "p_target_resolves"
+      }
+    },
+    "attacker_capability_tier": "C2",
+    "initial_state": {
+      "timestamp_s": 0,
+      "facts": {
+        "u1_malicious": true,
+        "ip_10_0_0_17_uid": "U1",
+        "irrelevant_dns_ttl": 30,
+        "action_authorized": true,
+        "materialization_benign_resource_count": 3,
+        "materialization_background_alerts": 3,
+        "materialization_irrelevant_1": true,
+        "materialization_irrelevant_2": true,
+        "materialization_irrelevant_3": true
+      },
+      "resources": [
+        {
+          "kind": "SyntheticBenignResource",
+          "name": "benign-1",
+          "uid": "BENIGN-F2.1-1",
+          "active": true,
+          "security_state": "clean",
+          "criticality": "low"
+        },
+        {
+          "kind": "SyntheticBenignResource",
+          "name": "benign-2",
+          "uid": "BENIGN-F2.1-2",
+          "active": true,
+          "security_state": "clean",
+          "criticality": "low"
+        },
+        {
+          "kind": "SyntheticBenignResource",
+          "name": "benign-3",
+          "uid": "BENIGN-F2.1-3",
+          "active": true,
+          "security_state": "clean",
+          "criticality": "low"
+        }
+      ],
+      "processes": [],
+      "network_bindings": [
+        {
+          "identifier_type": "ip",
+          "identifier": "10.0.0.17",
+          "resource_uid": "U1"
+        }
+      ],
+      "sessions": [],
+      "context": {
+        "materialization": {
+          "parameterization_id": "P3",
+          "template_id": "F2.1",
+          "description": "Noisy SOC context."
+        },
+        "soc_noise": {
+          "unrelated_alerts": [
+            {
+              "alert_id": "NOISE-1",
+              "severity": "low",
+              "status": "open"
+            },
+            {
+              "alert_id": "NOISE-2",
+              "severity": "medium",
+              "status": "acknowledged"
+            },
+            {
+              "alert_id": "NOISE-3",
+              "severity": "low",
+              "status": "closed"
+            }
+          ],
+          "unrelated_ticket_count": 5,
+          "background_change_window": true
+        }
+      },
+      "evidence": [
+        {
+          "evidence_id": "H1",
+          "predicate": "u1_malicious",
+          "evidence_class": "H",
+          "source": "SOC",
+          "observed_at_s": 0,
+          "subject_uid": "U1",
+          "truth_value": true,
+          "supersedes": null
+        },
+        {
+          "evidence_id": "MAT-IRR-1",
+          "predicate": "materialization_irrelevant_1",
+          "evidence_class": "S",
+          "source": "synthetic-background",
+          "observed_at_s": 0,
+          "subject_uid": null,
+          "truth_value": true,
+          "supersedes": null
+        },
+        {
+          "evidence_id": "MAT-IRR-2",
+          "predicate": "materialization_irrelevant_2",
+          "evidence_class": "S",
+          "source": "synthetic-background",
+          "observed_at_s": 0,
+          "subject_uid": null,
+          "truth_value": true,
+          "supersedes": null
+        },
+        {
+          "evidence_id": "MAT-IRR-3",
+          "predicate": "materialization_irrelevant_3",
+          "evidence_class": "S",
+          "source": "synthetic-background",
+          "observed_at_s": 0,
+          "subject_uid": null,
+          "truth_value": true,
+          "supersedes": null
+        }
+      ],
+      "queue": []
+    },
+    "predicates": {
+      "p_u1_malicious": {
+        "path": "/facts/u1_malicious",
+        "op": "eq",
+        "value": true,
+        "evidence_class": "H",
+        "description": "Historical maliciousness of U1."
+      },
+      "p_ip_bound_u1": {
+        "path": "/facts/ip_10_0_0_17_uid",
+        "op": "eq",
+        "value": "U1",
+        "evidence_class": "B",
+        "description": "IP still denotes U1."
+      },
+      "p_authorized": {
+        "path": "/facts/action_authorized",
+        "op": "eq",
+        "value": true,
+        "evidence_class": "DERIVED",
+        "description": "Response executor remains technically authorized."
+      },
+      "p_target_resolves": {
+        "path": "/facts/ip_10_0_0_17_uid",
+        "op": "ne",
+        "value": null,
+        "evidence_class": "B",
+        "description": "Blocked network identifier resolves to a concrete resource at actuation."
+      }
+    },
+    "policy_profiles": {
+      "balanced": {
+        "justification": {
+          "predicate": "p_u1_malicious"
+        },
+        "binding": {
+          "predicate": "p_ip_bound_u1"
+        },
+        "scope": true
+      }
+    },
+    "primary_policy": "balanced",
+    "justification_bases": [
+      [
+        "p_u1_malicious"
+      ]
+    ],
+    "transitions": [
+      {
+        "transition_id": "irrelevant_dns_ttl_change",
+        "title": "Unrelated DNS TTL change",
+        "actor": "environment",
+        "capability_tier": "NONE",
+        "duration_s": 0.1,
+        "cost_ops": 0,
+        "preconditions": true,
+        "effects": [
+          {
+            "op": "set",
+            "path": "/facts/irrelevant_dns_ttl",
+            "value": 60
+          }
+        ],
+        "notes": "",
+        "adversarially_induced": false,
+        "causal_parent_ids": []
+      },
+      {
+        "transition_id": "release_u1_binding",
+        "title": "Attacker-controlled workload releases IP binding",
+        "actor": "attacker",
+        "capability_tier": "C2",
+        "duration_s": 1.0,
+        "cost_ops": 1,
+        "preconditions": true,
+        "effects": [
+          {
+            "op": "set",
+            "path": "/facts/ip_10_0_0_17_uid",
+            "value": null
+          },
+          {
+            "op": "set",
+            "path": "/network_bindings/0/resource_uid",
+            "value": null
+          }
+        ],
+        "notes": "",
+        "adversarially_induced": true,
+        "causal_parent_ids": []
+      },
+      {
+        "transition_id": "rebind_ip_to_u2",
+        "title": "Controlled allocator maps address to benign U2",
+        "actor": "environment",
+        "capability_tier": "NONE",
+        "duration_s": 1.5,
+        "cost_ops": 0,
+        "preconditions": true,
+        "effects": [
+          {
+            "op": "set",
+            "path": "/facts/ip_10_0_0_17_uid",
+            "value": "U2"
+          },
+          {
+            "op": "set",
+            "path": "/network_bindings/0/resource_uid",
+            "value": "U2"
+          }
+        ],
+        "notes": "",
+        "adversarially_induced": true,
+        "causal_parent_ids": [
+          "release_u1_binding"
+        ]
+      }
+    ],
+    "worlds": {
+      "W0": {
+        "commit_deadline_s": 5,
+        "transition_path": [],
+        "expected_commit": "EXECUTE",
+        "expected_attack_path_completed": false,
+        "control_semantics": "stable",
+        "expected_commit_by_policy": {
+          "balanced": "EXECUTE"
+        }
+      },
+      "W1": {
+        "commit_deadline_s": 5,
+        "transition_path": [
+          "irrelevant_dns_ttl_change"
+        ],
+        "expected_commit": "EXECUTE",
+        "expected_attack_path_completed": false,
+        "control_semantics": "irrelevant_change",
+        "expected_commit_by_policy": {
+          "balanced": "EXECUTE"
+        }
+      },
+      "W2": {
+        "commit_deadline_s": 5,
+        "transition_path": [
+          "release_u1_binding",
+          "rebind_ip_to_u2"
+        ],
+        "expected_commit": "ABORT_REPLAN",
+        "expected_attack_path_completed": true,
+        "control_semantics": "ea_toctou",
+        "expected_commit_by_policy": {
+          "balanced": "ABORT_REPLAN"
+        }
+      },
+      "W3": {
+        "commit_deadline_s": 0.5,
+        "transition_path": [
+          "release_u1_binding",
+          "rebind_ip_to_u2"
+        ],
+        "expected_commit": "EXECUTE",
+        "expected_attack_path_completed": false,
+        "control_semantics": "deadline_miss",
+        "expected_commit_by_policy": {
+          "balanced": "EXECUTE"
+        }
+      }
+    },
+    "parameterizations": [
+      {
+        "id": "P1",
+        "description": "Minimal topology with only essential resources and evidence."
+      },
+      {
+        "id": "P2",
+        "description": "Distractor topology with benign resources and irrelevant evidence."
+      },
+      {
+        "id": "P3",
+        "description": "Noisy SOC context with non-material alerts and unrelated transitions."
+      },
+      {
+        "id": "P4",
+        "description": "High-impact variant with larger benign background or higher criticality."
+      }
+    ],
+    "provenance": {
+      "platform_basis": "Dynamic network binding modeled explicitly; IP reuse is not assumed to be a universal Kubernetes guarantee.",
+      "incident_basis": "SOC queues an IP block derived from a malicious workload.",
+      "policy_basis": "Block is valid only while the identifier denotes the malicious resource.",
+      "limitations": "Promote to live/platform-real evidence only if E13 reproduces rebinding in the chosen environment."
+    },
+    "severity": "S2",
+    "notes": "Core wrong-network-target development case.",
+    "justification_bases_by_policy": {
+      "balanced": [
+        [
+          "p_u1_malicious"
+        ]
+      ]
+    },
+    "refresh_model": {
+      "cost_unit": "normalized_query_unit",
+      "query_costs": {
+        "query:/facts/ip_10_0_0_17_uid": 1.0,
+        "immutable:p_u1_malicious": 0.0
+      },
+      "predicate_query_ids": {
+        "p_ip_bound_u1": "query:/facts/ip_10_0_0_17_uid",
+        "p_target_resolves": "query:/facts/ip_10_0_0_17_uid",
+        "p_u1_malicious": "immutable:p_u1_malicious"
+      },
+      "query_observed_at_s": {
+        "query:/facts/ip_10_0_0_17_uid": 0.0,
+        "immutable:p_u1_malicious": 0.0
+      }
+    },
+    "native_controls": [],
+    "scenario_role": "positive_ea_toctou"
+  }
+}

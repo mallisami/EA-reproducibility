@@ -1,0 +1,29 @@
+{
+  "frozen_hash_mismatches": [],
+  "basis_counts": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "primary_rows": 4,
+  "delay_grid_rows": 24,
+  "shared_control_rows": 6,
+  "primary_all_exploitable": true,
+  "primary_C_star_sequence": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "expected_C_star_sequence": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "B6_unsafe_exploitable_cells": 0,
+  "one_basis_construct_source": "development F5.1 only",
+  "heldout_template_labels_modified": false,
+  "status": "PASS"
+}

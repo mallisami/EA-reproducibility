@@ -1,0 +1,9 @@
+Per-trial differences independent recomputation vs oracle primary (trial ids: first 3 examples)
+   30  A | A3 | main=INVALID_EXECUTED | independent=excluded:action_rv | action_rv_source=pod_watch_deleted  e.g. [339, 698, 954]
+   17  A | A3 | main=VALID_EXECUTED | independent=excluded:action_rv | action_rv_source=pod_watch_deleted  e.g. [1091, 1891, 2829]
+   10  A | A4m | main=excluded:mirror_rv_not_after_source | independent=event:invalid_at_commit | action_rv_source=  e.g. [375, 411, 804]
+    9  B | A3 | main=INVALID_EXECUTED | independent=excluded:action_rv | action_rv_source=pod_watch_deleted  e.g. [6076, 6613, 7864]
+    5  B | A3 | main=VALID_EXECUTED | independent=excluded:action_rv | action_rv_source=pod_watch_deleted  e.g. [5354, 5858, 6259]
+    2  A | A4m | main=INVALID_EXECUTED | independent=excluded:action_rv | action_rv_source=pod_watch_deleted  e.g. [1929, 2918]
+    1  B | A2 | main=INVALID_EXECUTED | independent=excluded:action_rv | action_rv_source=pod_watch_deleted  e.g. [7562]
+total differing trials: 74

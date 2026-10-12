@@ -1,0 +1,150 @@
+{
+ "accepted_async": 7025,
+ "accepted_with_mark_and_single_DELETED": 7025,
+ "by_arm": {
+  "A1": {
+   "n": 2097,
+   "invalid_final": 1008,
+   "invalid_mark": 165,
+   "mark_to_deleted_ms_median": 5.24
+  },
+  "A3": {
+   "n": 2205,
+   "invalid_final": 860,
+   "invalid_mark": 633,
+   "mark_to_deleted_ms_median": 13.9
+  },
+  "A4d": {
+   "n": 1287,
+   "invalid_final": 0,
+   "invalid_mark": 0,
+   "mark_to_deleted_ms_median": 6.03
+  },
+  "A4m": {
+   "n": 2087,
+   "invalid_final": 1009,
+   "invalid_mark": 186,
+   "mark_to_deleted_ms_median": 4.65
+  }
+ },
+ "window_area_ms": {
+  "A1/async_app_policy": {
+   "final": 13.24,
+   "mark": 0.65
+  },
+  "A1/async_evidence_last_literal": {
+   "final": 18.6,
+   "mark": 0.64
+  },
+  "A1/async_scope": {
+   "final": 15.34,
+   "mark": 1.03
+  },
+  "A3/async_app_policy": {
+   "final": 30.5,
+   "mark": 6.96
+  },
+  "A3/async_evidence_last_literal": {
+   "final": 39.29,
+   "mark": 18.0
+  },
+  "A3/async_scope": {
+   "final": 31.37,
+   "mark": 7.07
+  },
+  "A4d/async_app_policy": {
+   "final": 0.0,
+   "mark": 0.0
+  },
+  "A4d/async_evidence_last_literal": {
+   "final": 0.0,
+   "mark": 0.0
+  },
+  "A4d/async_scope": {
+   "final": 0.0,
+   "mark": 0.0
+  },
+  "A4m/async_app_policy": {
+   "final": 12.18,
+   "mark": 0.93
+  },
+  "A4m/async_evidence_last_literal": {
+   "final": 15.38,
+   "mark": 0.66
+  },
+  "A4m/async_scope": {
+   "final": 15.15,
+   "mark": 1.16
+  }
+ },
+ "A4d": {
+  "contested_409": 42,
+  "writer_404": 608,
+  "writer_on_terminating_pod": 637,
+  "terminating_writer_http_200": 637,
+  "terminating_writer_rv_equals_mark_rv": 637,
+  "terminating_exactly_one_mark_revision": 637,
+  "terminating_deleted_minus_mark_revisions": {
+   "1": 617,
+   "2": 18,
+   "3": 2
+  },
+  "by_delta": {
+   "0.0": {
+    "contested": 12,
+    "terminating": 105,
+    "writer_404": 0
+   },
+   "0.5": {
+    "contested": 14,
+    "terminating": 102,
+    "writer_404": 1
+   },
+   "1.0": {
+    "contested": 10,
+    "terminating": 106,
+    "writer_404": 1
+   },
+   "2.0": {
+    "contested": 4,
+    "terminating": 104,
+    "writer_404": 9
+   },
+   "3.0": {
+    "contested": 2,
+    "terminating": 100,
+    "writer_404": 15
+   },
+   "5.0": {
+    "contested": 0,
+    "terminating": 76,
+    "writer_404": 41
+   },
+   "10.0": {
+    "contested": 0,
+    "terminating": 28,
+    "writer_404": 89
+   },
+   "20.0": {
+    "contested": 0,
+    "terminating": 10,
+    "writer_404": 107
+   },
+   "50.0": {
+    "contested": 0,
+    "terminating": 6,
+    "writer_404": 111
+   },
+   "100.0": {
+    "contested": 0,
+    "terminating": 0,
+    "writer_404": 117
+   },
+   "200.0": {
+    "contested": 0,
+    "terminating": 0,
+    "writer_404": 117
+   }
+  }
+ }
+}

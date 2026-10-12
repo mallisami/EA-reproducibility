@@ -1,0 +1,21 @@
+{
+  "results_version": "5.1.0-e3-long-horizon",
+  "templates": [
+    "F2.2",
+    "F4.5"
+  ],
+  "parameterizations": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "delays_s": [
+    60,
+    300
+  ],
+  "raw_rows": 16,
+  "primary_grid_modified": false,
+  "protocol_deviations": [],
+  "validation_status": "PASS"
+}

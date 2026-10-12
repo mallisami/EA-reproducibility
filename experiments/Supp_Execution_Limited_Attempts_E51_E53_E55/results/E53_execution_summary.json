@@ -1,0 +1,55 @@
+{
+  "e53ignoreg30": {
+    "accepted_with_gone_observed": 0,
+    "complete": 87,
+    "delete_http_counts": {
+      "200": 86,
+      "409": 1,
+      "None": 13
+    },
+    "effect_verified_true": 0,
+    "infra_error": 13,
+    "recorded": 100,
+    "response_to_gone_median_s": null,
+    "send_to_gone_median_s": null
+  },
+  "e53ignoreg5": {
+    "accepted_with_gone_observed": 277,
+    "complete": 300,
+    "delete_http_counts": {
+      "200": 277,
+      "409": 23
+    },
+    "effect_verified_true": 0,
+    "infra_error": 0,
+    "recorded": 300,
+    "response_to_gone_median_s": 6.601790288,
+    "send_to_gone_median_s": 6.612204781
+  },
+  "e53promptg30": {
+    "accepted_with_gone_observed": 0,
+    "complete": 88,
+    "delete_http_counts": {
+      "200": 88,
+      "None": 12
+    },
+    "effect_verified_true": 0,
+    "infra_error": 12,
+    "recorded": 100,
+    "response_to_gone_median_s": null,
+    "send_to_gone_median_s": null
+  },
+  "e53promptg5": {
+    "accepted_with_gone_observed": 278,
+    "complete": 300,
+    "delete_http_counts": {
+      "200": 278,
+      "409": 22
+    },
+    "effect_verified_true": 0,
+    "infra_error": 0,
+    "recorded": 300,
+    "response_to_gone_median_s": 6.609699497499999,
+    "send_to_gone_median_s": 6.6179596355
+  }
+}

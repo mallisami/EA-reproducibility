@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: flashir-sts-headless
+  namespace: flashir-e13
+spec:
+  clusterIP: None
+  selector:
+    app: flashir-sts

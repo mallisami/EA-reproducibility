@@ -1,0 +1,9 @@
+condition,method,rep,trial_id,status,gate_reason,epoch_before,epoch_after,oracle_preacq,oracle_gate,oracle_at_use,unfenced_hybrid_decision,hybrid_J,queried_evidence
+during_acquisition,FullRefresh,0,e3820260919094024-000021,COMPLETE,fence changed or open,0.0,2.0,EXECUTE,ABORT_REPLAN,ABORT_REPLAN,EXECUTE,True,"a,b,c,d,e,f"
+during_acquisition,DCJI,0,e3820260919094024-000022,COMPLETE,fence changed or open,0.0,2.0,EXECUTE,ABORT_REPLAN,ABORT_REPLAN,EXECUTE,True,"a,c,e"
+during_acquisition,FullRefresh,1,e3820260919094024-000023,COMPLETE,fence changed or open,0.0,2.0,EXECUTE,ABORT_REPLAN,ABORT_REPLAN,EXECUTE,True,"a,b,c,d,e,f"
+during_acquisition,DCJI,1,e3820260919094024-000024,COMPLETE,fence changed or open,0.0,2.0,EXECUTE,ABORT_REPLAN,ABORT_REPLAN,EXECUTE,True,"a,c,e"
+unknown_open_epoch,DCJI,0,e3820260919094024-000045,UNKNOWN,OPEN_EPOCH_DETECTED: odd initial epoch; abort without deletion,,,EXECUTE,,EXECUTE,,,
+unknown_open_epoch,FullRefresh,0,e3820260919094024-000046,UNKNOWN,OPEN_EPOCH_DETECTED: odd initial epoch; abort without deletion,,,EXECUTE,,EXECUTE,,,
+unknown_open_epoch,FullRefresh,1,e3820260919094024-000047,UNKNOWN,OPEN_EPOCH_DETECTED: odd initial epoch; abort without deletion,,,EXECUTE,,EXECUTE,,,
+unknown_open_epoch,DCJI,1,e3820260919094024-000048,UNKNOWN,OPEN_EPOCH_DETECTED: odd initial epoch; abort without deletion,,,EXECUTE,,EXECUTE,,,

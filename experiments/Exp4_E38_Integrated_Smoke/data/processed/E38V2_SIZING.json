@@ -1,0 +1,38 @@
+{
+  "z": 1.959963984540054,
+  "n_worst_hw_le_0_10": 93,
+  "worst_hw_at_n10": 0.09957798222104375,
+  "n_worst_hw_le_0_15": 39,
+  "worst_hw_at_n15": 0.14967730892840014,
+  "hw_at_p0_n15": 0.04483342685378571,
+  "ub_at_0_of_n15": 0.08966685370757142,
+  "ub_at_0_of_n10": 0.03966750261173514,
+  "n_for_zero_events_upper_bound_le_0_05": 73,
+  "n_for_zero_events_upper_bound_le_0_10": 35,
+  "sec_per_trial_std": 2.069845397625,
+  "sec_per_trial_uid": 4.0106573398749825,
+  "deltas": [
+    -5,
+    -2,
+    -1,
+    0,
+    0.5,
+    1,
+    2,
+    3,
+    5,
+    10,
+    20,
+    50
+  ],
+  "arms": [
+    "A1_DCJI_client_gate",
+    "A2_FullRefresh_client_gate",
+    "A3_DCJI_plus_validating_webhook"
+  ],
+  "async_conditions": [
+    "pg_scope_single_PATCH",
+    "pg_app_policy_single_PATCH",
+    "pg_evidence_last_literal_single_PATCH"
+  ]
+}

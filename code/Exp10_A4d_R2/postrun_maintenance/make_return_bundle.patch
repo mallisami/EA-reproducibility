@@ -1,0 +1,13 @@
+--- /mnt/data/a4d_results_fix/r2clean/EA_TOCTOU_A4D_AUDIT_SAFE_CONFIRMATION_R2_20261001/ops/make_return_bundle.sh	2026-10-01 06:31:12.000000000 +0000
++++ /mnt/data/a4d_results_fix/r2src/EA_TOCTOU_A4D_AUDIT_SAFE_CONFIRMATION_R2_20261001/ops/make_return_bundle.sh	2026-10-01 17:19:36.694781618 +0000
+@@ -16,7 +16,9 @@
+ fi
+ cp -a "$ROOT/runtime/environment/." "$TMP/environment/" 2>/dev/null || true
+ cp -a "$ROOT/A4D_CONFIRMATION/protocol/SCHEDULE_A4D_MAIN.json" "$ROOT/A4D_CONFIRMATION/protocol/SCHEDULE_A4D_SMOKE.json" "$ROOT/A4D_CONFIRMATION/protocol/LOCK_A4D_MAIN.json" "$ROOT/A4D_CONFIRMATION/protocol/LOCK_A4D_SMOKE.json" "$ROOT/A4D_CONFIRMATION/protocol/A4D_CONFIRMATION_PROTOCOL.md" "$TMP/protocol/"
+-( cd "$TMP" && find . -type f -print0 | sort -z | xargs -0 sha256sum > RETURN_MANIFEST.sha256 )
++# Hash payload files only. The manifest must not hash itself while shell
++# redirection is still constructing it.
++( cd "$TMP" && find . -type f ! -path './RETURN_MANIFEST.sha256' -print0 | sort -z | xargs -0 sha256sum > RETURN_MANIFEST.sha256 )
+ tar -C "$TMP" -czf "$OUT" .
+ sha256sum "$OUT" > "$OUT.sha256"
+ echo "$OUT"

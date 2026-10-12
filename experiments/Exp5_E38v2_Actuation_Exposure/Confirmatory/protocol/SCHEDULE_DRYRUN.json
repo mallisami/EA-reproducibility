@@ -1,0 +1,44 @@
+{
+  "stage": 1,
+  "seed": 154080643,
+  "run_id": "e38v2r-20260926t1032z",
+  "horizon_s": 30.0,
+  "certificate": [
+    "a",
+    "c",
+    "e",
+    "scope",
+    "uid"
+  ],
+  "counts": {
+    "total": 5812,
+    "by_arm": {
+      "A2_fullrefresh": 1453,
+      "A0_native_uid": 1453,
+      "A1_dcji": 1453,
+      "A3_dcji_webhook": 1453
+    },
+    "by_condition": {
+      "async_scope": 1872,
+      "async_app_policy": 1872,
+      "async_evidence_last_literal": 1872,
+      "uid_rebind_control": 40,
+      "no_write": 156
+    },
+    "distinct_cells": 152,
+    "uid_trials": 40,
+    "writer_trials": 5616,
+    "non_uid_trials": 5772
+  },
+  "runtime_estimate": {
+    "seconds": 4069.5,
+    "hours": 1.13,
+    "model": {
+      "sec_per_trial_non_uid": 0.578,
+      "sec_per_trial_uid": 1.204,
+      "writer_overhead_s": 0.122,
+      "writer_overhead_is_estimate": true
+    }
+  },
+  "schedule_file": "/home/azureuser/e38v2r_20260926/results/e38v2r-20260926t1032z/SCHEDULE.json"
+}

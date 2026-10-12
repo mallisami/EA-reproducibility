@@ -1,0 +1,13 @@
+{
+  "a4d_async_trials": 1287,
+  "delete_200_when_readback_404": 1276,
+  "delete_409_when_readback_persisted": 11,
+  "non_commit_confirmed_by_absent_value": 0,
+  "raw_trials": 5344,
+  "readback_value_persisted": 11,
+  "status_counts": {
+    "COMPLETE": 5344
+  },
+  "writer_readback_200": 11,
+  "writer_readback_404": 1276
+}

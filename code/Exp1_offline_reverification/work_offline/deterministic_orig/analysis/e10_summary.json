@@ -1,0 +1,139 @@
+{
+  "by_hide_probability": {
+    "0.1": {
+      "template_mask_cells": 460,
+      "templates": 23,
+      "mask_replicates_per_template": 20,
+      "mean_template_UCR": 0.19130434782608696,
+      "template_cluster_bootstrap_95": [
+        0.14782608695652175,
+        0.23478260869565218
+      ],
+      "unsafe_mask_cells": 88,
+      "descriptive_mask_cell_UCR": 0.19130434782608696,
+      "templates_with_any_unsafe_mask": 22,
+      "mean_B6_query_cost": 0.9891304347826086,
+      "query_cost_template_cluster_bootstrap_95": [
+        0.8239130434782609,
+        1.2043478260869565
+      ],
+      "B6_no_feasible_attack_mode_cells": 88,
+      "B6_selective_mode_cells": 372,
+      "B6_fallback_cells": 0,
+      "actual_path_fully_visible_cells": 372,
+      "unsafe_when_actual_path_fully_visible": 0,
+      "actual_path_partially_hidden_cells": 88,
+      "unsafe_when_actual_path_partially_hidden": 88
+    },
+    "0.2": {
+      "template_mask_cells": 460,
+      "templates": 23,
+      "mask_replicates_per_template": 20,
+      "mean_template_UCR": 0.3391304347826087,
+      "template_cluster_bootstrap_95": [
+        0.2847826086956522,
+        0.39565217391304347
+      ],
+      "unsafe_mask_cells": 156,
+      "descriptive_mask_cell_UCR": 0.3391304347826087,
+      "templates_with_any_unsafe_mask": 23,
+      "mean_B6_query_cost": 0.7978260869565217,
+      "query_cost_template_cluster_bootstrap_95": [
+        0.6717391304347826,
+        0.9478260869565217
+      ],
+      "B6_no_feasible_attack_mode_cells": 156,
+      "B6_selective_mode_cells": 304,
+      "B6_fallback_cells": 0,
+      "actual_path_fully_visible_cells": 304,
+      "unsafe_when_actual_path_fully_visible": 0,
+      "actual_path_partially_hidden_cells": 156,
+      "unsafe_when_actual_path_partially_hidden": 156
+    },
+    "0.3": {
+      "template_mask_cells": 460,
+      "templates": 23,
+      "mask_replicates_per_template": 20,
+      "mean_template_UCR": 0.4652173913043478,
+      "template_cluster_bootstrap_95": [
+        0.4108695652173913,
+        0.5239130434782608
+      ],
+      "unsafe_mask_cells": 214,
+      "descriptive_mask_cell_UCR": 0.4652173913043478,
+      "templates_with_any_unsafe_mask": 23,
+      "mean_B6_query_cost": 0.5956521739130435,
+      "query_cost_template_cluster_bootstrap_95": [
+        0.5499999999999999,
+        0.6434782608695652
+      ],
+      "B6_no_feasible_attack_mode_cells": 214,
+      "B6_selective_mode_cells": 246,
+      "B6_fallback_cells": 0,
+      "actual_path_fully_visible_cells": 246,
+      "unsafe_when_actual_path_fully_visible": 0,
+      "actual_path_partially_hidden_cells": 214,
+      "unsafe_when_actual_path_partially_hidden": 214
+    },
+    "0.5": {
+      "template_mask_cells": 460,
+      "templates": 23,
+      "mask_replicates_per_template": 20,
+      "mean_template_UCR": 0.6934782608695652,
+      "template_cluster_bootstrap_95": [
+        0.6260869565217392,
+        0.758695652173913
+      ],
+      "unsafe_mask_cells": 319,
+      "descriptive_mask_cell_UCR": 0.6934782608695652,
+      "templates_with_any_unsafe_mask": 23,
+      "mean_B6_query_cost": 0.32173913043478264,
+      "query_cost_template_cluster_bootstrap_95": [
+        0.25869565217391305,
+        0.3847826086956522
+      ],
+      "B6_no_feasible_attack_mode_cells": 319,
+      "B6_selective_mode_cells": 141,
+      "B6_fallback_cells": 0,
+      "actual_path_fully_visible_cells": 141,
+      "unsafe_when_actual_path_fully_visible": 0,
+      "actual_path_partially_hidden_cells": 319,
+      "unsafe_when_actual_path_partially_hidden": 319
+    }
+  },
+  "mechanism": {
+    "all_positive_template_mask_cells": 1840,
+    "actual_path_fully_visible_cells": 1063,
+    "unsafe_visible_cells": 0,
+    "UCR_visible": 0.0,
+    "actual_path_partially_hidden_cells": 777,
+    "unsafe_hidden_cells": 777,
+    "UCR_hidden": 1.0
+  },
+  "negative_control": {
+    "0.1": {
+      "mask_cells": 20,
+      "B6_unsafe": 0,
+      "B6_abort": 0,
+      "mean_query_cost": 0.0
+    },
+    "0.2": {
+      "mask_cells": 20,
+      "B6_unsafe": 0,
+      "B6_abort": 0,
+      "mean_query_cost": 0.0
+    },
+    "0.3": {
+      "mask_cells": 20,
+      "B6_unsafe": 0,
+      "B6_abort": 0,
+      "mean_query_cost": 0.0
+    },
+    "0.5": {
+      "mask_cells": 20,
+      "B6_unsafe": 0,
+      "B6_abort": 0,
+      "mean_query_cost": 0.0
+    }
+  }
+}

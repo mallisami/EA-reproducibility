@@ -1,0 +1,42 @@
+{
+  "schema": "a4d.confirmation.session.v1",
+  "run_id": "a4dcr-r2-20261001",
+  "schedule_seed": 100120261,
+  "schedule_sha256": "c9ea03d64d6604540868beb64013f9b096e47d6b70f39d152df41e7b74fe2fb4",
+  "n_scheduled": 985,
+  "api_server": "https://127.0.0.1:6443",
+  "ca_sha256": "5e5da9001eac2400e8ab57cfedb1882285e566e0f06b947aa6b1c6abf02357b9",
+  "kubernetes_version": "v1.37.0+k3s1",
+  "deployment": "two-host K3s; A4d target on a4d-worker; audit-safe stream required",
+  "worker_selector": {
+    "a4d-role": "workload"
+  },
+  "identities": {
+    "responder": "system:serviceaccount:e39-system:e39-responder",
+    "writer": "system:serviceaccount:e39-system:e39-writer",
+    "reset": "system:serviceaccount:e39-system:e39-reset",
+    "mirror": "system:serviceaccount:e39-system:e39-mirror"
+  },
+  "design": {
+    "arms": [
+      "A4d_commit_direct"
+    ],
+    "conditions": [
+      "async_scope",
+      "async_app_policy",
+      "async_evidence_last_literal"
+    ],
+    "deltas_ms": [
+      0.0,
+      2.0,
+      5.0,
+      10.0,
+      20.0,
+      50.0,
+      100.0,
+      200.0
+    ],
+    "stage2_topup": false
+  },
+  "started_utc": "2026-10-01T16:55:06Z"
+}

@@ -1,0 +1,55 @@
+{
+  "B0": {
+    "name": "OneShot",
+    "primary_scope": "all deterministic incidents",
+    "applicability_rule": "always",
+    "role": "unprotected lower baseline"
+  },
+  "B2": {
+    "name": "TTLGuard",
+    "primary_scope": "all deterministic incidents",
+    "applicability_rule": "always",
+    "primary_ttl_s": 2.0,
+    "sensitivity_ttl_s": [
+      0.5,
+      1.0,
+      2.0,
+      5.0,
+      10.0,
+      30.0
+    ],
+    "role": "freshness heuristic baseline"
+  },
+  "B3": {
+    "name": "TargetBindingGuard",
+    "primary_scope": "only incidents whose balanced binding expression contains at least one predicate",
+    "applicability_rule": "N/A when binding is literal true; N/A rows are excluded from B3 pairwise denominators",
+    "families_expected_applicable": [
+      "F1",
+      "F2",
+      "F3"
+    ],
+    "role": "strong binding/version baseline"
+  },
+  "B4": {
+    "name": "FullRefresh",
+    "primary_scope": "all deterministic incidents",
+    "applicability_rule": "always",
+    "role": "security upper-bound refresh baseline"
+  },
+  "B5": {
+    "name": "NativePrecondition",
+    "primary_scope": "only incidents with native_controls.applicable=true",
+    "applicability_rule": "N/A otherwise; atomic server-side precondition, zero additional query reads where modeled",
+    "families_expected_applicable": [
+      "F1"
+    ],
+    "role": "platform-native atomic identity baseline"
+  },
+  "B6": {
+    "name": "DCJI-Gate",
+    "primary_scope": "all deterministic incidents",
+    "applicability_rule": "always; FullRefresh fail-safe on planning uncertainty",
+    "role": "proposed selective revalidation defense"
+  }
+}

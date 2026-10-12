@@ -1,0 +1,20 @@
+{
+  "experiment": "E26",
+  "title": "Independent-Cluster Replication of E21's Primary Confirmatory Condition",
+  "motivation": "E21's 3,600-trial benchmark and its cell-specific bootstrap confidence intervals are correctly restricted, in the manuscript's own limitations section, to within-testbed repeated-trial uncertainty: all 3,600 trials ran against one kind cluster instance, one process environment, one long-lived proxy. This experiment replicates E21's primary confirmatory condition (idle load, sequential acquisition, all 3 conditions) on a GENUINELY SEPARATE kind cluster instance -- a fresh `kind create cluster` invocation, not a restart of the same container -- to test whether the core finding (DCJI issues fewer physical requests and completes commit-gate revalidation faster than FullRefresh, with 0 safety discordance) replicates outside the original single-cluster environment.",
+  "scenario": "F5_PHYS",
+  "cluster_name": "flashir-e26",
+  "namespace": "flashir-e21",
+  "proxy_port": 8002,
+  "load_level": "idle",
+  "acquisition_mode": "sequential",
+  "conditions": ["stable", "ea_attack", "irrelevant_mutation"],
+  "warmup_pairs_per_condition": 20,
+  "measured_pairs_per_condition": 100,
+  "random_seed": 20260913,
+  "expected_dcji_request_count": 3,
+  "expected_fullrefresh_request_count": 6,
+  "primary_endpoint": "paired_refresh_latency_ms",
+  "bootstrap_replicates": 10000,
+  "notes": "Preregistered post-hoc extension (E26), run on a cluster and namespace entirely separate from E21's original cluster/data, which remain untouched. Scoped to the idle/sequential cells only (E21's primary confirmatory condition, per the original design decision recorded in that experiment's own materials) rather than the full 12-cell matrix, given this is a replication check rather than a new confirmatory benchmark in its own right. This is a genuinely new kind cluster instance (fresh 'kind create cluster', not a restart of flashir-e13), giving real cross-cluster (not merely cross-day) replication evidence."
+}

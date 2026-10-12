@@ -1,0 +1,26 @@
+{
+  "results_version": "4.0.0-e1-e5",
+  "freeze_id": "FLASHIR-DET-HELDOUT-FREEZE-20260905",
+  "protocol_deviations": [],
+  "e1_rows": 384,
+  "e5_rows": 1856,
+  "positive_primary_W2_rows": 92,
+  "negative_control_W2_rows": 4,
+  "validation_status": "PASS",
+  "analysis_files": [
+    "analysis/e1_summary.json",
+    "analysis/e5_summary.json",
+    "analysis/confirmatory_comparisons.json",
+    "analysis/additional_descriptives.json",
+    "analysis/E1_E5_HELDOUT_RESULTS.md"
+  ],
+  "audit_version": "4.1.0",
+  "raw_results_modified": false,
+  "audit_verdict": "RAW RESULTS PASS; STATISTICAL REPORTING REQUIRES CORRECTION BEFORE E3/E4.",
+  "statistical_reporting_corrections": [
+    "template-level inference for nested P1-P4",
+    "withhold formal C4 5% non-inferiority claim",
+    "template-level Wilcoxon for C5",
+    "template-aware descriptive intervals"
+  ]
+}

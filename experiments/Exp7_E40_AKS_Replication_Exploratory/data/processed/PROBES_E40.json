@@ -1,0 +1,79 @@
+{
+ "P1": {
+  "gitVersion": "v1.36.3",
+  "identities": {
+   "mirror": "system:serviceaccount:e40-system:e40-mirror",
+   "reset": "system:serviceaccount:e40-system:e40-reset",
+   "responder": "system:serviceaccount:e40-system:e40-responder",
+   "writer": "system:serviceaccount:e40-system:e40-writer"
+  },
+  "kubernetes_service_host": "10.0.0.1",
+  "kubernetes_service_port": "443",
+  "version_http": 200,
+  "version_ok": true
+ },
+ "P2": {
+  "allow_http": 200,
+  "allow_rtt_ms": 171.66939,
+  "deny_http": 403,
+  "deny_message": "admission webhook \"action-revalidation.e39.e40-managed.local\" denied the request: e38v2-webhook: deny: scope_not_allowed",
+  "ok": true,
+  "pod_uid": "74d137f7-ee03-4a1f-a8ee-633775aa95ba"
+ },
+ "P3": {
+  "current_delete_http": 200,
+  "current_delete_response_rv": "3464",
+  "current_rv": "3462",
+  "gate_decision": "EXECUTE",
+  "message_names_rv_precondition": false,
+  "ready_wait_ms": 409.792024,
+  "rv_at_gate": "3461",
+  "stale_delete_http": 409,
+  "stale_delete_message": "Operation cannot be fulfilled on Pod \"e40-target\": the ResourceVersion in the precondition (3461) does not match the ResourceVersion in record (3462). The object might have been modified",
+  "writer_patch_rv": "3462"
+ },
+ "P4": {
+  "ok": true,
+  "pod_state_at_check": {
+   "container_state": "running",
+   "node": "aks-nodepool1-22627011-vmss000000",
+   "phase": "Running",
+   "ready": true,
+   "resource_version": "3493",
+   "terminating": false,
+   "uid": "ad11376b-db95-4fed-90cb-14928b44d820"
+  },
+  "ready_wait_ms": 451.675633
+ },
+ "P5": {
+  "events": [],
+  "modified_per_minute": 0,
+  "n_events": 0,
+  "n_modified_target": 0,
+  "watch_seconds": 60
+ },
+ "P6": {
+  "cm_patch_rvs_strictly_increasing": true,
+  "cm_rv_first_last": [
+   1986,
+   3382
+  ],
+  "patch_then_delete": {
+   "delete_http": 200,
+   "delete_response_rv": "3451",
+   "delete_rtt_ms": 24.132656,
+   "delete_rv_gt_patch_rv": true,
+   "patch_rv": 3449
+  },
+  "pod_patch_rvs_strictly_increasing": true,
+  "pod_rv_first_last": [
+   3395,
+   3448
+  ]
+ },
+ "api_base": "https://10.0.0.1:443",
+ "finished_wall": "2026-09-26T17:40:45Z",
+ "namespace": "e40-smoke1",
+ "schema": "e40.probes.v1",
+ "started_wall": "2026-09-26T17:39:41Z"
+}

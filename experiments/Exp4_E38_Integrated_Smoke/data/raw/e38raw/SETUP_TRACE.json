@@ -1,0 +1,240 @@
+[
+  {
+    "kind": "preflight",
+    "method": "GET",
+    "path": "/version",
+    "t0_ms": 306033.679689,
+    "t1_ms": 306056.773379,
+    "status": 200,
+    "response_bytes": 379
+  },
+  {
+    "kind": "preflight",
+    "method": "GET",
+    "path": "/api/v1/namespaces/e38-e3820260919094024",
+    "t0_ms": 306057.150584,
+    "t1_ms": 306059.228734,
+    "status": 404,
+    "response_bytes": 222
+  },
+  {
+    "kind": "setup",
+    "method": "POST",
+    "path": "/api/v1/namespaces",
+    "t0_ms": 306059.306118,
+    "t1_ms": 306063.685325,
+    "status": 201,
+    "response_bytes": 638,
+    "payload_sha256": "8cee1410511f6e30288f4e25cd47d111e3d1046241a539527b760e78b2e00e98",
+    "payload_bytes": 147
+  },
+  {
+    "kind": "setup",
+    "method": "GET",
+    "path": "/api/v1/namespaces/e38-e3820260919094024/configmaps/obs-a",
+    "t0_ms": 306063.777176,
+    "t1_ms": 306066.516588,
+    "status": 404,
+    "response_bytes": 190
+  },
+  {
+    "kind": "setup",
+    "method": "POST",
+    "path": "/api/v1/namespaces/e38-e3820260919094024/configmaps",
+    "t0_ms": 306066.602899,
+    "t1_ms": 306074.447253,
+    "status": 201,
+    "response_bytes": 508,
+    "payload_sha256": "10f80dc67c46c1c4e03cefe86ced43a083bf528c7ca8720021e26e023dbc8060",
+    "payload_bytes": 158
+  },
+  {
+    "kind": "setup",
+    "method": "GET",
+    "path": "/api/v1/namespaces/e38-e3820260919094024/configmaps/obs-b",
+    "t0_ms": 306074.540086,
+    "t1_ms": 306076.315391,
+    "status": 404,
+    "response_bytes": 190
+  },
+  {
+    "kind": "setup",
+    "method": "POST",
+    "path": "/api/v1/namespaces/e38-e3820260919094024/configmaps",
+    "t0_ms": 306076.381214,
+    "t1_ms": 306080.037603,
+    "status": 201,
+    "response_bytes": 508,
+    "payload_sha256": "8aedcda90e5ca9f2afa599ad2fb77ffaed170f6dfdf193dfe597e929795bd571",
+    "payload_bytes": 158
+  },
+  {
+    "kind": "setup",
+    "method": "GET",
+    "path": "/api/v1/namespaces/e38-e3820260919094024/configmaps/obs-c",
+    "t0_ms": 306080.09499,
+    "t1_ms": 306081.604879,
+    "status": 404,
+    "response_bytes": 190
+  },
+  {
+    "kind": "setup",
+    "method": "POST",
+    "path": "/api/v1/namespaces/e38-e3820260919094024/configmaps",
+    "t0_ms": 306081.665542,
+    "t1_ms": 306085.852257,
+    "status": 201,
+    "response_bytes": 508,
+    "payload_sha256": "ee36c24ce0f95e8e52b3311a39fe9d3ffae559f82c4552e206754071dbc1ddb2",
+    "payload_bytes": 158
+  },
+  {
+    "kind": "setup",
+    "method": "GET",
+    "path": "/api/v1/namespaces/e38-e3820260919094024/configmaps/obs-d",
+    "t0_ms": 306085.9074,
+    "t1_ms": 306087.578613,
+    "status": 404,
+    "response_bytes": 190
+  },
+  {
+    "kind": "setup",
+    "method": "POST",
+    "path": "/api/v1/namespaces/e38-e3820260919094024/configmaps",
+    "t0_ms": 306087.639286,
+    "t1_ms": 306091.457475,
+    "status": 201,
+    "response_bytes": 508,
+    "payload_sha256": "c5f2b029c068cfc838491af157a2c33cdb0910a530f5bb7d80185201a599fd05",
+    "payload_bytes": 158
+  },
+  {
+    "kind": "setup",
+    "method": "GET",
+    "path": "/api/v1/namespaces/e38-e3820260919094024/configmaps/obs-e",
+    "t0_ms": 306091.530311,
+    "t1_ms": 306093.273804,
+    "status": 404,
+    "response_bytes": 190
+  },
+  {
+    "kind": "setup",
+    "method": "POST",
+    "path": "/api/v1/namespaces/e38-e3820260919094024/configmaps",
+    "t0_ms": 306093.333676,
+    "t1_ms": 306097.04789,
+    "status": 201,
+    "response_bytes": 508,
+    "payload_sha256": "93f0355c4dc536eab70cff3a38d62412ac996252e5776d1c7e59ee4d8601f901",
+    "payload_bytes": 158
+  },
+  {
+    "kind": "setup",
+    "method": "GET",
+    "path": "/api/v1/namespaces/e38-e3820260919094024/configmaps/obs-f",
+    "t0_ms": 306097.103404,
+    "t1_ms": 306098.858162,
+    "status": 404,
+    "response_bytes": 190
+  },
+  {
+    "kind": "setup",
+    "method": "POST",
+    "path": "/api/v1/namespaces/e38-e3820260919094024/configmaps",
+    "t0_ms": 306098.918906,
+    "t1_ms": 306102.660229,
+    "status": 201,
+    "response_bytes": 508,
+    "payload_sha256": "e62e70ffe96203058fc8bddae507c346f3f0d47ab74a6e82b019a79a893459e2",
+    "payload_bytes": 158
+  },
+  {
+    "kind": "setup",
+    "method": "GET",
+    "path": "/api/v1/namespaces/e38-e3820260919094024/configmaps/scope-policy",
+    "t0_ms": 306102.748093,
+    "t1_ms": 306104.569629,
+    "status": 404,
+    "response_bytes": 204
+  },
+  {
+    "kind": "setup",
+    "method": "POST",
+    "path": "/api/v1/namespaces/e38-e3820260919094024/configmaps",
+    "t0_ms": 306104.630452,
+    "t1_ms": 306109.361844,
+    "status": 201,
+    "response_bytes": 531,
+    "payload_sha256": "b8799b8e1b30dfbea4e74211c5f18a43b32a392c136cbe436a895820e9a0a45a",
+    "payload_bytes": 179
+  },
+  {
+    "kind": "setup",
+    "method": "GET",
+    "path": "/api/v1/namespaces/e38-e3820260919094024/configmaps/application-policy",
+    "t0_ms": 306109.420654,
+    "t1_ms": 306111.066867,
+    "status": 404,
+    "response_bytes": 216
+  },
+  {
+    "kind": "setup",
+    "method": "POST",
+    "path": "/api/v1/namespaces/e38-e3820260919094024/configmaps",
+    "t0_ms": 306111.130135,
+    "t1_ms": 306114.912928,
+    "status": 201,
+    "response_bytes": 525,
+    "payload_sha256": "16074bb1ac396c1446f7b8e0885c8c7ceab42fafa9e376ba6d83f75f9d0eb5e6",
+    "payload_bytes": 173
+  },
+  {
+    "kind": "setup",
+    "method": "GET",
+    "path": "/api/v1/namespaces/e38-e3820260919094024/configmaps/e38-epoch",
+    "t0_ms": 306114.968822,
+    "t1_ms": 306116.704533,
+    "status": 404,
+    "response_bytes": 198
+  },
+  {
+    "kind": "setup",
+    "method": "POST",
+    "path": "/api/v1/namespaces/e38-e3820260919094024/configmaps",
+    "t0_ms": 306116.766158,
+    "t1_ms": 306122.17146,
+    "status": 201,
+    "response_bytes": 515,
+    "payload_sha256": "ac7e2daaeb83b6ee74505085b7f46b9dc6913f93d1d30e7f3c0eb3d8dcd05c13",
+    "payload_bytes": 162
+  },
+  {
+    "kind": "setup",
+    "method": "GET",
+    "path": "/api/v1/namespaces/e38-e3820260919094024/configmaps/obs-irrelevant",
+    "t0_ms": 306122.242052,
+    "t1_ms": 306123.930206,
+    "status": 404,
+    "response_bytes": 208
+  },
+  {
+    "kind": "setup",
+    "method": "POST",
+    "path": "/api/v1/namespaces/e38-e3820260919094024/configmaps",
+    "t0_ms": 306123.995358,
+    "t1_ms": 306127.773627,
+    "status": 201,
+    "response_bytes": 519,
+    "payload_sha256": "2bf340c41996a8a5066183c3fac4907416d62f7ed7953386105da483163bcfde",
+    "payload_bytes": 170
+  },
+  {
+    "kind": "setup",
+    "method": "GET",
+    "path": "/api/v1/namespaces/e38-e3820260919094024/pods/e38-target",
+    "t0_ms": 306127.833319,
+    "t1_ms": 306129.606144,
+    "status": 404,
+    "response_bytes": 188
+  }
+]

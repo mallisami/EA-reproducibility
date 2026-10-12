@@ -1,0 +1,271 @@
+E39 RUNBOOK -- commit-bound enforcement, Poisson arrivals, read-latency cost, load, NetworkPolicy action,
+client-go responder, live out-of-model mutation
+=========================================================================================================
+Version 1, 2026-09-26. Every command is to be approved and run by the OPERATOR (the paper's authors) on their
+own VM (azureuser@<PUBLIC_IP_REDACTED>). Nothing here has been executed. Lines marked <<VERIFY>> depend on the runner
+agent's CLI (src/) and must be checked against `--help` of the HASHED scripts before approval.
+
+GOLDEN RULES
+  R1  The VM hosts OTHER clusters that must never be touched: mape-cap-confirm, mcb-k137, rev-n5 and e38v2
+      (the E38v2 confirmatory rerun). Never run `kind delete cluster` without `--name e39`. Every kubectl call
+      goes through the function k (context pinned to kind-e39). Never `kind delete clusters --all`,
+      `docker system prune`, `docker exec` into, stop or `kind load` into another cluster.
+  R2  No image pulls: kindest/node:v1.37.0 (contains registry.k8s.io/pause:3.10) and python:3.12-slim are
+      local; the client-go responder binary (E39-F) is built BEFORE the lock (src/goclient/bin/e39-goclient,
+      client-go v0.37.0, go1.27.1; sha256 of binary and go.sum in src/goclient/BUILD_INFO.txt; binary, go.mod,
+      go.sum, *.go and BUILD_INFO.txt are explicit LOCK entries); nothing is downloaded during the run.
+  R3  Host safety (E39-D and in general): the VM hosts other projects. Before and during high load check
+      host CPU and free RAM; the load guard drops to moderate when CPU > 85 % for > 60 s or free RAM < 2 GB
+      and logs it (host.load_throttled). Abort a sub-experiment if free RAM < 1.5 GB at any time.
+  R4  Any failing verification step: STOP, do not start trials, keep the cluster for diagnosis.
+  R5  Schedule seed: fresh; NOT 20260912, 1772720255 or 154080643 (E38v2 rerun). One LOCK covers A-G;
+      any code/config edit after the lock invalidates it.
+
+-----------------------------------------------------------------------------------------------------
+0. SHELL SETUP (every new shell)
+-----------------------------------------------------------------------------------------------------
+  cd ~/e39_20260926
+  export E=~/e39_20260926
+  export RUN_ID=<run id, [a-z0-9-], e.g. e39-20260927a>     # smoke: smoke-e39-20260927a
+  export NS=e39-$RUN_ID
+  export R=$E/results/$RUN_ID
+  export KCFG=$E/.kubeconfig_e39                             # dedicated kubeconfig file (never ~/.kube/config)
+  k() { kubectl --kubeconfig "$KCFG" --context kind-e39 "$@"; }
+  set -o pipefail
+  # after section 2 (cluster exists): loopback API URL + pinned CA of kind-e39, runner shorthand
+  export API=$(k config view --minify -o jsonpath='{.clusters[0].cluster.server}')   # EXPECT https://127.0.0.1:<port>
+  export CA=$E/.ca_e39.crt                                   # k config view --raw --minify -o \
+                                                             #   jsonpath='{.clusters[0].cluster.certificate-authority-data}' | base64 -d > $CA
+  export TOK=$E/.tokens_$RUN_ID                              # responder.token writer.token reset.token mirror.token load.token (mode 600)
+  RUN() { venv_runner/bin/python src/e39_runner.py "$@"; }
+  LIVE="--run-id $RUN_ID --namespace $NS --context kind-e39 --api-server $API --ca-file $CA --token-dir $TOK --output-dir $R --ack-disposable"
+
+-----------------------------------------------------------------------------------------------------
+1. PREFLIGHT (read-only) AND PREREQUISITES IN THE RUNNER TREE
+-----------------------------------------------------------------------------------------------------
+  kind get clusters | tee /tmp/e39_clusters_before.txt       # EXPECT e38v2, mape-cap-confirm, mcb-k137, rev-n5; NO e39
+  docker ps --format '{{.Names}} {{.Status}}' | sort | tee /tmp/e39_docker_before.txt
+  df -h ~ | tail -1        # EXPECT >= 20 GB free
+  free -m | head -2        # EXPECT available >= 6000 MB (E39-D needs headroom)
+  nproc; uptime            # record load average of the other clusters before starting
+  docker image inspect --format '{{.Id}}' kindest/node:v1.37.0 python:3.12-slim
+  kind version; kubectl version --client                     # EXPECT v0.33.0 / v1.37.0
+
+  Prerequisites in the runner-owned files (checked here, fixed by the runner agent, BEFORE the lock):
+  P1 deploy/kind-config.yaml: `name: e39`; every hostPath points into $E (not ~/e38v2r_20260926); audit log
+     dir $E/results/_audit_host, webhook log dir $E/results/_webhook_host.            <<VERIFY>>
+       grep -nE 'name: |hostPath' deploy/kind-config.yaml
+  P2 deploy/audit-policy.yaml must log at RequestResponse (ResponseComplete, responseObject + responseStatus
+     incl. message) in the e39-* test namespaces:
+       configmaps update/patch   (writers, arrivals, cuts, A4m source)
+       pods delete               (action; 409 message needed by the oracle)
+       pods patch/update         (A4d writer / arrivals / cuts on annotations, A4m MIRROR patches)
+       pods/status update/patch  (kubelet; RequestResponse so the responseObject RV attributes 409s)
+       networkpolicies create    (E39-E action)
+     and at level None: e39-load (E39-D load namespace), e39-system, kube-system, reads/watches. The E38v2
+     policy (copied) covers only the first two rows -> it MUST be extended.            <<VERIFY>>
+       grep -nE 'resources|verbs|namespaces|level' deploy/audit-policy.yaml
+  P3 deploy/webhook-config.yaml: rules DELETE pods AND CREATE networkpolicies (E39-E, objectSelector
+     e39-webhook=enforce applies to the NEW object); failurePolicy Fail.                 <<VERIFY>>
+  P4 deploy/rbac.yaml: identities responder, writer, reset, mirror, load, webhook with least privilege
+     (mirror: watch configmaps + patch pods in $NS; load: only e39-load; writer: patch configmaps + pods). <<VERIFY>>
+  P5 protocol/LOCK_TEMPLATE_E39.json lists every runner artifact: src/*.py (runner, mirror controller, load
+     generator, delay proxy, arrivals, bridge), src/tests_harness/*.py, src/goclient/*.go, go.mod, go.sum,
+     BUILD_INFO.txt, bin/e39-goclient, frozen_ref/source_provenance/E37_F5_PHYS_ORIGINAL.json (done 2026-09-26).
+       grep -n 'src/' protocol/LOCK_TEMPLATE_E39.json
+
+  Offline tests (no cluster):
+  sh analysis/run_tests.sh                                   # EXPECT all passed (>= 100 tests)
+  (cd src && ../venv_runner/bin/python -m pytest -q)         # EXPECT all passed (runner + harness + bridge)
+  (cd src && ../venv_runner/bin/python e39_runner.py --offline-selftest --output-dir /tmp/e39_selftest)
+      # EXPECT exit 0: every sub-experiment against 127.0.0.1 fakes, schema-valid records, analysis gate passed
+      # (/tmp/e39_selftest/SELFTEST_SUMMARY.json); E39-F uses the real Go binary against a TLS fake
+  (cd webhook && python3 -m unittest discover -s tests -v)
+  mkdir -p $E/results/_audit_host $E/results/_webhook_host; ls -ld $E/results/_audit_host   # owner azureuser
+
+-----------------------------------------------------------------------------------------------------
+2. CREATE THE DEDICATED CLUSTER e39
+-----------------------------------------------------------------------------------------------------
+  kind create cluster --name e39 --config deploy/kind-config.yaml --kubeconfig "$KCFG" --wait 180s
+  kind get clusters                         # EXPECT the previous list + e39
+  k get nodes -o wide                       # e39-control-plane Ready, v1.37.0
+  kind load docker-image python:3.12-slim --name e39
+  docker exec e39-control-plane crictl images | grep -E 'pause.*3.10|python.*3.12-slim'
+  docker exec e39-control-plane grep -E 'audit-(policy-file|log-path)' /etc/kubernetes/manifests/kube-apiserver.yaml
+
+-----------------------------------------------------------------------------------------------------
+3. PER-RUN SETUP (smoke RUN_ID first, then the main RUN_ID used by every sub-experiment and stage 2)
+-----------------------------------------------------------------------------------------------------
+  mkdir -p $R
+  deploy/render.sh $RUN_ID $E/results/_render_$RUN_ID && deploy/gen_certs.sh $E/results/_render_$RUN_ID  <<VERIFY>>
+  k apply -f $E/results/_render_$RUN_ID/namespace.yaml ; k apply -f $E/results/_render_$RUN_ID/rbac.yaml
+      # namespace.yaml creates e39-system, e39-$RUN_ID AND e39-load (E39-D load namespace); the runner creates
+      # its load ConfigMaps (e39-load-00..07) itself with the load identity
+  webhook code/TLS/config exactly as in the E38v2 runbook section 3 (context kind-e39), then:
+  k get validatingwebhookconfiguration -o yaml | grep -nE 'operations|resources|failurePolicy|timeoutSeconds'
+      # EXPECT DELETE pods and CREATE networkpolicies
+  RBAC checks (impersonation; expected answer after ->):
+  k auth can-i delete pods -n $NS --as=system:serviceaccount:e39-system:e39-responder            # yes
+  k auth can-i create networkpolicies -n $NS --as=system:serviceaccount:e39-system:e39-responder # yes
+  k auth can-i patch configmaps -n $NS --as=system:serviceaccount:e39-system:e39-responder       # no
+  k auth can-i patch pods -n $NS --as=system:serviceaccount:e39-system:e39-writer                # yes (A4d)
+  k auth can-i delete pods -n $NS --as=system:serviceaccount:e39-system:e39-writer               # no
+  k auth can-i patch pods -n $NS --as=system:serviceaccount:e39-system:e39-mirror                # yes
+  k auth can-i patch configmaps -n $NS --as=system:serviceaccount:e39-system:e39-mirror          # no
+  k auth can-i list configmaps -n $NS --as=system:serviceaccount:e39-system:e39-load             # no
+  k auth can-i patch configmaps -n e39-load --as=system:serviceaccount:e39-system:e39-load       # yes
+  Tokens: as E38v2 runbook section 5, for responder, writer, reset, mirror, load (24 h, mode 600, never exported),
+  written as $TOK/<identity>.token (the runner verifies each username = system:serviceaccount:e39-system:e39-<identity>).
+
+-----------------------------------------------------------------------------------------------------
+4. VERIFICATION PROBES (in $NS; unmatched to trials; timestamps recorded)
+-----------------------------------------------------------------------------------------------------
+  date -u +%FT%T.%NZ | tee $R/PROBES_START.txt
+  4.1 Baseline (as E38v2 section 4.1-4.8): valid fixture ConfigMaps, webhook deny/allow on Pod DELETE,
+      audit contains configmaps patch + pods delete with responseObject.
+  4.2 A4 409 PROBE (resourceVersion precondition; the oracle depends on the 409 message):
+      create a target Pod (pause:3.10, imagePullPolicy Never) with the eight e38.* annotations = true; wait Ready;
+      RV0=$(k -n $NS get pod probe-a4 -o jsonpath='{.metadata.resourceVersion}'); UID=$(... .metadata.uid)
+      k -n $NS annotate pod probe-a4 e38.scope='not allowed' --overwrite --as=system:serviceaccount:e39-system:e39-writer
+      DELETE with preconditions {uid: $UID, resourceVersion: $RV0}, gracePeriodSeconds 0 (responder identity):
+        python3 src/<probe helper> delete-precondition --pod probe-a4 --uid $UID --rv $RV0        <<VERIFY>>
+      EXPECT HTTP 409; message contains "Precondition failed: ResourceVersion in precondition: $RV0,
+      ResourceVersion in object meta: <RV1>" with RV1 = the annotate commit RV; the audit ResponseComplete of
+      that DELETE carries code 409 and the same message (responseStatus.message). Then repeat with the
+      CURRENT RV -> EXPECT 200 and Pod deleted; and with a wrong UID -> 409 "UID in precondition".
+      Record: sudo grep '<audit id>' $E/results/_audit_host/audit.log | python3 -m json.tool | grep -n message
+  4.3 MIRROR PROBE (A4m): start the mirror controller for $NS with the mirror identity:
+        python3 src/mirror_controller.py --api https://127.0.0.1:<port> --namespace $NS --identity mirror \
+          --token-file $E/.tokens_$RUN_ID/mirror.token --ca-file <ca> --log $R/mirror_probe.jsonl --duration-s 60 &
+      patch response-scope allowed=false (writer identity); within 1 s the target Pod annotation e38.scope
+      must read "false"; the mirror log line (e39.mirror.v1, kind=update) has mirror_commit_rv > source_commit_rv
+      and a mirror_audit_id that appears in audit.log as a pods patch by the mirror identity. Record the lag.
+      Restore allowed=true, confirm convergence, stop the controller.
+  4.4 DELAY-PROXY CALIBRATION PROBE (E39-C): start the loopback proxy for the RESPONDER identity only and run
+      its calibrate() for c in {0, 50, 200, 1000} ms, >= 30 GETs each (harness_delay_proxy)        <<VERIFY>>
+      ACCEPT: median(added delay - c) within +-2 ms for c <= 200 and within +-1 % for c = 1000; p95 recorded;
+      a writer/reset GET through the apiserver directly shows no added delay; LIST/PATCH through the proxy
+      are not delayed. Save the calibration JSON to $R/delay_proxy_calibration.json.
+  4.5 LOAD-GUARD PROBE (E39-D): LoadProcess at moderate for 60 s -> load_observed_rps ~ 50 (+-10 %), errors 0,
+      host CPU / MemAvailable recorded; then the test hook inject(cpu_pct=95) for > 60 s (or
+      mem_available_mb=1500) -> level drops high -> moderate, load_throttled latched, event logged; then
+      reset_throttle(); high for 60 s only if CPU stays < 85 % (record the trace to $R/load_probe.json). <<VERIFY>>
+      Check that the load namespace produces NO audit lines (level None).
+  4.6 NETWORKPOLICY WEBHOOK PROBE (E39-E): invalid state (application-policy allowed=false) -> CREATE of an
+      isolation NetworkPolicy labelled e39-webhook=enforce is DENIED (403, webhook log deny with object
+      name); valid state -> CREATE allowed (201); an unlabelled NetworkPolicy is not intercepted. The audit
+      shows networkpolicies create with responseObject.metadata.resourceVersion. Delete the probe policies
+      with the reset identity.
+  4.7 CLIENT-GO PROBE (E39-F): the Go responder performs one DCJI gate + UID-precondition DELETE and one A4d
+      precondition DELETE on probe Pods; records carry client_impl=client-go, go_client_version, audit ids
+      that join; the Audit-Id header is captured by the Go client.                                  <<VERIFY>>
+  4.8 Audit sanity (script as E38v2 4.8, extended): events for configmaps patch, pods patch (writer AND
+      mirror identities), pods delete (200 and 409), networkpolicies create; no RequestReceived stage.
+  k -n $NS delete pod,networkpolicy --all --as=system:serviceaccount:e39-system:e39-reset --wait=true
+  date -u +%FT%T.%NZ | tee $R/PROBES_END.txt
+
+-----------------------------------------------------------------------------------------------------
+5. DRY-RUN AND SMOKE (smoke RUN_ID; not analysed as data)
+-----------------------------------------------------------------------------------------------------
+  RUN --dry-run --seed <SMOKE_SEED> --run-id $RUN_ID --output-dir $R | tee $R/DRY_RUN.txt
+      # no network; counts per sub-experiment (A 5344, B 4800, C 3840 = 1920 pairs, D 1872, E 1248, F 936,
+      # G 156) and the RUNTIME ESTIMATE per sub-experiment (model: 0.7 s per running-Pod DELETE trial measured in
+      # the E38v2 running-Pod rerun (0.76 s) + injected latency for C + arrival tail for B + D level settles; target <= 3 h total;
+      # current model estimate ~4.6 h, A ~1.2 h, B ~1.1 h, C ~1.1 h) -> also $R/DRY_RUN.json
+  RUN --make-schedule $R/SCHEDULE.json --seed <SMOKE_SEED> --run-id $RUN_ID --reps 1
+      # smoke schedule: 1 trial per cell of every sub-experiment (C: 1 pair per cell), NOT the design
+  RUN --schedule $R/SCHEDULE.json --unlocked-smoke $LIVE
+      # runs all sub-experiments of the smoke schedule (add --only G etc. to restrict); resume-safe
+  Export the smoke audit/webhook logs into $R (section 9 commands), then:
+  venv_analysis/bin/python analysis/analyze_e39.py --run-dir $R --lock protocol/LOCK_TEMPLATE_E39.json \
+      --stage 1 --design-check off --out $R/analysis_smoke          # REFUSES (template not LOCKED): expected;
+  venv_analysis/bin/python analysis/oracle_e39.py --raw $R/RAW_TRIALS.jsonl --webhook $R/webhook_log.jsonl \
+      --audit $R/audit.log --pod-events $R/pod_events.jsonl --out $R/oracle_smoke.csv
+  ACCEPT: 0 INFRA_ERROR; UNKNOWN only gate_unknown_coherence; every write / arrival / cut / mirror / action has
+  an audit ResponseComplete joined by audit id; A3 trials joined to webhook entries (pod uid or netpol name);
+  409s have conflict_kind resourceVersion or uid (no "conflict_message_unparsed" flag); E39-C records carry
+  acquisition.{refresh_ms, gate_ms}; E39-D records carry host.{cpu_pct, free_ram_mb, load_throttled}.
+
+-----------------------------------------------------------------------------------------------------
+6. LOCK (once, before any trial that counts)
+-----------------------------------------------------------------------------------------------------
+  RUN --make-schedule $R/SCHEDULE.json --seed <NEW_SEED> --run-id $RUN_ID     # refuses forbidden seeds / overwrite
+  RUN --dry-run --schedule $R/SCHEDULE.json                                     # EXPECT the design counts above
+  python3 protocol/lock_hash_e39.py fill protocol/LOCK_TEMPLATE_E39.json protocol/LOCK_E39.json \
+      --seed <NEW_SEED> --run-id $RUN_ID --schedule results/$RUN_ID/SCHEDULE.json \
+      --analysis-plan protocol/ANALYSIS_PLAN_E39.txt \
+      --e38v2r-lock ~/e38v2r_20260926/protocol/LOCK_E38v2.json --probe-tools
+  python3 protocol/lock_hash_e39.py verify protocol/LOCK_E39.json
+  sha256sum protocol/LOCK_E39.json          # record; signers fill "signers" (does not change lock_sha256)
+
+-----------------------------------------------------------------------------------------------------
+7. RUNS (main RUN_ID; one sub-experiment at a time; verify the lock before each)
+-----------------------------------------------------------------------------------------------------
+  Order (cheap sanity first, host-stressing last, adaptive A in the middle):
+  Every phase: RUN --schedule $R/SCHEDULE.json --lock protocol/LOCK_E39.json --only <X> $LIVE
+  (RAW_TRIALS.jsonl in $R is shared and resume-safe: recorded trial ids are skipped; exit 3 = guard abort;
+  touch $R/STOP to stop cleanly before the next trial)
+    7.1 E39-G  (156 trials)       --only G      then analysis --experiments G (section 8)
+    7.2 E39-A stage 1 (5344)      --only A      (mirror controller runs only around A4m trials: mirror_log.jsonl)
+        analysis --experiments A --stage 1 (strict) -> stage2_topup_e39.py -> runner builds the stage-2 schedule:
+          RUN --make-schedule $R/SCHEDULE_STAGE2.json --stage 2 --topup-file $R/stage2/stage2_cells_E39.json \
+              --seed <NEW_SEED> --run-id $RUN_ID                               # E39-A only, ids >= 100001
+        -> python3 protocol/lock_hash_e39.py add-stage2 protocol/LOCK_E39.json \
+               --schedule2 results/$RUN_ID/SCHEDULE_STAGE2.json --topup results/$RUN_ID/stage2/stage2_cells_E39.json
+        -> RUN --schedule $R/SCHEDULE_STAGE2.json --lock protocol/LOCK_E39.json --only A $LIVE
+    7.3 E39-E (1248) --only E   7.4 E39-F (936) --only F   7.5 E39-B (4800) --only B
+    7.6 E39-C (3840 trials = 1920 pairs; c = 1000 ms cells dominate the runtime) --only C
+        (the runner starts the loopback delay proxy itself, TLS with an ephemeral 127.0.0.1 cert, responder only)
+    7.7 E39-D (1872) --only D   (the runner starts the load generator + host guard itself; watch R3;
+        `free -m; uptime` every 10 min into $R/host_watch.txt)
+  Before each: python3 protocol/lock_hash_e39.py verify protocol/LOCK_E39.json
+  During: du -sh $E/results/_audit_host; df -h ~ | tail -1; k -n e39-system get pods
+  If a sub-experiment is stopped: do not re-run individual trials; record a deviation note.
+
+-----------------------------------------------------------------------------------------------------
+8. ANALYSIS (offline, after export of the logs of the finished sub-experiment(s))
+-----------------------------------------------------------------------------------------------------
+  P=venv_analysis/bin/python
+  $P analysis/analyze_e39.py --run-dir $R --lock protocol/LOCK_E39.json --stage 1 --experiments A \
+      --out $R/analysis_A_stage1
+  $P analysis/stage2_topup_e39.py --results $R/analysis_A_stage1/results_E39.json --out $R/stage2
+  Final (all sub-experiments, stage 2 for A):
+  $P analysis/analyze_e39.py --run-dir $R --lock protocol/LOCK_E39.json --stage 2 \
+      --schedule $R/SCHEDULE.json --schedule $R/SCHEDULE_STAGE2.json \
+      --w-external A2=<E38v2-rerun A2_fullrefresh async_scope window area, ms> --out $R/analysis_final
+  (a sub-experiment analysed alone: --experiments X --stage 1; stage 2 requires A)
+  $P analysis/recompute_independent_e39.py --raw $R/RAW_TRIALS.jsonl --audit $R/audit.log \
+      --schedule $R/SCHEDULE.json --schedule $R/SCHEDULE_STAGE2.json \
+      --compare $R/analysis_final/results_E39.json --out $R/analysis_final/independent_E39.json
+      # exit 3 = differences: report and explain each; never edit results.
+  REFUSED_E39.json instead of results = the completeness gate failed: read the reasons, do not force.
+
+-----------------------------------------------------------------------------------------------------
+9. EXPORT + HASHING (before teardown)
+-----------------------------------------------------------------------------------------------------
+  python3 protocol/lock_hash_e39.py verify protocol/LOCK_E39.json | tee $R/LOCK_VERIFY_AT_EXPORT.txt
+  cp $E/results/_webhook_host/$RUN_ID/webhook_log.jsonl $R/webhook_log.jsonl
+  sudo sh -c "cat \$(ls -tr $E/results/_audit_host/audit-*.log 2>/dev/null) $E/results/_audit_host/audit.log" > $R/audit.log
+  sudo chown azureuser: $R/audit.log
+  ls -l $R/mirror_log.jsonl        # written by the runner itself (A4m trials; e39.mirror.v1 lines tagged trial_id)
+  cp <pod watch log> $R/pod_events.jsonl                                                 <<VERIFY>>
+  cp protocol/LOCK_E39.json $R/
+  { kind version; kubectl --kubeconfig "$KCFG" version --context kind-e39 -o json; \
+    docker image inspect --format '{{.Id}} {{.RepoTags}}' kindest/node:v1.37.0 python:3.12-slim; \
+    k get nodes -o wide; k get validatingwebhookconfiguration -o yaml; } > $R/ENVIRONMENT.txt
+  (cd $R && find . -type f ! -name SHA256SUMS -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS)
+  tar -C $E/results -czf $E/results/e39_$RUN_ID.tar.gz $RUN_ID && sha256sum $E/results/e39_$RUN_ID.tar.gz
+  (never export $E/.tokens_* , $E/results/_render_*/certs or $KCFG)
+
+-----------------------------------------------------------------------------------------------------
+10. TEARDOWN (only the e39 cluster)
+-----------------------------------------------------------------------------------------------------
+  mirror controller, load process, delay proxy and Go responder are child processes of the runner and stop with
+  it; only probe-time instances (section 4) are killed by the PID recorded at start
+  kind delete cluster --name e39 --kubeconfig "$KCFG"
+  kind get clusters | tee /tmp/e39_clusters_after.txt
+  diff /tmp/e39_clusters_before.txt /tmp/e39_clusters_after.txt && echo "others untouched"
+  docker ps --format '{{.Names}}' | sort > /tmp/e39_docker_after.txt
+  diff <(cut -d' ' -f1 /tmp/e39_docker_before.txt) /tmp/e39_docker_after.txt && echo "containers unchanged"
+  rm -rf $E/.tokens_* $E/results/_render_*/certs "$KCFG"
+  sudo chown -R azureuser: $E/results/_audit_host

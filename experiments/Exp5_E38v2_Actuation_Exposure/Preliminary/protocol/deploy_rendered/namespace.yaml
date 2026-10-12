@@ -1,0 +1,19 @@
+# Template: e38v2-20260926t0813z is substituted by deploy/render.sh (never apply this file directly).
+# e38v2-system : long-lived control namespace (webhook + the four identities); never audited, never webhooked.
+# e38v2-e38v2-20260926t0813z  : per-run test namespace; the ONLY namespace the webhook and the RequestResponse audit rules act on.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: e38v2-system
+  labels:
+    e38-managed: "true"
+    e38v2-role: system
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: e38v2-e38v2-20260926t0813z
+  labels:
+    e38-managed: "true"
+    e38-run-id: e38v2-20260926t0813z
+    e38v2-role: test

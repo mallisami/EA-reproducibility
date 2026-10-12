@@ -1,0 +1,32 @@
+# Python 3.12 packages for the reviewer reproduction levels L0-L2 (05_Reproduce/).
+# Union of the exact versions recorded by `pip freeze` in the authors' analysis and manuscript-builder venvs
+# (see the per-component files in this folder). Install with:
+#   python3.12 -m venv .venv && . .venv/bin/activate && pip install -r 04_Environment/requirements/requirements-reproduce.txt
+# L0 needs only the Python standard library; L1 needs matplotlib, numpy, pillow, python-docx, lxml;
+# L2 additionally needs pandas and scipy (latency re-analysis). jsonschema/pytest are only for the optional unit tests.
+contourpy==1.4.0
+cycler==0.12.1
+fonttools==4.66.0
+kiwisolver==1.5.1
+lxml==6.1.3
+matplotlib==3.11.2
+numpy==2.5.3
+packaging==26.3
+pandas==3.0.6
+pillow==12.3.0
+pyparsing==3.3.3
+python-dateutil==2.9.0.post0
+python-docx==1.2.0
+scipy==1.18.1
+six==1.17.0
+typing_extensions==4.16.0
+# optional: unit tests of the experiment code trees (03_Code/*/analysis/tests, src tests)
+attrs==26.1.0
+iniconfig==2.3.0
+jsonschema==4.26.0
+jsonschema-specifications==2025.9.1
+pluggy==1.6.0
+Pygments==2.21.0
+pytest==9.1.1
+referencing==0.37.0
+rpds-py==2026.6.3

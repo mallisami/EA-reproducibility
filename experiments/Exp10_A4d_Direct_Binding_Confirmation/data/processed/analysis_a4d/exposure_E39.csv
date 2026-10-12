@@ -1,0 +1,4 @@
+experiment,group,d_star_ms,last_exposed_delta_ms,wilson_hi_at_d_star,d_star_secondary_ms,window_area_ms,boot_ci95_lo_ms,boot_ci95_hi_ms,boot_frac_not_closed
+A,A4d/async_scope,0,,0.0896669,0,0,0,0,0
+A,A4d/async_app_policy,0,,0.0896669,0,0,0,0,0
+A,A4d/async_evidence_last_literal,0,,0.0896669,0,0,0,0,0

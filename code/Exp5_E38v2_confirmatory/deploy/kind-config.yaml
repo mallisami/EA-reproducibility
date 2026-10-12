@@ -1,0 +1,70 @@
+# E38v2 RERUN (e38v2r) dedicated disposable cluster. Create ONLY with:
+#   kind create cluster --name e38v2 --config ~/e38v2r_20260926/deploy/kind-config.yaml --kubeconfig <dedicated file>
+# Single control-plane node (no workers): webhook, target Pods and kube-apiserver
+# share one node, which removes cross-node network variance from the timing.
+# Host directories MUST exist (owned by azureuser) before cluster creation:
+#   ~/e38v2r_20260926/results/_audit_host     <- kube-apiserver audit log (root-owned files, mode 0600)
+#   ~/e38v2r_20260926/results/_webhook_host   <- webhook_log.jsonl (webhook runs as uid 1000)
+# RERUN changes vs the first run (e38v2-20260926t0813z):
+#   - host paths point to the rerun tree ~/e38v2r_20260926
+#   - kube-apiserver logging raised selectively: --v=3 (one httplog "HTTP" line per request with audit-ID and
+#     latency) and --vmodule=store=6,round_trippers=6 (registry/etcd3 store.go delete messages, and the
+#     rest-client "Response" line of every admission-webhook call the apiserver makes)
+#   - kubelet containerLogMaxSize/MaxFiles raised so the kube-apiserver container log (the only
+#     place klog output goes in v1.37) is not rotated away during the run window
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+name: e38v2
+nodes:
+- role: control-plane
+  image: kindest/node:v1.37.0
+  extraMounts:
+  - hostPath: /home/azureuser/e38v2r_20260926/deploy/audit-policy.yaml
+    containerPath: /etc/kubernetes/e38v2/audit-policy.yaml
+    readOnly: true
+  - hostPath: /home/azureuser/e38v2r_20260926/results/_audit_host
+    containerPath: /var/log/kubernetes/e38v2-audit
+  - hostPath: /home/azureuser/e38v2r_20260926/results/_webhook_host
+    containerPath: /var/log/e38v2-webhook
+  kubeadmConfigPatches:
+  - |
+    apiVersion: kubeadm.k8s.io/v1beta4
+    kind: ClusterConfiguration
+    apiServer:
+      extraArgs:
+      - name: audit-policy-file
+        value: /etc/kubernetes/e38v2/audit-policy.yaml
+      - name: audit-log-path
+        value: /var/log/kubernetes/e38v2-audit/audit.log
+      - name: audit-log-format
+        value: json
+      - name: audit-log-maxsize
+        value: "200"
+      - name: audit-log-maxbackup
+        value: "30"
+      - name: audit-log-maxage
+        value: "30"
+      - name: audit-log-compress
+        value: "false"
+      - name: audit-log-mode
+        value: blocking
+      - name: v
+        value: "3"
+      - name: vmodule
+        value: store=6,round_trippers=6
+      extraVolumes:
+      - name: e38v2-audit-policy
+        hostPath: /etc/kubernetes/e38v2/audit-policy.yaml
+        mountPath: /etc/kubernetes/e38v2/audit-policy.yaml
+        readOnly: true
+        pathType: File
+      - name: e38v2-audit-log
+        hostPath: /var/log/kubernetes/e38v2-audit
+        mountPath: /var/log/kubernetes/e38v2-audit
+        readOnly: false
+        pathType: DirectoryOrCreate
+  - |
+    apiVersion: kubelet.config.k8s.io/v1beta1
+    kind: KubeletConfiguration
+    containerLogMaxSize: "4Gi"
+    containerLogMaxFiles: 5

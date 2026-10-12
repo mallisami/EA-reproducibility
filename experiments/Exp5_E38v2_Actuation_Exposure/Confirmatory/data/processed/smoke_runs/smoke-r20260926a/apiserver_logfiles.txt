@@ -1,0 +1,4 @@
+total 13120
+drwxr-xr-x 2 root root     4096 Sep 26 09:26 .
+drwxr-xr-x 3 root root     4096 Sep 26 09:25 ..
+-rw-r----- 1 root root 13425404 Sep 26 10:20 0.log

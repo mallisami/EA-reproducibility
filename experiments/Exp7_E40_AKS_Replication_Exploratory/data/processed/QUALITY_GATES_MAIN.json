@@ -1,0 +1,42 @@
+{
+ "n": 2019,
+ "infra": 0,
+ "infra_rate": 0.0,
+ "gate_infra_lt_2pct": true,
+ "unknown_non_failclosed": 0,
+ "classification_rate": 1.0,
+ "gate_class_ge_98pct": true,
+ "controls_bad": [],
+ "gate_controls": true,
+ "primary_classes": {
+  "A4d_commit_direct|async_scope|VALID_EXECUTED": 260,
+  "A4d_commit_direct|async_evidence_last_literal|VALID_EXECUTED": 256,
+  "A1_dcji|async_evidence_last_literal|VALID_EXECUTED": 209,
+  "A1_dcji|async_scope|VALID_EXECUTED": 204,
+  "A3_dcji_webhook|async_scope|CORRECT_ABORT": 199,
+  "A3_dcji_webhook|async_evidence_last_literal|INVALID_EXECUTED": 146,
+  "A3_dcji_webhook|async_evidence_last_literal|CORRECT_ABORT": 109,
+  "A1_dcji|async_scope|INVALID_EXECUTED": 108,
+  "A1_dcji|async_evidence_last_literal|INVALID_EXECUTED": 103,
+  "A3_dcji_webhook|async_evidence_last_literal|VALID_EXECUTED": 57,
+  "A3_dcji_webhook|async_scope|INVALID_EXECUTED": 57,
+  "A3_dcji_webhook|async_scope|VALID_EXECUTED": 56,
+  "A4d_commit_direct|async_evidence_last_literal|INVALID_EXECUTED": 54,
+  "A4d_commit_direct|async_scope|INVALID_EXECUTED": 48,
+  "A4d_commit_direct|no_write|VALID_EXECUTED": 39,
+  "A3_dcji_webhook|no_write|VALID_EXECUTED": 39,
+  "A1_dcji|no_write|VALID_EXECUTED": 39,
+  "A1_dcji|uid_rebind_control|UID_BLOCKED": 10,
+  "A3_dcji_webhook|uid_rebind_control|UID_BLOCKED": 10,
+  "A4d_commit_direct|uid_rebind_control|UID_BLOCKED": 10,
+  "A4d_commit_direct|async_scope|CORRECT_ABORT": 4,
+  "A4d_commit_direct|async_evidence_last_literal|CORRECT_ABORT": 2
+ },
+ "unknown_reasons": {},
+ "infra_errors": [],
+ "action_rv_sources": {
+  "trial": 1625,
+  "pod_watch_deleted": 50
+ },
+ "PASS": true
+}

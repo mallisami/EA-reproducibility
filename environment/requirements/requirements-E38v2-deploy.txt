@@ -1,0 +1,4 @@
+# Derived from: pip freeze of the authors' venv (pip_freeze_e38v2_20260926__venv_deploy.txt), Azure experiment VM, 2026-09-26.
+# Interpreter: 
+Python 3.12.3
+PyYAML==6.0.3

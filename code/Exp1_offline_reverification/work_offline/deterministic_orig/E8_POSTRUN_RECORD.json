@@ -1,0 +1,18 @@
+{
+  "results_version": "4.8.0-e8",
+  "protocol_deviations": [],
+  "variants": [
+    "Full DCJI",
+    "NoDeadline",
+    "NoRealizability",
+    "SingleBasis"
+  ],
+  "analysis_unit": "one P1 representative per held-out template",
+  "worlds": [
+    "W0",
+    "W1",
+    "W2",
+    "W3"
+  ],
+  "validation_status": "PASS"
+}

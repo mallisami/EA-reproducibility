@@ -1,0 +1,16 @@
+{
+  "results_version": "4.3.0-e10",
+  "protocol_deviations": [],
+  "hide_probabilities": [
+    0.1,
+    0.2,
+    0.3,
+    0.5
+  ],
+  "replicates_per_template_probability": 20,
+  "master_seed": 20260905,
+  "mask_scope": "defender/DCJI attacker-transition model only; actual attacker retains full frozen transition system",
+  "raw_rows": 7680,
+  "template_mask_inferential_cells": 1920,
+  "validation_status": "PASS"
+}

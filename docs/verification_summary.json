@@ -1,0 +1,473 @@
+{
+  "status": "PASS",
+  "current_paper_reference": "Discover_Computing_Journal_Figures_2_5_2026-10-12_V3.zip",
+  "paper_and_supplement_modified": false,
+  "scientific_source_files_changed": false,
+  "E40_cache_cleanup": {
+    "archive": "experiments/Exp7_E40_AKS_Replication_Exploratory/data/raw/E40_EXPORT_a20260926.REDACTED.tar.gz",
+    "supplied_archive_sha256": "3fbe5335fc731a510fd948d5c4765ae030f6e14863e23bda109fab3f1711c3f7",
+    "clean_archive_sha256": "80ef85f1dd94953dd1fd0d2936bf32dac6aa551b2fa7cdf694793b245a8296bc",
+    "removed_cache_members": [
+      {
+        "member": "code/analysis/__pycache__/e39_common.cpython-312.pyc",
+        "sha256": "11b3199a11f68b6799431f1b6b1c472468f19abf666022d539adc12ab85f3fd6",
+        "bytes": 33157
+      },
+      {
+        "member": "code/analysis/__pycache__/oracle_e39.cpython-312.pyc",
+        "sha256": "824d8845803c69976307c177ff16bc531738e1a38739702d8b9b30e5092a5dac",
+        "bytes": 73512
+      },
+      {
+        "member": "code/src/__pycache__/e39_runner.cpython-312.pyc",
+        "sha256": "4cd122dd4bc81e14da8db0644bd86a0ea260a5b60d5ba0c28a3276365f010d6c",
+        "bytes": 126855
+      },
+      {
+        "member": "code/src/__pycache__/e39_kube.cpython-312.pyc",
+        "sha256": "df0fd14dfd403a204d3c7a1ac7418cb1f0f073273f3b983a73da4d0ca78954a1",
+        "bytes": 24088
+      }
+    ],
+    "retained_regular_members": 183,
+    "retained_member_bytes": "Unchanged; checked against supplied member-level manifest.",
+    "raw_observations_changed": false
+  },
+  "fixed_data_replay_comparisons": 63,
+  "comparison_statuses": {
+    "IDENTICAL": 59,
+    "IDENTICAL_SELECTED_KEYS": 4
+  },
+  "main_campaign_comparisons": [
+    {
+      "step": "e38v2p",
+      "packaged_file": "experiments/Exp5_E38v2_Actuation_Exposure/Preliminary/data/processed/analysis_final/agreement_E38v2.csv",
+      "status": "IDENTICAL",
+      "note": ""
+    },
+    {
+      "step": "e38v2p",
+      "packaged_file": "experiments/Exp5_E38v2_Actuation_Exposure/Preliminary/data/processed/analysis_final/availability_E38v2.csv",
+      "status": "IDENTICAL",
+      "note": ""
+    },
+    {
+      "step": "e38v2p",
+      "packaged_file": "experiments/Exp5_E38v2_Actuation_Exposure/Preliminary/data/processed/analysis_final/cells_E38v2.csv",
+      "status": "IDENTICAL",
+      "note": ""
+    },
+    {
+      "step": "e38v2p",
+      "packaged_file": "experiments/Exp5_E38v2_Actuation_Exposure/Preliminary/data/processed/analysis_final/exposure_window_E38v2.csv",
+      "status": "IDENTICAL",
+      "note": ""
+    },
+    {
+      "step": "e38v2p",
+      "packaged_file": "experiments/Exp5_E38v2_Actuation_Exposure/Preliminary/data/processed/analysis_final/oracle_trials_E38v2.csv",
+      "status": "IDENTICAL",
+      "note": ""
+    },
+    {
+      "step": "e38v2p",
+      "packaged_file": "experiments/Exp5_E38v2_Actuation_Exposure/Preliminary/data/processed/analysis_final/webhook_latency_E38v2.csv",
+      "status": "IDENTICAL",
+      "note": ""
+    },
+    {
+      "step": "e38v2p",
+      "packaged_file": "experiments/Exp5_E38v2_Actuation_Exposure/Preliminary/data/processed/analysis_final/writer_release_E38v2.csv",
+      "status": "IDENTICAL",
+      "note": ""
+    },
+    {
+      "step": "e38v2p",
+      "packaged_file": "experiments/Exp5_E38v2_Actuation_Exposure/Preliminary/data/processed/analysis_stage1_on_final_files/cells_E38v2.csv",
+      "status": "IDENTICAL",
+      "note": ""
+    },
+    {
+      "step": "e38v2p",
+      "packaged_file": "experiments/Exp5_E38v2_Actuation_Exposure/Preliminary/data/processed/A3_MULTI_EVAL_SENSITIVITY.txt",
+      "status": "IDENTICAL",
+      "note": ""
+    },
+    {
+      "step": "e38v2p",
+      "packaged_file": "experiments/Exp5_E38v2_Actuation_Exposure/Preliminary/data/processed/INDEPENDENT_RECOMPUTE.txt",
+      "status": "IDENTICAL",
+      "note": ""
+    },
+    {
+      "step": "e38v2p",
+      "packaged_file": "experiments/Exp5_E38v2_Actuation_Exposure/Preliminary/results/HEADLINE_E38v2.txt",
+      "status": "IDENTICAL",
+      "note": ""
+    },
+    {
+      "step": "e40",
+      "packaged_file": "experiments/Exp7_E40_AKS_Replication_Exploratory/data/processed/analysis/cells_E39.csv",
+      "status": "IDENTICAL",
+      "note": ""
+    },
+    {
+      "step": "e40",
+      "packaged_file": "experiments/Exp7_E40_AKS_Replication_Exploratory/data/processed/analysis/exposure_E39.csv",
+      "status": "IDENTICAL",
+      "note": ""
+    },
+    {
+      "step": "e40",
+      "packaged_file": "experiments/Exp7_E40_AKS_Replication_Exploratory/data/processed/analysis/oracle_trials_E39.csv",
+      "status": "IDENTICAL",
+      "note": ""
+    },
+    {
+      "step": "e40",
+      "packaged_file": "experiments/Exp7_E40_AKS_Replication_Exploratory/data/processed/analysis/stage2_candidates_E39.csv",
+      "status": "IDENTICAL",
+      "note": ""
+    },
+    {
+      "step": "e40",
+      "packaged_file": "experiments/Exp7_E40_AKS_Replication_Exploratory/data/processed/supplement/client_secondary_cells_E40.csv",
+      "status": "IDENTICAL",
+      "note": ""
+    },
+    {
+      "step": "e40",
+      "packaged_file": "experiments/Exp7_E40_AKS_Replication_Exploratory/data/processed/supplement/comparison_kind_vs_aks_E40.csv",
+      "status": "IDENTICAL",
+      "note": ""
+    },
+    {
+      "step": "e40",
+      "packaged_file": "experiments/Exp7_E40_AKS_Replication_Exploratory/data/processed/supplement/client_secondary_E40.csv",
+      "status": "IDENTICAL",
+      "note": ""
+    },
+    {
+      "step": "e40",
+      "packaged_file": "experiments/Exp7_E40_AKS_Replication_Exploratory/data/processed/supplement/SUPPLEMENT_E40.json",
+      "status": "IDENTICAL_SELECTED_KEYS",
+      "note": "keys: ['n_trials', 'agreement_primary_vs_client_secondary', 'overlap_accepted_deletes', 'webhook_latency', 'a4d_availability', 'secondary_reasons', 'n_comparison_cells']"
+    },
+    {
+      "step": "e40",
+      "packaged_file": "experiments/Exp7_E40_AKS_Replication_Exploratory/data/processed/analysis/independent_E40.json",
+      "status": "IDENTICAL_SELECTED_KEYS",
+      "note": "keys: ['cells', 'comparison']"
+    },
+    {
+      "step": "e40",
+      "packaged_file": "experiments/Exp7_E40_AKS_Replication_Exploratory/results/A4D_MECHANISM_EXPLORATORY.json",
+      "status": "IDENTICAL",
+      "note": ""
+    },
+    {
+      "step": "e38v2r",
+      "packaged_file": "experiments/Exp5_E38v2_Actuation_Exposure/Confirmatory/data/processed/analysis_final/agreement_E38v2.csv",
+      "status": "IDENTICAL",
+      "note": ""
+    },
+    {
+      "step": "e38v2r",
+      "packaged_file": "experiments/Exp5_E38v2_Actuation_Exposure/Confirmatory/data/processed/analysis_final/agreement_tertiary_E38v2.csv",
+      "status": "IDENTICAL",
+      "note": ""
+    },
+    {
+      "step": "e38v2r",
+      "packaged_file": "experiments/Exp5_E38v2_Actuation_Exposure/Confirmatory/data/processed/analysis_final/availability_E38v2.csv",
+      "status": "IDENTICAL",
+      "note": ""
+    },
+    {
+      "step": "e38v2r",
+      "packaged_file": "experiments/Exp5_E38v2_Actuation_Exposure/Confirmatory/data/processed/analysis_final/cells_E38v2.csv",
+      "status": "IDENTICAL",
+      "note": ""
+    },
+    {
+      "step": "e38v2r",
+      "packaged_file": "experiments/Exp5_E38v2_Actuation_Exposure/Confirmatory/data/processed/analysis_final/exposure_window_E38v2.csv",
+      "status": "IDENTICAL",
+      "note": ""
+    },
+    {
+      "step": "e38v2r",
+      "packaged_file": "experiments/Exp5_E38v2_Actuation_Exposure/Confirmatory/data/processed/analysis_final/oracle_trials_E38v2.csv",
+      "status": "IDENTICAL",
+      "note": ""
+    },
+    {
+      "step": "e38v2r",
+      "packaged_file": "experiments/Exp5_E38v2_Actuation_Exposure/Confirmatory/data/processed/analysis_final/webhook_latency_E38v2.csv",
+      "status": "IDENTICAL",
+      "note": ""
+    },
+    {
+      "step": "e38v2r",
+      "packaged_file": "experiments/Exp5_E38v2_Actuation_Exposure/Confirmatory/data/processed/analysis_final/writer_release_E38v2.csv",
+      "status": "IDENTICAL",
+      "note": ""
+    },
+    {
+      "step": "e38v2r",
+      "packaged_file": "experiments/Exp5_E38v2_Actuation_Exposure/Confirmatory/data/processed/analysis_stage1_on_final_files/cells_E38v2.csv",
+      "status": "IDENTICAL",
+      "note": ""
+    },
+    {
+      "step": "e38v2r",
+      "packaged_file": "experiments/Exp5_E38v2_Actuation_Exposure/Confirmatory/data/processed/INDEPENDENT_RECOMPUTE.txt",
+      "status": "IDENTICAL",
+      "note": ""
+    },
+    {
+      "step": "e38v2r",
+      "packaged_file": "experiments/Exp5_E38v2_Actuation_Exposure/Confirmatory/data/processed/A3_MULTI_EVAL_SENSITIVITY.txt",
+      "status": "IDENTICAL",
+      "note": ""
+    },
+    {
+      "step": "e38v2r",
+      "packaged_file": "experiments/Exp5_E38v2_Actuation_Exposure/Confirmatory/data/processed/RUNNING_POD_REPORT.json",
+      "status": "IDENTICAL",
+      "note": ""
+    },
+    {
+      "step": "e38v2r",
+      "packaged_file": "experiments/Exp5_E38v2_Actuation_Exposure/Confirmatory/data/processed/MECHANISM_APISERVER_SUMMARY.txt",
+      "status": "IDENTICAL",
+      "note": ""
+    },
+    {
+      "step": "e38v2r",
+      "packaged_file": "experiments/Exp5_E38v2_Actuation_Exposure/Confirmatory/data/processed/COMPARISON_FIRST_VS_RERUN.csv",
+      "status": "IDENTICAL",
+      "note": ""
+    },
+    {
+      "step": "e38v2r",
+      "packaged_file": "experiments/Exp5_E38v2_Actuation_Exposure/Confirmatory/data/processed/E38V2R_TIMING_DESCRIPTIVES.csv",
+      "status": "IDENTICAL",
+      "note": ""
+    },
+    {
+      "step": "e38v2r",
+      "packaged_file": "experiments/Exp5_E38v2_Actuation_Exposure/Confirmatory/results/HEADLINE_TABLES.txt",
+      "status": "IDENTICAL",
+      "note": ""
+    },
+    {
+      "step": "e39",
+      "packaged_file": "experiments/Exp6_E39_Commit_Bound_Enforcement/data/processed/analysis_final/cells_E39.csv",
+      "status": "IDENTICAL",
+      "note": ""
+    },
+    {
+      "step": "e39",
+      "packaged_file": "experiments/Exp6_E39_Commit_Bound_Enforcement/data/processed/analysis_final/exposure_E39.csv",
+      "status": "IDENTICAL",
+      "note": ""
+    },
+    {
+      "step": "e39",
+      "packaged_file": "experiments/Exp6_E39_Commit_Bound_Enforcement/data/processed/analysis_final/B_rates_E39.csv",
+      "status": "IDENTICAL",
+      "note": ""
+    },
+    {
+      "step": "e39",
+      "packaged_file": "experiments/Exp6_E39_Commit_Bound_Enforcement/data/processed/analysis_final/C_latency_E39.csv",
+      "status": "IDENTICAL",
+      "note": ""
+    },
+    {
+      "step": "e39",
+      "packaged_file": "experiments/Exp6_E39_Commit_Bound_Enforcement/data/processed/analysis_final/oracle_trials_E39.csv",
+      "status": "IDENTICAL",
+      "note": ""
+    },
+    {
+      "step": "e39",
+      "packaged_file": "experiments/Exp6_E39_Commit_Bound_Enforcement/data/processed/analysis_final/independent_E39.json",
+      "status": "IDENTICAL_SELECTED_KEYS",
+      "note": "keys: ['cells', 'comparison']"
+    },
+    {
+      "step": "e39",
+      "packaged_file": "experiments/Exp6_E39_Commit_Bound_Enforcement/data/processed/analysis_final/QUALITY_GATES_E39.json",
+      "status": "IDENTICAL_SELECTED_KEYS",
+      "note": "keys: ['n_trials', 'infra_error', 'primary_classes', 'primary_by_exp']"
+    },
+    {
+      "step": "e39",
+      "packaged_file": "experiments/Exp6_E39_Commit_Bound_Enforcement/results/HEADLINE_TABLES_E39.txt",
+      "status": "IDENTICAL",
+      "note": ""
+    },
+    {
+      "step": "e39",
+      "packaged_file": "experiments/Exp6_E39_Commit_Bound_Enforcement/data/processed/EXPLORATORY_D_SPLIT_BY_CLUSTER_STOP.txt",
+      "status": "IDENTICAL",
+      "note": ""
+    },
+    {
+      "step": "latency",
+      "packaged_file": "experiments/Exp2_Physical_Acquisition_Cost/data/processed/latency_reanalysis/A0_execution_order_and_rng_audit.csv",
+      "status": "IDENTICAL",
+      "note": ""
+    },
+    {
+      "step": "latency",
+      "packaged_file": "experiments/Exp2_Physical_Acquisition_Cost/data/processed/latency_reanalysis/A1_cell_estimators.csv",
+      "status": "IDENTICAL",
+      "note": ""
+    },
+    {
+      "step": "latency",
+      "packaged_file": "experiments/Exp2_Physical_Acquisition_Cost/data/processed/latency_reanalysis/A2_stall_sensitivity_POSTHOC.csv",
+      "status": "IDENTICAL",
+      "note": ""
+    },
+    {
+      "step": "latency",
+      "packaged_file": "experiments/Exp2_Physical_Acquisition_Cost/data/processed/latency_reanalysis/A3a_harness_overhead_by_mode_guard.csv",
+      "status": "IDENTICAL",
+      "note": ""
+    },
+    {
+      "step": "latency",
+      "packaged_file": "experiments/Exp2_Physical_Acquisition_Cost/data/processed/latency_reanalysis/A3b_get_only_deltaL_and_overhead_share.csv",
+      "status": "IDENTICAL",
+      "note": ""
+    },
+    {
+      "step": "latency",
+      "packaged_file": "experiments/Exp2_Physical_Acquisition_Cost/data/processed/latency_reanalysis/A4_guard_order_strata.csv",
+      "status": "IDENTICAL",
+      "note": ""
+    },
+    {
+      "step": "latency",
+      "packaged_file": "experiments/Exp2_Physical_Acquisition_Cost/data/processed/latency_reanalysis/A4b_guard_order_effect_by_cell.csv",
+      "status": "IDENTICAL",
+      "note": ""
+    },
+    {
+      "step": "latency",
+      "packaged_file": "experiments/Exp2_Physical_Acquisition_Cost/data/processed/latency_reanalysis/A5a_per_get_latency.csv",
+      "status": "IDENTICAL",
+      "note": ""
+    },
+    {
+      "step": "latency",
+      "packaged_file": "experiments/Exp2_Physical_Acquisition_Cost/data/processed/latency_reanalysis/A5b_per_get_latency_by_position.csv",
+      "status": "IDENTICAL",
+      "note": ""
+    },
+    {
+      "step": "latency",
+      "packaged_file": "experiments/Exp2_Physical_Acquisition_Cost/data/processed/latency_reanalysis/A5c_per_get_latency_time_blocks.csv",
+      "status": "IDENTICAL",
+      "note": ""
+    },
+    {
+      "step": "latency",
+      "packaged_file": "experiments/Exp2_Physical_Acquisition_Cost/data/processed/latency_reanalysis/A6a_costmodel_sequential.csv",
+      "status": "IDENTICAL",
+      "note": ""
+    },
+    {
+      "step": "latency",
+      "packaged_file": "experiments/Exp2_Physical_Acquisition_Cost/data/processed/latency_reanalysis/A6b_costmodel_parallel.csv",
+      "status": "IDENTICAL",
+      "note": ""
+    },
+    {
+      "step": "latency",
+      "packaged_file": "experiments/Exp2_Physical_Acquisition_Cost/data/processed/latency_reanalysis/A6c_projection_MODEL_BASED.csv",
+      "status": "IDENTICAL",
+      "note": ""
+    },
+    {
+      "step": "latency",
+      "packaged_file": "experiments/Exp2_Physical_Acquisition_Cost/data/processed/latency_reanalysis/A6c_shape_parameters.csv",
+      "status": "IDENTICAL",
+      "note": ""
+    },
+    {
+      "step": "latency",
+      "packaged_file": "experiments/Exp2_Physical_Acquisition_Cost/data/processed/latency_reanalysis/A6d_empirical_k_vs_model.csv",
+      "status": "IDENTICAL",
+      "note": ""
+    },
+    {
+      "step": "latency",
+      "packaged_file": "experiments/Exp2_Physical_Acquisition_Cost/data/processed/latency_reanalysis/A7_E25_position_effect.csv",
+      "status": "IDENTICAL",
+      "note": ""
+    },
+    {
+      "step": "latency",
+      "packaged_file": "experiments/Exp2_Physical_Acquisition_Cost/data/processed/latency_reanalysis/A0_facts.json",
+      "status": "IDENTICAL",
+      "note": ""
+    }
+  ],
+  "main_campaign_timings_s": {
+    "e38v2p": 35.4,
+    "e40": 48.6,
+    "e38v2r": 60.2,
+    "e39": 965.6,
+    "latency": 1588.1
+  },
+  "designed_state_and_posthoc_checks": {
+    "steps": [
+      "minimality",
+      "regression",
+      "ttl"
+    ],
+    "passed": 14,
+    "checks": 14,
+    "failed": [],
+    "runtime_values_compared": false,
+    "excluded_timing_columns": {
+      "t4_minimality_full_universe.csv": [
+        "secs"
+      ]
+    }
+  },
+  "current_figure_and_table_numeric_checks": {
+    "passed": 2855,
+    "checks": 2855,
+    "failures": [],
+    "raw_marker_replayed": true
+  },
+  "current_main_png_pixel_identity": {
+    "Fig2": true,
+    "Fig3": true,
+    "Fig4": true,
+    "Fig5": true
+  },
+  "e39_complete_audit_member_bytes": 621803235,
+  "e39_complete_audit_member_sha256": "078e74f4c4bcb4243c91dcd2677d30b37b09c33190a1295727599daa68f32a89",
+  "e39_all_quality_gate_fields": {
+    "all_fields_equal": true,
+    "byte_identical": true,
+    "all_gates_pass": true,
+    "joined": "45141/45141",
+    "schema_invalid": 0
+  },
+  "E41_E42_checks": "10/10 PASS",
+  "A4d_R2_checks": "13/13 PASS",
+  "E43_E50_accounting_and_headline_checks": "46/46 PASS",
+  "E43_E50_regenerated_files": "22/22 byte-identical",
+  "E52_regenerated_files": "2/2 byte-identical",
+  "python_source_files_parsed": 663,
+  "live_cluster_reruns_executed": false,
+  "scope_notes": "See README and docs/deviations.md. Recorded planner execution times and new live measurements are not promised to be identical."
+}

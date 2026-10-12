@@ -1,0 +1,44 @@
+E38v2 DEVIATIONS from RUNBOOK_E38v2 v1 / INTERFACE_SPEC v1 / ANALYSIS_PLAN v1   (2026-09-26, UTC)
+=====================================================================================================
+All deviations were made BEFORE the LOCK (08:17Z) unless stated otherwise. None changes the design,
+sample sizes, arms, conditions, delta grid, validity policy or the primary/secondary oracle rule
+definitions.
+
+D1  Dedicated kubeconfig. The cluster was created with `--kubeconfig ~/e38v2_20260926/.kubeconfig_e38v2`
+    and every kubectl call used `--kubeconfig <that file> --context kind-e38v2`, so the shared
+    ~/.kube/config (current-context kind-rev-n5, used by other projects) was never modified.
+D2  Target Pod: python:3.12-slim (side-loaded, imagePullPolicy Never) with a scheduling gate
+    (never scheduled/started) instead of an nginx Pod (not available; no pulls allowed). The
+    experiment concerns API admission and commit order of the DELETE; the gated Pod avoids container
+    churn on the shared VM. Verified: the Pod is not modified after creation (SchedulingGated
+    condition is set at create time).
+D3  Image load: `kind load docker-image` failed (containerd image store, multi-platform index: "content
+    digest not found"); the linux/amd64 image was imported with
+    `docker save --platform linux/amd64 | ctr -n k8s.io images import --platform linux/amd64`.
+D4  Probes were run in each run namespace with kubectl (RUNBOOK 4.2-4.7) plus runner-identity probes
+    (Audit-Id join, RV-vs-timestamp ordering with value-changing writes). A PATCH that does not change
+    a value is a no-op returning the old RV (found in the first ordering probe; harmless for the
+    experiment because the writer always changes true->false).
+D5  Webhook (piece 2) changes after the live smoke: per-read t_send/t_recv wall stamps (lead decision),
+    buffered single-write HTTP responses + TCP_NODELAY (removed ~40 ms Nagle/delayed-ACK stalls),
+    logging of every invocation incl. unevaluated terminating-Pod calls, pod_resource_version and
+    pod_terminating fields (additive to e38v2.webhook.v1).
+D6  Oracle/analysis (piece 1): lead decisions (primary denominator with fail-closed as non-events;
+    per-read webhook time rule; pod_uid join) and the governing-evaluation rule for multiple webhook
+    invocations per Pod DELETE (ANALYSIS_PLAN v1.1 (a)-(f)).
+D7  Runner (piece 3): live mode implemented; writer moved to a separate process (GIL); schedule/LOCK
+    formats aligned with analysis; stage-2 ids from 100001; runtime constants replaced by smoke
+    measurements (WRITER_OVERHEAD_S remains an estimate).
+D8  LOCK tool: template file list corrected (nonexistent PROTOCOL_E38v2.txt removed; runner schema,
+    independent model check, fake API, runner tests, design notes, analysis common/synth and the
+    analysis plan added); top-level status/seed/run_id/schedule/plan hashes; add-stage2 command.
+D9  Rule agreement. The lead's smoke criterion "rules agree >= 95%" is NOT met (smoke b 41%). Cause:
+    the pre-registered secondary rule compares writer completion with DELETE receipt, while the primary
+    compares commits; on this VM a Pod DELETE takes ~10-40 ms from receipt to commit, so writes that
+    commit during that interval are classified differently. The rules were not changed. Validation of
+    the RV ordering itself (plan 2.7) is provided by the probes (RV order vs ResponseComplete timestamp
+    order: 100% sequential, 99.98% of pairs under concurrency) and by a descriptive alternative time rule
+    (writer ResponseComplete < DELETE ResponseComplete) in the independent recomputation.
+D10 Negative deltas (-5, -2, -1 ms) are realised as "writer released when armed at the start of the
+    final fence read" (documented runner limitation; release error median ~2 ms): the three negative
+    deltas are not separated by their nominal offsets.

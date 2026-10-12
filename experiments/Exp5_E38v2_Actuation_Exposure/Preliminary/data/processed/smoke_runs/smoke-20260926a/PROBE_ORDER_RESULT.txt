@@ -1,0 +1,4 @@
+ops 1022 audit-joined 1022 committed 1022 distinct RVs 1022
+all: n=1022 pairwise RV-vs-stageTimestamp concordant=521648 discordant=83 ties=0 (agreement 0.99984); adjacent concordant 940/1021; patch-vs-delete primary/secondary rule disagreements 397/101121
+sequential: n=70 pairwise RV-vs-stageTimestamp concordant=2415 discordant=0 ties=0 (agreement 1.00000); adjacent concordant 69/69; patch-vs-delete primary/secondary rule disagreements 0/600
+concurrent: n=952 pairwise RV-vs-stageTimestamp concordant=452593 discordant=83 ties=0 (agreement 0.99982); adjacent concordant 870/951; patch-vs-delete primary/secondary rule disagreements 397/85951

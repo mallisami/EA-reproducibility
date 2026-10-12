@@ -1,0 +1,167 @@
+{
+  "a4d_invalid_matching_prelocked_2_3f_signature": 110,
+  "all_frozen_a4d_invalid_match_signature": true,
+  "basis": "Post-hoc recovery sensitivity using the complete Pod-event recorder to detect the pre-LOCK ANALYSIS_PLAN_E39 rule 2.3(f) signature when writer audit responseObject records were lost to audit-log rotation.",
+  "frozen_async_counts": {
+    "A1": {
+      "INVALID_EXECUTED": 233,
+      "VALID_EXECUTED": 703
+    },
+    "A3": {
+      "CORRECT_ABORT": 392,
+      "INVALID_EXECUTED": 199,
+      "UID_BLOCKED": 1,
+      "VALID_EXECUTED": 344
+    },
+    "A4d": {
+      "CORRECT_ABORT": 105,
+      "INVALID_EXECUTED": 110,
+      "UID_BLOCKED": 6,
+      "VALID_EXECUTED": 715
+    }
+  },
+  "frozen_counts": {
+    "A1": {
+      "INVALID_EXECUTED": 233,
+      "UID_BLOCKED": 10,
+      "VALID_EXECUTED": 742
+    },
+    "A3": {
+      "CORRECT_ABORT": 392,
+      "INVALID_EXECUTED": 199,
+      "UID_BLOCKED": 11,
+      "VALID_EXECUTED": 383
+    },
+    "A4d": {
+      "CORRECT_ABORT": 105,
+      "INVALID_EXECUTED": 110,
+      "UID_BLOCKED": 16,
+      "VALID_EXECUTED": 754
+    }
+  },
+  "frozen_primary_a4d_invalid": 110,
+  "qualification": "This does not recreate the missing audit responseObject. It is a sensitivity analysis grounded in an independently recorded Pod event stream and the pre-specified terminating-Pod rule. The planned ResponseComplete sensitivity cannot be reconstructed for audit records that rotated out.",
+  "recovered_signature_by_condition_delay": [
+    {
+      "condition": "async_app_policy",
+      "delta_ms": 0.0,
+      "n": 10
+    },
+    {
+      "condition": "async_app_policy",
+      "delta_ms": 2.0,
+      "n": 15
+    },
+    {
+      "condition": "async_app_policy",
+      "delta_ms": 5.0,
+      "n": 5
+    },
+    {
+      "condition": "async_app_policy",
+      "delta_ms": 10.0,
+      "n": 3
+    },
+    {
+      "condition": "async_app_policy",
+      "delta_ms": 20.0,
+      "n": 2
+    },
+    {
+      "condition": "async_app_policy",
+      "delta_ms": 50.0,
+      "n": 1
+    },
+    {
+      "condition": "async_app_policy",
+      "delta_ms": 100.0,
+      "n": 1
+    },
+    {
+      "condition": "async_evidence_last_literal",
+      "delta_ms": 0.0,
+      "n": 9
+    },
+    {
+      "condition": "async_evidence_last_literal",
+      "delta_ms": 2.0,
+      "n": 18
+    },
+    {
+      "condition": "async_evidence_last_literal",
+      "delta_ms": 5.0,
+      "n": 3
+    },
+    {
+      "condition": "async_evidence_last_literal",
+      "delta_ms": 50.0,
+      "n": 1
+    },
+    {
+      "condition": "async_scope",
+      "delta_ms": 0.0,
+      "n": 11
+    },
+    {
+      "condition": "async_scope",
+      "delta_ms": 2.0,
+      "n": 20
+    },
+    {
+      "condition": "async_scope",
+      "delta_ms": 5.0,
+      "n": 5
+    },
+    {
+      "condition": "async_scope",
+      "delta_ms": 10.0,
+      "n": 3
+    },
+    {
+      "condition": "async_scope",
+      "delta_ms": 20.0,
+      "n": 2
+    },
+    {
+      "condition": "async_scope",
+      "delta_ms": 50.0,
+      "n": 1
+    }
+  ],
+  "schema": "e41.audit_retention_recovery_sensitivity.v1",
+  "sensitivity_async_counts": {
+    "A1": {
+      "INVALID_EXECUTED": 233,
+      "VALID_EXECUTED": 703
+    },
+    "A3": {
+      "CORRECT_ABORT": 392,
+      "INVALID_EXECUTED": 199,
+      "UID_BLOCKED": 1,
+      "VALID_EXECUTED": 344
+    },
+    "A4d": {
+      "CORRECT_ABORT": 105,
+      "UID_BLOCKED": 6,
+      "VALID_EXECUTED": 825
+    }
+  },
+  "sensitivity_counts": {
+    "A1": {
+      "INVALID_EXECUTED": 233,
+      "UID_BLOCKED": 10,
+      "VALID_EXECUTED": 742
+    },
+    "A3": {
+      "CORRECT_ABORT": 392,
+      "INVALID_EXECUTED": 199,
+      "UID_BLOCKED": 11,
+      "VALID_EXECUTED": 383
+    },
+    "A4d": {
+      "CORRECT_ABORT": 105,
+      "UID_BLOCKED": 16,
+      "VALID_EXECUTED": 864
+    }
+  }
+}

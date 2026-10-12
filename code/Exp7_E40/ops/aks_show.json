@@ -1,0 +1,238 @@
+{
+  "aadProfile": null,
+  "addonProfiles": null,
+  "agentPoolProfiles": [
+    {
+      "artifactStreamingProfile": null,
+      "availabilityZones": null,
+      "capacityReservationGroupId": null,
+      "count": 1,
+      "creationData": null,
+      "currentOrchestratorVersion": "1.36.3",
+      "eTag": "<AZURE_ID_REDACTED>",
+      "enableAutoScaling": false,
+      "enableEncryptionAtHost": false,
+      "enableFips": false,
+      "enableNodePublicIp": false,
+      "enableUltraSsd": false,
+      "gatewayProfile": null,
+      "gpuInstanceProfile": null,
+      "gpuProfile": null,
+      "hostGroupId": null,
+      "kubeletConfig": null,
+      "kubeletDiskType": "OS",
+      "linuxOsConfig": null,
+      "localDnsProfile": null,
+      "maxCount": null,
+      "maxPods": 250,
+      "messageOfTheDay": null,
+      "minCount": null,
+      "mode": "System",
+      "name": "nodepool1",
+      "networkProfile": null,
+      "nodeImageVersion": "AKSUbuntu-2404gen2containerd-202609.03.1",
+      "nodeLabels": null,
+      "nodePublicIpPrefixId": null,
+      "nodeTaints": null,
+      "orchestratorVersion": "1.36.3",
+      "osDiskSizeGb": 128,
+      "osDiskType": "Managed",
+      "osSku": "Ubuntu",
+      "osType": "Linux",
+      "podIpAllocationMode": null,
+      "podSubnetId": null,
+      "powerState": {
+        "code": "Running"
+      },
+      "provisioningState": "Succeeded",
+      "proximityPlacementGroupId": null,
+      "scaleDownMode": "Delete",
+      "scaleSetEvictionPolicy": null,
+      "scaleSetPriority": null,
+      "securityProfile": {
+        "enableSecureBoot": false,
+        "enableVtpm": false,
+        "sshAccess": "LocalUser"
+      },
+      "spotMaxPrice": null,
+      "status": null,
+      "tags": null,
+      "type": "VirtualMachineScaleSets",
+      "upgradeSettings": {
+        "drainTimeoutInMinutes": null,
+        "maxSurge": "10%",
+        "maxUnavailable": "0",
+        "nodeSoakDurationInMinutes": null,
+        "undrainableNodeBehavior": null
+      },
+      "virtualMachineNodesStatus": null,
+      "virtualMachinesProfile": null,
+      "vmSize": "Standard_D2as_v5",
+      "vnetSubnetId": null,
+      "windowsProfile": null,
+      "workloadRuntime": null
+    }
+  ],
+  "aiToolchainOperatorProfile": null,
+  "apiServerAccessProfile": null,
+  "autoScalerProfile": null,
+  "autoUpgradeProfile": {
+    "nodeOsUpgradeChannel": "NodeImage",
+    "upgradeChannel": null
+  },
+  "azureMonitorProfile": null,
+  "azurePortalFqdn": "<AKS_FQDN_REDACTED>",
+  "bootstrapProfile": {
+    "artifactSource": "Direct",
+    "containerRegistryId": null
+  },
+  "currentKubernetesVersion": "1.36.3",
+  "disableLocalAccounts": false,
+  "diskEncryptionSetId": null,
+  "dnsPrefix": "e40-aks-mcb-experiments-3397be",
+  "eTag": "<AZURE_ID_REDACTED>",
+  "enableRbac": true,
+  "extendedLocation": null,
+  "fqdn": "<AKS_FQDN_REDACTED>",
+  "fqdnSubdomain": null,
+  "hostedSystemProfile": null,
+  "httpProxyConfig": null,
+  "id": "/subscriptions/<AZURE_ID_REDACTED>/resourcegroups/mcb-experiments/providers/Microsoft.ContainerService/managedClusters/e40-aks",
+  "identity": {
+    "delegatedResources": null,
+    "principalId": "<AZURE_ID_REDACTED>",
+    "tenantId": "<AZURE_ID_REDACTED>",
+    "type": "SystemAssigned",
+    "userAssignedIdentities": null
+  },
+  "identityProfile": {
+    "kubeletidentity": {
+      "clientId": "<AZURE_ID_REDACTED>",
+      "objectId": "<AZURE_ID_REDACTED>",
+      "resourceId": "/subscriptions/<AZURE_ID_REDACTED>/resourcegroups/MC_mcb-experiments_e40-aks_koreasouth/providers/Microsoft.ManagedIdentity/userAssignedIdentities/e40-aks-agentpool"
+    }
+  },
+  "ingressProfile": null,
+  "kind": "Base",
+  "kubernetesVersion": "1.36.3",
+  "linuxProfile": null,
+  "location": "koreasouth",
+  "maxAgentPools": 100,
+  "metricsProfile": {
+    "costAnalysis": {
+      "enabled": false
+    }
+  },
+  "name": "e40-aks",
+  "networkProfile": {
+    "advancedNetworking": null,
+    "dnsServiceIp": "10.0.0.10",
+    "ipFamilies": [
+      "IPv4"
+    ],
+    "loadBalancerProfile": {
+      "allocatedOutboundPorts": null,
+      "backendPoolType": "nodeIPConfiguration",
+      "effectiveOutboundIPs": [
+        {
+          "id": "/subscriptions/<AZURE_ID_REDACTED>/resourceGroups/MC_mcb-experiments_e40-aks_koreasouth/providers/Microsoft.Network/publicIPAddresses/<AZURE_ID_REDACTED>",
+          "resourceGroup": "MC_mcb-experiments_e40-aks_koreasouth"
+        }
+      ],
+      "enableMultipleStandardLoadBalancers": null,
+      "idleTimeoutInMinutes": null,
+      "managedOutboundIPs": {
+        "count": 1,
+        "countIpv6": null
+      },
+      "outboundIPs": null,
+      "outboundIpPrefixes": null
+    },
+    "loadBalancerSku": "standard",
+    "natGatewayProfile": null,
+    "networkDataplane": "azure",
+    "networkMode": null,
+    "networkPlugin": "azure",
+    "networkPluginMode": "overlay",
+    "networkPolicy": "none",
+    "outboundType": "loadBalancer",
+    "podCidr": "10.244.0.0/16",
+    "podCidrs": [
+      "10.244.0.0/16"
+    ],
+    "serviceCidr": "10.0.0.0/16",
+    "serviceCidrs": [
+      "10.0.0.0/16"
+    ],
+    "staticEgressGatewayProfile": null
+  },
+  "nodeProvisioningProfile": {
+    "defaultNodePools": null,
+    "mode": "Manual"
+  },
+  "nodeResourceGroup": "MC_mcb-experiments_e40-aks_koreasouth",
+  "nodeResourceGroupProfile": null,
+  "oidcIssuerProfile": {
+    "enabled": true,
+    "issuerUrl": "https://koreasouth.oic.prod-aks.azure.com/<AZURE_ID_REDACTED>/<AZURE_ID_REDACTED>/"
+  },
+  "podIdentityProfile": null,
+  "powerState": {
+    "code": "Running"
+  },
+  "privateFqdn": null,
+  "privateLinkResources": null,
+  "provisioningState": "Succeeded",
+  "publicNetworkAccess": null,
+  "resourceGroup": "mcb-experiments",
+  "resourceUid": "6ab800d81c0ad800013b6fa4",
+  "schedulerProfile": null,
+  "securityProfile": {
+    "azureKeyVaultKms": null,
+    "customCaTrustCertificates": null,
+    "defender": null,
+    "imageCleaner": null,
+    "workloadIdentity": null
+  },
+  "serviceMeshProfile": null,
+  "servicePrincipalProfile": {
+    "clientId": "msi",
+    "secret": null
+  },
+  "sku": {
+    "name": "Base",
+    "tier": "Free"
+  },
+  "status": null,
+  "storageProfile": {
+    "blobCsiDriver": null,
+    "diskCsiDriver": {
+      "enabled": true
+    },
+    "fileCsiDriver": {
+      "enabled": true
+    },
+    "snapshotController": {
+      "enabled": true
+    }
+  },
+  "supportPlan": "KubernetesOfficial",
+  "systemData": null,
+  "tags": {
+    "expires": "2026-09-27",
+    "purpose": "e40"
+  },
+  "type": "Microsoft.ContainerService/ManagedClusters",
+  "upgradeSettings": null,
+  "windowsProfile": {
+    "adminPassword": null,
+    "adminUsername": "azureuser",
+    "enableCsiProxy": true,
+    "gmsaProfile": null,
+    "licenseType": null
+  },
+  "workloadAutoScalerProfile": {
+    "keda": null,
+    "verticalPodAutoscaler": null
+  }
+}

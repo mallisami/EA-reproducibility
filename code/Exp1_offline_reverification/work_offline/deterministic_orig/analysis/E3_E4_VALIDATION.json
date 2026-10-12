@@ -1,0 +1,10 @@
+{
+  "frozen_hash_mismatches": [],
+  "e3_rows": 576,
+  "e4_rows": 384,
+  "unknown_e3": 0,
+  "unknown_e4": 0,
+  "p1_p4_causal_output_mismatches": [],
+  "f56_e3_all_not_exploitable": true,
+  "f56_e4_all_not_exploitable": true
+}

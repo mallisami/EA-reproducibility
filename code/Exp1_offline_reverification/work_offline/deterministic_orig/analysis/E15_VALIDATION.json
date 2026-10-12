@@ -1,0 +1,19 @@
+{
+  "freeze_id": "FLASHIR-E15-CONCURRENCY-FREEZE-20260905",
+  "template_count": 12,
+  "positive_template_count": 11,
+  "negative_control_count": 1,
+  "executed_condition_rows": 35,
+  "na_condition_rows": 1,
+  "defense_cells": 105,
+  "benign_noise_false_aborts_all_defenses": 0,
+  "benign_mirror_B0_unsafe_positive": 11,
+  "benign_mirror_B4_unsafe_positive": 0,
+  "benign_mirror_B6_unsafe_positive": 0,
+  "attack_plus_noise_B0_unsafe": 11,
+  "attack_plus_noise_B4_unsafe": 0,
+  "attack_plus_noise_B6_unsafe": 0,
+  "F5.6_benign_mirror_valid": true,
+  "frozen_input_hash_mismatches": [],
+  "status": "PASS"
+}

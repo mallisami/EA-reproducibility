@@ -1,0 +1,1746 @@
+diff -ru code_e39_locked/deploy/audit-policy.yaml code/deploy/audit-policy.yaml
+--- code_e39_locked/deploy/audit-policy.yaml	2026-09-26 12:12:21.613589904 +0000
++++ code/deploy/audit-policy.yaml	2026-09-26 15:23:00.300146057 +0000
+@@ -2,7 +2,7 @@
+ #
+ # Goal: full RequestResponse events (ResponseComplete: requestObject, responseObject incl.
+ # metadata.resourceVersion, responseStatus incl. message) for exactly the writes the oracle joins on,
+-# in the per-run test namespace(s) e39-<run_id>:
++# in the per-run test namespace(s) e40-<run_id>:
+ #   - pods patch/update            (A4d writer / arrivals / cuts on annotations; A4m mirror PATCH)
+ #   - pods/status patch/update     (kubelet status writes; responseObject RV attributes A4 409s)
+ #   - pods delete                  (responder DELETE; 200 = deleted Pod incl. RV, 409 = precondition message)
+@@ -14,8 +14,8 @@
+ # at `kind create cluster` (before any RUN_ID namespace exists; smoke and main RUN_IDs share the
+ # cluster), so it cannot carry a rendered RUN_ID. As before, every namespace that is NOT a test
+ # namespace is therefore excluded first by explicit name (rule 1). The cluster is dedicated: besides
+-# the namespaces in rule 1 only e39-<run_id> test namespaces are ever created, so the RequestResponse
+-# rules below are effectively "namespaces matching e39-* except e39-system and e39-load".
++# the namespaces in rule 1 only e40-<run_id> test namespaces are ever created, so the RequestResponse
++# rules below are effectively "namespaces matching e40-* except e40-system and e40-load".
+ #
+ # omitStages RequestReceived: justified. The ResponseComplete event carries
+ # requestReceivedTimestamp (the DELETE "received" time for the secondary oracle
+@@ -37,8 +37,8 @@
+   - kube-node-lease
+   - local-path-storage
+   - default
+-  - e39-system
+-  - e39-load
++  - e40-system
++  - e40-load
+ # 2. Test namespaces: Pod object and Pod status writes (annotation PATCHes, mirror PATCHes, kubelet status).
+ - level: RequestResponse
+   verbs: ["update", "patch"]
+diff -ru code_e39_locked/deploy/gen_certs.sh code/deploy/gen_certs.sh
+--- code_e39_locked/deploy/gen_certs.sh	2026-09-26 12:12:21.637755696 +0000
++++ code/deploy/gen_certs.sh	2026-09-26 15:23:00.299646588 +0000
+@@ -1,5 +1,5 @@
+ #!/usr/bin/env bash
+-# Self-signed CA + serving certificate for the E39 webhook Service (e39-webhook.e39-system.svc), and
++# Self-signed CA + serving certificate for the E39 webhook Service (e40-webhook.e40-system.svc), and
+ # caBundle injection into the rendered ValidatingWebhookConfiguration. Applies nothing.
+ #   usage: deploy/gen_certs.sh <OUTDIR> [SERVICE] [NAMESPACE]
+ # Reads  <OUTDIR>/webhook-config.yaml   (from render.sh; must contain CA_BUNDLE_PLACEHOLDER)
+@@ -7,8 +7,8 @@
+ #        <OUTDIR>/webhook-config.yaml   (placeholder replaced by base64(ca.crt))
+ set -euo pipefail
+ OUT="${1:?usage: gen_certs.sh <OUTDIR> [SERVICE] [NAMESPACE]}"
+-SVC="${2:-e39-webhook}"
+-NS="${3:-e39-system}"
++SVC="${2:-e40-webhook}"
++NS="${3:-e40-system}"
+ DAYS="${E39_CERT_DAYS:-30}"
+ CFG="$OUT/webhook-config.yaml"
+ 
+@@ -35,7 +35,7 @@
+ EOF
+ 
+ openssl req -x509 -newkey rsa:2048 -nodes -sha256 -days "$DAYS" \
+-  -keyout "$C/ca.key" -out "$C/ca.crt" -subj "/CN=e39-webhook-ca" \
++  -keyout "$C/ca.key" -out "$C/ca.crt" -subj "/CN=e40-webhook-ca" \
+   -addext "basicConstraints=critical,CA:TRUE" -addext "keyUsage=critical,keyCertSign,cRLSign" 2>/dev/null
+ openssl req -new -newkey rsa:2048 -nodes -sha256 -keyout "$C/tls.key" -out "$C/tls.csr" \
+   -config "$C/server.cnf" 2>/dev/null
+diff -ru code_e39_locked/deploy/kind-config.yaml code/deploy/kind-config.yaml
+--- code_e39_locked/deploy/kind-config.yaml	2026-09-26 12:12:21.611257420 +0000
++++ code/deploy/kind-config.yaml	2026-09-26 15:23:00.299840864 +0000
+@@ -24,9 +24,9 @@
+     containerPath: /etc/kubernetes/e39/audit-policy.yaml
+     readOnly: true
+   - hostPath: /home/azureuser/e39_20260926/results/_audit_host
+-    containerPath: /var/log/kubernetes/e39-audit
++    containerPath: /var/log/kubernetes/e40-audit
+   - hostPath: /home/azureuser/e39_20260926/results/_webhook_host
+-    containerPath: /var/log/e39-webhook
++    containerPath: /var/log/e40-webhook
+   kubeadmConfigPatches:
+   - |
+     apiVersion: kubeadm.k8s.io/v1beta4
+@@ -36,7 +36,7 @@
+       - name: audit-policy-file
+         value: /etc/kubernetes/e39/audit-policy.yaml
+       - name: audit-log-path
+-        value: /var/log/kubernetes/e39-audit/audit.log
++        value: /var/log/kubernetes/e40-audit/audit.log
+       - name: audit-log-format
+         value: json
+       - name: audit-log-maxsize
+@@ -54,14 +54,14 @@
+       - name: vmodule
+         value: store=6,round_trippers=6
+       extraVolumes:
+-      - name: e39-audit-policy
++      - name: e40-audit-policy
+         hostPath: /etc/kubernetes/e39/audit-policy.yaml
+         mountPath: /etc/kubernetes/e39/audit-policy.yaml
+         readOnly: true
+         pathType: File
+-      - name: e39-audit-log
+-        hostPath: /var/log/kubernetes/e39-audit
+-        mountPath: /var/log/kubernetes/e39-audit
++      - name: e40-audit-log
++        hostPath: /var/log/kubernetes/e40-audit
++        mountPath: /var/log/kubernetes/e40-audit
+         readOnly: false
+         pathType: DirectoryOrCreate
+   - |
+diff -ru code_e39_locked/deploy/namespace.yaml code/deploy/namespace.yaml
+--- code_e39_locked/deploy/namespace.yaml	2026-09-26 12:12:21.617178730 +0000
++++ code/deploy/namespace.yaml	2026-09-26 15:23:00.299247418 +0000
+@@ -1,30 +1,30 @@
+ # Template: RUNID is substituted by deploy/render.sh (never apply this file directly).
+-# e39-system : long-lived control namespace (webhook + the six identities); never audited, never webhooked.
+-# e39-RUNID  : per-run test namespace; the ONLY namespace the webhook and the RequestResponse audit rules act on.
+-# e39-load   : E39-D background-load namespace (load identity only); audit level None, never webhooked.
++# e40-system : long-lived control namespace (webhook + the six identities); never audited, never webhooked.
++# e40-RUNID  : per-run test namespace; the ONLY namespace the webhook and the RequestResponse audit rules act on.
++# e40-load   : E39-D background-load namespace (load identity only); audit level None, never webhooked.
+ #              Created here so that the load Role in rbac.yaml can be applied; re-applying for a second
+ #              RUN_ID is idempotent.
+ apiVersion: v1
+ kind: Namespace
+ metadata:
+-  name: e39-system
++  name: e40-system
+   labels:
+-    e39-managed: "true"
+-    e39-role: system
++    e40-managed: "true"
++    e40-role: system
+ ---
+ apiVersion: v1
+ kind: Namespace
+ metadata:
+-  name: e39-RUNID
++  name: e40-RUNID
+   labels:
+-    e39-managed: "true"
+-    e39-run-id: RUNID
+-    e39-role: test
++    e40-managed: "true"
++    e40-run-id: RUNID
++    e40-role: test
+ ---
+ apiVersion: v1
+ kind: Namespace
+ metadata:
+-  name: e39-load
++  name: e40-load
+   labels:
+-    e39-managed: "true"
+-    e39-role: load
++    e40-managed: "true"
++    e40-role: load
+diff -ru code_e39_locked/deploy/rbac.yaml code/deploy/rbac.yaml
+--- code_e39_locked/deploy/rbac.yaml	2026-09-26 12:12:21.623478032 +0000
++++ code/deploy/rbac.yaml	2026-09-26 15:23:00.299502388 +0000
+@@ -1,50 +1,50 @@
+ # Template: RUNID is substituted by deploy/render.sh.
+-# Identities live in e39-system (stable usernames across runs); permissions are granted ONLY inside
+-# the per-run test namespace e39-RUNID, except the load identity (namespace e39-load only).
+-#   responder : system:serviceaccount:e39-system:e39-responder  get policy CMs, get/delete pods,
++# Identities live in e40-system (stable usernames across runs); permissions are granted ONLY inside
++# the per-run test namespace e40-RUNID, except the load identity (namespace e40-load only).
++#   responder : system:serviceaccount:e40-system:e40-responder  get policy CMs, get/delete pods,
+ #                                                              create/delete networkpolicies, create SSAR
+-#   writer    : system:serviceaccount:e39-system:e39-writer     get/patch policy CMs, get/patch pods (A4d annotations)
+-#   reset     : system:serviceaccount:e39-system:e39-reset      full fixture control (CMs, pods, networkpolicies);
++#   writer    : system:serviceaccount:e40-system:e40-writer     get/patch policy CMs, get/patch pods (A4d annotations)
++#   reset     : system:serviceaccount:e40-system:e40-reset      full fixture control (CMs, pods, networkpolicies);
+ #                                                              EXEMPT from the webhook
+-#   mirror    : system:serviceaccount:e39-system:e39-mirror     get/list/watch CMs, get/patch pods (A4m controller)
+-#   load      : system:serviceaccount:e39-system:e39-load       get/list/patch/create CMs in e39-load ONLY
+-#   webhook   : system:serviceaccount:e39-system:e39-webhook    get the 8 policy CMs only (it reads no Pods)
++#   mirror    : system:serviceaccount:e40-system:e40-mirror     get/list/watch CMs, get/patch pods (A4m controller)
++#   load      : system:serviceaccount:e40-system:e40-load       get/list/patch/create CMs in e40-load ONLY
++#   webhook   : system:serviceaccount:e40-system:e40-webhook    get the 8 policy CMs only (it reads no Pods)
+ # The runner obtains short-lived tokens with `kubectl create token` (see RUNBOOK).
+ # ConfigMap names (incl. the epoch object "e38-epoch") are the ones used by the runner code (src/).
+ apiVersion: v1
+ kind: ServiceAccount
+-metadata: {name: e39-responder, namespace: e39-system, labels: {e39-managed: "true"}}
++metadata: {name: e40-responder, namespace: e40-system, labels: {e40-managed: "true"}}
+ automountServiceAccountToken: false
+ ---
+ apiVersion: v1
+ kind: ServiceAccount
+-metadata: {name: e39-writer, namespace: e39-system, labels: {e39-managed: "true"}}
++metadata: {name: e40-writer, namespace: e40-system, labels: {e40-managed: "true"}}
+ automountServiceAccountToken: false
+ ---
+ apiVersion: v1
+ kind: ServiceAccount
+-metadata: {name: e39-reset, namespace: e39-system, labels: {e39-managed: "true"}}
++metadata: {name: e40-reset, namespace: e40-system, labels: {e40-managed: "true"}}
+ automountServiceAccountToken: false
+ ---
+ apiVersion: v1
+ kind: ServiceAccount
+-metadata: {name: e39-mirror, namespace: e39-system, labels: {e39-managed: "true"}}
++metadata: {name: e40-mirror, namespace: e40-system, labels: {e40-managed: "true"}}
+ automountServiceAccountToken: false
+ ---
+ apiVersion: v1
+ kind: ServiceAccount
+-metadata: {name: e39-load, namespace: e39-system, labels: {e39-managed: "true"}}
++metadata: {name: e40-load, namespace: e40-system, labels: {e40-managed: "true"}}
+ automountServiceAccountToken: false
+ ---
+ apiVersion: v1
+ kind: ServiceAccount
+-metadata: {name: e39-webhook, namespace: e39-system, labels: {e39-managed: "true"}}
++metadata: {name: e40-webhook, namespace: e40-system, labels: {e40-managed: "true"}}
+ automountServiceAccountToken: true
+ ---
+ # ---------------------------------------------------------------- responder
+ apiVersion: rbac.authorization.k8s.io/v1
+ kind: Role
+-metadata: {name: e39-responder, namespace: e39-RUNID, labels: {e39-managed: "true"}}
++metadata: {name: e40-responder, namespace: e40-RUNID, labels: {e40-managed: "true"}}
+ rules:
+ - apiGroups: [""]
+   resources: ["configmaps"]
+@@ -60,14 +60,14 @@
+ ---
+ apiVersion: rbac.authorization.k8s.io/v1
+ kind: RoleBinding
+-metadata: {name: e39-responder, namespace: e39-RUNID, labels: {e39-managed: "true"}}
+-roleRef: {apiGroup: rbac.authorization.k8s.io, kind: Role, name: e39-responder}
++metadata: {name: e40-responder, namespace: e40-RUNID, labels: {e40-managed: "true"}}
++roleRef: {apiGroup: rbac.authorization.k8s.io, kind: Role, name: e40-responder}
+ subjects:
+-- {kind: ServiceAccount, name: e39-responder, namespace: e39-system}
++- {kind: ServiceAccount, name: e40-responder, namespace: e40-system}
+ ---
+ apiVersion: rbac.authorization.k8s.io/v1
+ kind: ClusterRole
+-metadata: {name: e39-ssar, labels: {e39-managed: "true"}}
++metadata: {name: e40-ssar, labels: {e40-managed: "true"}}
+ rules:
+ - apiGroups: ["authorization.k8s.io"]
+   resources: ["selfsubjectaccessreviews"]
+@@ -75,16 +75,16 @@
+ ---
+ apiVersion: rbac.authorization.k8s.io/v1
+ kind: ClusterRoleBinding
+-metadata: {name: e39-ssar, labels: {e39-managed: "true"}}
+-roleRef: {apiGroup: rbac.authorization.k8s.io, kind: ClusterRole, name: e39-ssar}
++metadata: {name: e40-ssar, labels: {e40-managed: "true"}}
++roleRef: {apiGroup: rbac.authorization.k8s.io, kind: ClusterRole, name: e40-ssar}
+ subjects:
+-- {kind: ServiceAccount, name: e39-responder, namespace: e39-system}
+-- {kind: ServiceAccount, name: e39-reset, namespace: e39-system}
++- {kind: ServiceAccount, name: e40-responder, namespace: e40-system}
++- {kind: ServiceAccount, name: e40-reset, namespace: e40-system}
+ ---
+ # ---------------------------------------------------------------- writer
+ apiVersion: rbac.authorization.k8s.io/v1
+ kind: Role
+-metadata: {name: e39-writer, namespace: e39-RUNID, labels: {e39-managed: "true"}}
++metadata: {name: e40-writer, namespace: e40-RUNID, labels: {e40-managed: "true"}}
+ rules:
+ - apiGroups: [""]
+   resources: ["configmaps"]
+@@ -97,15 +97,15 @@
+ ---
+ apiVersion: rbac.authorization.k8s.io/v1
+ kind: RoleBinding
+-metadata: {name: e39-writer, namespace: e39-RUNID, labels: {e39-managed: "true"}}
+-roleRef: {apiGroup: rbac.authorization.k8s.io, kind: Role, name: e39-writer}
++metadata: {name: e40-writer, namespace: e40-RUNID, labels: {e40-managed: "true"}}
++roleRef: {apiGroup: rbac.authorization.k8s.io, kind: Role, name: e40-writer}
+ subjects:
+-- {kind: ServiceAccount, name: e39-writer, namespace: e39-system}
++- {kind: ServiceAccount, name: e40-writer, namespace: e40-system}
+ ---
+ # ---------------------------------------------------------------- reset (fixture control)
+ apiVersion: rbac.authorization.k8s.io/v1
+ kind: Role
+-metadata: {name: e39-reset, namespace: e39-RUNID, labels: {e39-managed: "true"}}
++metadata: {name: e40-reset, namespace: e40-RUNID, labels: {e40-managed: "true"}}
+ rules:
+ - apiGroups: [""]
+   resources: ["configmaps", "pods"]
+@@ -119,17 +119,17 @@
+ ---
+ apiVersion: rbac.authorization.k8s.io/v1
+ kind: RoleBinding
+-metadata: {name: e39-reset, namespace: e39-RUNID, labels: {e39-managed: "true"}}
+-roleRef: {apiGroup: rbac.authorization.k8s.io, kind: Role, name: e39-reset}
++metadata: {name: e40-reset, namespace: e40-RUNID, labels: {e40-managed: "true"}}
++roleRef: {apiGroup: rbac.authorization.k8s.io, kind: Role, name: e40-reset}
+ subjects:
+-- {kind: ServiceAccount, name: e39-reset, namespace: e39-system}
++- {kind: ServiceAccount, name: e40-reset, namespace: e40-system}
+ ---
+ # ---------------------------------------------------------------- mirror (A4m controller)
+ # list/watch cannot be narrowed by resourceNames (the controller watches the namespace's ConfigMaps);
+ # the identity is read-only on ConfigMaps and can only get/patch Pods.
+ apiVersion: rbac.authorization.k8s.io/v1
+ kind: Role
+-metadata: {name: e39-mirror, namespace: e39-RUNID, labels: {e39-managed: "true"}}
++metadata: {name: e40-mirror, namespace: e40-RUNID, labels: {e40-managed: "true"}}
+ rules:
+ - apiGroups: [""]
+   resources: ["configmaps"]
+@@ -140,15 +140,15 @@
+ ---
+ apiVersion: rbac.authorization.k8s.io/v1
+ kind: RoleBinding
+-metadata: {name: e39-mirror, namespace: e39-RUNID, labels: {e39-managed: "true"}}
+-roleRef: {apiGroup: rbac.authorization.k8s.io, kind: Role, name: e39-mirror}
++metadata: {name: e40-mirror, namespace: e40-RUNID, labels: {e40-managed: "true"}}
++roleRef: {apiGroup: rbac.authorization.k8s.io, kind: Role, name: e40-mirror}
+ subjects:
+-- {kind: ServiceAccount, name: e39-mirror, namespace: e39-system}
++- {kind: ServiceAccount, name: e40-mirror, namespace: e40-system}
+ ---
+ # ---------------------------------------------------------------- webhook (read-only, 8 objects)
+ apiVersion: rbac.authorization.k8s.io/v1
+ kind: Role
+-metadata: {name: e39-webhook-reader, namespace: e39-RUNID, labels: {e39-managed: "true"}}
++metadata: {name: e40-webhook-reader, namespace: e40-RUNID, labels: {e40-managed: "true"}}
+ rules:
+ - apiGroups: [""]
+   resources: ["configmaps"]
+@@ -158,15 +158,15 @@
+ ---
+ apiVersion: rbac.authorization.k8s.io/v1
+ kind: RoleBinding
+-metadata: {name: e39-webhook-reader, namespace: e39-RUNID, labels: {e39-managed: "true"}}
+-roleRef: {apiGroup: rbac.authorization.k8s.io, kind: Role, name: e39-webhook-reader}
++metadata: {name: e40-webhook-reader, namespace: e40-RUNID, labels: {e40-managed: "true"}}
++roleRef: {apiGroup: rbac.authorization.k8s.io, kind: Role, name: e40-webhook-reader}
+ subjects:
+-- {kind: ServiceAccount, name: e39-webhook, namespace: e39-system}
++- {kind: ServiceAccount, name: e40-webhook, namespace: e40-system}
+ ---
+-# ---------------------------------------------------------------- load (E39-D, namespace e39-load ONLY)
++# ---------------------------------------------------------------- load (E39-D, namespace e40-load ONLY)
+ apiVersion: rbac.authorization.k8s.io/v1
+ kind: Role
+-metadata: {name: e39-load, namespace: e39-load, labels: {e39-managed: "true"}}
++metadata: {name: e40-load, namespace: e40-load, labels: {e40-managed: "true"}}
+ rules:
+ - apiGroups: [""]
+   resources: ["configmaps"]
+@@ -174,7 +174,7 @@
+ ---
+ apiVersion: rbac.authorization.k8s.io/v1
+ kind: RoleBinding
+-metadata: {name: e39-load, namespace: e39-load, labels: {e39-managed: "true"}}
+-roleRef: {apiGroup: rbac.authorization.k8s.io, kind: Role, name: e39-load}
++metadata: {name: e40-load, namespace: e40-load, labels: {e40-managed: "true"}}
++roleRef: {apiGroup: rbac.authorization.k8s.io, kind: Role, name: e40-load}
+ subjects:
+-- {kind: ServiceAccount, name: e39-load, namespace: e39-system}
++- {kind: ServiceAccount, name: e40-load, namespace: e40-system}
+diff -ru code_e39_locked/deploy/render.sh code/deploy/render.sh
+--- code_e39_locked/deploy/render.sh	2026-09-26 12:12:21.635909215 +0000
++++ code/deploy/render.sh	2026-09-26 15:23:00.299993050 +0000
+@@ -2,7 +2,7 @@
+ # Render the E39 manifest templates for one run id. Pure file operation: applies nothing.
+ #   usage: deploy/render.sh <RUN_ID> <OUTDIR>
+ # Produces <OUTDIR>/{namespace,rbac,webhook,webhook-config}.yaml with RUNID substituted
+-# (test namespace e39-<RUN_ID>; webhook-config.yaml still contains CA_BUNDLE_PLACEHOLDER until
++# (test namespace e40-<RUN_ID>; webhook-config.yaml still contains CA_BUNDLE_PLACEHOLDER until
+ # gen_certs.sh runs) and <OUTDIR>/RENDER_MANIFEST.txt with sha256 of templates and rendered files.
+ set -euo pipefail
+ RUN_ID="${1:?usage: render.sh <RUN_ID> <OUTDIR>}"
+@@ -13,7 +13,7 @@
+   echo "RUN_ID must be a DNS label fragment [a-z0-9-], <=42 chars: '$RUN_ID'" >&2; exit 2
+ fi
+ case "$RUN_ID" in
+-  system|load) echo "RUN_ID '$RUN_ID' is reserved (e39-$RUN_ID is not a test namespace)" >&2; exit 2 ;;
++  system|load) echo "RUN_ID '$RUN_ID' is reserved (e40-$RUN_ID is not a test namespace)" >&2; exit 2 ;;
+ esac
+ if [[ -e "$OUT" ]] && [[ -n "$(ls -A "$OUT" 2>/dev/null)" ]]; then
+   echo "refusing to overwrite non-empty $OUT" >&2; exit 2
+@@ -22,7 +22,7 @@
+ FILES=(namespace.yaml rbac.yaml webhook.yaml webhook-config.yaml)
+ {
+   echo "run_id=$RUN_ID"
+-  echo "namespace=e39-$RUN_ID"
++  echo "namespace=e40-$RUN_ID"
+   echo "rendered_utc=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+ } > "$OUT/RENDER_MANIFEST.txt"
+ for f in "${FILES[@]}"; do
+@@ -31,4 +31,4 @@
+   echo "template_sha256 $(sha256sum "$HERE/$f" | cut -d' ' -f1) $f" >> "$OUT/RENDER_MANIFEST.txt"
+   echo "rendered_sha256 $(sha256sum "$OUT/$f" | cut -d' ' -f1) $f" >> "$OUT/RENDER_MANIFEST.txt"
+ done
+-echo "rendered ${FILES[*]} for e39-$RUN_ID into $OUT"
++echo "rendered ${FILES[*]} for e40-$RUN_ID into $OUT"
+diff -ru code_e39_locked/deploy/webhook-config.yaml code/deploy/webhook-config.yaml
+--- code_e39_locked/deploy/webhook-config.yaml	2026-09-26 12:12:21.633629172 +0000
++++ code/deploy/webhook-config.yaml	2026-09-26 15:23:00.299087818 +0000
+@@ -1,18 +1,18 @@
+ # Template: RUNID substituted by deploy/render.sh; the caBundle placeholder below by deploy/gen_certs.sh.
+ # Installed once for the whole run (arms are randomised within blocks, so the webhook
+ # cannot be toggled per trial). Per-trial arm selection is done by objectSelector:
+-# the webhook is called ONLY for objects labelled e39-webhook=enforce, which the runner
++# the webhook is called ONLY for objects labelled e40-webhook=enforce, which the runner
+ # sets for A3 trials only. A1/A2/A4 targets carry no such label -> no call, no latency.
+ # objectSelector mechanism (API server semantics):
+ #   - Pod DELETE: the selector is evaluated against oldObject (the Pod being deleted), so the
+-#     TARGET POD must carry e39-webhook=enforce.
++#     TARGET POD must carry e40-webhook=enforce.
+ #   - NetworkPolicy CREATE (E39-E): there is no oldObject; the selector is evaluated against the NEW
+-#     object, so the NETWORKPOLICY being created must carry e39-webhook=enforce (the label on the
++#     object, so the NETWORKPOLICY being created must carry e40-webhook=enforce (the label on the
+ #     isolated Pod is irrelevant for this rule). Unlabelled NetworkPolicies are never sent.
+ # Scope:
+ #   - operations DELETE on core/v1 pods and CREATE on networking.k8s.io/v1 networkpolicies, namespaced
+ #   - namespaceSelector: exactly the test namespace (kubernetes.io/metadata.name is set by the API server)
+-#   - objectSelector: e39-webhook=enforce
++#   - objectSelector: e40-webhook=enforce
+ #   - matchConditions (CEL, GA since v1.30): the webhook is NOT called for the reset identity,
+ #     kubelets (final grace-0 DELETE of an already-terminating Pod) and the namespace/GC controllers,
+ #     so fixture reset and namespace teardown can never be blocked by failurePolicy Fail.
+@@ -20,10 +20,10 @@
+ apiVersion: admissionregistration.k8s.io/v1
+ kind: ValidatingWebhookConfiguration
+ metadata:
+-  name: e39-action-revalidation
+-  labels: {e39-managed: "true", e39-run-id: RUNID}
++  name: e40-action-revalidation
++  labels: {e40-managed: "true", e40-run-id: RUNID}
+ webhooks:
+-- name: action-revalidation.e39.e39-managed.local
++- name: action-revalidation.e39.e40-managed.local
+   admissionReviewVersions: ["v1"]
+   sideEffects: None
+   failurePolicy: Fail
+@@ -31,8 +31,8 @@
+   timeoutSeconds: 5
+   clientConfig:
+     service:
+-      namespace: e39-system
+-      name: e39-webhook
++      namespace: e40-system
++      name: e40-webhook
+       path: /validate
+       port: 443
+     caBundle: CA_BUNDLE_PLACEHOLDER
+@@ -49,13 +49,13 @@
+     scope: Namespaced
+   namespaceSelector:
+     matchLabels:
+-      kubernetes.io/metadata.name: e39-RUNID
++      kubernetes.io/metadata.name: e40-RUNID
+   objectSelector:
+     matchLabels:
+-      e39-webhook: enforce
++      e40-webhook: enforce
+   matchConditions:
+   - name: exempt-reset-identity
+-    expression: "request.userInfo.username != 'system:serviceaccount:e39-system:e39-reset'"
++    expression: "request.userInfo.username != 'system:serviceaccount:e40-system:e40-reset'"
+   - name: exempt-kubelets
+     expression: "!request.userInfo.username.startsWith('system:node:')"
+   - name: exempt-namespace-and-gc-controllers
+diff -ru code_e39_locked/deploy/webhook.yaml code/deploy/webhook.yaml
+--- code_e39_locked/deploy/webhook.yaml	2026-09-26 12:12:21.627869013 +0000
++++ code/deploy/webhook.yaml	2026-09-26 15:23:00.299376481 +0000
+@@ -1,25 +1,25 @@
+ # Template: RUNID is substituted by deploy/render.sh.
+ # Prerequisites created by the RUNBOOK (not in this file, so that exact hashed files are used):
+-#   kubectl -n e39-system create configmap e39-webhook-code --from-file=server.py --from-file=policy.py
+-#   kubectl -n e39-system create secret tls e39-webhook-tls --cert=<out>/certs/tls.crt --key=<out>/certs/tls.key
++#   kubectl -n e40-system create configmap e40-webhook-code --from-file=server.py --from-file=policy.py
++#   kubectl -n e40-system create secret tls e40-webhook-tls --cert=<out>/certs/tls.crt --key=<out>/certs/tls.key
+ #   mkdir -p ~/e39_20260926/results/_webhook_host/RUNID   (log subdirectory; owned by azureuser = uid 1000)
+ # Image python:3.12-slim is side-loaded with `kind load docker-image --name e39`; imagePullPolicy Never (no pulls).
+ apiVersion: apps/v1
+ kind: Deployment
+ metadata:
+-  name: e39-webhook
+-  namespace: e39-system
+-  labels: {app: e39-webhook, e39-managed: "true"}
++  name: e40-webhook
++  namespace: e40-system
++  labels: {app: e40-webhook, e40-managed: "true"}
+ spec:
+   replicas: 1                # exactly one writer of webhook_log.jsonl
+   strategy: {type: Recreate}
+   selector:
+-    matchLabels: {app: e39-webhook}
++    matchLabels: {app: e40-webhook}
+   template:
+     metadata:
+-      labels: {app: e39-webhook, e39-managed: "true"}
++      labels: {app: e40-webhook, e40-managed: "true"}
+     spec:
+-      serviceAccountName: e39-webhook
++      serviceAccountName: e40-webhook
+       automountServiceAccountToken: true
+       enableServiceLinks: false
+       terminationGracePeriodSeconds: 5
+@@ -37,15 +37,15 @@
+         imagePullPolicy: Never
+         command: ["python", "-u", "/app/server.py"]
+         env:
+-        - {name: WEBHOOK_NAMESPACE, value: e39-RUNID}
++        - {name: WEBHOOK_NAMESPACE, value: e40-RUNID}
+         - {name: WEBHOOK_BIND, value: "0.0.0.0"}
+         - {name: WEBHOOK_PORT, value: "8443"}
+         - {name: WEBHOOK_TLS_CERT, value: /tls/tls.crt}
+         - {name: WEBHOOK_TLS_KEY, value: /tls/tls.key}
+-        - {name: WEBHOOK_LOG_PATH, value: /var/log/e39-webhook/RUNID/webhook_log.jsonl}
++        - {name: WEBHOOK_LOG_PATH, value: /var/log/e40-webhook/RUNID/webhook_log.jsonl}
+         - {name: WEBHOOK_API_TIMEOUT_S, value: "1.0"}
+         - {name: WEBHOOK_BUDGET_S, value: "3.5"}
+-        - {name: WEBHOOK_EXEMPT_USERS, value: "system:serviceaccount:e39-system:e39-reset"}
++        - {name: WEBHOOK_EXEMPT_USERS, value: "system:serviceaccount:e40-system:e40-reset"}
+         - {name: PYTHONDONTWRITEBYTECODE, value: "1"}
+         ports:
+         - {name: https, containerPort: 8443, protocol: TCP}
+@@ -65,22 +65,22 @@
+         volumeMounts:
+         - {name: code, mountPath: /app, readOnly: true}
+         - {name: tls, mountPath: /tls, readOnly: true}
+-        - {name: log, mountPath: /var/log/e39-webhook}
++        - {name: log, mountPath: /var/log/e40-webhook}
+       volumes:
+       - name: code
+-        configMap: {name: e39-webhook-code, defaultMode: 0444}
++        configMap: {name: e40-webhook-code, defaultMode: 0444}
+       - name: tls
+-        secret: {secretName: e39-webhook-tls, defaultMode: 0440}
++        secret: {secretName: e40-webhook-tls, defaultMode: 0440}
+       - name: log
+-        hostPath: {path: /var/log/e39-webhook, type: Directory}
++        hostPath: {path: /var/log/e40-webhook, type: Directory}
+ ---
+ apiVersion: v1
+ kind: Service
+ metadata:
+-  name: e39-webhook
+-  namespace: e39-system
+-  labels: {app: e39-webhook, e39-managed: "true"}
++  name: e40-webhook
++  namespace: e40-system
++  labels: {app: e40-webhook, e40-managed: "true"}
+ spec:
+-  selector: {app: e39-webhook}
++  selector: {app: e40-webhook}
+   ports:
+   - {name: https, port: 443, targetPort: 8443, protocol: TCP}
+diff -ru code_e39_locked/src/action_netpol.py code/src/action_netpol.py
+--- code_e39_locked/src/action_netpol.py	2026-09-26 12:24:32.277938921 +0000
++++ code/src/action_netpol.py	2026-09-26 15:23:00.292587901 +0000
+@@ -1,12 +1,12 @@
+ #!/usr/bin/env python3
+ """E39-E alternative response action: CREATE a NetworkPolicy that isolates the target Pod.
+ 
+-Policy shape (fixed): podSelector.matchLabels = {e39-trial: <per-trial value>} (the target Pod is
++Policy shape (fixed): podSelector.matchLabels = {e40-trial: <per-trial value>} (the target Pod is
+ created with that label), policyTypes [Ingress, Egress], no ingress/egress rules -> all traffic to and
+ from the selected Pod is denied once a NetworkPolicy-enforcing CNI programs it. E39-E measures the
+ API-level effect only (object committed); dataplane enforcement is not measured.
+ 
+-A3 (webhook) trials label the NetworkPolicy with e39-webhook=enforce so the VWC objectSelector
++A3 (webhook) trials label the NetworkPolicy with e40-webhook=enforce so the VWC objectSelector
+ (applied to the NEW object for CREATE) routes it to the validating webhook.
+ 
+ CREATE has no preconditions -> commit-bound arms (A4) are structurally not applicable to this action.
+@@ -48,7 +48,7 @@
+ 
+ 
+ def build_isolation_netpol(namespace, name, label_value, webhook=False):
+-    labels = {'e39-managed': 'true', TRIAL_LABEL_KEY: label_value}
++    labels = {'e40-managed': 'true', TRIAL_LABEL_KEY: label_value}
+     if webhook:
+         labels[WEBHOOK_LABEL[0]] = WEBHOOK_LABEL[1]
+     return {'apiVersion': 'networking.k8s.io/v1', 'kind': 'NetworkPolicy',
+diff -ru code_e39_locked/src/e38v2_model.py code/src/e38v2_model.py
+--- code_e39_locked/src/e38v2_model.py	2026-09-26 12:24:32.280433350 +0000
++++ code/src/e38v2_model.py	2026-09-26 15:23:00.294403334 +0000
+@@ -26,7 +26,7 @@
+ PREDICATE_TO_PHYSICAL = {'flag_a': 'a', 'flag_b': 'b', 'flag_c': 'c', 'flag_d': 'd',
+                          'flag_e': 'e', 'flag_f': 'f', 'p_binding': 'uid', 'p_scope': 'scope'}
+ 
+-POD_NAME = 'e39-target'
++POD_NAME = 'e40-target'
+ 
+ 
+ def sha256_file(path) -> str:
+diff -ru code_e39_locked/src/e38v2_runner.py code/src/e38v2_runner.py
+--- code_e39_locked/src/e38v2_runner.py	2026-09-26 12:46:01.852320988 +0000
++++ code/src/e38v2_runner.py	2026-09-26 15:23:00.293575027 +0000
+@@ -58,9 +58,9 @@
+ WRITER_OVERHEAD_S = 0.048
+ 
+ REQUIRED_CONTEXT = 'kind-e39'
+-NS_PREFIX = 'e39-'
++NS_PREFIX = 'e40-'
+ WEBHOOK_ARM = 'A3_dcji_webhook'
+-WEBHOOK_LABEL = ('e39-webhook', 'enforce')
++WEBHOOK_LABEL = ('e40-webhook', 'enforce')
+ # E38v2 RERUN: the target Pod is a genuinely Running-and-Ready Pod. Image = the pause image that the
+ # kindest/node:v1.37.0 node image ships (sandbox image, present in the node's containerd store; no pulls:
+ # imagePullPolicy Never). The first run used python:3.12-slim with a scheduling gate (never started).
+@@ -115,7 +115,7 @@
+                 or parsed.username or parsed.password or parsed.path not in ('', '/')
+                 or parsed.query or parsed.fragment or parsed.netloc != f'127.0.0.1:{parsed.port}'):
+             raise ValueError('Only an exact http(s)://127.0.0.1:PORT loopback URL is supported')
+-        if not namespace.startswith(NS_PREFIX) or len(namespace) > 63 or namespace == 'e39-system':
++        if not namespace.startswith(NS_PREFIX) or len(namespace) > 63 or namespace == 'e40-system':
+             raise ValueError('Namespace must be disposable and prefixed ' + NS_PREFIX)
+         self.scheme = parsed.scheme
+         if self.scheme == 'https' and (not ca_path or not token_path):
+@@ -174,7 +174,7 @@
+         elif method == 'POST' and path == f'{ns_root}/pods':
+             md = (body or {}).get('metadata', {})
+             labels = md.get('labels', {})
+-            if (md.get('name') == POD_NAME and labels.get('e39-managed') == 'true'
++            if (md.get('name') == POD_NAME and labels.get('e40-managed') == 'true'
+                     and labels.get(WEBHOOK_LABEL[0], WEBHOOK_LABEL[1]) == WEBHOOK_LABEL[1]):
+                 return
+         elif method == 'PATCH' and path in allowed_cms:
+@@ -189,7 +189,7 @@
+         self._check_allowed(method, path, body)
+         payload = json.dumps(body, sort_keys=True, separators=(',', ':')).encode() if body is not None else None
+         headers = {'Content-Type': 'application/merge-patch+json' if method == 'PATCH' else 'application/json',
+-                   'Accept': 'application/json', 'User-Agent': 'e39-runner/' + self.identity}
++                   'Accept': 'application/json', 'User-Agent': 'e40-runner/' + self.identity}
+         if self._token:
+             headers['Authorization'] = 'Bearer ' + self._token
+         if payload is not None:
+@@ -248,7 +248,7 @@
+         (imagePullPolicy Never, no pulls); callers wait until it is Running and Ready
+         (wait_pod_ready). The first run's scheduling gate is removed. A3 trials carry the webhook
+         objectSelector label."""
+-        labels = {'app': 'e39', 'e39-managed': 'true'}
++        labels = {'app': 'e39', 'e40-managed': 'true'}
+         if webhook:
+             labels[WEBHOOK_LABEL[0]] = WEBHOOK_LABEL[1]
+         body = {'apiVersion': 'v1', 'kind': 'Pod',
+@@ -906,7 +906,7 @@
+     cert = frozen_planner_certificate(horizon, f5_path)
+     output_dir = Path(output_dir)
+     output_dir.mkdir(parents=True, exist_ok=True)
+-    namespace = 'e39-selftest'
++    namespace = 'e40-selftest'
+     schedule = build_schedule(1, seed, run_id, reps=reps)
+     doc = schedule_document(schedule, 1, seed, run_id, note='offline self-test schedule')
+     (output_dir / 'SCHEDULE.json').write_text(json.dumps(doc, indent=1) + '\n')
+@@ -971,7 +971,7 @@
+     if doc['run_id'] != a.run_id:
+         raise APIError('schedule run_id %r != --run-id %r' % (doc['run_id'], a.run_id))
+     if a.namespace != NS_PREFIX + a.run_id:
+-        raise APIError('namespace must be e39-<run_id>')
++        raise APIError('namespace must be e40-<run_id>')
+     lock = None
+     if a.lock:
+         lock = verify_lock(a.lock, a.schedule, doc, stage)
+@@ -1010,7 +1010,7 @@
+         who['writer'] = wc.whoami()
+         wc.close()
+         for k, u in who.items():
+-            if u != f'system:serviceaccount:e39-system:e39-{k}':
++            if u != f'system:serviceaccount:e40-system:e40-{k}':
+                 raise APIError(f'identity {k} authenticated as {u!r}')
+         st, _, _ = clients['reset'].get_configmap(OBJ_EPOCH)
+         if st != 200:
+@@ -1069,7 +1069,7 @@
+     ap.add_argument('--horizon-seconds', type=float, default=30.0)
+     ap.add_argument('--f5-path', type=Path, default=DEFAULT_F5)
+     ap.add_argument('--run-id', default='e38v2run')
+-    ap.add_argument('--namespace', default='e39-run')
++    ap.add_argument('--namespace', default='e40-run')
+     ap.add_argument('--context', default=REQUIRED_CONTEXT)
+     ap.add_argument('--api-server', help='https://127.0.0.1:<port> of the kind-e39 apiserver')
+     ap.add_argument('--ca-file', help='cluster CA (from `kind get kubeconfig --name e39`)')
+@@ -1120,7 +1120,7 @@
+     # ---- live run. Safety rails: ----
+     if a.context != REQUIRED_CONTEXT:
+         ap.error(f'refusing to run: --context must be exactly {REQUIRED_CONTEXT!r}')
+-    if not a.namespace.startswith(NS_PREFIX) or a.namespace == 'e39-system':
++    if not a.namespace.startswith(NS_PREFIX) or a.namespace == 'e40-system':
+         ap.error(f'refusing to run: --namespace must start with {NS_PREFIX!r}')
+     if not a.ack_disposable:
+         ap.error('live execution requires --ack-disposable (operator acknowledges destructive '
+diff -ru code_e39_locked/src/e39_fragments.py code/src/e39_fragments.py
+--- code_e39_locked/src/e39_fragments.py	2026-09-26 10:21:54.586251187 +0000
++++ code/src/e39_fragments.py	2026-09-26 15:23:00.292122797 +0000
+@@ -51,7 +51,7 @@
+         {'type': 'object', 'additionalProperties': False,
+          'required': ['name', 't_send_mono_ns', 't_resp_mono_ns', 'http_status', 'audit_id',
+                       'created_resource_version'],
+-         'properties': {'name': {'type': 'string', 'pattern': '^e39-isolate-'}, 't_send_mono_ns': _in,
++         'properties': {'name': {'type': 'string', 'pattern': '^e40-isolate-'}, 't_send_mono_ns': _in,
+                         't_resp_mono_ns': _in, 'http_status': _in, 'audit_id': _sn,
+                         'created_resource_version': _sn,
+                         't_send_wall_ns': _in, 'reason': _sn, 'created_uid': _sn}},
+diff -ru code_e39_locked/src/e39_kube.py code/src/e39_kube.py
+--- code_e39_locked/src/e39_kube.py	2026-09-26 12:43:04.096322497 +0000
++++ code/src/e39_kube.py	2026-09-26 15:23:00.286879576 +0000
+@@ -3,19 +3,19 @@
+ 
+ Same transport contract as e38v2_runner.KubeClient (persistent keep-alive connection, exact
+ http(s)://127.0.0.1:PORT loopback URL only, pinned CA + bearer token for https, Audit-Id capture,
+-User-Agent ``e39-runner/<identity>`` so the offline fake maps the identity), with an E39 mutation
++User-Agent ``e40-runner/<identity>`` so the offline fake maps the identity), with an E39 mutation
+ allowlist (safety rail) that additionally permits exactly:
+   * PATCH of the target Pod restricted to metadata.annotations with the e38.* validity keys
+     (optionally carrying metadata.uid / metadata.resourceVersion as preconditions);
+   * DELETE of the target Pod with a UID precondition (optionally also a resourceVersion precondition);
+-  * CREATE/DELETE of isolation NetworkPolicies named ``e39-isolate-*`` (empty rules, podSelector on
++  * CREATE/DELETE of isolation NetworkPolicies named ``e40-isolate-*`` (empty rules, podSelector on
+     the per-trial label only);
+   * ConfigMap PATCH / target Pod CREATE / SSAR / SSR as in E38v2.
+ Everything else that is not a GET is refused before any byte is sent.
+ 
+ It also opens WATCH streams on a dedicated connection (``open_watch``) for the mirror controller.
+ 
+-Namespace: must start with ``e39-`` and must not be ``*-system`` or ``e39-load``.
++Namespace: must start with ``e40-`` and must not be ``*-system`` or ``e40-load``.
+ PATCH of the target Pod may also set the E39-B arrival sequence annotation ``e38.seq``.
+ Offline modules only; nothing here contacts a cluster unless a caller passes a live loopback URL.
+ """
+@@ -28,8 +28,8 @@
+ import time
+ from urllib.parse import urlsplit, urlencode
+ 
+-POD_NAME = 'e39-target'
+-NS_PREFIXES = ('e39-',)
++POD_NAME = 'e40-target'
++NS_PREFIXES = ('e40-',)
+ EVIDENCE_FLAGS = ('a', 'b', 'c', 'd', 'e', 'f')
+ EVIDENCE_CMS = tuple('evidence-' + k for k in EVIDENCE_FLAGS)
+ OBJ_SCOPE = 'response-scope'
+@@ -51,13 +51,13 @@
+ # (identical merge-PATCHes would be no-ops sharing one resourceVersion). Allowed on PATCH only.
+ SEQ_ANN = 'e38.seq'
+ PATCHABLE_ANNOTATION_KEYS = ANNOTATION_KEYS + (SEQ_ANN,)
+-# e39-system (control plane of the experiment) and e39-load (E39-D load namespace) are never targets
+-RESERVED_NAMESPACES = ('e39-system', 'e39-load')
++# e40-system (control plane of the experiment) and e40-load (E39-D load namespace) are never targets
++RESERVED_NAMESPACES = ('e40-system', 'e40-load')
+ 
+ NETPOL_API = '/apis/networking.k8s.io/v1'
+-NETPOL_PREFIX = 'e39-isolate-'
+-TRIAL_LABEL_KEY = 'e39-trial'
+-WEBHOOK_LABEL = ('e39-webhook', 'enforce')
++NETPOL_PREFIX = 'e40-isolate-'
++TRIAL_LABEL_KEY = 'e40-trial'
++WEBHOOK_LABEL = ('e40-webhook', 'enforce')
+ DELETE_GRACE_PERIOD_S = 0
+ 
+ 
+@@ -159,7 +159,7 @@
+ 
+     def _headers(self, method):
+         h = {'Content-Type': 'application/merge-patch+json' if method == 'PATCH' else 'application/json',
+-             'Accept': 'application/json', 'User-Agent': 'e39-runner/' + self.identity}
++             'Accept': 'application/json', 'User-Agent': 'e40-runner/' + self.identity}
+         if self._token:
+             h['Authorization'] = 'Bearer ' + self._token
+         return h
+@@ -178,7 +178,7 @@
+             md = body.get('metadata') or {}
+             labels = md.get('labels') or {}
+             anns = md.get('annotations') or {}
+-            if (md.get('name') == self.pod_name and labels.get('e39-managed') == 'true'
++            if (md.get('name') == self.pod_name and labels.get('e40-managed') == 'true'
+                     and labels.get(WEBHOOK_LABEL[0], WEBHOOK_LABEL[1]) == WEBHOOK_LABEL[1]
+                     and set(anns) <= set(ANNOTATION_KEYS)):
+                 return
+@@ -308,7 +308,7 @@
+                           image='registry.k8s.io/pause:3.10'):
+         """Target Pod as in E38v2 RERUN (pause image, imagePullPolicy Never) plus E39 validity
+         annotations (A4d/A4m) and extra labels (e.g. the per-trial NetworkPolicy selector label)."""
+-        labels = {'app': 'e39', 'e39-managed': 'true'}
++        labels = {'app': 'e39', 'e40-managed': 'true'}
+         labels.update(extra_labels or {})
+         if webhook:
+             labels[WEBHOOK_LABEL[0]] = WEBHOOK_LABEL[1]
+diff -ru code_e39_locked/src/e39_runner.py code/src/e39_runner.py
+--- code_e39_locked/src/e39_runner.py	2026-09-26 15:10:26.793147199 +0000
++++ code/src/e39_runner.py	2026-09-26 15:23:00.284459858 +0000
+@@ -11,7 +11,7 @@
+                             analysis/stage2_topup_e39.py output, trial ids >= 100001). No network.
+   --dry-run                 counts per sub-experiment + runtime estimate. No network (no socket is opened).
+   --offline-selftest        every sub-experiment against 127.0.0.1 fakes (fake_api.FakeApiServer, a TLS twin
+-                            of it for the client-go responder, tests_harness FakeKube for e39-load); writes the
++                            of it for the client-go responder, tests_harness FakeKube for e40-load); writes the
+                             files a live run writes and (if venv_analysis exists) runs the analysis gate on them.
+   (live)                    execute a LOCKED schedule (--only X[,Y] selects sub-experiments) against
+                             https://127.0.0.1:<port> of kind-e39 (CA pinned, ServiceAccount tokens).
+@@ -28,16 +28,16 @@
+      mirror_log.jsonl (tagged with trial_id); trial.mirror = writer commit + matching mirror entry.
+   B  Poisson arrivals (harness_arrivals.ArrivalWriterProcess), anchor = gate start, halted at DELETE
+      response + 50 ms (gate end + 50 ms when not dispatched); first arrival invalidates. Configmap arms use
+-     seq key e39-arrival-seq, A4d uses Pod annotation e38.seq so every arrival is a distinct commit.
++     seq key e40-arrival-seq, A4d uses Pod annotation e38.seq so every arrival is a distinct commit.
+   C  guard-only paired acquisition (harness_delay_proxy.PairedAcquisitionDriver) through the loopback delay
+      proxy (responder identity only; c added to single-ConfigMap GETs); no Pod DELETE (analysis plan 5.C:
+      "guard-only runs: gate latency incl. planning, labelled"). ea_attack = evidence b,d,f cut to false before
+      the guard (reset identity); stable = all true.
+-  D  as A (A1/A3, async_scope) under background load (harness_load.LoadProcess in e39-load, separate
++  D  as A (A1/A3, async_scope) under background load (harness_load.LoadProcess in e40-load, separate
+      identity) with HostGuard throttling; load level switched per (replicate, level) segment (settle time
+      before the first trial of a segment); per trial: load_level (effective), requested_level, host.
+   E  as A (A1/A3) but the action is CREATE of an isolation NetworkPolicy (action_netpol); A3 labels the
+-     NetworkPolicy e39-webhook=enforce; the policy is deleted by the reset identity after the trial.
++     NetworkPolicy e40-webhook=enforce; the policy is deleted by the reset identity after the trial.
+   F  A1 python (as A) + client-go responder (goclient_bridge.GoClient; Go times on CLOCK_MONOTONIC).
+      A1_dcji_go: split ops gate_uid -> writer armed at the Go-reported TRUE gate end -> delete_uid
+      (delete.t_send_mono_ns / t_resp_mono_ns from Go). A4d_commit_direct_go: combined op gate_delete_rv
+@@ -48,7 +48,7 @@
+      cut_writes with audit ids / RVs); fixture.initial_values = the reset (pre-cut) state.
+ 
+ Safety rails: context must be exactly kind-e39; API https://127.0.0.1:<port> only (E39Client); namespace
+-e39-<run_id> (never e39-system / e39-load); identities verified by SelfSubjectReview; LOCK verified with
++e40-<run_id> (never e40-system / e40-load); identities verified by SelfSubjectReview; LOCK verified with
+ protocol/lock_hash_e39.py AND it must cover this exact schedule file; forbidden seeds refused; resume skips
+ recorded trial ids; STOP file; MemAvailable guards; INFRA_ERROR abort guard.
+ """
+@@ -82,7 +82,7 @@
+ from e39_kube import APIError, E39Client, mono_ns  # noqa: E402
+ 
+ DEFAULT_F5 = WORKSPACE / 'frozen_ref' / 'source_provenance' / 'E37_F5_PHYS_ORIGINAL.json'
+-DEFAULT_GO_BIN = HERE / 'goclient' / 'bin' / 'e39-goclient'
++DEFAULT_GO_BIN = HERE / 'goclient' / 'bin' / 'e40-goclient'
+ DEFAULT_GO_BUILD_INFO = HERE / 'goclient' / 'BUILD_INFO.txt'
+ ANALYSIS_DIR = WORKSPACE / 'analysis'
+ ANALYSIS_PLAN = WORKSPACE / 'protocol' / 'ANALYSIS_PLAN_E39.txt'
+@@ -93,8 +93,8 @@
+ # 20260912 = E38 original; 1772720255 = first E38v2 run; 154080643 = E38v2 confirmatory rerun
+ FORBIDDEN_SEEDS = (20260912, 1772720255, 154080643)
+ REQUIRED_CONTEXT = 'kind-e39'
+-NS_PREFIX = 'e39-'
+-SA_PREFIX = 'system:serviceaccount:e39-system:e39-'
++NS_PREFIX = 'e40-'
++SA_PREFIX = 'system:serviceaccount:e40-system:e40-'
+ EXPERIMENTS = ('A', 'B', 'C', 'D', 'E', 'F', 'G')
+ 
+ A1, A2, A3 = 'A1_dcji', 'A2_fullrefresh', 'A3_dcji_webhook'
+@@ -134,11 +134,11 @@
+                  'async_app_policy': ('application-policy', 'allowed', 'false'),
+                  'async_evidence_last_literal': ('evidence-a', 'value', 'false')}
+ ARRIVAL_WINDOW_MS = 2000.0
+-ARRIVAL_SEQ_KEY_CM = 'e39-arrival-seq'
++ARRIVAL_SEQ_KEY_CM = 'e40-arrival-seq'
+ EA_ATTACK_CUT = ('b', 'd', 'f')      # E21-style evidence attack on the uncertified literals
+ 
+ # ---- runtime-estimate model (dry-run only; no effect on trials). MEASURED in the e39 smoke run
+-# smoke-e39-20260926a (324 trials, consecutive-trial monotonic anchors): E39-A pod trial mean 0.773 s (median 0.743),
++# smoke-e40-20260926a (324 trials, consecutive-trial monotonic anchors): E39-A pod trial mean 0.773 s (median 0.743),
+ # uid_rebind_control +0.5..1.2 s, A4m - A4d ~ +0.09 s, E39-E 0.73 s (no extra over A), C overhead at c = 0 ~0.05 s.
+ SEC_POD_TRIAL = 0.77
+ SEC_UID_EXTRA = 0.80         # uid_rebind_control: second Pod replacement + Ready wait (smoke)
+@@ -428,7 +428,7 @@
+                       'c_overhead_s_smoke': SEC_C_OVERHEAD,
+                       'c_reads': 'sequential: n_reads x c (A1 3, A2 6); parallel: c',
+                       'c_planning_s_estimate': SEC_C_PLANNING, 'd_level_settle_s': SEC_D_LEVEL_SETTLE,
+-                      'note': 'constants measured in the e39 smoke run smoke-e39-20260926a (budget 5 h, Amendment 1)'}}
++                      'note': 'constants measured in the e39 smoke run smoke-e40-20260926a (budget 5 h, Amendment 1)'}}
+ 
+ 
+ # =========================================================================== host snapshot
+@@ -545,7 +545,7 @@
+         ctx = multiprocessing.get_context('fork')
+         self.conn, child = ctx.Pipe(duplex=True)
+         self.proc = ctx.Process(target=_mirror_host_main, args=(factory, str(log_path), child, resync_s,
+-                                                                   watch_timeout_s), name='e39-mirror', daemon=True)
++                                                                   watch_timeout_s), name='e40-mirror', daemon=True)
+         self.proc.start()
+         child.close()
+         self.resync_s = resync_s
+@@ -642,7 +642,7 @@
+         self.proxy_cert = None
+         if 'C' in self.exps:
+             from harness_delay_proxy import DelayProxyProcess
+-            kw = {'match_user_agent': 'e39-runner/responder'}
++            kw = {'match_user_agent': 'e40-runner/responder'}
+             if base.startswith('https://'):
+                 kw['upstream_ca'] = ca_file
+             if proxy_tls:
+@@ -1636,7 +1636,7 @@
+     if doc['run_id'] != a.run_id:
+         raise APIError('schedule run_id %r != --run-id %r' % (doc['run_id'], a.run_id))
+     if a.namespace != NS_PREFIX + a.run_id:
+-        raise APIError('namespace must be e39-<run_id>')
++        raise APIError('namespace must be e40-<run_id>')
+     K.check_namespace(a.namespace)
+     lock = None
+     if a.lock:
+@@ -1731,7 +1731,7 @@
+     ap.add_argument('--reps', type=int, help='cap every cell at REPS (smoke/pilot schedules only)')
+     ap.add_argument('--only', help='comma list of sub-experiments to include/run (default all: A..G)')
+     ap.add_argument('--run-id', default='run')
+-    ap.add_argument('--namespace', help='e39-<run_id> (live)')
++    ap.add_argument('--namespace', help='e40-<run_id> (live)')
+     ap.add_argument('--context', default=REQUIRED_CONTEXT)
+     ap.add_argument('--api-server', help='https://127.0.0.1:<port> of the kind-e39 apiserver')
+     ap.add_argument('--ca-file', help='cluster CA (from `kind get kubeconfig --name e39`)')
+@@ -1809,7 +1809,7 @@
+         ap.error('refusing to run: --context must be exactly %r' % REQUIRED_CONTEXT)
+     if not a.namespace or not a.namespace.startswith(NS_PREFIX) or a.namespace in K.RESERVED_NAMESPACES \
+             or a.namespace.endswith('-system'):
+-        ap.error('refusing to run: --namespace must be e39-<run_id> (not e39-system / e39-load)')
++        ap.error('refusing to run: --namespace must be e40-<run_id> (not e40-system / e40-load)')
+     if not a.ack_disposable:
+         ap.error('live execution requires --ack-disposable (operator acknowledges destructive Pod/ConfigMap/'
+                  'NetworkPolicy changes on the disposable e39 kind cluster)')
+diff -ru code_e39_locked/src/fake_api.py code/src/fake_api.py
+--- code_e39_locked/src/fake_api.py	2026-09-26 14:27:45.002343190 +0000
++++ code/src/fake_api.py	2026-09-26 15:23:00.293167871 +0000
+@@ -14,12 +14,12 @@
+ 
+ E38v2 integration (mirrors the live cluster):
+   * The validating-webhook simulation (A3) is applied to a pod DELETE only when the
+-    target Pod carries the label ``e39-webhook=enforce`` (VWC objectSelector) and the
++    target Pod carries the label ``e40-webhook=enforce`` (VWC objectSelector) and the
+     caller is not the reset identity (VWC matchConditions). It re-reads the eight
+     ConfigMaps under the store lock and denies (HTTP 403) when V_core is false.
+     Each admission appends an e38v2.webhook.v1 entry to ``cluster.webhook_log`` (with
+     per-read wall timestamps). The caller identity is taken from the User-Agent
+-    ``e39-runner/<identity>`` (fake only).
++    ``e40-runner/<identity>`` (fake only).
+   * Every ConfigMap PATCH and pod DELETE appends an audit.k8s.io/v1 ResponseComplete
+     event (RequestResponse level) to ``cluster.audit_log``; the UID-precondition check
+     happens before admission, as in kube-apiserver.
+@@ -37,7 +37,7 @@
+     watch_paused (events are held back while True).
+   * NetworkPolicy CREATE/GET/DELETE under /apis/networking.k8s.io/v1/namespaces/<ns>/networkpolicies
+     with Audit-Id and audit events (objectRef.apiGroup networking.k8s.io). Admission simulation for
+-    CREATE when the new object carries e39-webhook=enforce (objectSelector on the new object) and the
++    CREATE when the new object carries e40-webhook=enforce (objectSelector on the new object) and the
+     caller is not the reset identity: V_core over the eight ConfigMaps, 403 on deny, webhook_log entry.
+ 
+ NOT part of any live run.
+@@ -54,8 +54,8 @@
+ OBJ_EPOCH = 'e38-epoch'
+ ALL_CMS = EVIDENCE_CMS + (OBJ_SCOPE, OBJ_APP, OBJ_EPOCH)
+ POLICY_CMS = EVIDENCE_CMS + (OBJ_SCOPE, OBJ_APP)
+-POD_NAME = 'e39-target'
+-WEBHOOK_LABEL = ('e39-webhook', 'enforce')
++POD_NAME = 'e40-target'
++WEBHOOK_LABEL = ('e40-webhook', 'enforce')
+ NETPOL_GROUP = 'networking.k8s.io'
+ MAX_EVENTS = 20000
+ 
+@@ -104,7 +104,7 @@
+         return {'apiVersion': 'v1', 'kind': 'ConfigMap',
+                 'metadata': {'name': name, 'namespace': self.ns,
+                              'uid': cm['uid'], 'resourceVersion': cm['resourceVersion'],
+-                             'labels': {'e39-managed': 'true'}},
++                             'labels': {'e40-managed': 'true'}},
+                 'data': dict(cm['data'])}
+ 
+     def _emit(self, resource, typ, obj):
+@@ -147,7 +147,7 @@
+             for name in ALL_CMS:
+                 self._emit('configmaps', 'MODIFIED', self.cm_object(name))
+             self.pod = {'uid': 'pod-' + uuid.uuid4().hex[:12], 'resourceVersion': str(self._next_rev()),
+-                        'labels': {'e39-managed': 'true'}, 'annotations': {}}
++                        'labels': {'e40-managed': 'true'}, 'annotations': {}}
+ 
+     def _v_core(self):
+         ev = {name: self.configmaps[name]['data'].get('value') for name in EVIDENCE_CMS}
+@@ -171,7 +171,7 @@
+ 
+     def _identity(self):
+         ua = self.headers.get('User-Agent', '')
+-        return ua.split('/', 1)[1] if ua.startswith('e39-runner/') else ''
++        return ua.split('/', 1)[1] if ua.startswith('e40-runner/') else ''
+ 
+     def _send(self, status, obj, extra_headers=None, audit_id=None):
+         if isinstance(obj, dict) and obj.get('kind') == 'Status' and 'apiVersion' not in obj:
+@@ -196,7 +196,7 @@
+             oref['apiGroup'] = api_group
+         ev = {'kind': 'Event', 'apiVersion': 'audit.k8s.io/v1', 'level': 'RequestResponse',
+               'auditID': audit_id, 'stage': 'ResponseComplete', 'requestURI': self.path, 'verb': verb,
+-              'user': {'username': 'system:serviceaccount:e39-system:e39-' + (self._identity() or 'unknown')},
++              'user': {'username': 'system:serviceaccount:e40-system:e40-' + (self._identity() or 'unknown')},
+               'objectRef': oref,
+               'responseStatus': {'metadata': {}, 'code': code},
+               'requestReceivedTimestamp': k8s_time_us(received_ns),
+@@ -348,7 +348,7 @@
+                 'kind': 'SelfSubjectAccessReview', 'status': {'allowed': True}})
+         if path == '/apis/authentication.k8s.io/v1/selfsubjectreviews':
+             return self._send(201, {'apiVersion': 'authentication.k8s.io/v1', 'kind': 'SelfSubjectReview',
+-                'status': {'userInfo': {'username': 'system:serviceaccount:e39-system:e39-' + self._identity()}}})
++                'status': {'userInfo': {'username': 'system:serviceaccount:e40-system:e40-' + self._identity()}}})
+         root = self._ns_root()
+         with self.cluster.lock:
+             if path == f'{root}/pods':
+@@ -567,7 +567,7 @@
+ class FakeApiServer:
+     """Threaded 127.0.0.1 fake apiserver context manager."""
+ 
+-    def __init__(self, namespace='e39-selftest', admission_enabled=True):
++    def __init__(self, namespace='e40-selftest', admission_enabled=True):
+         self.cluster = FakeCluster(namespace, admission_enabled=admission_enabled)
+         self.httpd = _QuietServer(('127.0.0.1', 0), _Handler)
+         self.httpd.daemon_threads = True
+diff -ru code_e39_locked/src/harness_arrivals.py code/src/harness_arrivals.py
+--- code_e39_locked/src/harness_arrivals.py	2026-09-26 12:43:07.236375950 +0000
++++ code/src/harness_arrivals.py	2026-09-26 15:23:00.287505192 +0000
+@@ -36,7 +36,7 @@
+ 
+ Every arrival writes the same invalidating value (first arrival invalidates). On a
+ real apiserver a merge-patch that changes nothing is a no-op (no new resourceVersion);
+-pass ``seq_key='e39-arrival-seq'`` to make each arrival a distinct commit (it adds a
++pass ``seq_key='e40-arrival-seq'`` to make each arrival a distinct commit (it adds a
+ data key carrying the arrival index; reset must tolerate the extra key).
+ """
+ from __future__ import annotations
+@@ -221,7 +221,7 @@
+         ctx = multiprocessing.get_context('fork')
+         self.conn, child = ctx.Pipe(duplex=True)
+         self.proc = ctx.Process(target=_arrivals_main, args=(client_factory, child),
+-                                name='e39-arrivals-writer', daemon=True)
++                                name='e40-arrivals-writer', daemon=True)
+         self.proc.start()
+         child.close()
+         self.busy = False
+diff -ru code_e39_locked/src/harness_delay_proxy.py code/src/harness_delay_proxy.py
+--- code_e39_locked/src/harness_delay_proxy.py	2026-09-26 10:16:22.593374934 +0000
++++ code/src/harness_delay_proxy.py	2026-09-26 15:23:00.292820449 +0000
+@@ -254,7 +254,7 @@
+         return out
+ 
+     def start(self):
+-        self.thread = threading.Thread(target=self.httpd.serve_forever, name='e39-delay-proxy', daemon=True)
++        self.thread = threading.Thread(target=self.httpd.serve_forever, name='e40-delay-proxy', daemon=True)
+         self.thread.start()
+         return self
+ 
+@@ -306,7 +306,7 @@
+         kwargs['upstream_base'] = upstream_base
+         ctx = multiprocessing.get_context('fork')
+         self.conn, child = ctx.Pipe(duplex=True)
+-        self.proc = ctx.Process(target=_proxy_proc_main, args=(kwargs, child), name='e39-delay-proxy', daemon=True)
++        self.proc = ctx.Process(target=_proxy_proc_main, args=(kwargs, child), name='e40-delay-proxy', daemon=True)
+         self.proc.start()
+         child.close()
+         if not self.conn.poll(30):
+diff -ru code_e39_locked/src/harness_load.py code/src/harness_load.py
+--- code_e39_locked/src/harness_load.py	2026-09-26 10:16:27.466446380 +0000
++++ code/src/harness_load.py	2026-09-26 15:23:00.285388513 +0000
+@@ -2,7 +2,7 @@
+ """E39-D: background API load generator + host guard.
+ 
+ LoadGenerator issues a GET / LIST / PATCH mix against its OWN ConfigMaps in namespace
+-e39-load, as a separate identity, at a target request rate (open-loop pacing: one
++e40-load, as a separate identity, at a target request rate (open-loop pacing: one
+ dispatcher emits ticks every 1/rps; a pool of workers, each with its own keep-alive
+ connection, executes them; ticks are dropped (counted) instead of bursting when the
+ workers fall behind). Levels: idle 0, moderate 50, high 150 req/s.
+@@ -29,9 +29,9 @@
+ 
+ from harness_util import LoopbackClient, sleep_until_ns
+ 
+-LOAD_NS = 'e39-load'
+-LOAD_PREFIX = 'e39-load-'
+-LOAD_LABEL = ('e39-load', 'true')
++LOAD_NS = 'e40-load'
++LOAD_PREFIX = 'e40-load-'
++LOAD_LABEL = ('e40-load', 'true')
+ LOAD_LEVELS = {'idle': 0.0, 'moderate': 50.0, 'high': 150.0}
+ LEVEL_ORDER = ('idle', 'moderate', 'high')
+ DEFAULT_MIX = (('get', 0.6), ('list', 0.2), ('patch', 0.2))
+@@ -357,15 +357,15 @@
+ 
+     def start(self):
+         for i in range(self.n_workers):
+-            t = threading.Thread(target=self._worker, args=(i,), name='e39-load-w%d' % i, daemon=True)
++            t = threading.Thread(target=self._worker, args=(i,), name='e40-load-w%d' % i, daemon=True)
+             t.start()
+             self._threads.append(t)
+-        t = threading.Thread(target=self._dispatcher, name='e39-load-dispatch', daemon=True)
++        t = threading.Thread(target=self._dispatcher, name='e40-load-dispatch', daemon=True)
+         t.start()
+         self._threads.append(t)
+         if self.guard is not None:
+             self.guard.sample()           # prime the /proc/stat delta
+-            t = threading.Thread(target=self._guard_loop, name='e39-load-guard', daemon=True)
++            t = threading.Thread(target=self._guard_loop, name='e40-load-guard', daemon=True)
+             t.start()
+             self._threads.append(t)
+         return self
+@@ -445,7 +445,7 @@
+         kwargs['guard_kwargs'] = guard_kwargs
+         ctx = multiprocessing.get_context('fork')
+         self.conn, child = ctx.Pipe(duplex=True)
+-        self.proc = ctx.Process(target=_load_proc_main, args=(kwargs, child), name='e39-load', daemon=True)
++        self.proc = ctx.Process(target=_load_proc_main, args=(kwargs, child), name='e40-load', daemon=True)
+         self.proc.start()
+         child.close()
+         if not self.conn.poll(30) or self.conn.recv()[0] != 'started':
+diff -ru code_e39_locked/src/harness_util.py code/src/harness_util.py
+--- code_e39_locked/src/harness_util.py	2026-09-26 12:24:32.437374586 +0000
++++ code/src/harness_util.py	2026-09-26 15:23:00.296170275 +0000
+@@ -5,8 +5,8 @@
+ semantics as e38v2_runner.KubeClient (http://127.0.0.1:PORT for offline fakes,
+ https://127.0.0.1:PORT with a pinned CA + bearer token for the live kind cluster),
+ but with a caller-supplied write allowlist so that separate harness identities
+-(load generator in namespace e39-load, delay-proxy calibration, ...) do not need
+-the runner's e39-specific safety rail. It never talks to anything but 127.0.0.1.
++(load generator in namespace e40-load, delay-proxy calibration, ...) do not need
++the runner's e40-specific safety rail. It never talks to anything but 127.0.0.1.
+ 
+ Interface (compatible with KubeClient where it matters):
+     connect(), close(), request(method, path, body=None, extra_headers=None)
+@@ -71,7 +71,7 @@
+     """
+ 
+     def __init__(self, base, namespace, identity, token_path=None, ca_path=None, token=None,
+-                 allow=allow_reads_only, timeout_s=20.0, user_agent_prefix='e39-harness/'):
++                 allow=allow_reads_only, timeout_s=20.0, user_agent_prefix='e40-harness/'):
+         parsed = check_loopback_url(base)
+         self.scheme = parsed.scheme
+         self.host, self.port = parsed.hostname, parsed.port
+diff -ru code_e39_locked/src/mirror_controller.py code/src/mirror_controller.py
+--- code_e39_locked/src/mirror_controller.py	2026-09-26 12:24:32.473899043 +0000
++++ code/src/mirror_controller.py	2026-09-26 15:23:00.290795152 +0000
+@@ -2,7 +2,7 @@
+ """E39 A4m mirror controller: copies the eight validity ConfigMaps onto the target Pod's annotations.
+ 
+ Runs as a SEPARATE PROCESS with its own identity (service account "mirror" on the live cluster;
+-User-Agent e39-runner/mirror on the offline fake).
++User-Agent e40-runner/mirror on the offline fake).
+ 
+ Mechanism
+   * initial LIST of ConfigMaps -> reconcile -> WATCH from the list resourceVersion
+diff -ru code_e39_locked/src/pod_watch.py code/src/pod_watch.py
+--- code_e39_locked/src/pod_watch.py	2026-09-26 12:24:32.475361952 +0000
++++ code/src/pod_watch.py	2026-09-26 15:23:00.296743532 +0000
+@@ -18,7 +18,7 @@
+ recorder relists and writes a GAP marker (the oracle never uses events across an unresolved gap for
+ a Pod whose DELETED event is missing: it simply finds no DELETED event -> UNKNOWN).
+ 
+-Credentials: the reset identity's token (Role e39-reset: pods get/list/watch in the test
++Credentials: the reset identity's token (Role e40-reset: pods get/list/watch in the test
+ namespace); only GET requests are issued. Loopback https://127.0.0.1:<port> with pinned CA only.
+ 
+ Output: JSON lines, schema e38v2.podevent.v1:
+@@ -26,7 +26,7 @@
+    deletion_grace_period_seconds, phase, ready, container_state, node, webhook_label}
+   type in LIST (initial / re-list item), ADDED, MODIFIED, DELETED, BOOKMARK, GAP, START, STOP, ERROR
+ Usage: pod_watch.py --api-server https://127.0.0.1:PORT --ca-file CA --token-file TOKEN
+-                    --namespace e39-<run_id> --out pod_events.jsonl [--stop-file PATH]
++                    --namespace e40-<run_id> --out pod_events.jsonl [--stop-file PATH]
+ """
+ from __future__ import annotations
+ 
+@@ -41,7 +41,7 @@
+ from urllib.parse import quote, urlsplit
+ 
+ SCHEMA = 'e38v2.podevent.v1'
+-WEBHOOK_LABEL = ('e39-webhook', 'enforce')
++WEBHOOK_LABEL = ('e40-webhook', 'enforce')
+ 
+ 
+ def summarize(obj):
+@@ -88,8 +88,8 @@
+         u = urlsplit(api_server)
+         if u.scheme != 'https' or u.hostname != '127.0.0.1' or not u.port:
+             raise SystemExit('only https://127.0.0.1:<port> is supported')
+-        if not namespace.startswith('e39-') or namespace == 'e39-system':
+-            raise SystemExit('namespace must be an e39-<run_id> test namespace')
++        if not namespace.startswith('e40-') or namespace == 'e40-system':
++            raise SystemExit('namespace must be an e40-<run_id> test namespace')
+         self.host, self.port = u.hostname, u.port
+         self.ctx = ssl.create_default_context(cafile=ca_file)
+         with open(token_file, encoding='utf-8') as fh:
+@@ -105,7 +105,7 @@
+ 
+     def _headers(self):
+         return {'Authorization': 'Bearer ' + self.token, 'Accept': 'application/json',
+-                'User-Agent': 'e39-podwatch/1'}
++                'User-Agent': 'e40-podwatch/1'}
+ 
+     def should_stop(self):
+         return self.stopping or (self.stop_file is not None and os.path.exists(self.stop_file))
+diff -ru code_e39_locked/src/test_e38v2.py code/src/test_e38v2.py
+--- code_e39_locked/src/test_e38v2.py	2026-09-26 12:43:10.017420253 +0000
++++ code/src/test_e38v2.py	2026-09-26 15:23:00.294597970 +0000
+@@ -18,7 +18,7 @@
+ # ------------------------- fixtures -------------------------
+ @pytest.fixture
+ def server():
+-    s = FakeApiServer(namespace='e39-test').start()
++    s = FakeApiServer(namespace='e40-test').start()
+     yield s
+     s.stop()
+ 
+@@ -26,7 +26,7 @@
+ @pytest.fixture
+ def clients(server):
+     base = server.base_url
+-    ns = 'e39-test'
++    ns = 'e40-test'
+     cl = {
+         'responder': R.KubeClient(base, ns, 'responder', token_path='/t/responder', context='e38v2'),
+         'writer': R.KubeClient(base, ns, 'writer', token_path='/t/writer', context='e38v2'),
+@@ -340,7 +340,7 @@
+ 
+ 
+ def test_a3_webhook_selected_by_pod_label_and_joinable_by_pod_uid(clients, server):
+-    # A3 target Pods carry e39-webhook=enforce (VWC objectSelector); the webhook entry is joined
++    # A3 target Pods carry e40-webhook=enforce (VWC objectSelector); the webhook entry is joined
+     # on pod_uid == delete.expected_uid (the runner cannot see the AdmissionReview uid).
+     saw = 0
+     for _ in range(6):
+@@ -387,7 +387,7 @@
+ 
+ def test_process_writer_end_to_end(server):
+     from writer import WriterProcess
+-    base, ns = server.base_url, 'e39-test'
++    base, ns = server.base_url, 'e40-test'
+     wp = WriterProcess(lambda: R.KubeClient(base, ns, 'writer', context=R.REQUIRED_CONTEXT))
+     try:
+         assert wp.ping() is None
+@@ -435,15 +435,15 @@
+ # ------------------------- safety rails -------------------------
+ def test_reject_non_loopback_url():
+     with pytest.raises(ValueError):
+-        R.KubeClient('http://10.0.0.1:8080', 'e39-x', 'responder')
++        R.KubeClient('http://10.0.0.1:8080', 'e40-x', 'responder')
+     with pytest.raises(ValueError):
+-        R.KubeClient('https://localhost:6443', 'e39-x', 'responder', token_path='t', ca_path='c')
++        R.KubeClient('https://localhost:6443', 'e40-x', 'responder', token_path='t', ca_path='c')
+     with pytest.raises(ValueError):   # https requires pinned CA + token
+-        R.KubeClient('https://127.0.0.1:6443', 'e39-x', 'responder')
++        R.KubeClient('https://127.0.0.1:6443', 'e40-x', 'responder')
+     with pytest.raises(ValueError):
+-        R.KubeClient('https://127.0.0.1:6443/api', 'e39-x', 'responder', token_path='t', ca_path='c')
++        R.KubeClient('https://127.0.0.1:6443/api', 'e40-x', 'responder', token_path='t', ca_path='c')
+     with pytest.raises(ValueError):   # control namespace is never a test namespace
+-        R.KubeClient('http://127.0.0.1:6443', 'e39-system', 'responder')
++        R.KubeClient('http://127.0.0.1:6443', 'e40-system', 'responder')
+ 
+ 
+ def test_reject_bad_namespace(server):
+@@ -459,7 +459,7 @@
+ def test_delete_requires_uid_precondition(clients):
+     with pytest.raises(R.APIError):
+         clients['responder'].request('DELETE',
+-            f'/api/v1/namespaces/e39-test/pods/{R.POD_NAME}', {'apiVersion': 'v1'})
++            f'/api/v1/namespaces/e40-test/pods/{R.POD_NAME}', {'apiVersion': 'v1'})
+ 
+ 
+ def test_context_and_namespace_rails_cli(monkeypatch, tmp_path):
+@@ -468,18 +468,18 @@
+     monkeypatch.setattr(socket, 'socket', boom)
+     base = ['--api-server', 'https://127.0.0.1:6443', '--ca-file', 'x', '--token-dir', 'y',
+             '--schedule', 'z', '--output-dir', str(tmp_path / 'o'), '--ack-disposable']
+-    for bad in (['--context', 'kind-e38', '--namespace', 'e39-x'],          # wrong context
+-                ['--context', 'e38v2', '--namespace', 'e39-x'],             # not the kind context name
++    for bad in (['--context', 'kind-e38', '--namespace', 'e40-x'],          # wrong context
++                ['--context', 'e38v2', '--namespace', 'e40-x'],             # not the kind context name
+                 ['--context', 'kind-e39', '--namespace', 'prod'],           # non-disposable namespace
+-                ['--context', 'kind-e39', '--namespace', 'e39-system']):  # control namespace
++                ['--context', 'kind-e39', '--namespace', 'e40-system']):  # control namespace
+         with pytest.raises(SystemExit):
+             R.main(bad + base)
+     with pytest.raises(SystemExit):   # remote endpoint refused
+-        R.main(['--context', 'kind-e39', '--namespace', 'e39-x', '--api-server', 'https://10.1.1.1:6443',
++        R.main(['--context', 'kind-e39', '--namespace', 'e40-x', '--api-server', 'https://10.1.1.1:6443',
+                 '--ca-file', 'x', '--token-dir', 'y', '--schedule', 'z', '--output-dir', str(tmp_path / 'o'),
+                 '--ack-disposable'])
+     with pytest.raises(SystemExit):   # missing --ack-disposable
+-        R.main(['--context', 'kind-e39', '--namespace', 'e39-x'] + base[:-1])
++        R.main(['--context', 'kind-e39', '--namespace', 'e40-x'] + base[:-1])
+ 
+ 
+ def test_live_run_requires_lock_or_explicit_smoke(tmp_path, monkeypatch):
+@@ -489,7 +489,7 @@
+     sched = tmp_path / 'S.json'
+     R.main(['--make-schedule', str(sched), '--seed', '5', '--run-id', 'x', '--reps', '1'])
+     with pytest.raises(SystemExit):
+-        R.main(['--context', 'kind-e39', '--namespace', 'e39-x', '--run-id', 'x', '--api-server',
++        R.main(['--context', 'kind-e39', '--namespace', 'e40-x', '--run-id', 'x', '--api-server',
+                 'https://127.0.0.1:6443', '--ca-file', 'x', '--token-dir', 'y', '--schedule', str(sched),
+                 '--output-dir', str(tmp_path / 'o'), '--ack-disposable'])
+ 
+diff -ru code_e39_locked/src/test_e39_commit.py code/src/test_e39_commit.py
+--- code_e39_locked/src/test_e39_commit.py	2026-09-26 14:41:23.078872089 +0000
++++ code/src/test_e39_commit.py	2026-09-26 15:23:00.295259643 +0000
+@@ -14,7 +14,7 @@
+ from e39_fragments import validate_fragment  # noqa: E402
+ from fake_api import FakeApiServer  # noqa: E402
+ 
+-NS = 'e39-selftest'
++NS = 'e40-selftest'
+ 
+ 
+ @pytest.fixture
+@@ -79,7 +79,7 @@
+     assert obj['metadata']['annotations']['e38.scope'] == 'false'
+     ev = api.cluster.audit_log[-1]
+     assert (ev['verb'], ev['objectRef']['resource'], ev['auditID']) == ('patch', 'pods', h.get('Audit-Id'))
+-    assert ev['user']['username'].endswith('e39-writer')
++    assert ev['user']['username'].endswith('e40-writer')
+     # null removes the key
+     st, _, obj = r.patch_pod_annotations({'e38.scope': None})
+     assert st == 200 and 'e38.scope' not in obj['metadata']['annotations']
+@@ -98,7 +98,7 @@
+     import json
+     c = http.client.HTTPConnection('127.0.0.1', api.port)
+     body = json.dumps({'metadata': {'labels': {'x': 'y'}}})
+-    c.request('PATCH', f'/api/v1/namespaces/{NS}/pods/e39-target', body=body,
++    c.request('PATCH', f'/api/v1/namespaces/{NS}/pods/e40-target', body=body,
+               headers={'Content-Type': 'application/merge-patch+json', 'Content-Length': str(len(body))})
+     assert c.getresponse().status == 422
+     c.close()
+@@ -108,17 +108,17 @@
+ def test_client_safety_rail(api, clients):
+     w = clients['writer']
+     with pytest.raises(K.APIError):
+-        w.request('PATCH', f'{w._ns_root()}/pods/e39-target', {'metadata': {'labels': {'a': 'b'}}})
++        w.request('PATCH', f'{w._ns_root()}/pods/e40-target', {'metadata': {'labels': {'a': 'b'}}})
+     with pytest.raises(K.APIError):
+-        w.request('PATCH', f'{w._ns_root()}/pods/e39-target', {'metadata': {'annotations': {'other': 'x'}}})
++        w.request('PATCH', f'{w._ns_root()}/pods/e40-target', {'metadata': {'annotations': {'other': 'x'}}})
+     with pytest.raises(K.APIError):
+-        w.request('DELETE', f'{w._ns_root()}/pods/e39-target', {'preconditions': {}})
++        w.request('DELETE', f'{w._ns_root()}/pods/e40-target', {'preconditions': {}})
+     with pytest.raises(K.APIError):
+         w.request('DELETE', f'{w._ns_root()}/configmaps/evidence-a')
+     for bad_url in ('http://localhost:1', 'http://10.0.0.1:443', 'http://127.0.0.1:1/x'):
+         with pytest.raises(ValueError):
+             K.E39Client(bad_url, NS, 'x')
+-    for bad_ns in ('default', 'e39-system', 'e39-system', 'kube-system'):
++    for bad_ns in ('default', 'e40-system', 'e40-system', 'kube-system'):
+         with pytest.raises(ValueError):
+             K.E39Client(api.base_url, bad_ns, 'x')
+ 
+diff -ru code_e39_locked/src/test_e39_mirror.py code/src/test_e39_mirror.py
+--- code_e39_locked/src/test_e39_mirror.py	2026-09-26 12:24:32.486806222 +0000
++++ code/src/test_e39_mirror.py	2026-09-26 15:23:00.296374098 +0000
+@@ -17,7 +17,7 @@
+ from fake_api import FakeApiServer  # noqa: E402
+ from mirror_controller import JsonlSink, MirrorController  # noqa: E402
+ 
+-NS = 'e39-selftest'
++NS = 'e40-selftest'
+ 
+ 
+ @pytest.fixture
+@@ -135,7 +135,7 @@
+         validate_fragment('mirror_log_update', e)
+         # mirror PATCH is audited under the mirror identity with the logged Audit-ID
+         ev = [a for a in api.cluster.audit_log if a['auditID'] == e['mirror_audit_id']]
+-        assert len(ev) == 1 and ev[0]['user']['username'].endswith('e39-mirror')
++        assert len(ev) == 1 and ev[0]['user']['username'].endswith('e40-mirror')
+         assert ev[0]['objectRef']['resource'] == 'pods' and ev[0]['verb'] == 'patch'
+         frag = AC.mirror_fragment('response-scope', src_rv, src_wall, e)
+         validate_fragment('mirror', frag)
+@@ -266,4 +266,4 @@
+     assert e and e['identity'] == 'mirror' and e['mirror_audit_id']
+     assert recs[-1]['kind'] == 'stop'
+     ev = [a for a in api.cluster.audit_log if a['auditID'] == e['mirror_audit_id']]
+-    assert ev and ev[0]['user']['username'].endswith('e39-mirror')
++    assert ev and ev[0]['user']['username'].endswith('e40-mirror')
+diff -ru code_e39_locked/src/test_e39_netpol_conditions.py code/src/test_e39_netpol_conditions.py
+--- code_e39_locked/src/test_e39_netpol_conditions.py	2026-09-26 12:24:32.488488554 +0000
++++ code/src/test_e39_netpol_conditions.py	2026-09-26 15:23:00.291393316 +0000
+@@ -15,7 +15,7 @@
+ from e39_fragments import validate_fragment  # noqa: E402
+ from fake_api import FakeApiServer  # noqa: E402
+ 
+-NS = 'e39-selftest'
++NS = 'e40-selftest'
+ 
+ 
+ @pytest.fixture
+@@ -35,13 +35,13 @@
+ 
+ # ------------------------------------------------------------------ NetworkPolicy action
+ def test_build_isolation_netpol_shape():
+-    body = NP.build_isolation_netpol(NS, 'e39-isolate-3', 'run-t3', webhook=True)
+-    assert body['spec'] == {'podSelector': {'matchLabels': {'e39-trial': 'run-t3'}},
++    body = NP.build_isolation_netpol(NS, 'e40-isolate-3', 'run-t3', webhook=True)
++    assert body['spec'] == {'podSelector': {'matchLabels': {'e40-trial': 'run-t3'}},
+                             'policyTypes': ['Ingress', 'Egress']}
+-    assert body['metadata']['labels']['e39-webhook'] == 'enforce'
+-    assert 'e39-webhook' not in NP.build_isolation_netpol(NS, 'e39-isolate-3', 'x')['metadata']['labels']
++    assert body['metadata']['labels']['e40-webhook'] == 'enforce'
++    assert 'e40-webhook' not in NP.build_isolation_netpol(NS, 'e40-isolate-3', 'x')['metadata']['labels']
+     assert K._is_isolation_netpol(body, NS)
+-    assert NP.target_pod_labels('run-t3') == {'e39-trial': 'run-t3'}
++    assert NP.target_pod_labels('run-t3') == {'e40-trial': 'run-t3'}
+ 
+ 
+ def test_trial_label_value_dns_safe():
+@@ -51,12 +51,12 @@
+         assert re.match(r'^[a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?$', v), v
+         assert NP.trial_label_value(run_id, tid) == v
+         n = NP.netpol_name(tid, run_id)
+-        assert n.startswith('e39-isolate-') and len(n) <= 63
++        assert n.startswith('e40-isolate-') and len(n) <= 63
+     assert NP.trial_label_value('r', 1) != NP.trial_label_value('r', 2)
+ 
+ 
+ def test_netpol_create_201_record(api, clients):
+-    frag = NP.create_isolation_netpol(clients['responder'], 'e39-isolate-1', 'lbl-1')
++    frag = NP.create_isolation_netpol(clients['responder'], 'e40-isolate-1', 'lbl-1')
+     assert frag['http_status'] == 201 and frag['created_resource_version'] and frag['audit_id']
+     assert frag['t_resp_mono_ns'] >= frag['t_send_mono_ns']
+     validate_fragment('netpol', frag)
+@@ -64,40 +64,40 @@
+     assert ev['verb'] == 'create' and ev['objectRef']['resource'] == 'networkpolicies'
+     assert ev['objectRef']['apiGroup'] == 'networking.k8s.io' and ev['responseStatus']['code'] == 201
+     assert ev['responseObject']['metadata']['resourceVersion'] == frag['created_resource_version']
+-    eff = NP.netpol_effect(clients['responder'], 'e39-isolate-1')
++    eff = NP.netpol_effect(clients['responder'], 'e40-isolate-1')
+     assert eff['exists'] and eff['resource_version'] == frag['created_resource_version']
+     # second CREATE of the same name -> 409 AlreadyExists (no retry)
+-    frag2 = NP.create_isolation_netpol(clients['responder'], 'e39-isolate-1', 'lbl-1')
++    frag2 = NP.create_isolation_netpol(clients['responder'], 'e40-isolate-1', 'lbl-1')
+     assert frag2['http_status'] == 409 and frag2['reason'] == 'AlreadyExists'
+     validate_fragment('netpol', frag2)
+     # reset cleanup
+-    assert NP.cleanup_isolation_netpol(clients['reset'], 'e39-isolate-1') == 200
+-    assert NP.cleanup_isolation_netpol(clients['reset'], 'e39-isolate-1') == 404
+-    assert not NP.netpol_effect(clients['responder'], 'e39-isolate-1')['exists']
++    assert NP.cleanup_isolation_netpol(clients['reset'], 'e40-isolate-1') == 200
++    assert NP.cleanup_isolation_netpol(clients['reset'], 'e40-isolate-1') == 404
++    assert not NP.netpol_effect(clients['responder'], 'e40-isolate-1')['exists']
+ 
+ 
+ def test_netpol_rv_orders_with_configmap_writes(api, clients):
+     """Global revision: a ConfigMap write committed before the CREATE has a smaller RV (oracle primary rule)."""
+     st, _, cm = clients['writer'].patch_configmap('response-scope', {'allowed': 'false'})
+-    frag = NP.create_isolation_netpol(clients['responder'], 'e39-isolate-2', 'l2')
++    frag = NP.create_isolation_netpol(clients['responder'], 'e40-isolate-2', 'l2')
+     assert int(cm['metadata']['resourceVersion']) < int(frag['created_resource_version'])
+ 
+ 
+ def test_netpol_fake_webhook_deny_allow(api, clients):
+     n0 = len(api.cluster.webhook_log)
+-    ok = NP.create_isolation_netpol(clients['responder'], 'e39-isolate-10', 'l10', webhook=True)
++    ok = NP.create_isolation_netpol(clients['responder'], 'e40-isolate-10', 'l10', webhook=True)
+     assert ok['http_status'] == 201
+     clients['writer'].patch_configmap('response-scope', {'allowed': 'false'})
+-    denied = NP.create_isolation_netpol(clients['responder'], 'e39-isolate-11', 'l11', webhook=True)
++    denied = NP.create_isolation_netpol(clients['responder'], 'e40-isolate-11', 'l11', webhook=True)
+     assert denied['http_status'] == 403 and denied['reason'] == 'Forbidden'
+     assert denied['created_resource_version'] is None and denied['audit_id']
+     validate_fragment('netpol', denied)
+     logs = api.cluster.webhook_log[n0:]
+-    assert [(w['object_name'], w['decision']) for w in logs] == [('e39-isolate-10', 'allow'),
+-                                                               ('e39-isolate-11', 'deny')]
++    assert [(w['object_name'], w['decision']) for w in logs] == [('e40-isolate-10', 'allow'),
++                                                               ('e40-isolate-11', 'deny')]
+     assert all(w['resource'] == 'networkpolicies' and len(w['reads']) == 8 for w in logs)
+     # without the webhook label (A1): not routed to admission
+-    plain = NP.create_isolation_netpol(clients['responder'], 'e39-isolate-12', 'l12')
++    plain = NP.create_isolation_netpol(clients['responder'], 'e40-isolate-12', 'l12')
+     assert plain['http_status'] == 201 and len(api.cluster.webhook_log) == n0 + 2
+     ev = [a for a in api.cluster.audit_log if a['auditID'] == denied['audit_id']][0]
+     assert ev['responseStatus']['code'] == 403
+@@ -108,14 +108,14 @@
+         c = K.E39Client(srv.base_url, NS, 'responder')
+         w = K.E39Client(srv.base_url, NS, 'writer')
+         w.patch_configmap('response-scope', {'allowed': 'false'})
+-        assert NP.create_isolation_netpol(c, 'e39-isolate-1', 'l', webhook=True)['http_status'] == 201
++        assert NP.create_isolation_netpol(c, 'e40-isolate-1', 'l', webhook=True)['http_status'] == 201
+         c.close()
+         w.close()
+ 
+ 
+ def test_netpol_safety_rail(clients):
+     c = clients['responder']
+-    good = NP.build_isolation_netpol(NS, 'e39-isolate-5', 'l5')
++    good = NP.build_isolation_netpol(NS, 'e40-isolate-5', 'l5')
+     bad_rules = dict(good, spec=dict(good['spec'], ingress=[{'from': [{'podSelector': {}}]}]))
+     bad_name = dict(good, metadata=dict(good['metadata'], name='allow-all'))
+     bad_sel = dict(good, spec=dict(good['spec'], podSelector={}))
+@@ -191,7 +191,7 @@
+                        'mirror_commit_rv': None, 'mirror_commit_wall_ns': None, 'mirror_audit_id': None}),
+            ('netpol', {'name': 'allow-all', 't_send_mono_ns': 1, 't_resp_mono_ns': 2, 'http_status': 201,
+                        'audit_id': 'a', 'created_resource_version': '3'}),
+-           ('netpol', {'name': 'e39-isolate-1', 't_send_mono_ns': 1, 't_resp_mono_ns': 2, 'http_status': 201,
++           ('netpol', {'name': 'e40-isolate-1', 't_send_mono_ns': 1, 't_resp_mono_ns': 2, 'http_status': 201,
+                        'audit_id': 'a', 'created_resource_version': '3', 'extra': 1})]
+     for name, frag in bad:
+         with pytest.raises(jsonschema.ValidationError):
+diff -ru code_e39_locked/src/test_e39_runner.py code/src/test_e39_runner.py
+--- code_e39_locked/src/test_e39_runner.py	2026-09-26 14:27:39.689253712 +0000
++++ code/src/test_e39_runner.py	2026-09-26 15:23:00.287196201 +0000
+@@ -169,22 +169,22 @@
+ def test_live_rails(tmp_path):
+     base = ['--api-server', 'https://127.0.0.1:6443', '--ca-file', 'ca', '--token-dir', 't', '--schedule', 's',
+             '--output-dir', str(tmp_path), '--ack-disposable']
+-    for bad in (['--context', 'kind-e38v2', '--namespace', 'e39-x'],
+-                ['--context', 'e39', '--namespace', 'e39-x'],
+-                ['--context', 'kind-e39', '--namespace', 'e39-system'],
+-                ['--context', 'kind-e39', '--namespace', 'e39-load'],
++    for bad in (['--context', 'kind-e38v2', '--namespace', 'e40-x'],
++                ['--context', 'e39', '--namespace', 'e40-x'],
++                ['--context', 'kind-e39', '--namespace', 'e40-system'],
++                ['--context', 'kind-e39', '--namespace', 'e40-load'],
+                 ['--context', 'kind-e39', '--namespace', 'e38v2-x']):
+         with pytest.raises(SystemExit):
+             ER.main(bad + base)
+     with pytest.raises(SystemExit):     # not loopback
+-        ER.main(['--context', 'kind-e39', '--namespace', 'e39-x', '--api-server', 'https://10.0.0.1:6443']
++        ER.main(['--context', 'kind-e39', '--namespace', 'e40-x', '--api-server', 'https://10.0.0.1:6443']
+                 + base[2:])
+     with pytest.raises(SystemExit):     # no --ack-disposable
+-        ER.main(['--context', 'kind-e39', '--namespace', 'e39-x'] + base[:-1])
++        ER.main(['--context', 'kind-e39', '--namespace', 'e40-x'] + base[:-1])
+     # unlocked live run refused before any connection (schedule exists, no --lock)
+     sch = tmp_path / 'SCHEDULE.json'
+     sch.write_text(json.dumps(ER.schedule_document(ER.build_stage1(SEED, 'x', reps=1, experiments=('G',)), 1, SEED, 'x')))
+-    args = ['--context', 'kind-e39', '--namespace', 'e39-x', '--run-id', 'x', '--api-server', 'https://127.0.0.1:6443',
++    args = ['--context', 'kind-e39', '--namespace', 'e40-x', '--run-id', 'x', '--api-server', 'https://127.0.0.1:6443',
+             '--ca-file', 'ca', '--token-dir', 't', '--schedule', str(sch), '--output-dir', str(tmp_path / 'o'),
+             '--ack-disposable']
+     with pytest.raises(SystemExit):
+@@ -197,10 +197,10 @@
+ 
+ 
+ def test_e39client_namespace_and_seq_annotation_rail():
+-    for bad in ('e39-system', 'e39-load', 'e38v2-x', 'default'):
++    for bad in ('e40-system', 'e40-load', 'e38v2-x', 'default'):
+         with pytest.raises(ValueError):
+             K.E39Client('http://127.0.0.1:1', bad, 'writer')
+-    c = K.E39Client('http://127.0.0.1:1', 'e39-x', 'writer')
++    c = K.E39Client('http://127.0.0.1:1', 'e40-x', 'writer')
+     # e38.seq is allowed on PATCH (checked before any byte is sent: the rail passes, the connect fails)
+     with pytest.raises((K.APIError, OSError)) as ei:
+         c.patch_pod_annotations({'e38.scope': 'false', K.SEQ_ANN: '3'})
+@@ -218,7 +218,7 @@
+     from fake_api import FakeApiServer
+     from harness_arrivals import ArrivalWriterProcess, ArrivalWriter
+     import time
+-    with FakeApiServer(namespace='e39-arrtest') as srv:
++    with FakeApiServer(namespace='e40-arrtest') as srv:
+         base, ns = srv.base_url, srv.cluster.ns
+         uid = srv.cluster.pod['uid']
+         wp = ArrivalWriterProcess(lambda: K.E39Client(base, ns, 'writer'))
+@@ -249,7 +249,7 @@
+     import time
+     import arms_commit as AC
+     from fake_api import FakeApiServer
+-    with FakeApiServer(namespace='e39-mirrortest') as srv:
++    with FakeApiServer(namespace='e40-mirrortest') as srv:
+         base, ns = srv.base_url, srv.cluster.ns
+         mh = ER.MirrorHostProcess(lambda: K.E39Client(base, ns, 'mirror'), tmp_path / 'mirror_log.jsonl')
+         try:
+@@ -278,7 +278,7 @@
+ 
+ 
+ def test_go_client_against_tls_fake_409_message(tmp_path):
+-    """Real e39-goclient binary vs the fake's TLS twin: a stale-UID precondition DELETE returns 409 and the
++    """Real e40-goclient binary vs the fake's TLS twin: a stale-UID precondition DELETE returns 409 and the
+     full apiserver message reaches the record (client-go decodes metav1.Status)."""
+     import arms_commit as AC
+     import goclient_bridge as gb
+@@ -290,19 +290,19 @@
+         pytest.skip('openssl missing')
+     tok = tmp_path / 'tok'
+     tok.write_text('dummy\n')
+-    with FakeApiServer(namespace='e39-gotest') as srv:
++    with FakeApiServer(namespace='e40-gotest') as srv:
+         twin = ER._start_tls_twin(srv, *tls)
+         try:
+-            reset = K.E39Client(srv.base_url, 'e39-gotest', 'reset')
++            reset = K.E39Client(srv.base_url, 'e40-gotest', 'reset')
+             pod, _ = reset.get_pod()
+             reset.patch_pod_annotations(AC.fixture_annotations(), uid=pod['metadata']['uid'])
+             argv = [str(ER.DEFAULT_GO_BIN), '--server', 'https://127.0.0.1:%d' % twin.server_address[1],
+-                    '--ca-file', tls[0], '--token-file', str(tok), '--namespace-prefix', 'e39-']
++                    '--ca-file', tls[0], '--token-file', str(tok), '--namespace-prefix', 'e40-']
+             with gb.GoClient(argv) as go:
+-                raw = go.gate_delete_rv('e39-gotest', K.POD_NAME, 'not-the-uid')
++                raw = go.gate_delete_rv('e40-gotest', K.POD_NAME, 'not-the-uid')
+                 assert raw['ok'] and raw['valid'] and raw['delete_status'] == 409
+                 assert 'UID in the precondition' in raw['delete_message']
+-                raw2 = go.gate_delete_rv('e39-gotest', K.POD_NAME, pod['metadata']['uid'])
++                raw2 = go.gate_delete_rv('e40-gotest', K.POD_NAME, pod['metadata']['uid'])
+                 assert raw2['delete_status'] == 200 and raw2['deleted'] and raw2['delete_audit_id']
+         finally:
+             twin.shutdown()
+@@ -387,25 +387,25 @@
+         pytest.skip('openssl missing')
+     tok = tmp_path / 'tok'
+     tok.write_text('dummy\n')
+-    with FakeApiServer(namespace='e39-gotest') as srv:
++    with FakeApiServer(namespace='e40-gotest') as srv:
+         twin = ER._start_tls_twin(srv, *tls)
+         try:
+-            reset = K.E39Client(srv.base_url, 'e39-gotest', 'reset')
++            reset = K.E39Client(srv.base_url, 'e40-gotest', 'reset')
+             pod, _ = reset.get_pod()
+             uid = pod['metadata']['uid']
+             argv = [str(ER.DEFAULT_GO_BIN), '--server', 'https://127.0.0.1:%d' % twin.server_address[1],
+-                    '--ca-file', tls[0], '--token-file', str(tok), '--namespace-prefix', 'e39-']
++                    '--ca-file', tls[0], '--token-file', str(tok), '--namespace-prefix', 'e40-']
+             with gb.GoClient(argv) as go:
+                 t0 = _t.monotonic_ns()
+-                g = go.gate_uid('e39-gotest', K.POD_NAME, {'b': True, 'd': True, 'f': True}, expected_uid=uid)
++                g = go.gate_uid('e40-gotest', K.POD_NAME, {'b': True, 'd': True, 'f': True}, expected_uid=uid)
+                 t1 = _t.monotonic_ns()
+                 assert g['ok'] and not g.get('deleted') and not g.get('delete_status')
+                 assert t0 <= g['t_gate_end_mono_ns'] <= t1
+                 rv = g['pod_resource_version']
+                 reset.patch_pod_annotations(AC.fixture_annotations(), uid=uid)   # bumps the Pod RV
+-                bad = go.delete_rv('e39-gotest', K.POD_NAME, uid, rv)
++                bad = go.delete_rv('e40-gotest', K.POD_NAME, uid, rv)
+                 assert bad['delete_status'] == 409 and 'ResourceVersion in the precondition' in bad['delete_message']
+-                d = go.delete_uid('e39-gotest', K.POD_NAME, uid)
++                d = go.delete_uid('e40-gotest', K.POD_NAME, uid)
+                 assert d['delete_status'] == 200 and d['t_send_mono_ns'] <= d['t_resp_mono_ns']
+                 assert d['t_send_mono_ns'] >= g['t_gate_end_mono_ns'] and d['delete_audit_id']
+         finally:
+diff -ru code_e39_locked/src/test_goclient_bridge.py code/src/test_goclient_bridge.py
+--- code_e39_locked/src/test_goclient_bridge.py	2026-09-26 13:45:32.892271347 +0000
++++ code/src/test_goclient_bridge.py	2026-09-26 15:23:00.291065520 +0000
+@@ -82,7 +82,7 @@
+ 
+ def test_gate_delete_uid_mapping():
+     with gb.GoClient(_stub_argv()) as c:
+-        raw = c.gate_delete_uid("e39-test", "victim", "uid-123", {"b": True})
++        raw = c.gate_delete_uid("e40-test", "victim", "uid-123", {"b": True})
+         trial = gb.map_to_trial(raw)
+ 
+     assert trial["schema"] == "e39.trial.v1"
+@@ -105,7 +105,7 @@
+ 
+ def test_gate_delete_rv_hold_mapping():
+     with gb.GoClient(_stub_argv()) as c:
+-        raw = c.gate_delete_rv("e39-test", "victim", "uid-123")
++        raw = c.gate_delete_rv("e40-test", "victim", "uid-123")
+         trial = gb.map_to_trial(raw)
+     assert trial["gate_valid"] is False
+     assert trial["gate_decision"] == "hold"
+@@ -115,18 +115,18 @@
+ 
+ def test_split_ops_mapping():
+     with gb.GoClient(_stub_argv()) as c:
+-        gate = gb.map_to_trial(c.gate_uid("e39-test", "victim", {"b": True}))
++        gate = gb.map_to_trial(c.gate_uid("e40-test", "victim", {"b": True}))
+         assert gate["op"] == "gate_uid"
+         assert gate["gate_valid"] is True
+         assert gate["t_gate_end_mono_ns"] == 12345
+         assert gate["gate_reason"].startswith("allow: J via")
+         assert gate["deleted"] is False
+ 
+-        du = gb.map_to_trial(c.delete_uid("e39-test", "victim", "uid-123"))
++        du = gb.map_to_trial(c.delete_uid("e40-test", "victim", "uid-123"))
+         assert du["deleted"] is True and du["delete_status"] == 200
+         assert du["t_send_mono_ns"] == 5000 and du["t_resp_mono_ns"] == 5200
+ 
+-        dv = gb.map_to_trial(c.delete_rv("e39-test", "victim", "uid-123", "200"))
++        dv = gb.map_to_trial(c.delete_rv("e40-test", "victim", "uid-123", "200"))
+         assert dv["deleted"] is True and dv["client_impl"] == "client-go"
+         assert dv["t_send_mono_ns"] == 6000 and dv["t_resp_mono_ns"] == 6200
+ 
+diff -ru code_e39_locked/src/test_pod_watch.py code/src/test_pod_watch.py
+--- code_e39_locked/src/test_pod_watch.py	2026-09-26 12:24:32.490478945 +0000
++++ code/src/test_pod_watch.py	2026-09-26 15:23:00.291756429 +0000
+@@ -10,7 +10,7 @@
+ 
+ 
+ def pod(uid, rv, phase='Running', ready=True, dts=None, cstate='running'):
+-    md = {'uid': uid, 'name': 'e39-target', 'resourceVersion': str(rv), 'labels': {'e39-webhook': 'enforce'}}
++    md = {'uid': uid, 'name': 'e40-target', 'resourceVersion': str(rv), 'labels': {'e40-webhook': 'enforce'}}
+     if dts:
+         md['deletionTimestamp'] = dts
+         md['deletionGracePeriodSeconds'] = 0
+@@ -54,7 +54,7 @@
+     tok.write_text('secret\n')
+     monkeypatch.setattr(PW.ssl, 'create_default_context', lambda cafile=None: object())
+     rec = PW.Recorder(str(tmp_path / 'ev.jsonl'))
+-    w = PW.Watcher('https://127.0.0.1:6443', str(ca), str(tok), 'e39-x', rec, stop_file=str(tmp_path / 'STOP'))
++    w = PW.Watcher('https://127.0.0.1:6443', str(ca), str(tok), 'e40-x', rec, stop_file=str(tmp_path / 'STOP'))
+     paths = []
+     monkeypatch.setattr(w, '_conn', lambda timeout: FakeConn(script, paths))
+     return w, rec, paths
+@@ -62,7 +62,7 @@
+ 
+ def test_summarize_fields():
+     s = PW.summarize(pod('u1', 10, dts='2026-09-26T10:00:00Z', cstate='terminated'))
+-    assert s == {'uid': 'u1', 'name': 'e39-target', 'rv': '10', 'deletion_timestamp': '2026-09-26T10:00:00Z',
++    assert s == {'uid': 'u1', 'name': 'e40-target', 'rv': '10', 'deletion_timestamp': '2026-09-26T10:00:00Z',
+                  'deletion_grace_period_seconds': 0, 'phase': 'Running', 'ready': True,
+                  'container_state': 'terminated', 'node': 'n1', 'webhook_label': True}
+ 
+@@ -102,8 +102,8 @@
+     monkeypatch.setattr(PW.ssl, 'create_default_context', lambda cafile=None: object())
+     rec = PW.Recorder(str(tmp_path / 'e.jsonl'))
+     with pytest.raises(SystemExit):
+-        PW.Watcher('https://10.0.0.1:6443', 'ca', str(tmp_path / 'tok'), 'e39-x', rec)
++        PW.Watcher('https://10.0.0.1:6443', 'ca', str(tmp_path / 'tok'), 'e40-x', rec)
+     with pytest.raises(SystemExit):
+-        PW.Watcher('https://127.0.0.1:6443', 'ca', str(tmp_path / 'tok'), 'e39-system', rec)
++        PW.Watcher('https://127.0.0.1:6443', 'ca', str(tmp_path / 'tok'), 'e40-system', rec)
+     with pytest.raises(SystemExit):
+-        PW.Watcher('http://127.0.0.1:6443', 'ca', str(tmp_path / 'tok'), 'e39-x', rec)
++        PW.Watcher('http://127.0.0.1:6443', 'ca', str(tmp_path / 'tok'), 'e40-x', rec)
+diff -ru code_e39_locked/src/writer.py code/src/writer.py
+--- code_e39_locked/src/writer.py	2026-09-26 12:24:32.519087104 +0000
++++ code/src/writer.py	2026-09-26 15:23:00.290493756 +0000
+@@ -94,7 +94,7 @@
+ 
+     def prearm(self):
+         self.client.connect()
+-        self.thread = threading.Thread(target=self._run, name='e39-writer', daemon=True)
++        self.thread = threading.Thread(target=self._run, name='e40-writer', daemon=True)
+         self.thread.start()
+         return self
+ 
+@@ -178,7 +178,7 @@
+         ctx = multiprocessing.get_context('fork')
+         self.conn, child = ctx.Pipe(duplex=True)
+         self.proc = ctx.Process(target=_writer_main, args=(client_factory, child),
+-                                name='e39-writer-proc', daemon=True)
++                                name='e40-writer-proc', daemon=True)
+         self.proc.start()
+         child.close()
+         self.busy = False
+diff -ru code_e39_locked/webhook/server.py code/webhook/server.py
+--- code_e39_locked/webhook/server.py	2026-09-26 10:22:18.970605066 +0000
++++ code/webhook/server.py	2026-09-26 15:23:00.298643213 +0000
+@@ -11,7 +11,7 @@
+ action, E39-E) is evaluated with the same reads and policy, fail closed; its log line carries
+ resource/operation/object_name/netpol_pod_selector in addition to the pod-record keys (pod_* empty).
+ The ValidatingWebhookConfiguration must add a rule for networkpolicies CREATE (deploy step).
+-Accepted namespaces: e38v2-<id> or e39-<id> (not *-system).
++Accepted namespaces: e38v2-<id> or e40-<id> (not *-system).
+ 
+ Fail closed for the target: any API error, 404, timeout, deadline overrun,
+ unparseable value or internal exception -> deny.
+@@ -53,9 +53,9 @@
+ 
+ SCHEMA = "e38v2.webhook.v1"
+ SA_DIR = "/var/run/secrets/kubernetes.io/serviceaccount"
+-# E39: e39-<run_id> test namespaces are accepted too (never *-system).
+-NAMESPACE_RE = re.compile(r"^(e38v2|e39)-[a-z0-9]([-a-z0-9]{0,54}[a-z0-9])?$")
+-SYSTEM_NAMESPACES = ("e38v2-system", "e39-system")
++# E39: e40-<run_id> test namespaces are accepted too (never *-system).
++NAMESPACE_RE = re.compile(r"^(e38v2|e40)-[a-z0-9]([-a-z0-9]{0,54}[a-z0-9])?$")
++SYSTEM_NAMESPACES = ("e38v2-system", "e40-system")
+ # E39-E: second response action = NetworkPolicy CREATE, evaluated with the SAME policy, fail closed.
+ NETPOL_GROUP = "networking.k8s.io"
+ NETPOL_RESOURCE = "networkpolicies"

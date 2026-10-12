@@ -1,0 +1,478 @@
+{
+  "instance_id": "F1.1-P4",
+  "template_id": "F1.1",
+  "parameterization_id": "P4",
+  "split": "development",
+  "materialization_version": "3.1.0",
+  "causal_core_hash": "972ad7f8709e9432eef3ab2ed7ba6e1b0edcbb84591fd7b5113ce667d26f5e52",
+  "template_hash": "02ca2ea78188d232758254e70cec4ee74d910dd2533b9c58ed32e5638d9d6f97",
+  "scenario": {
+    "scenario_id": "F1.1",
+    "title": "Same-Name Replacement Pod",
+    "family": "F1",
+    "realism_tier": "R1",
+    "development": true,
+    "action": {
+      "action_type": "quarantine_workload",
+      "target_reference": "pod/api-0",
+      "target_snapshot": {
+        "name": "api-0",
+        "uid": "U1",
+        "namespace": "prod"
+      },
+      "queue_semantics": "single_exactly_once_attempt",
+      "authorization": {
+        "predicate": "p_authorized",
+        "must_remain_valid": true
+      },
+      "execution_precondition": {
+        "predicate": "p_target_resolves"
+      }
+    },
+    "attacker_capability_tier": "C2",
+    "initial_state": {
+      "timestamp_s": 0,
+      "facts": {
+        "u1_compromised": true,
+        "api0_current_uid": "U1",
+        "irrelevant_annotation": "v1",
+        "action_authorized": true,
+        "materialization_benign_resource_count": 6,
+        "materialization_high_impact": true,
+        "materialization_irrelevant_1": true,
+        "materialization_irrelevant_2": true
+      },
+      "resources": [
+        {
+          "kind": "Pod",
+          "namespace": "prod",
+          "name": "api-0",
+          "uid": "U1",
+          "resource_version": "101",
+          "active": true,
+          "security_state": "compromised"
+        },
+        {
+          "kind": "Pod",
+          "namespace": "prod",
+          "name": "api-0",
+          "uid": "U2",
+          "resource_version": "202",
+          "active": false,
+          "security_state": "clean"
+        },
+        {
+          "kind": "SyntheticBenignResource",
+          "name": "benign-3",
+          "uid": "BENIGN-F1.1-3",
+          "active": true,
+          "security_state": "clean",
+          "criticality": "low"
+        },
+        {
+          "kind": "SyntheticBenignResource",
+          "name": "benign-4",
+          "uid": "BENIGN-F1.1-4",
+          "active": true,
+          "security_state": "clean",
+          "criticality": "low"
+        },
+        {
+          "kind": "SyntheticBenignResource",
+          "name": "benign-5",
+          "uid": "BENIGN-F1.1-5",
+          "active": true,
+          "security_state": "clean",
+          "criticality": "low"
+        },
+        {
+          "kind": "SyntheticBenignResource",
+          "name": "benign-6",
+          "uid": "BENIGN-F1.1-6",
+          "active": true,
+          "security_state": "clean",
+          "criticality": "low"
+        },
+        {
+          "kind": "SyntheticBenignResource",
+          "name": "benign-7",
+          "uid": "BENIGN-F1.1-7",
+          "active": true,
+          "security_state": "clean",
+          "criticality": "low"
+        },
+        {
+          "kind": "SyntheticBenignResource",
+          "name": "benign-8",
+          "uid": "BENIGN-F1.1-8",
+          "active": true,
+          "security_state": "clean",
+          "criticality": "low"
+        },
+        {
+          "kind": "SyntheticBenignResource",
+          "name": "critical-benign-1",
+          "uid": "CRIT-F1.1-1",
+          "active": true,
+          "security_state": "clean",
+          "criticality": "high"
+        },
+        {
+          "kind": "SyntheticBenignResource",
+          "name": "critical-benign-2",
+          "uid": "CRIT-F1.1-2",
+          "active": true,
+          "security_state": "clean",
+          "criticality": "high"
+        },
+        {
+          "kind": "SyntheticBenignResource",
+          "name": "critical-benign-3",
+          "uid": "CRIT-F1.1-3",
+          "active": true,
+          "security_state": "clean",
+          "criticality": "medium"
+        },
+        {
+          "kind": "SyntheticBenignResource",
+          "name": "critical-benign-4",
+          "uid": "CRIT-F1.1-4",
+          "active": true,
+          "security_state": "clean",
+          "criticality": "medium"
+        },
+        {
+          "kind": "SyntheticBenignResource",
+          "name": "critical-benign-5",
+          "uid": "CRIT-F1.1-5",
+          "active": true,
+          "security_state": "clean",
+          "criticality": "medium"
+        },
+        {
+          "kind": "SyntheticBenignResource",
+          "name": "critical-benign-6",
+          "uid": "CRIT-F1.1-6",
+          "active": true,
+          "security_state": "clean",
+          "criticality": "medium"
+        }
+      ],
+      "processes": [],
+      "network_bindings": [],
+      "sessions": [],
+      "context": {
+        "materialization": {
+          "parameterization_id": "P4",
+          "template_id": "F1.1",
+          "description": "High-impact background topology."
+        },
+        "business_impact": {
+          "service_tier": "tier-1",
+          "benign_dependency_count": 6,
+          "recovery_priority": "high"
+        }
+      },
+      "evidence": [
+        {
+          "evidence_id": "H1",
+          "predicate": "u1_compromised",
+          "evidence_class": "H",
+          "source": "EDR",
+          "observed_at_s": 0,
+          "subject_uid": "U1",
+          "truth_value": true,
+          "supersedes": null
+        },
+        {
+          "evidence_id": "MAT-IRR-1",
+          "predicate": "materialization_irrelevant_1",
+          "evidence_class": "S",
+          "source": "synthetic-background",
+          "observed_at_s": 0,
+          "subject_uid": null,
+          "truth_value": true,
+          "supersedes": null
+        },
+        {
+          "evidence_id": "MAT-IRR-2",
+          "predicate": "materialization_irrelevant_2",
+          "evidence_class": "S",
+          "source": "synthetic-background",
+          "observed_at_s": 0,
+          "subject_uid": null,
+          "truth_value": true,
+          "supersedes": null
+        }
+      ],
+      "queue": []
+    },
+    "predicates": {
+      "p_compromised_u1": {
+        "path": "/facts/u1_compromised",
+        "op": "eq",
+        "value": true,
+        "evidence_class": "H",
+        "description": "Confirmed compromise of original Pod U1."
+      },
+      "p_binding_u1": {
+        "path": "/facts/api0_current_uid",
+        "op": "eq",
+        "value": "U1",
+        "evidence_class": "B",
+        "description": "Reusable name still resolves to original UID U1."
+      },
+      "p_authorized": {
+        "path": "/facts/action_authorized",
+        "op": "eq",
+        "value": true,
+        "evidence_class": "DERIVED",
+        "description": "Response executor remains technically authorized."
+      },
+      "p_target_resolves": {
+        "path": "/facts/api0_current_uid",
+        "op": "ne",
+        "value": null,
+        "evidence_class": "B",
+        "description": "Queued Pod name resolves to a concrete resource at actuation."
+      }
+    },
+    "policy_profiles": {
+      "balanced": {
+        "justification": {
+          "predicate": "p_compromised_u1"
+        },
+        "binding": {
+          "predicate": "p_binding_u1"
+        },
+        "scope": true
+      },
+      "conservative": {
+        "justification": {
+          "predicate": "p_compromised_u1"
+        },
+        "binding": {
+          "predicate": "p_binding_u1"
+        },
+        "scope": true
+      },
+      "aggressive": {
+        "justification": {
+          "predicate": "p_compromised_u1"
+        },
+        "binding": {
+          "predicate": "p_binding_u1"
+        },
+        "scope": true
+      }
+    },
+    "primary_policy": "balanced",
+    "justification_bases": [
+      [
+        "p_compromised_u1"
+      ]
+    ],
+    "transitions": [
+      {
+        "transition_id": "irrelevant_annotation_change",
+        "title": "Change non-security annotation",
+        "actor": "environment",
+        "capability_tier": "NONE",
+        "duration_s": 0.2,
+        "cost_ops": 0,
+        "preconditions": true,
+        "effects": [
+          {
+            "op": "set",
+            "path": "/facts/irrelevant_annotation",
+            "value": "v2"
+          }
+        ],
+        "notes": "",
+        "adversarially_induced": false,
+        "causal_parent_ids": []
+      },
+      {
+        "transition_id": "delete_u1",
+        "title": "Delete attacker-controlled compromised Pod U1",
+        "actor": "attacker",
+        "capability_tier": "C2",
+        "duration_s": 1.0,
+        "cost_ops": 1,
+        "preconditions": true,
+        "effects": [
+          {
+            "op": "set",
+            "path": "/facts/api0_current_uid",
+            "value": null
+          },
+          {
+            "op": "set",
+            "path": "/resources/0/active",
+            "value": false
+          }
+        ],
+        "notes": "",
+        "adversarially_induced": true,
+        "causal_parent_ids": []
+      },
+      {
+        "transition_id": "recreate_u2",
+        "title": "Controller creates clean successor with same name",
+        "actor": "environment",
+        "capability_tier": "NONE",
+        "duration_s": 1.0,
+        "cost_ops": 0,
+        "preconditions": true,
+        "effects": [
+          {
+            "op": "set",
+            "path": "/facts/api0_current_uid",
+            "value": "U2"
+          },
+          {
+            "op": "set",
+            "path": "/resources/1/active",
+            "value": true
+          }
+        ],
+        "notes": "",
+        "adversarially_induced": true,
+        "causal_parent_ids": [
+          "delete_u1"
+        ]
+      }
+    ],
+    "worlds": {
+      "W0": {
+        "commit_deadline_s": 5,
+        "transition_path": [],
+        "expected_commit": "EXECUTE",
+        "expected_attack_path_completed": false,
+        "control_semantics": "stable",
+        "expected_commit_by_policy": {
+          "balanced": "EXECUTE",
+          "conservative": "EXECUTE",
+          "aggressive": "EXECUTE"
+        }
+      },
+      "W1": {
+        "commit_deadline_s": 5,
+        "transition_path": [
+          "irrelevant_annotation_change"
+        ],
+        "expected_commit": "EXECUTE",
+        "expected_attack_path_completed": false,
+        "control_semantics": "irrelevant_change",
+        "expected_commit_by_policy": {
+          "balanced": "EXECUTE",
+          "conservative": "EXECUTE",
+          "aggressive": "EXECUTE"
+        }
+      },
+      "W2": {
+        "commit_deadline_s": 5,
+        "transition_path": [
+          "delete_u1",
+          "recreate_u2"
+        ],
+        "expected_commit": "ABORT_REPLAN",
+        "expected_attack_path_completed": true,
+        "control_semantics": "ea_toctou",
+        "expected_commit_by_policy": {
+          "balanced": "ABORT_REPLAN",
+          "conservative": "ABORT_REPLAN",
+          "aggressive": "ABORT_REPLAN"
+        }
+      },
+      "W3": {
+        "commit_deadline_s": 0.5,
+        "transition_path": [
+          "delete_u1",
+          "recreate_u2"
+        ],
+        "expected_commit": "EXECUTE",
+        "expected_attack_path_completed": false,
+        "notes": "Neither deletion nor successor recreation completes before the commit boundary.",
+        "control_semantics": "deadline_miss",
+        "expected_commit_by_policy": {
+          "balanced": "EXECUTE",
+          "conservative": "EXECUTE",
+          "aggressive": "EXECUTE"
+        }
+      }
+    },
+    "parameterizations": [
+      {
+        "id": "P1",
+        "description": "Minimal topology with only essential resources and evidence."
+      },
+      {
+        "id": "P2",
+        "description": "Distractor topology with benign resources and irrelevant evidence."
+      },
+      {
+        "id": "P3",
+        "description": "Noisy SOC context with non-material alerts and unrelated transitions."
+      },
+      {
+        "id": "P4",
+        "description": "High-impact variant with larger benign background or higher criticality."
+      }
+    ],
+    "provenance": {
+      "platform_basis": "Kubernetes Pods have immutable UIDs; replacement objects can reuse names with a new UID.",
+      "incident_basis": "Autonomous response queues quarantine after confirmed compromise.",
+      "policy_basis": "Historical compromise still applies to U1, but response must remain bound to U1.",
+      "limitations": "Simulated timing; live timing depends on controller and cluster configuration."
+    },
+    "severity": "S2",
+    "notes": "Development control for reusable name versus immutable identity.",
+    "justification_bases_by_policy": {
+      "balanced": [
+        [
+          "p_compromised_u1"
+        ]
+      ],
+      "conservative": [
+        [
+          "p_compromised_u1"
+        ]
+      ],
+      "aggressive": [
+        [
+          "p_compromised_u1"
+        ]
+      ]
+    },
+    "refresh_model": {
+      "cost_unit": "normalized_query_unit",
+      "query_costs": {
+        "query:/facts/api0_current_uid": 1.0,
+        "immutable:p_compromised_u1": 0.0
+      },
+      "predicate_query_ids": {
+        "p_binding_u1": "query:/facts/api0_current_uid",
+        "p_compromised_u1": "immutable:p_compromised_u1",
+        "p_target_resolves": "query:/facts/api0_current_uid"
+      },
+      "query_observed_at_s": {
+        "query:/facts/api0_current_uid": 0.0,
+        "immutable:p_compromised_u1": 0.0
+      }
+    },
+    "native_controls": [
+      {
+        "control_id": "k8s_uid_precondition",
+        "control_type": "uid_precondition",
+        "predicate_ids": [
+          "p_binding_u1"
+        ],
+        "normalized_cost_units": 0.0,
+        "applicable": true,
+        "notes": "Atomic server-side commit precondition; modeled as zero additional query round-trips. Live API behavior is deferred to E13."
+      }
+    ],
+    "scenario_role": "positive_ea_toctou"
+  }
+}

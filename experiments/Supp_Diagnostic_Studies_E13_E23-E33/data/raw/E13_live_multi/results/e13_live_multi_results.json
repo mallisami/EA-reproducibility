@@ -1,0 +1,801 @@
+{
+  "rows": [
+    {
+      "rep": 1,
+      "attack_type": "cut_all",
+      "cut_flags": [
+        "flag_a",
+        "flag_c",
+        "flag_e"
+      ],
+      "decision_labels": {
+        "flag_a": true,
+        "flag_b": true,
+        "flag_c": true,
+        "flag_d": true,
+        "flag_e": true,
+        "flag_f": true
+      },
+      "transition_start_unix": 1789185017.0480716,
+      "transition_end_unix": 1789185017.6061225,
+      "B6_decision": "ABORT_REPLAN",
+      "B6_query_cost": 3.0,
+      "B6_queried": [
+        "flag_a",
+        "flag_c",
+        "flag_e"
+      ],
+      "B6_unsafe": false,
+      "B4_decision": "ABORT_REPLAN",
+      "B4_query_cost": 6.0,
+      "B4_queried": [
+        "flag_a",
+        "flag_b",
+        "flag_c",
+        "flag_d",
+        "flag_e",
+        "flag_f"
+      ],
+      "B4_unsafe": false
+    },
+    {
+      "rep": 2,
+      "attack_type": "cut_all",
+      "cut_flags": [
+        "flag_a",
+        "flag_c",
+        "flag_e"
+      ],
+      "decision_labels": {
+        "flag_a": true,
+        "flag_b": true,
+        "flag_c": true,
+        "flag_d": true,
+        "flag_e": true,
+        "flag_f": true
+      },
+      "transition_start_unix": 1789185020.1485715,
+      "transition_end_unix": 1789185020.765575,
+      "B6_decision": "ABORT_REPLAN",
+      "B6_query_cost": 3.0,
+      "B6_queried": [
+        "flag_a",
+        "flag_c",
+        "flag_e"
+      ],
+      "B6_unsafe": false,
+      "B4_decision": "ABORT_REPLAN",
+      "B4_query_cost": 6.0,
+      "B4_queried": [
+        "flag_a",
+        "flag_b",
+        "flag_c",
+        "flag_d",
+        "flag_e",
+        "flag_f"
+      ],
+      "B4_unsafe": false
+    },
+    {
+      "rep": 3,
+      "attack_type": "cut_all",
+      "cut_flags": [
+        "flag_a",
+        "flag_c",
+        "flag_e"
+      ],
+      "decision_labels": {
+        "flag_a": true,
+        "flag_b": true,
+        "flag_c": true,
+        "flag_d": true,
+        "flag_e": true,
+        "flag_f": true
+      },
+      "transition_start_unix": 1789185023.0776505,
+      "transition_end_unix": 1789185023.6681082,
+      "B6_decision": "ABORT_REPLAN",
+      "B6_query_cost": 3.0,
+      "B6_queried": [
+        "flag_a",
+        "flag_c",
+        "flag_e"
+      ],
+      "B6_unsafe": false,
+      "B4_decision": "ABORT_REPLAN",
+      "B4_query_cost": 6.0,
+      "B4_queried": [
+        "flag_a",
+        "flag_b",
+        "flag_c",
+        "flag_d",
+        "flag_e",
+        "flag_f"
+      ],
+      "B4_unsafe": false
+    },
+    {
+      "rep": 4,
+      "attack_type": "cut_all",
+      "cut_flags": [
+        "flag_a",
+        "flag_c",
+        "flag_e"
+      ],
+      "decision_labels": {
+        "flag_a": true,
+        "flag_b": true,
+        "flag_c": true,
+        "flag_d": true,
+        "flag_e": true,
+        "flag_f": true
+      },
+      "transition_start_unix": 1789185025.9322612,
+      "transition_end_unix": 1789185026.5023863,
+      "B6_decision": "ABORT_REPLAN",
+      "B6_query_cost": 3.0,
+      "B6_queried": [
+        "flag_a",
+        "flag_c",
+        "flag_e"
+      ],
+      "B6_unsafe": false,
+      "B4_decision": "ABORT_REPLAN",
+      "B4_query_cost": 6.0,
+      "B4_queried": [
+        "flag_a",
+        "flag_b",
+        "flag_c",
+        "flag_d",
+        "flag_e",
+        "flag_f"
+      ],
+      "B4_unsafe": false
+    },
+    {
+      "rep": 5,
+      "attack_type": "cut_all",
+      "cut_flags": [
+        "flag_a",
+        "flag_c",
+        "flag_e"
+      ],
+      "decision_labels": {
+        "flag_a": true,
+        "flag_b": true,
+        "flag_c": true,
+        "flag_d": true,
+        "flag_e": true,
+        "flag_f": true
+      },
+      "transition_start_unix": 1789185028.8669028,
+      "transition_end_unix": 1789185029.3782284,
+      "B6_decision": "ABORT_REPLAN",
+      "B6_query_cost": 3.0,
+      "B6_queried": [
+        "flag_a",
+        "flag_c",
+        "flag_e"
+      ],
+      "B6_unsafe": false,
+      "B4_decision": "ABORT_REPLAN",
+      "B4_query_cost": 6.0,
+      "B4_queried": [
+        "flag_a",
+        "flag_b",
+        "flag_c",
+        "flag_d",
+        "flag_e",
+        "flag_f"
+      ],
+      "B4_unsafe": false
+    },
+    {
+      "rep": 6,
+      "attack_type": "cut_all",
+      "cut_flags": [
+        "flag_a",
+        "flag_c",
+        "flag_e"
+      ],
+      "decision_labels": {
+        "flag_a": true,
+        "flag_b": true,
+        "flag_c": true,
+        "flag_d": true,
+        "flag_e": true,
+        "flag_f": true
+      },
+      "transition_start_unix": 1789185031.7392864,
+      "transition_end_unix": 1789185032.4394321,
+      "B6_decision": "ABORT_REPLAN",
+      "B6_query_cost": 3.0,
+      "B6_queried": [
+        "flag_a",
+        "flag_c",
+        "flag_e"
+      ],
+      "B6_unsafe": false,
+      "B4_decision": "ABORT_REPLAN",
+      "B4_query_cost": 6.0,
+      "B4_queried": [
+        "flag_a",
+        "flag_b",
+        "flag_c",
+        "flag_d",
+        "flag_e",
+        "flag_f"
+      ],
+      "B4_unsafe": false
+    },
+    {
+      "rep": 7,
+      "attack_type": "cut_all",
+      "cut_flags": [
+        "flag_a",
+        "flag_c",
+        "flag_e"
+      ],
+      "decision_labels": {
+        "flag_a": true,
+        "flag_b": true,
+        "flag_c": true,
+        "flag_d": true,
+        "flag_e": true,
+        "flag_f": true
+      },
+      "transition_start_unix": 1789185034.8197124,
+      "transition_end_unix": 1789185035.3500667,
+      "B6_decision": "ABORT_REPLAN",
+      "B6_query_cost": 3.0,
+      "B6_queried": [
+        "flag_a",
+        "flag_c",
+        "flag_e"
+      ],
+      "B6_unsafe": false,
+      "B4_decision": "ABORT_REPLAN",
+      "B4_query_cost": 6.0,
+      "B4_queried": [
+        "flag_a",
+        "flag_b",
+        "flag_c",
+        "flag_d",
+        "flag_e",
+        "flag_f"
+      ],
+      "B4_unsafe": false
+    },
+    {
+      "rep": 8,
+      "attack_type": "cut_all",
+      "cut_flags": [
+        "flag_a",
+        "flag_c",
+        "flag_e"
+      ],
+      "decision_labels": {
+        "flag_a": true,
+        "flag_b": true,
+        "flag_c": true,
+        "flag_d": true,
+        "flag_e": true,
+        "flag_f": true
+      },
+      "transition_start_unix": 1789185037.759898,
+      "transition_end_unix": 1789185038.3125184,
+      "B6_decision": "ABORT_REPLAN",
+      "B6_query_cost": 3.0,
+      "B6_queried": [
+        "flag_a",
+        "flag_c",
+        "flag_e"
+      ],
+      "B6_unsafe": false,
+      "B4_decision": "ABORT_REPLAN",
+      "B4_query_cost": 6.0,
+      "B4_queried": [
+        "flag_a",
+        "flag_b",
+        "flag_c",
+        "flag_d",
+        "flag_e",
+        "flag_f"
+      ],
+      "B4_unsafe": false
+    },
+    {
+      "rep": 9,
+      "attack_type": "cut_all",
+      "cut_flags": [
+        "flag_a",
+        "flag_c",
+        "flag_e"
+      ],
+      "decision_labels": {
+        "flag_a": true,
+        "flag_b": true,
+        "flag_c": true,
+        "flag_d": true,
+        "flag_e": true,
+        "flag_f": true
+      },
+      "transition_start_unix": 1789185040.5632927,
+      "transition_end_unix": 1789185041.116041,
+      "B6_decision": "ABORT_REPLAN",
+      "B6_query_cost": 3.0,
+      "B6_queried": [
+        "flag_a",
+        "flag_c",
+        "flag_e"
+      ],
+      "B6_unsafe": false,
+      "B4_decision": "ABORT_REPLAN",
+      "B4_query_cost": 6.0,
+      "B4_queried": [
+        "flag_a",
+        "flag_b",
+        "flag_c",
+        "flag_d",
+        "flag_e",
+        "flag_f"
+      ],
+      "B4_unsafe": false
+    },
+    {
+      "rep": 10,
+      "attack_type": "cut_all",
+      "cut_flags": [
+        "flag_a",
+        "flag_c",
+        "flag_e"
+      ],
+      "decision_labels": {
+        "flag_a": true,
+        "flag_b": true,
+        "flag_c": true,
+        "flag_d": true,
+        "flag_e": true,
+        "flag_f": true
+      },
+      "transition_start_unix": 1789185043.661363,
+      "transition_end_unix": 1789185044.3217683,
+      "B6_decision": "ABORT_REPLAN",
+      "B6_query_cost": 3.0,
+      "B6_queried": [
+        "flag_a",
+        "flag_c",
+        "flag_e"
+      ],
+      "B6_unsafe": false,
+      "B4_decision": "ABORT_REPLAN",
+      "B4_query_cost": 6.0,
+      "B4_queried": [
+        "flag_a",
+        "flag_b",
+        "flag_c",
+        "flag_d",
+        "flag_e",
+        "flag_f"
+      ],
+      "B4_unsafe": false
+    },
+    {
+      "rep": 11,
+      "attack_type": "cut_all",
+      "cut_flags": [
+        "flag_a",
+        "flag_c",
+        "flag_e"
+      ],
+      "decision_labels": {
+        "flag_a": true,
+        "flag_b": true,
+        "flag_c": true,
+        "flag_d": true,
+        "flag_e": true,
+        "flag_f": true
+      },
+      "transition_start_unix": 1789185046.8302157,
+      "transition_end_unix": 1789185047.4172301,
+      "B6_decision": "ABORT_REPLAN",
+      "B6_query_cost": 3.0,
+      "B6_queried": [
+        "flag_a",
+        "flag_c",
+        "flag_e"
+      ],
+      "B6_unsafe": false,
+      "B4_decision": "ABORT_REPLAN",
+      "B4_query_cost": 6.0,
+      "B4_queried": [
+        "flag_a",
+        "flag_b",
+        "flag_c",
+        "flag_d",
+        "flag_e",
+        "flag_f"
+      ],
+      "B4_unsafe": false
+    },
+    {
+      "rep": 12,
+      "attack_type": "cut_all",
+      "cut_flags": [
+        "flag_a",
+        "flag_c",
+        "flag_e"
+      ],
+      "decision_labels": {
+        "flag_a": true,
+        "flag_b": true,
+        "flag_c": true,
+        "flag_d": true,
+        "flag_e": true,
+        "flag_f": true
+      },
+      "transition_start_unix": 1789185049.945041,
+      "transition_end_unix": 1789185050.4784024,
+      "B6_decision": "ABORT_REPLAN",
+      "B6_query_cost": 3.0,
+      "B6_queried": [
+        "flag_a",
+        "flag_c",
+        "flag_e"
+      ],
+      "B6_unsafe": false,
+      "B4_decision": "ABORT_REPLAN",
+      "B4_query_cost": 6.0,
+      "B4_queried": [
+        "flag_a",
+        "flag_b",
+        "flag_c",
+        "flag_d",
+        "flag_e",
+        "flag_f"
+      ],
+      "B4_unsafe": false
+    },
+    {
+      "rep": 13,
+      "attack_type": "cut_all",
+      "cut_flags": [
+        "flag_a",
+        "flag_c",
+        "flag_e"
+      ],
+      "decision_labels": {
+        "flag_a": true,
+        "flag_b": true,
+        "flag_c": true,
+        "flag_d": true,
+        "flag_e": true,
+        "flag_f": true
+      },
+      "transition_start_unix": 1789185052.91344,
+      "transition_end_unix": 1789185053.4921677,
+      "B6_decision": "ABORT_REPLAN",
+      "B6_query_cost": 3.0,
+      "B6_queried": [
+        "flag_a",
+        "flag_c",
+        "flag_e"
+      ],
+      "B6_unsafe": false,
+      "B4_decision": "ABORT_REPLAN",
+      "B4_query_cost": 6.0,
+      "B4_queried": [
+        "flag_a",
+        "flag_b",
+        "flag_c",
+        "flag_d",
+        "flag_e",
+        "flag_f"
+      ],
+      "B4_unsafe": false
+    },
+    {
+      "rep": 14,
+      "attack_type": "cut_all",
+      "cut_flags": [
+        "flag_a",
+        "flag_c",
+        "flag_e"
+      ],
+      "decision_labels": {
+        "flag_a": true,
+        "flag_b": true,
+        "flag_c": true,
+        "flag_d": true,
+        "flag_e": true,
+        "flag_f": true
+      },
+      "transition_start_unix": 1789185055.982296,
+      "transition_end_unix": 1789185056.5109248,
+      "B6_decision": "ABORT_REPLAN",
+      "B6_query_cost": 3.0,
+      "B6_queried": [
+        "flag_a",
+        "flag_c",
+        "flag_e"
+      ],
+      "B6_unsafe": false,
+      "B4_decision": "ABORT_REPLAN",
+      "B4_query_cost": 6.0,
+      "B4_queried": [
+        "flag_a",
+        "flag_b",
+        "flag_c",
+        "flag_d",
+        "flag_e",
+        "flag_f"
+      ],
+      "B4_unsafe": false
+    },
+    {
+      "rep": 15,
+      "attack_type": "cut_all",
+      "cut_flags": [
+        "flag_a",
+        "flag_c",
+        "flag_e"
+      ],
+      "decision_labels": {
+        "flag_a": true,
+        "flag_b": true,
+        "flag_c": true,
+        "flag_d": true,
+        "flag_e": true,
+        "flag_f": true
+      },
+      "transition_start_unix": 1789185058.9570615,
+      "transition_end_unix": 1789185059.477995,
+      "B6_decision": "ABORT_REPLAN",
+      "B6_query_cost": 3.0,
+      "B6_queried": [
+        "flag_a",
+        "flag_c",
+        "flag_e"
+      ],
+      "B6_unsafe": false,
+      "B4_decision": "ABORT_REPLAN",
+      "B4_query_cost": 6.0,
+      "B4_queried": [
+        "flag_a",
+        "flag_b",
+        "flag_c",
+        "flag_d",
+        "flag_e",
+        "flag_f"
+      ],
+      "B4_unsafe": false
+    },
+    {
+      "rep": 16,
+      "attack_type": "cut_all",
+      "cut_flags": [
+        "flag_a",
+        "flag_c",
+        "flag_e"
+      ],
+      "decision_labels": {
+        "flag_a": true,
+        "flag_b": true,
+        "flag_c": true,
+        "flag_d": true,
+        "flag_e": true,
+        "flag_f": true
+      },
+      "transition_start_unix": 1789185061.867144,
+      "transition_end_unix": 1789185062.4127011,
+      "B6_decision": "ABORT_REPLAN",
+      "B6_query_cost": 3.0,
+      "B6_queried": [
+        "flag_a",
+        "flag_c",
+        "flag_e"
+      ],
+      "B6_unsafe": false,
+      "B4_decision": "ABORT_REPLAN",
+      "B4_query_cost": 6.0,
+      "B4_queried": [
+        "flag_a",
+        "flag_b",
+        "flag_c",
+        "flag_d",
+        "flag_e",
+        "flag_f"
+      ],
+      "B4_unsafe": false
+    },
+    {
+      "rep": 17,
+      "attack_type": "cut_all",
+      "cut_flags": [
+        "flag_a",
+        "flag_c",
+        "flag_e"
+      ],
+      "decision_labels": {
+        "flag_a": true,
+        "flag_b": true,
+        "flag_c": true,
+        "flag_d": true,
+        "flag_e": true,
+        "flag_f": true
+      },
+      "transition_start_unix": 1789185064.8750114,
+      "transition_end_unix": 1789185065.414909,
+      "B6_decision": "ABORT_REPLAN",
+      "B6_query_cost": 3.0,
+      "B6_queried": [
+        "flag_a",
+        "flag_c",
+        "flag_e"
+      ],
+      "B6_unsafe": false,
+      "B4_decision": "ABORT_REPLAN",
+      "B4_query_cost": 6.0,
+      "B4_queried": [
+        "flag_a",
+        "flag_b",
+        "flag_c",
+        "flag_d",
+        "flag_e",
+        "flag_f"
+      ],
+      "B4_unsafe": false
+    },
+    {
+      "rep": 18,
+      "attack_type": "cut_all",
+      "cut_flags": [
+        "flag_a",
+        "flag_c",
+        "flag_e"
+      ],
+      "decision_labels": {
+        "flag_a": true,
+        "flag_b": true,
+        "flag_c": true,
+        "flag_d": true,
+        "flag_e": true,
+        "flag_f": true
+      },
+      "transition_start_unix": 1789185067.9859047,
+      "transition_end_unix": 1789185068.5487034,
+      "B6_decision": "ABORT_REPLAN",
+      "B6_query_cost": 3.0,
+      "B6_queried": [
+        "flag_a",
+        "flag_c",
+        "flag_e"
+      ],
+      "B6_unsafe": false,
+      "B4_decision": "ABORT_REPLAN",
+      "B4_query_cost": 6.0,
+      "B4_queried": [
+        "flag_a",
+        "flag_b",
+        "flag_c",
+        "flag_d",
+        "flag_e",
+        "flag_f"
+      ],
+      "B4_unsafe": false
+    },
+    {
+      "rep": 19,
+      "attack_type": "cut_all",
+      "cut_flags": [
+        "flag_a",
+        "flag_c",
+        "flag_e"
+      ],
+      "decision_labels": {
+        "flag_a": true,
+        "flag_b": true,
+        "flag_c": true,
+        "flag_d": true,
+        "flag_e": true,
+        "flag_f": true
+      },
+      "transition_start_unix": 1789185070.92448,
+      "transition_end_unix": 1789185071.469732,
+      "B6_decision": "ABORT_REPLAN",
+      "B6_query_cost": 3.0,
+      "B6_queried": [
+        "flag_a",
+        "flag_c",
+        "flag_e"
+      ],
+      "B6_unsafe": false,
+      "B4_decision": "ABORT_REPLAN",
+      "B4_query_cost": 6.0,
+      "B4_queried": [
+        "flag_a",
+        "flag_b",
+        "flag_c",
+        "flag_d",
+        "flag_e",
+        "flag_f"
+      ],
+      "B4_unsafe": false
+    },
+    {
+      "rep": 20,
+      "attack_type": "cut_all",
+      "cut_flags": [
+        "flag_a",
+        "flag_c",
+        "flag_e"
+      ],
+      "decision_labels": {
+        "flag_a": true,
+        "flag_b": true,
+        "flag_c": true,
+        "flag_d": true,
+        "flag_e": true,
+        "flag_f": true
+      },
+      "transition_start_unix": 1789185073.9292555,
+      "transition_end_unix": 1789185074.506457,
+      "B6_decision": "ABORT_REPLAN",
+      "B6_query_cost": 3.0,
+      "B6_queried": [
+        "flag_a",
+        "flag_c",
+        "flag_e"
+      ],
+      "B6_unsafe": false,
+      "B4_decision": "ABORT_REPLAN",
+      "B4_query_cost": 6.0,
+      "B4_queried": [
+        "flag_a",
+        "flag_b",
+        "flag_c",
+        "flag_d",
+        "flag_e",
+        "flag_f"
+      ],
+      "B4_unsafe": false
+    }
+  ],
+  "summary": {
+    "n": 20,
+    "B4_unsafe": 0,
+    "B6_unsafe": 0,
+    "discordant": 0,
+    "mean_B4_cost": 6.0,
+    "mean_B6_cost": 3.0,
+    "dcji_plan": {
+      "status": "EXPLOITABLE",
+      "critical_query_ids": [
+        "query:/facts/flag_a",
+        "query:/facts/flag_c",
+        "query:/facts/flag_e"
+      ],
+      "critical_predicates": [
+        "flag_a",
+        "flag_c",
+        "flag_e"
+      ],
+      "query_cost_units": 3.0,
+      "goal_count": 1,
+      "candidate_query_ids": [
+        "query:/facts/flag_a",
+        "query:/facts/flag_c",
+        "query:/facts/flag_e"
+      ],
+      "per_goal_changed_queries": [
+        [
+          "query:/facts/flag_a",
+          "query:/facts/flag_c",
+          "query:/facts/flag_e"
+        ]
+      ],
+      "expanded": 8,
+      "subset_evals": 8
+    }
+  }
+}

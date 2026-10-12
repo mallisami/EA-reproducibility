@@ -1,0 +1,173 @@
+{
+ "ready_wait_ms": {
+  "n": 8728,
+  "median": 594.397,
+  "p95": 1005.116,
+  "max": 3109.822,
+  "min": 295.199
+ },
+ "gate_pod_state": {
+  "n_gated": 8728,
+  "n_with_state": 8728,
+  "running_ready_not_terminating": 8728,
+  "container_running": 8728
+ },
+ "per_arm": {
+  "A0_native_uid": {
+   "n_accepted": 2253,
+   "rtt_ms": {
+    "n": 2253,
+    "median": 14.991,
+    "p95": 77.44,
+    "max": 473.327,
+    "min": 6.535
+   },
+   "gone_after_response_ms": {
+    "n": 2253,
+    "median": 2.039,
+    "p95": 6.192,
+    "max": 204.32,
+    "min": 1.19
+   },
+   "deletion_rv_source": {
+    "audit+trial": 2214,
+    "(none)": 39
+   },
+   "pod_watch_accepted_to_deleted_rv_gap": {
+    "n": 2253,
+    "median": 1,
+    "p95": 2,
+    "max": 4,
+    "min": 1
+   },
+   "pod_watch_accepted_to_deleted_recv_ms": {
+    "n": 2253,
+    "median": 5.667,
+    "p95": 33.888,
+    "max": 297.165,
+    "min": 0.219
+   },
+   "container_state_in_DELETED_event": {
+    "running": 2253
+   }
+  },
+  "A1_dcji": {
+   "n_accepted": 2091,
+   "rtt_ms": {
+    "n": 2091,
+    "median": 14.765,
+    "p95": 119.043,
+    "max": 1445.676,
+    "min": 6.746
+   },
+   "gone_after_response_ms": {
+    "n": 2091,
+    "median": 2.039,
+    "p95": 6.633,
+    "max": 189.594,
+    "min": 1.221
+   },
+   "deletion_rv_source": {
+    "audit+trial": 2051,
+    "(none)": 39,
+    "pod_watch_deleted": 1
+   },
+   "pod_watch_accepted_to_deleted_rv_gap": {
+    "n": 2091,
+    "median": 1,
+    "p95": 2,
+    "max": 4,
+    "min": 1
+   },
+   "pod_watch_accepted_to_deleted_recv_ms": {
+    "n": 2091,
+    "median": 5.447,
+    "p95": 44.614,
+    "max": 299.751,
+    "min": 0.226
+   },
+   "container_state_in_DELETED_event": {
+    "running": 2091
+   }
+  },
+  "A2_fullrefresh": {
+   "n_accepted": 2199,
+   "rtt_ms": {
+    "n": 2199,
+    "median": 14.972,
+    "p95": 117.509,
+    "max": 389.256,
+    "min": 6.816
+   },
+   "gone_after_response_ms": {
+    "n": 2199,
+    "median": 2.044,
+    "p95": 6.431,
+    "max": 208.286,
+    "min": 1.187
+   },
+   "deletion_rv_source": {
+    "audit+trial": 2156,
+    "(none)": 39,
+    "pod_watch_deleted": 4
+   },
+   "pod_watch_accepted_to_deleted_rv_gap": {
+    "n": 2199,
+    "median": 1,
+    "p95": 2,
+    "max": 3,
+    "min": 1
+   },
+   "pod_watch_accepted_to_deleted_recv_ms": {
+    "n": 2199,
+    "median": 5.627,
+    "p95": 46.636,
+    "max": 293.311,
+    "min": 0.237
+   },
+   "container_state_in_DELETED_event": {
+    "running": 2199
+   }
+  },
+  "A3_dcji_webhook": {
+   "n_accepted": 1068,
+   "rtt_ms": {
+    "n": 1068,
+    "median": 41.064,
+    "p95": 186.287,
+    "max": 503.827,
+    "min": 20.457
+   },
+   "gone_after_response_ms": {
+    "n": 1068,
+    "median": 1.967,
+    "p95": 5.425,
+    "max": 256.585,
+    "min": 1.263
+   },
+   "deletion_rv_source": {
+    "audit+trial": 979,
+    "(none)": 39,
+    "pod_watch_deleted": 50
+   },
+   "pod_watch_accepted_to_deleted_rv_gap": {
+    "n": 1068,
+    "median": 1.0,
+    "p95": 2,
+    "max": 4,
+    "min": 1
+   },
+   "pod_watch_accepted_to_deleted_recv_ms": {
+    "n": 1068,
+    "median": 15.5,
+    "p95": 52.81,
+    "max": 259.516,
+    "min": 2.339
+   },
+   "container_state_in_DELETED_event": {
+    "running": 1068
+   }
+  }
+ }
+}
+INVALID (accepted async) primary vs alt-reference(deletionTimestamp commit) by arm: {'A0_native_uid': (1437, 515), 'A1_dcji': (1322, 499), 'A2_fullrefresh': (1438, 510), 'A3_dcji_webhook': (782, 539)}

@@ -1,0 +1,100 @@
+{
+ "n_trials": 324,
+ "infra_error": 0,
+ "infra_rate": 0.0,
+ "infra_examples": [],
+ "primary_classes": {
+  "CORRECT_ABORT": 34,
+  "INVALID_EXECUTED": 78,
+  "VALID_EXECUTED": 144,
+  "UID_BLOCKED": 4,
+  "UNKNOWN": 64
+ },
+ "primary_by_exp": {
+  "A": {
+   "CORRECT_ABORT": 15,
+   "INVALID_EXECUTED": 51,
+   "VALID_EXECUTED": 70,
+   "UID_BLOCKED": 4
+  },
+  "B": {
+   "VALID_EXECUTED": 8,
+   "INVALID_EXECUTED": 2,
+   "CORRECT_ABORT": 2
+  },
+  "C": {
+   "UNKNOWN": 64
+  },
+  "D": {
+   "CORRECT_ABORT": 11,
+   "VALID_EXECUTED": 23,
+   "INVALID_EXECUTED": 14
+  },
+  "E": {
+   "VALID_EXECUTED": 24,
+   "INVALID_EXECUTED": 5,
+   "CORRECT_ABORT": 3
+  },
+  "F": {
+   "VALID_EXECUTED": 19,
+   "INVALID_EXECUTED": 5
+  },
+  "G": {
+   "INVALID_EXECUTED": 1,
+   "CORRECT_ABORT": 3
+  }
+ },
+ "unknown_reasons": {
+  "C|not_dispatched_without_abort(EXECUTE)": 32,
+  "C|fixture_prewrite_vcore_false": 32
+ },
+ "audit_ids_joined": "559/559",
+ "join_rate": 1.0,
+ "join_misses": [],
+ "agreement_primary_secondary": 1.0,
+ "disagreements": [],
+ "controls": {
+  "G_in_model_ace|A1_dcji|CORRECT_ABORT": 1,
+  "G_in_model_ace|A2_fullrefresh|CORRECT_ABORT": 1,
+  "G_out_of_model_bdf|A1_dcji|INVALID_EXECUTED": 1,
+  "G_out_of_model_bdf|A2_fullrefresh|CORRECT_ABORT": 1,
+  "no_write|A1_dcji|VALID_EXECUTED": 1,
+  "no_write|A3_dcji_webhook|VALID_EXECUTED": 1,
+  "no_write|A4d_commit_direct|VALID_EXECUTED": 1,
+  "no_write|A4m_commit_mirror|VALID_EXECUTED": 1,
+  "uid_rebind|A1_dcji|UID_BLOCKED": 1,
+  "uid_rebind|A3_dcji_webhook|UID_BLOCKED": 1,
+  "uid_rebind|A4d_commit_direct|UID_BLOCKED": 1,
+  "uid_rebind|A4m_commit_mirror|UID_BLOCKED": 1
+ },
+ "controls_ok": true,
+ "conflict_kinds": {
+  "uid": 4,
+  "resourceVersion": 3
+ },
+ "flag_unparsed": 0,
+ "c_fields_ok": true,
+ "d_fields_ok": true,
+ "schema_invalid": [],
+ "n_schema_invalid": 0,
+ "n_by_exp": {
+  "A": 140,
+  "B": 12,
+  "C": 64,
+  "D": 48,
+  "E": 32,
+  "F": 24,
+  "G": 4
+ },
+ "GATES": {
+  "infra_lt_2pct": true,
+  "join_ge_98pct": true,
+  "agreement_ge_95pct": true,
+  "controls_ok": true,
+  "schema_valid": true,
+  "no_unparsed_409": true,
+  "c_fields": true,
+  "d_fields": true
+ },
+ "ALL_GATES_PASS": true
+}

@@ -1,0 +1,8 @@
+# Derived from: pip freeze of the authors' venv (pip_freeze_dcji_reanalysis_20260926__venv.txt), Azure experiment VM, 2026-09-26.
+# Interpreter: 
+Python 3.12.3
+numpy==2.5.3
+pandas==3.0.6
+python-dateutil==2.9.0.post0
+scipy==1.18.1
+six==1.17.0

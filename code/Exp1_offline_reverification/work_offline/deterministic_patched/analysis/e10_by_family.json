@@ -1,0 +1,192 @@
+{
+  "F1": {
+    "0.1": {
+      "templates": 5,
+      "cells": 100,
+      "mean_template_UCR": 0.26,
+      "cluster_bootstrap_95": [
+        0.19,
+        0.32
+      ]
+    },
+    "0.2": {
+      "templates": 5,
+      "cells": 100,
+      "mean_template_UCR": 0.39,
+      "cluster_bootstrap_95": [
+        0.32999999999999996,
+        0.46
+      ]
+    },
+    "0.3": {
+      "templates": 5,
+      "cells": 100,
+      "mean_template_UCR": 0.46,
+      "cluster_bootstrap_95": [
+        0.39999999999999997,
+        0.5
+      ]
+    },
+    "0.5": {
+      "templates": 5,
+      "cells": 100,
+      "mean_template_UCR": 0.71,
+      "cluster_bootstrap_95": [
+        0.65,
+        0.75
+      ]
+    }
+  },
+  "F2": {
+    "0.1": {
+      "templates": 5,
+      "cells": 100,
+      "mean_template_UCR": 0.15,
+      "cluster_bootstrap_95": [
+        0.09,
+        0.21
+      ]
+    },
+    "0.2": {
+      "templates": 5,
+      "cells": 100,
+      "mean_template_UCR": 0.36,
+      "cluster_bootstrap_95": [
+        0.24,
+        0.5
+      ]
+    },
+    "0.3": {
+      "templates": 5,
+      "cells": 100,
+      "mean_template_UCR": 0.46,
+      "cluster_bootstrap_95": [
+        0.42000000000000004,
+        0.5
+      ]
+    },
+    "0.5": {
+      "templates": 5,
+      "cells": 100,
+      "mean_template_UCR": 0.78,
+      "cluster_bootstrap_95": [
+        0.73,
+        0.83
+      ]
+    }
+  },
+  "F3": {
+    "0.1": {
+      "templates": 5,
+      "cells": 100,
+      "mean_template_UCR": 0.16,
+      "cluster_bootstrap_95": [
+        0.08,
+        0.28
+      ]
+    },
+    "0.2": {
+      "templates": 5,
+      "cells": 100,
+      "mean_template_UCR": 0.38,
+      "cluster_bootstrap_95": [
+        0.3,
+        0.47000000000000003
+      ]
+    },
+    "0.3": {
+      "templates": 5,
+      "cells": 100,
+      "mean_template_UCR": 0.46,
+      "cluster_bootstrap_95": [
+        0.36,
+        0.5700000000000001
+      ]
+    },
+    "0.5": {
+      "templates": 5,
+      "cells": 100,
+      "mean_template_UCR": 0.71,
+      "cluster_bootstrap_95": [
+        0.64,
+        0.79
+      ]
+    }
+  },
+  "F4": {
+    "0.1": {
+      "templates": 5,
+      "cells": 100,
+      "mean_template_UCR": 0.13,
+      "cluster_bootstrap_95": [
+        0.060000000000000005,
+        0.2
+      ]
+    },
+    "0.2": {
+      "templates": 5,
+      "cells": 100,
+      "mean_template_UCR": 0.17,
+      "cluster_bootstrap_95": [
+        0.1,
+        0.22
+      ]
+    },
+    "0.3": {
+      "templates": 5,
+      "cells": 100,
+      "mean_template_UCR": 0.33,
+      "cluster_bootstrap_95": [
+        0.26,
+        0.39
+      ]
+    },
+    "0.5": {
+      "templates": 5,
+      "cells": 100,
+      "mean_template_UCR": 0.44,
+      "cluster_bootstrap_95": [
+        0.41000000000000003,
+        0.47000000000000003
+      ]
+    }
+  },
+  "F5": {
+    "0.1": {
+      "templates": 3,
+      "cells": 60,
+      "mean_template_UCR": 0.3,
+      "cluster_bootstrap_95": [
+        0.25,
+        0.35
+      ]
+    },
+    "0.2": {
+      "templates": 3,
+      "cells": 60,
+      "mean_template_UCR": 0.43333333333333335,
+      "cluster_bootstrap_95": [
+        0.3,
+        0.55
+      ]
+    },
+    "0.3": {
+      "templates": 3,
+      "cells": 60,
+      "mean_template_UCR": 0.7166666666666667,
+      "cluster_bootstrap_95": [
+        0.55,
+        0.85
+      ]
+    },
+    "0.5": {
+      "templates": 3,
+      "cells": 60,
+      "mean_template_UCR": 0.9166666666666666,
+      "cluster_bootstrap_95": [
+        0.8,
+        1.0
+      ]
+    }
+  }
+}

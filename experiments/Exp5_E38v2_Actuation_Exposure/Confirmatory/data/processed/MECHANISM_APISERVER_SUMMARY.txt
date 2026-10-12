@@ -1,0 +1,254 @@
+{
+ "namespace": "e38v2-e38v2r-20260926t1032z",
+ "apiserver_log_lines": 625782,
+ "delete_requests_in_ns": 9962,
+ "webhook_response_lines_total": 3842,
+ "webhook_response_lines_attributed_to_a_delete": 3699,
+ "webhook_response_lines_within_ns_delete_time_span": 3699,
+ "trial_deletes": 8728,
+ "probe_or_other_deletes": 74,
+ "non_webhook_arm_deletes_with_webhook_lines": 0,
+ "a3_deletes": 2155,
+ "a3_counts_matched": 2155,
+ "a3_multi_evaluation": 498,
+ "a3_multi_evaluation_differ": 337,
+ "facts_a3_all": {
+  "n": 2155,
+  "all_counts_matched": 2155,
+  "has_GTD": 1068,
+  "has_CONF": 166,
+  "has_TBU": 63,
+  "has_terminating_call": 1020,
+  "resp_200": 1068,
+  "delete_resp_without_rv": 51,
+  "first_evaluation_before_GTD": 1068,
+  "later_evaluations_all_after_GTD": 498,
+  "2nd_evaluation_same_pod_rv_as_1st": 498,
+  "after_2nd_evaluation_next_is_CONF": 161,
+  "after_2nd_evaluation_next_is_terminating_call": 297,
+  "after_2nd_evaluation_nothing_further": 40
+ },
+ "facts_multi": {
+  "n": 498,
+  "all_counts_matched": 498,
+  "has_GTD": 498,
+  "first_evaluation_before_GTD": 498,
+  "later_evaluations_all_after_GTD": 498,
+  "has_CONF": 163,
+  "has_TBU": 52,
+  "has_terminating_call": 450,
+  "2nd_evaluation_same_pod_rv_as_1st": 498,
+  "after_2nd_evaluation_next_is_CONF": 161,
+  "after_2nd_evaluation_next_is_terminating_call": 297,
+  "after_2nd_evaluation_nothing_further": 40,
+  "resp_200": 498,
+  "delete_resp_without_rv": 50
+ },
+ "facts_differ": {
+  "n": 337,
+  "all_counts_matched": 337,
+  "has_GTD": 337,
+  "first_evaluation_before_GTD": 337,
+  "later_evaluations_all_after_GTD": 337,
+  "has_CONF": 2,
+  "has_TBU": 42,
+  "has_terminating_call": 297,
+  "2nd_evaluation_same_pod_rv_as_1st": 337,
+  "after_2nd_evaluation_next_is_CONF": 0,
+  "after_2nd_evaluation_next_is_terminating_call": 297,
+  "after_2nd_evaluation_nothing_further": 40,
+  "resp_200": 337,
+  "delete_resp_without_rv": 41
+ },
+ "facts_probe": {
+  "n": 74,
+  "all_counts_matched": 74,
+  "has_GTD": 64,
+  "has_CONF": 35,
+  "has_TBU": 9,
+  "has_terminating_call": 11,
+  "resp_200": 70,
+  "delete_resp_without_rv": 0,
+  "first_evaluation_before_GTD": 11,
+  "later_evaluations_all_after_GTD": 6,
+  "2nd_evaluation_same_pod_rv_as_1st": 6,
+  "after_2nd_evaluation_next_is_CONF": 6,
+  "after_2nd_evaluation_next_is_terminating_call": 0,
+  "after_2nd_evaluation_nothing_further": 0
+ },
+ "patterns_a3": [
+  {
+   "pattern": "E:deny",
+   "n": 1077
+  },
+  {
+   "pattern": "E:allow|GTD|T:allow",
+   "n": 559
+  },
+  {
+   "pattern": "E:allow|GTD|E:deny|T:allow",
+   "n": 295
+  },
+  {
+   "pattern": "E:allow|GTD|E:allow|CONF|T:allow",
+   "n": 151
+  },
+  {
+   "pattern": "E:allow|GTD|TBU|E:deny",
+   "n": 40
+  },
+  {
+   "pattern": "",
+   "n": 10
+  },
+  {
+   "pattern": "E:allow|GTD|T:allow|TBU",
+   "n": 8
+  },
+  {
+   "pattern": "E:allow|GTD|TBU|E:allow|CONF",
+   "n": 8
+  },
+  {
+   "pattern": "E:allow|GTD|T:allow|TBU|CONF",
+   "n": 2
+  },
+  {
+   "pattern": "E:allow|GTD|TBU|E:deny|T:allow|CONF",
+   "n": 1
+  },
+  {
+   "pattern": "E:allow|GTD|E:allow|CONF|TBU|T:allow|CONF",
+   "n": 1
+  },
+  {
+   "pattern": "E:allow|GTD|TBU|T:allow|CONF",
+   "n": 1
+  },
+  {
+   "pattern": "E:allow|GTD|E:allow|CONF|T:allow|TBU",
+   "n": 1
+  },
+  {
+   "pattern": "E:allow|GTD|E:deny|T:allow|TBU|CONF",
+   "n": 1
+  }
+ ],
+ "patterns_differ": [
+  {
+   "pattern": "E:allow|GTD|E:deny|T:allow",
+   "n": 295
+  },
+  {
+   "pattern": "E:allow|GTD|TBU|E:deny",
+   "n": 40
+  },
+  {
+   "pattern": "E:allow|GTD|TBU|E:deny|T:allow|CONF",
+   "n": 1
+  },
+  {
+   "pattern": "E:allow|GTD|E:deny|T:allow|TBU|CONF",
+   "n": 1
+  }
+ ],
+ "patterns_probe": [
+  {
+   "pattern": "GTD",
+   "n": 23
+  },
+  {
+   "pattern": "GTD|CONF",
+   "n": 14
+  },
+  {
+   "pattern": "E:allow|GTD|E:allow|CONF|T:allow",
+   "n": 6
+  },
+  {
+   "pattern": "E:allow|GTD|T:allow",
+   "n": 5
+  },
+  {
+   "pattern": "E:deny",
+   "n": 4
+  },
+  {
+   "pattern": "E:allow",
+   "n": 4
+  },
+  {
+   "pattern": "CONF|GTD",
+   "n": 4
+  },
+  {
+   "pattern": "CONF|GTD|CONF",
+   "n": 3
+  },
+  {
+   "pattern": "",
+   "n": 2
+  },
+  {
+   "pattern": "GTD|CONF|TBU|CONF",
+   "n": 2
+  },
+  {
+   "pattern": "GTD|CONF|TBU",
+   "n": 2
+  },
+  {
+   "pattern": "GTD|TBU|CONF|CONF",
+   "n": 2
+  },
+  {
+   "pattern": "GTD|CONF|TBU|CONF|CONF",
+   "n": 1
+  },
+  {
+   "pattern": "GTD|TBU",
+   "n": 1
+  },
+  {
+   "pattern": "CONF|GTD|CONF|TBU",
+   "n": 1
+  }
+ ],
+ "response_line_minus_completed_ms": [
+  0.228737,
+  0.278336,
+  0.297033,
+  0.314375,
+  0.33308,
+  0.343269,
+  0.350829,
+  0.357491,
+  0.364176,
+  0.369322,
+  0.375724,
+  0.380948,
+  0.386831,
+  0.392958,
+  0.399748,
+  0.406051,
+  0.411531,
+  0.418284,
+  0.424818,
+  0.431276,
+  0.438749,
+  0.4488,
+  0.459808,
+  0.473309,
+  0.489186,
+  0.506728,
+  0.523532,
+  0.550713,
+  0.587609,
+  0.638842,
+  0.700839,
+  0.795464,
+  0.99095,
+  1.450395,
+  36.359135
+ ]
+}

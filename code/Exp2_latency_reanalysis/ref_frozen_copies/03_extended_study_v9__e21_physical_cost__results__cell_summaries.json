@@ -1,0 +1,90 @@
+[
+  {
+    "cell": "idle/parallel/ea_attack",
+    "n": 300,
+    "dcji_mean_gate_ms": 43.766949999999994,
+    "full_mean_gate_ms": 67.226167,
+    "dcji_mean_request_count": 3.0,
+    "full_mean_request_count": 6.0,
+    "discordant": 0,
+    "dcji_mismatched_expected": 0,
+    "full_mismatched_expected": 0
+  },
+  {
+    "cell": "idle/parallel/irrelevant_mutation",
+    "n": 300,
+    "dcji_mean_gate_ms": 29.891240999999997,
+    "full_mean_gate_ms": 53.933301666666665,
+    "dcji_mean_request_count": 3.0,
+    "full_mean_request_count": 6.0,
+    "discordant": 0,
+    "dcji_mismatched_expected": 0,
+    "full_mismatched_expected": 0
+  },
+  {
+    "cell": "moderate/sequential/stable",
+    "n": 300,
+    "dcji_mean_gate_ms": 41.85755233333333,
+    "full_mean_gate_ms": 69.986064,
+    "dcji_mean_request_count": 3.0,
+    "full_mean_request_count": 6.0,
+    "discordant": 0,
+    "dcji_mismatched_expected": 0,
+    "full_mismatched_expected": 0
+  },
+  {
+    "cell": "moderate/sequential/ea_attack",
+    "n": 300,
+    "dcji_mean_gate_ms": 136.89087033333334,
+    "full_mean_gate_ms": 206.79109166666666,
+    "dcji_mean_request_count": 3.0,
+    "full_mean_request_count": 6.0,
+    "discordant": 0,
+    "dcji_mismatched_expected": 0,
+    "full_mismatched_expected": 0
+  },
+  {
+    "cell": "moderate/sequential/irrelevant_mutation",
+    "n": 300,
+    "dcji_mean_gate_ms": 35.565253999999996,
+    "full_mean_gate_ms": 69.32741166666666,
+    "dcji_mean_request_count": 3.0,
+    "full_mean_request_count": 6.0,
+    "discordant": 0,
+    "dcji_mismatched_expected": 0,
+    "full_mismatched_expected": 0
+  },
+  {
+    "cell": "moderate/parallel/stable",
+    "n": 300,
+    "dcji_mean_gate_ms": 21.877665666666665,
+    "full_mean_gate_ms": 33.607834000000004,
+    "dcji_mean_request_count": 3.0,
+    "full_mean_request_count": 6.0,
+    "discordant": 0,
+    "dcji_mismatched_expected": 0,
+    "full_mismatched_expected": 0
+  },
+  {
+    "cell": "moderate/parallel/ea_attack",
+    "n": 300,
+    "dcji_mean_gate_ms": 30.795552333333333,
+    "full_mean_gate_ms": 46.14659733333333,
+    "dcji_mean_request_count": 3.0,
+    "full_mean_request_count": 6.0,
+    "discordant": 0,
+    "dcji_mismatched_expected": 0,
+    "full_mismatched_expected": 0
+  },
+  {
+    "cell": "moderate/parallel/irrelevant_mutation",
+    "n": 300,
+    "dcji_mean_gate_ms": 46.736238,
+    "full_mean_gate_ms": 78.940105,
+    "dcji_mean_request_count": 3.0,
+    "full_mean_request_count": 6.0,
+    "discordant": 0,
+    "dcji_mismatched_expected": 0,
+    "full_mismatched_expected": 0
+  }
+]

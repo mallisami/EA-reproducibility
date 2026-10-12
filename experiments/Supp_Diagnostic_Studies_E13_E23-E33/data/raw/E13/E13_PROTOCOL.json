@@ -1,0 +1,84 @@
+{
+  "experiment": "E13",
+  "version": "8.1.1-final-pre-first-real-cluster-run",
+  "freeze_id": "FLASHIR-E13-LIVE-FREEZE-20260906-V3.1",
+  "title": "Live Kubernetes EA-TOCTOU mechanism, DCJI planner-to-commit binding, commit-guard validation, and residual gate-to-actuation instrumentation",
+  "required_positive_cases": [
+    "F1.1",
+    "F1.2",
+    "F4.1",
+    "F4.4"
+  ],
+  "required_positive_repetitions_per_case": 20,
+  "required_negative_controls": [
+    "NC-L1",
+    "NC-L2"
+  ],
+  "required_negative_control_repetitions_per_control": 20,
+  "conditional_case": "F2.1 once per successful cluster session if Pod-IP reuse is naturally reproducible",
+  "namespace": "flashir-e13",
+  "execution_rule": "Run preflight first. Then invoke run_e13_protocol.py --execute exactly once. Attempt 2 is automatic only if attempt 1 records INFRA_FAILURE. Never rerun scientific outcomes or CASE_FAILURE/PASS attempts.",
+  "scientific_outcome_rule": "Unexpected mechanism, guard, deadline, native-precondition, or control outcomes are retained as scientific data. Attempt PASS means the scheduled trial records executed without case exceptions; it does not mean the expected hypothesis was observed. Safe execute controls also record actual first-actuation timing; this is descriptive instrumentation only.",
+  "safety": "All destructive actions are restricted to namespace flashir-e13.",
+  "dcji_integration": {
+    "model_bindings": "E13_MODEL_BINDINGS.json",
+    "planner": "locked deterministic/flashir_core/dcji.py",
+    "gate": "locked deterministic/flashir_core/defenses.py::B6_dcji_gate",
+    "scenario_hash_verification": "Each live case verifies its frozen v8.0 scenario hash against deterministic/CONTROLLED_INPUTS_V8.sha256.json before deriving a plan.",
+    "planning_timing": "Critical-query planning occurs after decision snapshot and before the induced transition; planning runtime is recorded separately from commit-gate latency.",
+    "commit_timing": "Only the planner-selected critical Kubernetes read(s) plus B6 commit evaluation are included in commit-guard latency."
+  },
+  "positive_case_checks": {
+    "F1.1/F1.2": [
+      "decision UID",
+      "attacker/environment-driven same-name replacement",
+      "planner-derived UID critical query",
+      "B6 execute/abort decision",
+      "Kubernetes API DeleteOptions UID precondition comparator",
+      "unguarded name-bound delete comparator"
+    ],
+    "F4.1": [
+      "selector membership at decision",
+      "scope expansion",
+      "planner-derived membership critical query",
+      "B6 execute/abort decision",
+      "unguarded selector action consequence"
+    ],
+    "F4.4": [
+      "EndpointSlice backend set at decision",
+      "backend-set drift",
+      "planner-derived backend-set critical query",
+      "B6 execute/abort decision",
+      "no real packet disruption"
+    ]
+  },
+  "negative_controls": {
+    "NC-L1": "Stable relevant state. DCJI should execute; when it does, the frozen response is actually issued to measure gate-to-first-actuation latency.",
+    "NC-L2": "Irrelevant annotation mutation while target UID remains unchanged. DCJI should execute; when it does, the frozen response is actually issued to measure false abort and gate-to-first-actuation latency."
+  },
+  "required_timestamps": [
+    "decision_time_unix",
+    "transition_start_time_unix",
+    "transition_complete_time_unix",
+    "commit_gate_start_time_unix",
+    "commit_gate_end_time_unix",
+    "first_actuation_start_time_unix (NC-L1/NC-L2 when EXECUTE)",
+    "actuation_end_time_unix (NC-L1/NC-L2 when EXECUTE)"
+  ],
+  "required_latency_metrics": [
+    "planning_runtime_ms",
+    "transition_latency_ms",
+    "decision_to_transition_complete_ms",
+    "commit_query_latency_ms",
+    "commit_guard_latency_ms",
+    "decision_to_gate_complete_ms",
+    "guard_overhead_ratio",
+    "residual_actuation_budget_s",
+    "gate_to_first_actuation_ms (NC-L1/NC-L2 when EXECUTE)"
+  ],
+  "deadline_rule": "Record transition_deadline_feasible and gate_completed_within_deadline for every trial. A deadline miss is a scientific observation and is not rerun.",
+  "latency_boundary": "kubectl-based live query latency includes client process plus Kubernetes API latency; it is not a pure apiserver/network measurement.",
+  "status": "FROZEN_BEFORE_FIRST_REAL_CLUSTER_OUTPUT",
+  "supersedes": "FLASHIR-E13-LIVE-FREEZE-20260906-V3",
+  "atomicity_boundary": "Client-side DCJI validates the refreshed snapshot but does not serialize Kubernetes state through actuation. gate_to_first_actuation_ms quantifies the residual window. Native server-side preconditions dominate where the exact invariant is exposed."
+}

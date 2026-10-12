@@ -1,0 +1,6 @@
+{
+ "invalid_pod_delete_status": 422,
+ "message": "pods \"vap-bad-0\" is forbidden: ValidatingAdmissionPolicy 'ea-target-state' with binding 'ea-target-state' denied request: ea-target-state: validity annotations on the target are not all valid",
+ "valid_pod_delete_status": 200
+}
+VAP PROBE PASSED

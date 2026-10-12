@@ -1,0 +1,34 @@
+{
+  "experiment": "E35",
+  "title": "Independent-Physical-Host Replication of the Reduced E21 Physical Benchmark",
+  "cluster_name": "ea-toctou-v26-single",
+  "namespace": "flashir-e35",
+  "proxy_port": 18010,
+  "load_level": "idle",
+  "acquisition_mode": "sequential",
+  "conditions": [
+    "stable",
+    "ea_attack",
+    "irrelevant_mutation"
+  ],
+  "warmup_pairs_per_condition": 20,
+  "measured_pairs_per_condition": 100,
+  "random_seed": 20260916,
+  "expected_dcji_request_count": 3,
+  "expected_fullrefresh_request_count": 6,
+  "gate_thresholds_ms": [
+    25,
+    50,
+    100,
+    250,
+    500
+  ],
+  "bootstrap_replicates": 10000,
+  "primary_endpoint": "paired_refresh_latency_ms",
+  "notes": "Reduced E21 replication on a different physical host. Uses one external-host kind cluster and idle/sequential acquisition only. The claim target is replication of safety/request-count structure and the directional latency effect, not numerical equality with the original host. LANL is not used.",
+  "runtime_locks": {
+    "kind_version": "v0.32.0",
+    "kubectl_version": "v1.36.1",
+    "kind_node_image": "kindest/node:v1.36.1@sha256:3489c7674813ba5d8b1a9977baea8a6e553784dab7b84759d1014dbd78f7ebd5"
+  }
+}

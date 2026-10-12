@@ -1,0 +1,20 @@
+{
+  "apiVersion": "admission.k8s.io/v1",
+  "kind": "AdmissionReview",
+  "request": {
+    "uid": "11111111-2222-4333-8444-555555555555",
+    "kind": {"group": "", "version": "v1", "kind": "Pod"},
+    "resource": {"group": "", "version": "v1", "resource": "pods"},
+    "name": "e38v2-target",
+    "namespace": "e38v2-testrun",
+    "operation": "CREATE",
+    "userInfo": {"username": "system:serviceaccount:e38v2-system:e38v2-responder"},
+    "object": {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {"name": "e38v2-target", "namespace": "e38v2-testrun"}
+    },
+    "oldObject": null,
+    "dryRun": false
+  }
+}

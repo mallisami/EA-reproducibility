@@ -1,0 +1,11 @@
+{
+  "status": "READY_FOR_REAL_CLUSTER_FIRST_RUN_V8_1_1",
+  "protocol_freeze_id": "FLASHIR-E13-LIVE-FREEZE-20260906-V3.1",
+  "successful_live_outputs": 0,
+  "attempt_files_present": 0,
+  "scheduled_positive_trials": 80,
+  "scheduled_negative_control_trials": 40,
+  "next_action": "Run scripts/preflight_e13.py. Only if PASS, execute scripts/run_e13_protocol.py --execute exactly once.",
+  "scientific_rerun_policy": "Unexpected results and deadline misses are retained; they do not authorize rerunning the completed attempt.",
+  "note": "v8.1.1 final methodology/claim-boundary hardening was completed before the first real-cluster scientific output."
+}

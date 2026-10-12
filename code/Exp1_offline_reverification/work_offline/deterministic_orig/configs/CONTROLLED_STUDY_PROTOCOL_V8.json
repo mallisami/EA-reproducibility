@@ -1,0 +1,45 @@
+{
+  "protocol_id": "FLASHIR-CONTROLLED-V8-20260906",
+  "version": "8.0.0-systems-security-clean",
+  "status": "RESULTS_LOCKED_DO_NOT_RERUN",
+  "research_problem": "Evidence\u2013Action TOCTOU in automated cyber incident response",
+  "decision_rule": "deterministic policy/playbook oracle defined independently of test outcome",
+  "benchmark": {
+    "families": 5,
+    "templates": 30,
+    "incidents": 120,
+    "development_templates": 6,
+    "heldout_templates": 24,
+    "heldout_positive_templates": 23,
+    "negative_control_template": "F5.6"
+  },
+  "primary_delay_grid_s": [
+    0,
+    1,
+    2,
+    5,
+    10,
+    30
+  ],
+  "primary_ttl_s": 2.0,
+  "primary_endpoint": "Unsafe Commit Rate (UCR)",
+  "inference_cluster": "scenario template; parameterizations are nested",
+  "noninferiority_margin_absolute_ucr": 0.05,
+  "bootstrap_replicates": 10000,
+  "bootstrap_seed": 20260905,
+  "active_defenses": [
+    "OneShot",
+    "TTLGuard",
+    "TargetBindingGuard",
+    "FullRefresh",
+    "NativePrecondition",
+    "DCJI-Gate"
+  ],
+  "claim_boundaries": [
+    "Designed positive benchmark cases establish mechanism vulnerability, not real-world prevalence.",
+    "NativePrecondition is scored only where the platform exposes the exact invariant.",
+    "Observed equality of DCJI-Gate and FullRefresh safety does not establish the preregistered 5% noninferiority margin.",
+    "Certificates are conditional on modeled transition coverage and current telemetry observability.",
+    "The existing controlled results are locked; the active remaining work is live-system and public-trace validation."
+  ]
+}

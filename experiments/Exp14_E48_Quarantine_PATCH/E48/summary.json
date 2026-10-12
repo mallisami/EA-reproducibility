@@ -1,0 +1,25 @@
+{
+ "trials": 1796,
+ "by_arm_policy": {
+  "A6b/none": {
+   "n": 898,
+   "contested": 351,
+   "stale_accept": 0,
+   "benign_abort": 0,
+   "EXECUTED": 547,
+   "UNKNOWN": 0,
+   "INFRA_ERROR": 0,
+   "stale_upper_among_contested": 0.0108
+  },
+  "A6u/none": {
+   "n": 898,
+   "contested": 0,
+   "stale_accept": 348,
+   "benign_abort": 0,
+   "EXECUTED": 898,
+   "UNKNOWN": 0,
+   "INFRA_ERROR": 0,
+   "stale_upper_among_contested": 1.0
+  }
+ }
+}

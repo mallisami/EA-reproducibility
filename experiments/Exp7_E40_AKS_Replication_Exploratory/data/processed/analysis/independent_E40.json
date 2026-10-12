@@ -1,0 +1,848 @@
+{
+  "cells": [
+    {
+      "cell": [
+        "A",
+        "A1",
+        "python",
+        "async_evidence_last_literal",
+        0.0
+      ],
+      "excluded": {},
+      "k": 39,
+      "n": 39
+    },
+    {
+      "cell": [
+        "A",
+        "A1",
+        "python",
+        "async_evidence_last_literal",
+        10.0
+      ],
+      "excluded": {},
+      "k": 2,
+      "n": 39
+    },
+    {
+      "cell": [
+        "A",
+        "A1",
+        "python",
+        "async_evidence_last_literal",
+        100.0
+      ],
+      "excluded": {},
+      "k": 0,
+      "n": 39
+    },
+    {
+      "cell": [
+        "A",
+        "A1",
+        "python",
+        "async_evidence_last_literal",
+        2.0
+      ],
+      "excluded": {},
+      "k": 37,
+      "n": 39
+    },
+    {
+      "cell": [
+        "A",
+        "A1",
+        "python",
+        "async_evidence_last_literal",
+        20.0
+      ],
+      "excluded": {},
+      "k": 0,
+      "n": 39
+    },
+    {
+      "cell": [
+        "A",
+        "A1",
+        "python",
+        "async_evidence_last_literal",
+        200.0
+      ],
+      "excluded": {},
+      "k": 0,
+      "n": 39
+    },
+    {
+      "cell": [
+        "A",
+        "A1",
+        "python",
+        "async_evidence_last_literal",
+        5.0
+      ],
+      "excluded": {},
+      "k": 25,
+      "n": 39
+    },
+    {
+      "cell": [
+        "A",
+        "A1",
+        "python",
+        "async_evidence_last_literal",
+        50.0
+      ],
+      "excluded": {},
+      "k": 0,
+      "n": 39
+    },
+    {
+      "cell": [
+        "A",
+        "A1",
+        "python",
+        "async_scope",
+        0.0
+      ],
+      "excluded": {},
+      "k": 39,
+      "n": 39
+    },
+    {
+      "cell": [
+        "A",
+        "A1",
+        "python",
+        "async_scope",
+        10.0
+      ],
+      "excluded": {},
+      "k": 3,
+      "n": 39
+    },
+    {
+      "cell": [
+        "A",
+        "A1",
+        "python",
+        "async_scope",
+        100.0
+      ],
+      "excluded": {},
+      "k": 0,
+      "n": 39
+    },
+    {
+      "cell": [
+        "A",
+        "A1",
+        "python",
+        "async_scope",
+        2.0
+      ],
+      "excluded": {},
+      "k": 39,
+      "n": 39
+    },
+    {
+      "cell": [
+        "A",
+        "A1",
+        "python",
+        "async_scope",
+        20.0
+      ],
+      "excluded": {},
+      "k": 0,
+      "n": 39
+    },
+    {
+      "cell": [
+        "A",
+        "A1",
+        "python",
+        "async_scope",
+        200.0
+      ],
+      "excluded": {},
+      "k": 0,
+      "n": 39
+    },
+    {
+      "cell": [
+        "A",
+        "A1",
+        "python",
+        "async_scope",
+        5.0
+      ],
+      "excluded": {},
+      "k": 27,
+      "n": 39
+    },
+    {
+      "cell": [
+        "A",
+        "A1",
+        "python",
+        "async_scope",
+        50.0
+      ],
+      "excluded": {},
+      "k": 0,
+      "n": 39
+    },
+    {
+      "cell": [
+        "A",
+        "A1",
+        "python",
+        "no_write",
+        null
+      ],
+      "excluded": {},
+      "k": 0,
+      "n": 39
+    },
+    {
+      "cell": [
+        "A",
+        "A1",
+        "python",
+        "uid_rebind_control",
+        null
+      ],
+      "excluded": {},
+      "k": 0,
+      "n": 10
+    },
+    {
+      "cell": [
+        "A",
+        "A3",
+        "python",
+        "async_evidence_last_literal",
+        0.0
+      ],
+      "excluded": {},
+      "k": 0,
+      "n": 39
+    },
+    {
+      "cell": [
+        "A",
+        "A3",
+        "python",
+        "async_evidence_last_literal",
+        10.0
+      ],
+      "excluded": {
+        "action_rv": 3
+      },
+      "k": 34,
+      "n": 36
+    },
+    {
+      "cell": [
+        "A",
+        "A3",
+        "python",
+        "async_evidence_last_literal",
+        100.0
+      ],
+      "excluded": {
+        "action_rv": 6
+      },
+      "k": 19,
+      "n": 33
+    },
+    {
+      "cell": [
+        "A",
+        "A3",
+        "python",
+        "async_evidence_last_literal",
+        2.0
+      ],
+      "excluded": {},
+      "k": 1,
+      "n": 39
+    },
+    {
+      "cell": [
+        "A",
+        "A3",
+        "python",
+        "async_evidence_last_literal",
+        20.0
+      ],
+      "excluded": {
+        "action_rv": 5
+      },
+      "k": 33,
+      "n": 34
+    },
+    {
+      "cell": [
+        "A",
+        "A3",
+        "python",
+        "async_evidence_last_literal",
+        200.0
+      ],
+      "excluded": {
+        "action_rv": 3
+      },
+      "k": 0,
+      "n": 36
+    },
+    {
+      "cell": [
+        "A",
+        "A3",
+        "python",
+        "async_evidence_last_literal",
+        5.0
+      ],
+      "excluded": {
+        "action_rv": 1
+      },
+      "k": 9,
+      "n": 38
+    },
+    {
+      "cell": [
+        "A",
+        "A3",
+        "python",
+        "async_evidence_last_literal",
+        50.0
+      ],
+      "excluded": {
+        "action_rv": 6
+      },
+      "k": 33,
+      "n": 33
+    },
+    {
+      "cell": [
+        "A",
+        "A3",
+        "python",
+        "async_scope",
+        0.0
+      ],
+      "excluded": {},
+      "k": 0,
+      "n": 39
+    },
+    {
+      "cell": [
+        "A",
+        "A3",
+        "python",
+        "async_scope",
+        10.0
+      ],
+      "excluded": {},
+      "k": 0,
+      "n": 39
+    },
+    {
+      "cell": [
+        "A",
+        "A3",
+        "python",
+        "async_scope",
+        100.0
+      ],
+      "excluded": {
+        "action_rv": 8
+      },
+      "k": 20,
+      "n": 31
+    },
+    {
+      "cell": [
+        "A",
+        "A3",
+        "python",
+        "async_scope",
+        2.0
+      ],
+      "excluded": {},
+      "k": 0,
+      "n": 39
+    },
+    {
+      "cell": [
+        "A",
+        "A3",
+        "python",
+        "async_scope",
+        20.0
+      ],
+      "excluded": {},
+      "k": 0,
+      "n": 39
+    },
+    {
+      "cell": [
+        "A",
+        "A3",
+        "python",
+        "async_scope",
+        200.0
+      ],
+      "excluded": {
+        "action_rv": 5
+      },
+      "k": 1,
+      "n": 34
+    },
+    {
+      "cell": [
+        "A",
+        "A3",
+        "python",
+        "async_scope",
+        5.0
+      ],
+      "excluded": {},
+      "k": 0,
+      "n": 39
+    },
+    {
+      "cell": [
+        "A",
+        "A3",
+        "python",
+        "async_scope",
+        50.0
+      ],
+      "excluded": {
+        "action_rv": 5
+      },
+      "k": 30,
+      "n": 34
+    },
+    {
+      "cell": [
+        "A",
+        "A3",
+        "python",
+        "no_write",
+        null
+      ],
+      "excluded": {},
+      "k": 0,
+      "n": 39
+    },
+    {
+      "cell": [
+        "A",
+        "A3",
+        "python",
+        "uid_rebind_control",
+        null
+      ],
+      "excluded": {},
+      "k": 0,
+      "n": 10
+    },
+    {
+      "cell": [
+        "A",
+        "A4d",
+        "python",
+        "async_evidence_last_literal",
+        0.0
+      ],
+      "excluded": {
+        "action_rv": 1
+      },
+      "k": 29,
+      "n": 38
+    },
+    {
+      "cell": [
+        "A",
+        "A4d",
+        "python",
+        "async_evidence_last_literal",
+        10.0
+      ],
+      "excluded": {},
+      "k": 0,
+      "n": 39
+    },
+    {
+      "cell": [
+        "A",
+        "A4d",
+        "python",
+        "async_evidence_last_literal",
+        100.0
+      ],
+      "excluded": {},
+      "k": 0,
+      "n": 39
+    },
+    {
+      "cell": [
+        "A",
+        "A4d",
+        "python",
+        "async_evidence_last_literal",
+        2.0
+      ],
+      "excluded": {},
+      "k": 20,
+      "n": 39
+    },
+    {
+      "cell": [
+        "A",
+        "A4d",
+        "python",
+        "async_evidence_last_literal",
+        20.0
+      ],
+      "excluded": {},
+      "k": 0,
+      "n": 39
+    },
+    {
+      "cell": [
+        "A",
+        "A4d",
+        "python",
+        "async_evidence_last_literal",
+        200.0
+      ],
+      "excluded": {},
+      "k": 0,
+      "n": 39
+    },
+    {
+      "cell": [
+        "A",
+        "A4d",
+        "python",
+        "async_evidence_last_literal",
+        5.0
+      ],
+      "excluded": {},
+      "k": 4,
+      "n": 39
+    },
+    {
+      "cell": [
+        "A",
+        "A4d",
+        "python",
+        "async_evidence_last_literal",
+        50.0
+      ],
+      "excluded": {},
+      "k": 0,
+      "n": 39
+    },
+    {
+      "cell": [
+        "A",
+        "A4d",
+        "python",
+        "async_scope",
+        0.0
+      ],
+      "excluded": {},
+      "k": 28,
+      "n": 39
+    },
+    {
+      "cell": [
+        "A",
+        "A4d",
+        "python",
+        "async_scope",
+        10.0
+      ],
+      "excluded": {},
+      "k": 0,
+      "n": 39
+    },
+    {
+      "cell": [
+        "A",
+        "A4d",
+        "python",
+        "async_scope",
+        100.0
+      ],
+      "excluded": {},
+      "k": 0,
+      "n": 39
+    },
+    {
+      "cell": [
+        "A",
+        "A4d",
+        "python",
+        "async_scope",
+        2.0
+      ],
+      "excluded": {},
+      "k": 19,
+      "n": 39
+    },
+    {
+      "cell": [
+        "A",
+        "A4d",
+        "python",
+        "async_scope",
+        20.0
+      ],
+      "excluded": {},
+      "k": 0,
+      "n": 39
+    },
+    {
+      "cell": [
+        "A",
+        "A4d",
+        "python",
+        "async_scope",
+        200.0
+      ],
+      "excluded": {},
+      "k": 0,
+      "n": 39
+    },
+    {
+      "cell": [
+        "A",
+        "A4d",
+        "python",
+        "async_scope",
+        5.0
+      ],
+      "excluded": {},
+      "k": 1,
+      "n": 39
+    },
+    {
+      "cell": [
+        "A",
+        "A4d",
+        "python",
+        "async_scope",
+        50.0
+      ],
+      "excluded": {},
+      "k": 0,
+      "n": 39
+    },
+    {
+      "cell": [
+        "A",
+        "A4d",
+        "python",
+        "no_write",
+        null
+      ],
+      "excluded": {},
+      "k": 0,
+      "n": 39
+    },
+    {
+      "cell": [
+        "A",
+        "A4d",
+        "python",
+        "uid_rebind_control",
+        null
+      ],
+      "excluded": {},
+      "k": 0,
+      "n": 10
+    }
+  ],
+  "comparison": {
+    "differences": [
+      {
+        "cell": [
+          "A",
+          "A3",
+          "python",
+          "async_evidence_last_literal",
+          10.0
+        ],
+        "independent": [
+          34,
+          36
+        ],
+        "main": [
+          37,
+          39
+        ]
+      },
+      {
+        "cell": [
+          "A",
+          "A3",
+          "python",
+          "async_evidence_last_literal",
+          100.0
+        ],
+        "independent": [
+          19,
+          33
+        ],
+        "main": [
+          21,
+          39
+        ]
+      },
+      {
+        "cell": [
+          "A",
+          "A3",
+          "python",
+          "async_evidence_last_literal",
+          20.0
+        ],
+        "independent": [
+          33,
+          34
+        ],
+        "main": [
+          38,
+          39
+        ]
+      },
+      {
+        "cell": [
+          "A",
+          "A3",
+          "python",
+          "async_evidence_last_literal",
+          200.0
+        ],
+        "independent": [
+          0,
+          36
+        ],
+        "main": [
+          0,
+          39
+        ]
+      },
+      {
+        "cell": [
+          "A",
+          "A3",
+          "python",
+          "async_evidence_last_literal",
+          5.0
+        ],
+        "independent": [
+          9,
+          38
+        ],
+        "main": [
+          10,
+          39
+        ]
+      },
+      {
+        "cell": [
+          "A",
+          "A3",
+          "python",
+          "async_evidence_last_literal",
+          50.0
+        ],
+        "independent": [
+          33,
+          33
+        ],
+        "main": [
+          39,
+          39
+        ]
+      },
+      {
+        "cell": [
+          "A",
+          "A3",
+          "python",
+          "async_scope",
+          100.0
+        ],
+        "independent": [
+          20,
+          31
+        ],
+        "main": [
+          21,
+          39
+        ]
+      },
+      {
+        "cell": [
+          "A",
+          "A3",
+          "python",
+          "async_scope",
+          200.0
+        ],
+        "independent": [
+          1,
+          34
+        ],
+        "main": [
+          1,
+          39
+        ]
+      },
+      {
+        "cell": [
+          "A",
+          "A3",
+          "python",
+          "async_scope",
+          50.0
+        ],
+        "independent": [
+          30,
+          34
+        ],
+        "main": [
+          35,
+          39
+        ]
+      },
+      {
+        "cell": [
+          "A",
+          "A4d",
+          "python",
+          "async_evidence_last_literal",
+          0.0
+        ],
+        "independent": [
+          29,
+          38
+        ],
+        "main": [
+          30,
+          39
+        ]
+      }
+    ],
+    "n_differences": 10
+  },
+  "version": "e39.independent.v1"
+}

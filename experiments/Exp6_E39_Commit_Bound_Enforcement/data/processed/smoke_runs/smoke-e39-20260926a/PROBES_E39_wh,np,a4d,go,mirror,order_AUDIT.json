@@ -1,0 +1,270 @@
+{
+ "audit_events_total": 414,
+ "events_in_ns": 414,
+ "stages": [
+  "ResponseComplete"
+ ],
+ "levels": [
+  "RequestResponse"
+ ],
+ "ns_seen": [
+  "e39-smoke-e39-20260926a"
+ ],
+ "coverage": {
+  "create networkpolicies sa:e39-responder": {
+   "n": 3,
+   "level": [
+    "RequestResponse"
+   ],
+   "with_responseObject": 3,
+   "codes": [
+    201,
+    403
+   ]
+  },
+  "delete networkpolicies sa:e39-reset": {
+   "n": 3,
+   "level": [
+    "RequestResponse"
+   ],
+   "with_responseObject": 3,
+   "codes": [
+    200,
+    404
+   ]
+  },
+  "delete pods sa:e39-reset": {
+   "n": 3,
+   "level": [
+    "RequestResponse"
+   ],
+   "with_responseObject": 3,
+   "codes": [
+    200
+   ]
+  },
+  "delete pods sa:e39-responder": {
+   "n": 11,
+   "level": [
+    "RequestResponse"
+   ],
+   "with_responseObject": 11,
+   "codes": [
+    200,
+    403,
+    409
+   ]
+  },
+  "patch configmaps kubernetes-admin": {
+   "n": 10,
+   "level": [
+    "RequestResponse"
+   ],
+   "with_responseObject": 10,
+   "codes": [
+    200
+   ]
+  },
+  "patch configmaps sa:e39-reset": {
+   "n": 56,
+   "level": [
+    "RequestResponse"
+   ],
+   "with_responseObject": 56,
+   "codes": [
+    200
+   ]
+  },
+  "patch configmaps sa:e39-writer": {
+   "n": 284,
+   "level": [
+    "RequestResponse"
+   ],
+   "with_responseObject": 284,
+   "codes": [
+    200
+   ]
+  },
+  "patch pods sa:e39-mirror": {
+   "n": 12,
+   "level": [
+    "RequestResponse"
+   ],
+   "with_responseObject": 12,
+   "codes": [
+    200
+   ]
+  },
+  "patch pods sa:e39-writer": {
+   "n": 2,
+   "level": [
+    "RequestResponse"
+   ],
+   "with_responseObject": 2,
+   "codes": [
+    200
+   ]
+  },
+  "patch pods/status system:node:e39-control-plane": {
+   "n": 30,
+   "level": [
+    "RequestResponse"
+   ],
+   "with_responseObject": 30,
+   "codes": [
+    200,
+    404
+   ]
+  }
+ },
+ "delete_409_messages": [
+  [
+   "probe-a4",
+   "Operation cannot be fulfilled on Pod \"probe-a4\": the ResourceVersion in the precondition (1293) does not match the ResourceVersion in record (1294). The object might have been modified"
+  ],
+  [
+   "probe-a4",
+   "Operation cannot be fulfilled on Pod \"probe-a4\": the UID in the precondition (00000000-0000-0000-0000-000000000000) does not match the UID in record (50683df6-746a-49db-a629-b3d6ce96e3c0). The object might have been deleted and then recreated"
+  ],
+  [
+   "probe-go3",
+   "Operation cannot be fulfilled on Pod \"probe-go3\": the ResourceVersion in the precondition (1323) does not match the ResourceVersion in record (1330). The object might have been modified"
+  ]
+ ],
+ "audit_join": {
+  "ops_with_audit_id": 326,
+  "matched": 311,
+  "rv_mismatch": 0,
+  "misses": [
+   {
+    "op": "create_pod",
+    "identity": "reset",
+    "audit_id": "bff7c343-8cc8-4fe9-a3a9-01a4a63e7542",
+    "status": 201,
+    "rv": "1217",
+    "t_wall_ns": 1790432301072519128,
+    "pod": "probe-wh-deny"
+   },
+   {
+    "op": "create_pod",
+    "identity": "reset",
+    "audit_id": "12bd701e-8425-49e3-9b59-41da83cae21b",
+    "status": 201,
+    "rv": "1227",
+    "t_wall_ns": 1790432301443929382,
+    "pod": "probe-wh-nolabel"
+   },
+   {
+    "op": "create_pod",
+    "identity": "reset",
+    "audit_id": "79e88d2e-8a90-4a79-8dfb-0f4a12a2d4cb",
+    "status": 201,
+    "rv": "1237",
+    "t_wall_ns": 1790432301895932980,
+    "pod": "probe-wh-reset"
+   },
+   {
+    "op": "create_pod",
+    "identity": "reset",
+    "audit_id": "1d1899b8-8ca1-4a0a-a5f9-c8602fac765f",
+    "status": 201,
+    "rv": "1247",
+    "t_wall_ns": 1790432302287140300,
+    "pod": "probe-wh-scope"
+   },
+   {
+    "op": "create_pod",
+    "identity": "reset",
+    "audit_id": "43e03657-d630-4648-8dec-2ab23db5a3fa",
+    "status": 201,
+    "rv": "1284",
+    "t_wall_ns": 1790432305525804321,
+    "pod": "probe-a4"
+   },
+   {
+    "op": "create_pod",
+    "identity": "reset",
+    "audit_id": "39ce950a-3a08-4e71-b7c8-999d2210d617",
+    "status": 201,
+    "rv": "1297",
+    "t_wall_ns": 1790432305998635316,
+    "pod": "probe-go1"
+   },
+   {
+    "op": "create_pod",
+    "identity": "reset",
+    "audit_id": "485ff08d-8a2c-4d88-9507-49c331760255",
+    "status": 201,
+    "rv": "1306",
+    "t_wall_ns": 1790432306328456112,
+    "pod": "probe-go2"
+   },
+   {
+    "op": "create_pod",
+    "identity": "reset",
+    "audit_id": "a83a4aff-f94c-47fb-9125-82294e32772a",
+    "status": 201,
+    "rv": "1315",
+    "t_wall_ns": 1790432306693136116,
+    "pod": "probe-go3"
+   },
+   {
+    "op": "go_get",
+    "identity": "responder",
+    "audit_id": "2ac14519-dfad-4cd5-bd0e-ce45abb3d7a8",
+    "status": 200,
+    "rv": "1278",
+    "object": "application-policy"
+   },
+   {
+    "op": "go_get",
+    "identity": "responder",
+    "audit_id": "d3bc3a85-dd47-4d06-b6b1-c245bc1336dd",
+    "status": 200,
+    "rv": "811",
+    "object": "evidence-a"
+   }
+  ]
+ },
+ "ops_without_audit_id": [],
+ "rv_time_order": {
+  "n": 261,
+  "pairwise_concordant": 33894,
+  "discordant": 36,
+  "ties": 0,
+  "adjacent_nondecreasing": 232,
+  "adjacent_total": 260,
+  "seq_only_adjacent_nondecreasing": 99,
+  "seq_only_n": 100
+ },
+ "pods_status_writes_per_pod": {
+  "e39-target": 3,
+  "probe-a4": 3,
+  "probe-go1": 4,
+  "probe-go2": 3,
+  "probe-go3": 3,
+  "probe-wh-deny": 4,
+  "probe-wh-nolabel": 3,
+  "probe-wh-reset": 3,
+  "probe-wh-scope": 4
+ },
+ "pods_status_users": [
+  "system:node:e39-control-plane"
+ ],
+ "checks": {
+  "configmaps_patch_RR": true,
+  "pods_patch_writer_RR": true,
+  "pods_patch_mirror_RR": true,
+  "pods_status_kubelet_RR": true,
+  "pods_delete_200": true,
+  "pods_delete_409": true,
+  "pods_delete_403": true,
+  "netpol_create_RR": true,
+  "no_RequestReceived": true,
+  "no_load_ns_events": true,
+  "no_system_ns_events": true,
+  "delete_409_message_in_audit": false,
+  "audit_join_all": false
+ },
+ "PASS": false
+}

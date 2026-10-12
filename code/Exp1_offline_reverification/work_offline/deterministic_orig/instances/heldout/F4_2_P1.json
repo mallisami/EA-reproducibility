@@ -1,0 +1,239 @@
+{
+  "instance_id": "F4.2-P1",
+  "template_id": "F4.2",
+  "parameterization_id": "P1",
+  "split": "heldout",
+  "materialization_version": "3.1.0",
+  "causal_core_hash": "ca47e623605643c80cfd00443bcea20a3cc2e4ad4e36a61f8133350620faeb2b",
+  "template_hash": "af3404e9c19f381aae1cab38a58f6d41d86fb4afb03ef1ab59b202010061bfdb",
+  "scenario": {
+    "scenario_id": "F4.2",
+    "title": "NamespaceSelector Expansion",
+    "family": "F4",
+    "realism_tier": "R1",
+    "scenario_role": "positive_ea_toctou",
+    "development": false,
+    "action": {
+      "action_type": "restrict_scope",
+      "target_reference": "namespaceSelector/incident-zone=true",
+      "target_snapshot": {
+        "members": [
+          "N1"
+        ]
+      },
+      "queue_semantics": "single_exactly_once_attempt",
+      "execution_precondition": true,
+      "authorization": {
+        "predicate": "p_authorized",
+        "must_remain_valid": true
+      }
+    },
+    "attacker_capability_tier": "C2",
+    "initial_state": {
+      "timestamp_s": 0,
+      "facts": {
+        "threat_relevant": true,
+        "scope_members": [
+          "N1"
+        ],
+        "irrelevant_metric": 0,
+        "action_authorized": true
+      },
+      "resources": [],
+      "processes": [],
+      "network_bindings": [],
+      "sessions": [],
+      "context": {
+        "materialization": {
+          "parameterization_id": "P1",
+          "template_id": "F4.2",
+          "description": "Minimal canonical topology."
+        }
+      },
+      "evidence": [],
+      "queue": []
+    },
+    "predicates": {
+      "p_threat": {
+        "path": "/facts/threat_relevant",
+        "op": "eq",
+        "value": true,
+        "evidence_class": "H",
+        "description": "Original selected scope contains a confirmed threat."
+      },
+      "p_scope_safe": {
+        "path": "/facts/scope_members",
+        "op": "eq",
+        "value": [
+          "N1"
+        ],
+        "evidence_class": "DERIVED",
+        "description": "Affected set remains the originally intended threat-relevant scope."
+      },
+      "p_authorized": {
+        "path": "/facts/action_authorized",
+        "op": "eq",
+        "value": true,
+        "evidence_class": "DERIVED",
+        "description": "Response executor remains technically authorized."
+      }
+    },
+    "policy_profiles": {
+      "balanced": {
+        "justification": {
+          "predicate": "p_threat"
+        },
+        "binding": true,
+        "scope": {
+          "predicate": "p_scope_safe"
+        }
+      }
+    },
+    "transitions": [
+      {
+        "transition_id": "irrelevant_change",
+        "title": "Irrelevant monitoring update",
+        "actor": "environment",
+        "capability_tier": "NONE",
+        "duration_s": 0.1,
+        "cost_ops": 0,
+        "preconditions": true,
+        "effects": [
+          {
+            "op": "set",
+            "path": "/facts/irrelevant_metric",
+            "value": 1
+          }
+        ],
+        "notes": "",
+        "adversarially_induced": false,
+        "causal_parent_ids": []
+      },
+      {
+        "transition_id": "expand_scope",
+        "title": "Attacker induces scope membership expansion",
+        "actor": "attacker",
+        "capability_tier": "C2",
+        "duration_s": 0.8,
+        "cost_ops": 1,
+        "preconditions": true,
+        "effects": [
+          {
+            "op": "set",
+            "path": "/facts/scope_members",
+            "value": [
+              "N1",
+              "N2"
+            ]
+          }
+        ],
+        "notes": "",
+        "adversarially_induced": true,
+        "causal_parent_ids": []
+      }
+    ],
+    "worlds": {
+      "W0": {
+        "commit_deadline_s": 3,
+        "transition_path": [],
+        "expected_commit": "EXECUTE",
+        "expected_attack_path_completed": false,
+        "control_semantics": "stable",
+        "expected_commit_by_policy": {
+          "balanced": "EXECUTE"
+        }
+      },
+      "W1": {
+        "commit_deadline_s": 3,
+        "transition_path": [
+          "irrelevant_change"
+        ],
+        "expected_commit": "EXECUTE",
+        "expected_attack_path_completed": false,
+        "control_semantics": "irrelevant_change",
+        "expected_commit_by_policy": {
+          "balanced": "EXECUTE"
+        }
+      },
+      "W2": {
+        "commit_deadline_s": 3,
+        "transition_path": [
+          "expand_scope"
+        ],
+        "expected_commit": "ABORT_REPLAN",
+        "expected_attack_path_completed": true,
+        "control_semantics": "ea_toctou",
+        "expected_commit_by_policy": {
+          "balanced": "ABORT_REPLAN"
+        }
+      },
+      "W3": {
+        "commit_deadline_s": 0.4,
+        "transition_path": [
+          "expand_scope"
+        ],
+        "expected_commit": "EXECUTE",
+        "expected_attack_path_completed": false,
+        "control_semantics": "deadline_miss",
+        "expected_commit_by_policy": {
+          "balanced": "EXECUTE"
+        }
+      }
+    },
+    "provenance": {
+      "platform_basis": "Selector/tag/backend membership is evaluated against the set present at execution time.",
+      "incident_basis": "A response is queued when the affected set contains only threat-relevant resources.",
+      "policy_basis": "The response is valid only while its affected set remains within the intended containment scope.",
+      "limitations": "Required label/tag/membership mutation capability is modeled explicitly."
+    },
+    "severity": "S3",
+    "notes": "Held-out scope-drift template.",
+    "primary_policy": "balanced",
+    "justification_bases_by_policy": {
+      "balanced": [
+        [
+          "p_threat"
+        ]
+      ]
+    },
+    "justification_bases": [
+      [
+        "p_threat"
+      ]
+    ],
+    "parameterizations": [
+      {
+        "id": "P1",
+        "description": "Minimal topology with only essential resources and evidence."
+      },
+      {
+        "id": "P2",
+        "description": "Distractor topology with benign resources and irrelevant evidence."
+      },
+      {
+        "id": "P3",
+        "description": "Noisy SOC context with non-material alerts and unrelated transitions."
+      },
+      {
+        "id": "P4",
+        "description": "High-impact variant with larger benign background or higher criticality."
+      }
+    ],
+    "native_controls": [],
+    "refresh_model": {
+      "cost_unit": "normalized_query_unit",
+      "query_costs": {
+        "query:/facts/scope_members": 1.0,
+        "immutable:p_threat": 0.0
+      },
+      "predicate_query_ids": {
+        "p_scope_safe": "query:/facts/scope_members",
+        "p_threat": "immutable:p_threat"
+      },
+      "query_observed_at_s": {
+        "query:/facts/scope_members": 0.0,
+        "immutable:p_threat": 0.0
+      }
+    }
+  }
+}

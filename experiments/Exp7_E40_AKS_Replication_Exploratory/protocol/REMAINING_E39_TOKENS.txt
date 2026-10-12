@@ -1,0 +1,11 @@
+/home/azureuser/e40_20260926/code/src/harness_delay_proxy.py:106:            self.send_error(501, 'chunked request bodies not supported by e39 delay proxy')
+/home/azureuser/e40_20260926/code/src/fake_api.py:495:                    # message format of kube-apiserver v1.37 (observed in the e39 probe 2026-09-26)
+/home/azureuser/e40_20260926/code/src/e38v2_runner.py:251:        labels = {'app': 'e39', 'e40-managed': 'true'}
+/home/azureuser/e40_20260926/code/src/e38v2_runner.py:1075:    ap.add_argument('--ca-file', help='cluster CA (from `kind get kubeconfig --name e39`)')
+/home/azureuser/e40_20260926/code/src/e38v2_runner.py:1127:                 'Pod/ConfigMap changes on the disposable e39 kind cluster)')
+/home/azureuser/e40_20260926/code/deploy/webhook.yaml:6:# Image python:3.12-slim is side-loaded with `kind load docker-image --name e39`; imagePullPolicy Never (no pulls).
+/home/azureuser/e40_20260926/code/deploy/kind-config.yaml:18:name: e39
+/home/azureuser/e40_20260926/code/deploy/kind-config.yaml:24:    containerPath: /etc/kubernetes/e39/audit-policy.yaml
+/home/azureuser/e40_20260926/code/deploy/kind-config.yaml:37:        value: /etc/kubernetes/e39/audit-policy.yaml
+/home/azureuser/e40_20260926/code/deploy/kind-config.yaml:58:        hostPath: /etc/kubernetes/e39/audit-policy.yaml
+/home/azureuser/e40_20260926/code/deploy/kind-config.yaml:59:        mountPath: /etc/kubernetes/e39/audit-policy.yaml

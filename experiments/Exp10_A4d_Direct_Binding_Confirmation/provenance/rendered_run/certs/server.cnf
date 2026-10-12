@@ -1,0 +1,10 @@
+[req]
+distinguished_name = dn
+prompt = no
+[dn]
+CN = e39-webhook.e39-system.svc
+[v3_server]
+basicConstraints = critical,CA:FALSE
+keyUsage = critical,digitalSignature,keyEncipherment
+extendedKeyUsage = serverAuth
+subjectAltName = DNS:e39-webhook,DNS:e39-webhook.e39-system,DNS:e39-webhook.e39-system.svc,DNS:e39-webhook.e39-system.svc.cluster.local

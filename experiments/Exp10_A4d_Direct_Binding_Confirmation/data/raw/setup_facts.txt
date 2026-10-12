@@ -1,0 +1,16 @@
+2026-10-01T16:54:57Z
+--- nodes
+NAME         STATUS   ROLES           AGE     VERSION        INTERNAL-IP   EXTERNAL-IP   OS-IMAGE             KERNEL-VERSION             CONTAINER-RUNTIME         LABELS
+a4d-server   Ready    control-plane   5m47s   v1.37.0+k3s1   172.16.0.4    <none>        Ubuntu 24.04.4 LTS   7.0.0-1014-azure (amd64)   containerd://2.3.4-k3s1   a4d-role=control,beta.kubernetes.io/arch=amd64,beta.kubernetes.io/instance-type=k3s,beta.kubernetes.io/os=linux,kubernetes.io/arch=amd64,kubernetes.io/hostname=a4d-server,kubernetes.io/os=linux,node-role.kubernetes.io/control-plane=true,node.kubernetes.io/instance-type=k3s
+a4d-worker   Ready    <none>          5m7s    v1.37.0+k3s1   172.16.0.8    <none>        Ubuntu 24.04.5 LTS   6.8.0-1064-azure (amd64)   containerd://2.3.4-k3s1   a4d-role=workload,beta.kubernetes.io/arch=amd64,beta.kubernetes.io/instance-type=k3s,beta.kubernetes.io/os=linux,kubernetes.io/arch=amd64,kubernetes.io/hostname=a4d-worker,kubernetes.io/os=linux,node.kubernetes.io/instance-type=k3s
+--- webhook
+NAME                          READY   STATUS    RESTARTS   AGE   IP           NODE         NOMINATED NODE   READINESS GATES
+e39-webhook-cdf965c56-wlg99   1/1     Running   0          9s    10.42.1.31   a4d-worker   <none>           <none>
+--- responder delete
+yes
+--- writer patch pod
+yes
+--- disk
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/root       123G   55G   68G  45% /
+/dev/root       123G   55G   68G  45% /

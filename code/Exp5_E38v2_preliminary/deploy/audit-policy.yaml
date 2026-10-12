@@ -1,0 +1,45 @@
+# E38v2 kube-apiserver audit policy. First matching rule wins.
+#
+# Goal: full RequestResponse events for exactly the writes the oracle joins on
+#   - configmaps update/patch  (writer + reset; responseObject.metadata.resourceVersion = commit RV)
+#   - pods delete              (responder DELETE; responseObject = deleted/terminating Pod incl. RV)
+# in the per-run test namespace(s) e38v2-<run_id>; nothing else.
+#
+# Audit policy `namespaces` does not support wildcards, so instead of templating
+# the run id into a file that must exist before `kind create cluster`, every
+# namespace that is NOT a test namespace is excluded first by name. The cluster
+# is dedicated (only e38v2-<run_id> namespaces are ever created besides these).
+#
+# omitStages RequestReceived: justified. The ResponseComplete event carries
+# requestReceivedTimestamp (the DELETE "received" time for the secondary oracle
+# rule), stageTimestamp (writer ResponseComplete time) and responseObject; the
+# RequestReceived event would duplicate every line without adding a field the
+# oracle uses. Panic stage is kept (rule-level omitStages lists only RequestReceived).
+apiVersion: audit.k8s.io/v1
+kind: Policy
+omitStages:
+- RequestReceived
+omitManagedFields: true
+rules:
+# 1. Never log system / infrastructure namespaces (incl. the webhook's own namespace).
+- level: None
+  namespaces:
+  - kube-system
+  - kube-public
+  - kube-node-lease
+  - local-path-storage
+  - default
+  - e38v2-system
+# 2. Test namespaces: ConfigMap writes and Pod deletes at RequestResponse.
+- level: RequestResponse
+  verbs: ["update", "patch"]
+  resources:
+  - group: ""
+    resources: ["configmaps"]
+- level: RequestResponse
+  verbs: ["delete"]
+  resources:
+  - group: ""
+    resources: ["pods"]
+# 3. Everything else (reads, watches, other resources, cluster-scoped, non-resource URLs): not logged.
+- level: None

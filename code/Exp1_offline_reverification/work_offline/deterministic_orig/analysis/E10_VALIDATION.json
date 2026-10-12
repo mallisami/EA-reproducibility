@@ -1,0 +1,11 @@
+{
+  "rows": 7680,
+  "template_mask_groups": 1920,
+  "p1_p4_mismatch_count": 0,
+  "positive_template_mask_cells": 1840,
+  "negative_template_mask_cells": 80,
+  "B4_unsafe_rows": 0,
+  "F5.6_B6_unsafe_cells": 0,
+  "B6_fallback_template_mask_cells": 0,
+  "frozen_hash_mismatches": []
+}

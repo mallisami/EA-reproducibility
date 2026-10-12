@@ -1,0 +1,26 @@
+{
+  "results_version": "5.2.0-e15",
+  "freeze_id": "FLASHIR-E15-CONCURRENCY-FREEZE-20260905",
+  "protocol_deviations": [],
+  "templates": [
+    "F1.2",
+    "F1.3",
+    "F2.4",
+    "F2.6",
+    "F3.3",
+    "F3.6",
+    "F4.3",
+    "F4.5",
+    "F5.2",
+    "F5.4",
+    "F5.6",
+    "F1.5"
+  ],
+  "parameterization": "P1",
+  "defenses": [
+    "B0",
+    "B4",
+    "B6"
+  ],
+  "validation_status": "PASS"
+}

@@ -1,0 +1,82 @@
+E39-D EXPLORATORY split by the stop of the unrelated clusters (post-LOCK; not pre-registered)
+stop window 2026-09-26T18:40:42.881Z .. 18:41:17.593Z (UTC ns 1790448042880999936 .. 1790448077592999936)
+
+arm                load      period            k/n  p [Wilson 95%]             excluded
+A1_dcji            high      after_stop     18/48   0.375 [0.252, 0.516] 0
+A1_dcji            high      before_stop   111/256  0.434 [0.374, 0.495] 0
+A1_dcji            high      during_stop     2/8    0.250 [0.071, 0.591] 0
+A1_dcji            idle      after_stop     18/48   0.375 [0.252, 0.516] 0
+A1_dcji            idle      before_stop   102/264  0.386 [0.330, 0.446] 0
+A1_dcji            moderate  after_stop     18/52   0.346 [0.232, 0.482] 0
+A1_dcji            moderate  before_stop   111/256  0.434 [0.374, 0.495] 0
+A1_dcji            moderate  during_stop     0/4    0.000 [0.000, 0.490] 0
+A3_dcji_webhook    high      after_stop      9/48   0.188 [0.102, 0.319] 0
+A3_dcji_webhook    high      before_stop    44/256  0.172 [0.131, 0.223] 0
+A3_dcji_webhook    high      during_stop     2/8    0.250 [0.071, 0.591] 0
+A3_dcji_webhook    idle      after_stop     12/48   0.250 [0.149, 0.388] 0
+A3_dcji_webhook    idle      before_stop    50/264  0.189 [0.147, 0.241] 0
+A3_dcji_webhook    moderate  after_stop     10/53   0.189 [0.106, 0.314] 0
+A3_dcji_webhook    moderate  before_stop    49/256  0.191 [0.148, 0.244] 0
+A3_dcji_webhook    moderate  during_stop     0/3    0.000 [0.000, 0.561] 0
+
+host CPU % (per-trial snapshot) by scheduled load x period: median / p95 / n
+  high      after_stop   40.2 / 44.7 / 96
+  high      before_stop  54.2 / 62.6 / 512
+  high      during_stop  52.9 / 70.3 / 16
+  idle      after_stop   30.9 / 53.5 / 96
+  idle      before_stop  42.5 / 51.1 / 528
+  moderate  after_stop   32.5 / 39.7 / 105
+  moderate  before_stop  46.9 / 54.8 / 512
+  moderate  during_stop  32.6 / 35.0 / 7
+
+per-delta k/n by arm x load, before_stop vs after_stop:
+  A1_dcji            high      delta=0.0    before 32/32  after 6/6
+  A1_dcji            high      delta=2.0    before 32/32  after 6/6
+  A1_dcji            high      delta=5.0    before 31/32  after 4/6
+  A1_dcji            high      delta=10.0   before 12/32  after 2/6
+  A1_dcji            high      delta=20.0   before 3/32  after 0/6
+  A1_dcji            high      delta=50.0   before 1/32  after 0/6
+  A1_dcji            high      delta=100.0  before 0/32  after 0/6
+  A1_dcji            high      delta=200.0  before 0/32  after 0/6
+  A1_dcji            idle      delta=0.0    before 33/33  after 6/6
+  A1_dcji            idle      delta=2.0    before 31/33  after 6/6
+  A1_dcji            idle      delta=5.0    before 26/33  after 5/6
+  A1_dcji            idle      delta=10.0   before 6/33  after 0/6
+  A1_dcji            idle      delta=20.0   before 3/33  after 0/6
+  A1_dcji            idle      delta=50.0   before 1/33  after 1/6
+  A1_dcji            idle      delta=100.0  before 2/33  after 0/6
+  A1_dcji            idle      delta=200.0  before 0/33  after 0/6
+  A1_dcji            moderate  delta=0.0    before 32/32  after 7/7
+  A1_dcji            moderate  delta=2.0    before 32/32  after 7/7
+  A1_dcji            moderate  delta=5.0    before 27/32  after 3/7
+  A1_dcji            moderate  delta=10.0   before 12/32  after 0/6
+  A1_dcji            moderate  delta=20.0   before 5/32  after 1/7
+  A1_dcji            moderate  delta=50.0   before 2/32  after 0/6
+  A1_dcji            moderate  delta=100.0  before 1/32  after 0/6
+  A1_dcji            moderate  delta=200.0  before 0/32  after 0/6
+  A3_dcji_webhook    high      delta=0.0    before 0/32  after 0/6
+  A3_dcji_webhook    high      delta=2.0    before 0/32  after 0/6
+  A3_dcji_webhook    high      delta=5.0    before 0/32  after 0/6
+  A3_dcji_webhook    high      delta=10.0   before 7/32  after 4/6
+  A3_dcji_webhook    high      delta=20.0   before 28/32  after 5/6
+  A3_dcji_webhook    high      delta=50.0   before 8/32  after 0/6
+  A3_dcji_webhook    high      delta=100.0  before 1/32  after 0/6
+  A3_dcji_webhook    high      delta=200.0  before 0/32  after 0/6
+  A3_dcji_webhook    idle      delta=0.0    before 0/33  after 0/6
+  A3_dcji_webhook    idle      delta=2.0    before 0/33  after 0/6
+  A3_dcji_webhook    idle      delta=5.0    before 0/33  after 0/6
+  A3_dcji_webhook    idle      delta=10.0   before 17/33  after 5/6
+  A3_dcji_webhook    idle      delta=20.0   before 22/33  after 6/6
+  A3_dcji_webhook    idle      delta=50.0   before 9/33  after 1/6
+  A3_dcji_webhook    idle      delta=100.0  before 2/33  after 0/6
+  A3_dcji_webhook    idle      delta=200.0  before 0/33  after 0/6
+  A3_dcji_webhook    moderate  delta=0.0    before 0/32  after 0/7
+  A3_dcji_webhook    moderate  delta=2.0    before 0/32  after 0/7
+  A3_dcji_webhook    moderate  delta=5.0    before 0/32  after 0/7
+  A3_dcji_webhook    moderate  delta=10.0   before 10/32  after 5/7
+  A3_dcji_webhook    moderate  delta=20.0   before 27/32  after 5/7
+  A3_dcji_webhook    moderate  delta=50.0   before 9/32  after 0/6
+  A3_dcji_webhook    moderate  delta=100.0  before 3/32  after 0/6
+  A3_dcji_webhook    moderate  delta=200.0  before 0/32  after 0/6
+
+E39-C: 3840 trials; trials with a gate wall stamp before the stop: 0

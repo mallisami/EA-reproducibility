@@ -1,0 +1,86 @@
+E39 DESIGN SPECIFICATION — version 1, 2026-09-26
+================================================
+Defensive security evaluation by the paper's authors on their OWN disposable kind cluster ("e39") on their OWN VM.
+Builds on E38v2 (code tree ~/e38v2r_20260926 = confirmatory rerun code with Running-and-Ready target Pod, corrected
+secondary oracle rule v1.2, webhook, audit-log commit-order oracle). E39 extends it; it does NOT modify E38v2 trees.
+Code tree: ~/e39_20260926/ (copy of ~/e38v2r_20260926 code once the rerun has locked; until then copy and rebase later).
+
+GOALS
+ A  Commit-bound enforcement: can binding the invariant to the DELETE commit close the window?
+ B  Risk under realistic writer arrivals: invalid-action rate per 1,000 responses, not just window size.
+ C  Practical cost of selective revalidation under realistic read latency (validates cost model).
+ D  Load sensitivity of the exposure window.
+ E  Generality: second response action (NetworkPolicy isolation).
+ G  Live out-of-model robustness of DCJI vs FullRefresh (E38 symmetric case had only 2 reps).
+ (F Go client and E40 AKS replication are prepared separately; they need downloads / user login.)
+
+TARGET: Running-and-Ready Pod (registry.k8s.io/pause:3.10, present in kind node image; imagePullPolicy Never).
+WRITERS: separate process (as E38v2), keep-alive connection, logs intended/actual release, RV, Audit-ID.
+
+ARMS
+ A1  DCJI client gate + UID-precondition DELETE                      (reference, as E38v2)
+ A2  FullRefresh client gate + UID-precondition DELETE               (reference; used in C, G)
+ A3  A1 + validating admission webhook                               (reference, as E38v2)
+ A4d Commit-bound, DIRECT: evidence/scope/policy are stored as annotations on the target Pod
+     (e38.evidence/a..f, e38.scope, e38.app-policy); writers patch the Pod annotation directly (source of truth).
+     Gate reads the Pod once (all predicates + uid + resourceVersion); DELETE carries
+     preconditions {uid, resourceVersion = RV read at gate}. Any post-gate write changes the Pod RV -> 409.
+ A4m Commit-bound, MIRRORED: writers patch the ConfigMaps (as E38v2); a mirror controller (watch on ConfigMaps,
+     separate process/identity) copies values to Pod annotations; gate/DELETE as A4d.
+     Additional measured quantity: mirror lag = Pod-annotation commit RV/time minus ConfigMap commit RV/time.
+     Expected: window moves to the mirror lag; report it honestly.
+ A4 retry policy: on 409 the responder does NOT retry automatically in E39-A (counts as CORRECT_ABORT or
+     FALSE_ABORT per oracle); availability cost = FALSE_ABORT/409 rate in no_write and in B.
+
+SUB-EXPERIMENTS
+ E39-A  delta sweep, arms {A1, A3, A4d, A4m}, conditions {async_scope, async_app_policy, async_evidence_last_literal},
+        delta grid ms {0, 0.5, 1, 2, 3, 5, 10, 20, 50} (negative deltas dropped: collapsed in E38v2),
+        controls no_write (n=39/arm) and uid_rebind_control (n=10/arm). Two-stage n=39 -> 93 (rule 0.05<p<0.95).
+ E39-B  Poisson writer arrivals: invalidating writes arrive as a Poisson process with rate lambda per trial, starting
+        at gate start and lasting until the DELETE completes (+50 ms); first arrival invalidates.
+        lambda in {1, 10, 100} writes/s (measurable range); arms {A1, A2, A3, A4d}; condition async_scope;
+        n = 400 per (arm, lambda). Endpoint: invalid-executed rate per 1,000 responses with Wilson CI;
+        compare with prediction 1 - exp(-lambda * W_arm) using W_arm estimated from E39-A/E38v2 curves;
+        report extrapolation to lambda in {0.01, 0.1} as MODEL-BASED.
+ E39-C  Injected read latency: an in-cluster-reachable delay proxy (host process on 127.0.0.1 in front of the
+        apiserver for the RESPONDER identity only) adds c in {0, 50, 200, 1000} ms to each ConfigMap GET.
+        Arms {A1 (DCJI), A2 (FullRefresh)}; acquisition {sequential, parallel}; conditions {stable, ea_attack}
+        (E21 semantics, six ConfigMaps); planning {precomputed, per-incident}. Paired randomized guard order,
+        n = 60 pairs per cell. Endpoints: paired refresh and gate latency (HL + CI), end-to-end decision-to-DELETE
+        latency including planning; compare with cost model (sequential saving = 3c; parallel bounds).
+ E39-D  Load sensitivity: background load generator (separate identity, unrelated namespace e39-load) issuing
+        GET/LIST/PATCH at {idle, moderate ~50 req/s, high ~150 req/s}; arms {A1, A3}; condition async_scope;
+        delta {0, 2, 5, 10, 20, 50}; n = 39. SAFETY: VM hosts other projects' clusters — before and during high load,
+        check host CPU and free RAM; if host CPU > 85% for > 60 s or free RAM < 2 GB, drop to moderate and log.
+ E39-E  Second action: response = CREATE NetworkPolicy isolating the target Pod (podSelector on a trial label,
+        policyTypes Ingress+Egress, no rules). Arms {A1, A3 (webhook extended to networkpolicies CREATE)};
+        A4 not applicable (CREATE has no preconditions) — report as a structural limitation.
+        Conditions {async_scope, async_evidence_last_literal}; delta {0, 2, 5, 10, 20, 50}; n = 39.
+        Effect = NetworkPolicy object committed (API level); optional connectivity check not required.
+ E39-G  Live out-of-model mutation: before the gate, cut b, d, f (DCJI's certificate does not read them; the model
+        says they cannot change). Arms {A1 DCJI, A2 FullRefresh}; n = 39 each; plus in-model control (cut a,c,e) n=39.
+        Endpoint: invalid-executed proportion per arm (expected DCJI ~1, FullRefresh ~0).
+
+ORACLE (same principles as E38v2 v1.2)
+ Ground truth from apiserver audit log: primary = commit order by resourceVersion (write committed before the
+ action's commit); secondary = ResponseComplete stageTimestamp order. Extend to: Pod annotation PATCH (A4d),
+ mirror-controller PATCH (A4m), NetworkPolicy CREATE (E39-E), DELETE with resourceVersion precondition (409 on
+ conflict). Validity policy unchanged: J=(a∧b)∨(c∧d)∨(e∧f) ∧ scope ∧ app_policy.
+
+RECORDS: extend e38v2.trial.v1 -> e39.trial.v1 with fields: experiment ("A".."G"), arm, lambda_per_s, injected_latency_ms,
+ acquisition_mode, planning_mode, load_level, action_type ("pod_delete"|"netpol_create"), writer_arrivals [list],
+ mirror {source_rv, mirror_rv, t_source_commit, t_mirror_commit} for A4m, host_cpu_pct/free_ram_mb snapshot.
+
+LOCK / STAGES: one LOCK covering all sub-experiments; fresh seed (not 20260912, 1772720255, or E38v2-rerun seed);
+ randomize within sub-experiment blocks; stage-2 top-up applies to E39-A only.
+RUNTIME budget target: <= 3 h of trial time total; report estimate from dry-run.
+
+AMENDMENT 1 (2026-09-26, before LOCK)
+-------------------------------------
+Reason: the E38v2 confirmatory rerun (running Pod, run e38v2r-20260926t1032z) showed the exposure window is not
+closed within 50 ms in 8/12 arm x condition series. Grids extended so E39 can observe closure:
+ E39-A delta grid: {0, 0.5, 1, 2, 3, 5, 10, 20, 50, 100, 200} ms
+ E39-D, E39-E, E39-F delta grids: {0, 2, 5, 10, 20, 50, 100, 200} ms
+Stage-1 counts: A 5344, B 4800, C 3840 (1920 pairs), D 1872, E 1248, F 936, G 156 = 18,196 trials (~4.5 h est.).
+d* "not closed" if p_hat(200 ms) > 0.05; W_A integrated over 0-200 ms. Runtime budget raised from 3 h to 5 h.
+Authoritative design counts: analysis/e39_common.py and protocol/LOCK_TEMPLATE_E39.json.

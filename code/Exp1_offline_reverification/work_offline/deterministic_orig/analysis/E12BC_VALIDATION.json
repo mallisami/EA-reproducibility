@@ -1,0 +1,13 @@
+{
+  "freeze_id": "FLASHIR-E12BC-EXPLORATORY-FREEZE-20260905",
+  "E12b_rows": 70,
+  "E12c_rows": 40,
+  "E12b_all_status_exploitable": true,
+  "E12c_all_status_exploitable": true,
+  "E12b_exact_state_goal_invariants": true,
+  "E12c_exact_2powk_subset_invariant": true,
+  "solver_unknown_or_timeout": 0,
+  "frozen_input_hash_mismatches": [],
+  "source_heldout_templates_used": false,
+  "status": "PASS"
+}

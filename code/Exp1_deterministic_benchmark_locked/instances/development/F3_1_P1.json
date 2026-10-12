@@ -1,0 +1,341 @@
+{
+  "instance_id": "F3.1-P1",
+  "template_id": "F3.1",
+  "parameterization_id": "P1",
+  "split": "development",
+  "materialization_version": "3.1.0",
+  "causal_core_hash": "9ce19d94e06dc3007dac695596d17a1eeb9676c83b8644b11b9a862b996493de",
+  "template_hash": "21607602a739f788f110147a54aecc30a54eb561f46ad4e1820e78dd5fd57abe",
+  "scenario": {
+    "scenario_id": "F3.1",
+    "title": "PID Reuse Before Kill",
+    "family": "F3",
+    "realism_tier": "R1/R2",
+    "development": true,
+    "action": {
+      "action_type": "kill_process",
+      "target_reference": "hostA/pid/4281",
+      "target_snapshot": {
+        "host": "hostA",
+        "pid": 4281,
+        "start_time": "T1",
+        "exe_hash": "Hmal"
+      },
+      "queue_semantics": "single_exactly_once_attempt",
+      "authorization": {
+        "predicate": "p_authorized",
+        "must_remain_valid": true
+      },
+      "execution_precondition": {
+        "predicate": "p_target_resolves"
+      }
+    },
+    "attacker_capability_tier": "C1",
+    "initial_state": {
+      "timestamp_s": 0,
+      "facts": {
+        "p1_malicious": true,
+        "p1_active": true,
+        "pid4281_instance": "P1",
+        "irrelevant_cpu_pct": 25,
+        "action_authorized": true
+      },
+      "resources": [],
+      "processes": [
+        {
+          "process_id": "P1",
+          "host": "hostA",
+          "pid": 4281,
+          "start_time": "T1",
+          "exe_hash": "Hmal",
+          "active": true,
+          "security_state": "malicious"
+        },
+        {
+          "process_id": "P2",
+          "host": "hostA",
+          "pid": 4281,
+          "start_time": "T2",
+          "exe_hash": "Hgood",
+          "active": false,
+          "security_state": "benign"
+        }
+      ],
+      "network_bindings": [],
+      "sessions": [],
+      "context": {
+        "materialization": {
+          "parameterization_id": "P1",
+          "template_id": "F3.1",
+          "description": "Minimal canonical topology."
+        }
+      },
+      "evidence": [
+        {
+          "evidence_id": "H1",
+          "predicate": "p1_malicious",
+          "evidence_class": "H",
+          "source": "EDR",
+          "observed_at_s": 0,
+          "subject_uid": "P1",
+          "truth_value": true,
+          "supersedes": null
+        },
+        {
+          "evidence_id": "L1",
+          "predicate": "p1_active",
+          "evidence_class": "L",
+          "source": "EDR",
+          "observed_at_s": 0,
+          "subject_uid": "P1",
+          "truth_value": true,
+          "supersedes": null
+        }
+      ],
+      "queue": []
+    },
+    "predicates": {
+      "p_p1_malicious": {
+        "path": "/facts/p1_malicious",
+        "op": "eq",
+        "value": true,
+        "evidence_class": "H",
+        "description": "P1 confirmed malicious."
+      },
+      "p_p1_active": {
+        "path": "/facts/p1_active",
+        "op": "eq",
+        "value": true,
+        "evidence_class": "L",
+        "description": "P1 currently active."
+      },
+      "p_pid_same_instance": {
+        "path": "/facts/pid4281_instance",
+        "op": "eq",
+        "value": "P1",
+        "evidence_class": "B",
+        "description": "PID 4281 still denotes P1."
+      },
+      "p_authorized": {
+        "path": "/facts/action_authorized",
+        "op": "eq",
+        "value": true,
+        "evidence_class": "DERIVED",
+        "description": "Response executor remains technically authorized."
+      },
+      "p_target_resolves": {
+        "path": "/facts/pid4281_instance",
+        "op": "ne",
+        "value": null,
+        "evidence_class": "B",
+        "description": "PID denotes a concrete process instance at actuation."
+      }
+    },
+    "policy_profiles": {
+      "balanced": {
+        "justification": {
+          "all": [
+            {
+              "predicate": "p_p1_malicious"
+            },
+            {
+              "predicate": "p_p1_active"
+            }
+          ]
+        },
+        "binding": {
+          "predicate": "p_pid_same_instance"
+        },
+        "scope": true
+      }
+    },
+    "primary_policy": "balanced",
+    "justification_bases": [
+      [
+        "p_p1_active",
+        "p_p1_malicious"
+      ]
+    ],
+    "transitions": [
+      {
+        "transition_id": "irrelevant_cpu_change",
+        "title": "Unrelated CPU fluctuation",
+        "actor": "environment",
+        "capability_tier": "NONE",
+        "duration_s": 0.1,
+        "cost_ops": 0,
+        "preconditions": true,
+        "effects": [
+          {
+            "op": "set",
+            "path": "/facts/irrelevant_cpu_pct",
+            "value": 30
+          }
+        ],
+        "notes": "",
+        "adversarially_induced": false,
+        "causal_parent_ids": []
+      },
+      {
+        "transition_id": "terminate_p1",
+        "title": "Attacker terminates P1",
+        "actor": "attacker",
+        "capability_tier": "C1",
+        "duration_s": 0.5,
+        "cost_ops": 1,
+        "preconditions": true,
+        "effects": [
+          {
+            "op": "set",
+            "path": "/facts/p1_active",
+            "value": false
+          },
+          {
+            "op": "set",
+            "path": "/facts/pid4281_instance",
+            "value": null
+          },
+          {
+            "op": "set",
+            "path": "/processes/0/active",
+            "value": false
+          }
+        ],
+        "notes": "",
+        "adversarially_induced": true,
+        "causal_parent_ids": []
+      },
+      {
+        "transition_id": "reuse_pid_for_p2",
+        "title": "Benign P2 receives PID 4281",
+        "actor": "environment",
+        "capability_tier": "NONE",
+        "duration_s": 0.5,
+        "cost_ops": 0,
+        "preconditions": true,
+        "effects": [
+          {
+            "op": "set",
+            "path": "/facts/pid4281_instance",
+            "value": "P2"
+          },
+          {
+            "op": "set",
+            "path": "/processes/1/active",
+            "value": true
+          }
+        ],
+        "notes": "",
+        "adversarially_induced": true,
+        "causal_parent_ids": [
+          "terminate_p1"
+        ]
+      }
+    ],
+    "worlds": {
+      "W0": {
+        "commit_deadline_s": 3,
+        "transition_path": [],
+        "expected_commit": "EXECUTE",
+        "expected_attack_path_completed": false,
+        "control_semantics": "stable",
+        "expected_commit_by_policy": {
+          "balanced": "EXECUTE"
+        }
+      },
+      "W1": {
+        "commit_deadline_s": 3,
+        "transition_path": [
+          "irrelevant_cpu_change"
+        ],
+        "expected_commit": "EXECUTE",
+        "expected_attack_path_completed": false,
+        "control_semantics": "irrelevant_change",
+        "expected_commit_by_policy": {
+          "balanced": "EXECUTE"
+        }
+      },
+      "W2": {
+        "commit_deadline_s": 3,
+        "transition_path": [
+          "terminate_p1",
+          "reuse_pid_for_p2"
+        ],
+        "expected_commit": "ABORT_REPLAN",
+        "expected_attack_path_completed": true,
+        "control_semantics": "ea_toctou",
+        "expected_commit_by_policy": {
+          "balanced": "ABORT_REPLAN"
+        }
+      },
+      "W3": {
+        "commit_deadline_s": 0.25,
+        "transition_path": [
+          "terminate_p1",
+          "reuse_pid_for_p2"
+        ],
+        "expected_commit": "EXECUTE",
+        "expected_attack_path_completed": false,
+        "control_semantics": "deadline_miss",
+        "expected_commit_by_policy": {
+          "balanced": "EXECUTE"
+        }
+      }
+    },
+    "parameterizations": [
+      {
+        "id": "P1",
+        "description": "Minimal topology with only essential resources and evidence."
+      },
+      {
+        "id": "P2",
+        "description": "Distractor topology with benign resources and irrelevant evidence."
+      },
+      {
+        "id": "P3",
+        "description": "Noisy SOC context with non-material alerts and unrelated transitions."
+      },
+      {
+        "id": "P4",
+        "description": "High-impact variant with larger benign background or higher criticality."
+      }
+    ],
+    "provenance": {
+      "platform_basis": "Runtime process identifiers are not durable identity; process-instance binding uses PID plus start time/hash.",
+      "incident_basis": "EDR queues termination of an active malicious process.",
+      "policy_basis": "Kill remains valid only for the same active malicious process instance.",
+      "limitations": "Exact PID-reuse timing is platform dependent."
+    },
+    "severity": "S2",
+    "notes": "Runtime-identity development case.",
+    "justification_bases_by_policy": {
+      "balanced": [
+        [
+          "p_p1_active",
+          "p_p1_malicious"
+        ]
+      ]
+    },
+    "refresh_model": {
+      "cost_unit": "normalized_query_unit",
+      "query_costs": {
+        "query:/facts/p1_active": 1.0,
+        "immutable:p_p1_malicious": 0.0,
+        "query:/facts/pid4281_instance": 1.0
+      },
+      "predicate_query_ids": {
+        "p_p1_active": "query:/facts/p1_active",
+        "p_p1_malicious": "immutable:p_p1_malicious",
+        "p_pid_same_instance": "query:/facts/pid4281_instance",
+        "p_target_resolves": "query:/facts/pid4281_instance"
+      },
+      "query_observed_at_s": {
+        "query:/facts/p1_active": 0.0,
+        "immutable:p_p1_malicious": 0.0,
+        "query:/facts/pid4281_instance": 0.0
+      }
+    },
+    "native_controls": [],
+    "scenario_role": "positive_ea_toctou"
+  }
+}

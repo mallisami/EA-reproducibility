@@ -1,0 +1,15 @@
+{
+  "schema": "a4d.audit.evidence.v2",
+  "expected_trials": 985,
+  "raw_trials": 985,
+  "critical_audit_records_required": 1921,
+  "critical_audit_records_validated": 1921,
+  "successful_delete_rv_sources": {
+    "audit": 958,
+    "pod_watch_deleted": 17
+  },
+  "pod_event_records": 6991,
+  "errors": [],
+  "error_count": 0,
+  "PASS": true
+}

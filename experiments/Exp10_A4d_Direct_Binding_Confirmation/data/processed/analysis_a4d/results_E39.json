@@ -1,0 +1,3963 @@
+{
+  "E39_A": {
+    "agreement_secondary": {
+      "crosstab": [
+        {
+          "n": 10,
+          "other": "UID_BLOCKED",
+          "primary": "UID_BLOCKED"
+        },
+        {
+          "n": 975,
+          "other": "VALID_EXECUTED",
+          "primary": "VALID_EXECUTED"
+        }
+      ],
+      "invalid_executed_2x2": {
+        "both": 0,
+        "neither": 985,
+        "other_only": 0,
+        "primary_only": 0
+      },
+      "kappa_invalid_executed": null,
+      "n_both_classified": 985,
+      "n_exact_agree": 985,
+      "prop_exact_agree": 1.0
+    },
+    "agreement_tertiary": {
+      "crosstab": [
+        {
+          "n": 10,
+          "other": "UID_BLOCKED",
+          "primary": "UID_BLOCKED"
+        },
+        {
+          "n": 975,
+          "other": "VALID_EXECUTED",
+          "primary": "VALID_EXECUTED"
+        }
+      ],
+      "invalid_executed_2x2": {
+        "both": 0,
+        "neither": 985,
+        "other_only": 0,
+        "primary_only": 0
+      },
+      "kappa_invalid_executed": null,
+      "n_both_classified": 985,
+      "n_exact_agree": 985,
+      "prop_exact_agree": 1.0
+    },
+    "availability_cost": [
+      {
+        "arm": "A1",
+        "async_false_abort": {
+          "k": 0,
+          "k_via_409": 0,
+          "n": 0,
+          "p_hat": null,
+          "wilson_hi": null,
+          "wilson_lo": null
+        },
+        "no_write": {
+          "k_409": 0,
+          "k_false_abort": 0,
+          "n_analyzable": 0,
+          "p_hat": null,
+          "wilson_hi": null,
+          "wilson_lo": null
+        },
+        "no_write_409": {
+          "k": 0,
+          "n": 0,
+          "p_hat": null,
+          "wilson_hi": null,
+          "wilson_lo": null
+        },
+        "rate_409_among_dispatched": {
+          "k": 0,
+          "n": 0,
+          "p_hat": null,
+          "wilson_hi": null,
+          "wilson_lo": null
+        },
+        "rv_precondition_409_by_attribution": []
+      },
+      {
+        "arm": "A3",
+        "async_false_abort": {
+          "k": 0,
+          "k_via_409": 0,
+          "n": 0,
+          "p_hat": null,
+          "wilson_hi": null,
+          "wilson_lo": null
+        },
+        "no_write": {
+          "k_409": 0,
+          "k_false_abort": 0,
+          "n_analyzable": 0,
+          "p_hat": null,
+          "wilson_hi": null,
+          "wilson_lo": null
+        },
+        "no_write_409": {
+          "k": 0,
+          "n": 0,
+          "p_hat": null,
+          "wilson_hi": null,
+          "wilson_lo": null
+        },
+        "rate_409_among_dispatched": {
+          "k": 0,
+          "n": 0,
+          "p_hat": null,
+          "wilson_hi": null,
+          "wilson_lo": null
+        },
+        "rv_precondition_409_by_attribution": []
+      },
+      {
+        "arm": "A4d",
+        "async_false_abort": {
+          "k": 0,
+          "k_via_409": 0,
+          "n": 936,
+          "p_hat": 0.0,
+          "wilson_hi": 0.004087347695338274,
+          "wilson_lo": 0.0
+        },
+        "no_write": {
+          "k_409": 0,
+          "k_false_abort": 0,
+          "n_analyzable": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "no_write_409": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "rate_409_among_dispatched": {
+          "k": 0,
+          "n": 985,
+          "p_hat": 0.0,
+          "wilson_hi": 0.0038848076063431863,
+          "wilson_lo": 0.0
+        },
+        "rv_precondition_409_by_attribution": []
+      },
+      {
+        "arm": "A4m",
+        "async_false_abort": {
+          "k": 0,
+          "k_via_409": 0,
+          "n": 0,
+          "p_hat": null,
+          "wilson_hi": null,
+          "wilson_lo": null
+        },
+        "no_write": {
+          "k_409": 0,
+          "k_false_abort": 0,
+          "n_analyzable": 0,
+          "p_hat": null,
+          "wilson_hi": null,
+          "wilson_lo": null
+        },
+        "no_write_409": {
+          "k": 0,
+          "n": 0,
+          "p_hat": null,
+          "wilson_hi": null,
+          "wilson_lo": null
+        },
+        "rate_409_among_dispatched": {
+          "k": 0,
+          "n": 0,
+          "p_hat": null,
+          "wilson_hi": null,
+          "wilson_lo": null
+        },
+        "rv_precondition_409_by_attribution": []
+      }
+    ],
+    "exposure_window": [
+      {
+        "bootstrap": {
+          "ci95_hi_ms": 0.0,
+          "ci95_lo_ms": 0.0,
+          "distribution": {
+            "0": 2000
+          },
+          "frac_not_closed": 0.0,
+          "reps": 2000,
+          "seed": [
+            3902026,
+            1,
+            0
+          ]
+        },
+        "closed_within_grid": true,
+        "d_star_ms": 0.0,
+        "d_star_secondary_ms": 0.0,
+        "deltas_ms": [
+          0.0,
+          2.0,
+          5.0,
+          10.0,
+          20.0,
+          50.0,
+          100.0,
+          200.0
+        ],
+        "group": [
+          "A4d",
+          "async_scope"
+        ],
+        "label": "A4d/async_scope",
+        "last_exposed_delta_ms": null,
+        "max_wilson_hi_at_or_above_d_star": 0.08966685370757142,
+        "p_hat": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "threshold": 0.05,
+        "wilson_hi": [
+          0.08966685370757142,
+          0.08966685370757142,
+          0.08966685370757142,
+          0.08966685370757142,
+          0.08966685370757142,
+          0.08966685370757142,
+          0.08966685370757142,
+          0.08966685370757142
+        ],
+        "wilson_hi_at_d_star": 0.08966685370757142,
+        "window_area_ms": 0.0
+      },
+      {
+        "bootstrap": {
+          "ci95_hi_ms": 0.0,
+          "ci95_lo_ms": 0.0,
+          "distribution": {
+            "0": 2000
+          },
+          "frac_not_closed": 0.0,
+          "reps": 2000,
+          "seed": [
+            3902026,
+            1,
+            1
+          ]
+        },
+        "closed_within_grid": true,
+        "d_star_ms": 0.0,
+        "d_star_secondary_ms": 0.0,
+        "deltas_ms": [
+          0.0,
+          2.0,
+          5.0,
+          10.0,
+          20.0,
+          50.0,
+          100.0,
+          200.0
+        ],
+        "group": [
+          "A4d",
+          "async_app_policy"
+        ],
+        "label": "A4d/async_app_policy",
+        "last_exposed_delta_ms": null,
+        "max_wilson_hi_at_or_above_d_star": 0.08966685370757142,
+        "p_hat": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "threshold": 0.05,
+        "wilson_hi": [
+          0.08966685370757142,
+          0.08966685370757142,
+          0.08966685370757142,
+          0.08966685370757142,
+          0.08966685370757142,
+          0.08966685370757142,
+          0.08966685370757142,
+          0.08966685370757142
+        ],
+        "wilson_hi_at_d_star": 0.08966685370757142,
+        "window_area_ms": 0.0
+      },
+      {
+        "bootstrap": {
+          "ci95_hi_ms": 0.0,
+          "ci95_lo_ms": 0.0,
+          "distribution": {
+            "0": 2000
+          },
+          "frac_not_closed": 0.0,
+          "reps": 2000,
+          "seed": [
+            3902026,
+            1,
+            2
+          ]
+        },
+        "closed_within_grid": true,
+        "d_star_ms": 0.0,
+        "d_star_secondary_ms": 0.0,
+        "deltas_ms": [
+          0.0,
+          2.0,
+          5.0,
+          10.0,
+          20.0,
+          50.0,
+          100.0,
+          200.0
+        ],
+        "group": [
+          "A4d",
+          "async_evidence_last_literal"
+        ],
+        "label": "A4d/async_evidence_last_literal",
+        "last_exposed_delta_ms": null,
+        "max_wilson_hi_at_or_above_d_star": 0.08966685370757142,
+        "p_hat": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "threshold": 0.05,
+        "wilson_hi": [
+          0.08966685370757142,
+          0.08966685370757142,
+          0.08966685370757142,
+          0.08966685370757142,
+          0.08966685370757142,
+          0.08966685370757142,
+          0.08966685370757142,
+          0.08966685370757142
+        ],
+        "wilson_hi_at_d_star": 0.08966685370757142,
+        "window_area_ms": 0.0
+      }
+    ],
+    "mirror": {
+      "invalid_executed_explained_by_mirror_lag": {
+        "n_invalid_executed": 0,
+        "n_mirror_after_action": 0,
+        "n_not_mirrored": 0
+      },
+      "lag_ms": {
+        "max": null,
+        "mean": null,
+        "median": null,
+        "min": null,
+        "n": 0,
+        "p05": null,
+        "p95": null,
+        "sd": null
+      },
+      "lag_ms_by_primary_class": {},
+      "lag_rv": {
+        "max": null,
+        "mean": null,
+        "median": null,
+        "min": null,
+        "n": 0,
+        "p05": null,
+        "p95": null,
+        "sd": null
+      },
+      "n_with_mirror": 0,
+      "not_mirrored_trials": 0,
+      "per_delta": [],
+      "window_vs_lag": []
+    },
+    "uid_rebind_control": [
+      {
+        "arm": "A4d",
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 10,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 0
+        },
+        "n_observed": 10
+      }
+    ],
+    "writer_release_us": {
+      "max": 1568.732,
+      "mean": 16.209483974358974,
+      "median": 1.005,
+      "min": 0.571,
+      "n": 936,
+      "p05": 0.75625,
+      "p95": 91.24000000000001,
+      "sd": 64.88162592676201
+    }
+  },
+  "analysis_version": "e39.analysis.v1",
+  "bootstrap": {
+    "reps": 2000,
+    "seed": 3902026
+  },
+  "cells": [
+    {
+      "agreement": {
+        "n_agree": 39,
+        "n_both_classified": 39,
+        "prop": 1.0
+      },
+      "cell": [
+        "A",
+        "A4d",
+        "python",
+        "no_write",
+        null
+      ],
+      "experiment": "A",
+      "label": "A/A4d/python/no_write/NA",
+      "missingness": 0.0,
+      "n_observed": 39,
+      "n_planned": 39,
+      "n_planned_stage1": 39,
+      "n_rv_precondition_409": 0,
+      "primary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "quality_flag": "",
+      "secondary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "stage1_primary": {
+        "k": 0,
+        "n": 39,
+        "p_hat": 0.0,
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "tertiary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      }
+    },
+    {
+      "agreement": {
+        "n_agree": 39,
+        "n_both_classified": 39,
+        "prop": 1.0
+      },
+      "cell": [
+        "A",
+        "A4d",
+        "python",
+        "async_scope",
+        0.0
+      ],
+      "experiment": "A",
+      "label": "A/A4d/python/async_scope/0",
+      "missingness": 0.0,
+      "n_observed": 39,
+      "n_planned": 39,
+      "n_planned_stage1": 39,
+      "n_rv_precondition_409": 0,
+      "primary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "quality_flag": "",
+      "secondary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "stage1_primary": {
+        "k": 0,
+        "n": 39,
+        "p_hat": 0.0,
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "tertiary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      }
+    },
+    {
+      "agreement": {
+        "n_agree": 39,
+        "n_both_classified": 39,
+        "prop": 1.0
+      },
+      "cell": [
+        "A",
+        "A4d",
+        "python",
+        "async_scope",
+        2.0
+      ],
+      "experiment": "A",
+      "label": "A/A4d/python/async_scope/2",
+      "missingness": 0.0,
+      "n_observed": 39,
+      "n_planned": 39,
+      "n_planned_stage1": 39,
+      "n_rv_precondition_409": 0,
+      "primary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "quality_flag": "",
+      "secondary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "stage1_primary": {
+        "k": 0,
+        "n": 39,
+        "p_hat": 0.0,
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "tertiary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      }
+    },
+    {
+      "agreement": {
+        "n_agree": 39,
+        "n_both_classified": 39,
+        "prop": 1.0
+      },
+      "cell": [
+        "A",
+        "A4d",
+        "python",
+        "async_scope",
+        5.0
+      ],
+      "experiment": "A",
+      "label": "A/A4d/python/async_scope/5",
+      "missingness": 0.0,
+      "n_observed": 39,
+      "n_planned": 39,
+      "n_planned_stage1": 39,
+      "n_rv_precondition_409": 0,
+      "primary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "quality_flag": "",
+      "secondary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "stage1_primary": {
+        "k": 0,
+        "n": 39,
+        "p_hat": 0.0,
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "tertiary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      }
+    },
+    {
+      "agreement": {
+        "n_agree": 39,
+        "n_both_classified": 39,
+        "prop": 1.0
+      },
+      "cell": [
+        "A",
+        "A4d",
+        "python",
+        "async_scope",
+        10.0
+      ],
+      "experiment": "A",
+      "label": "A/A4d/python/async_scope/10",
+      "missingness": 0.0,
+      "n_observed": 39,
+      "n_planned": 39,
+      "n_planned_stage1": 39,
+      "n_rv_precondition_409": 0,
+      "primary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "quality_flag": "",
+      "secondary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "stage1_primary": {
+        "k": 0,
+        "n": 39,
+        "p_hat": 0.0,
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "tertiary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      }
+    },
+    {
+      "agreement": {
+        "n_agree": 39,
+        "n_both_classified": 39,
+        "prop": 1.0
+      },
+      "cell": [
+        "A",
+        "A4d",
+        "python",
+        "async_scope",
+        20.0
+      ],
+      "experiment": "A",
+      "label": "A/A4d/python/async_scope/20",
+      "missingness": 0.0,
+      "n_observed": 39,
+      "n_planned": 39,
+      "n_planned_stage1": 39,
+      "n_rv_precondition_409": 0,
+      "primary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "quality_flag": "",
+      "secondary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "stage1_primary": {
+        "k": 0,
+        "n": 39,
+        "p_hat": 0.0,
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "tertiary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      }
+    },
+    {
+      "agreement": {
+        "n_agree": 39,
+        "n_both_classified": 39,
+        "prop": 1.0
+      },
+      "cell": [
+        "A",
+        "A4d",
+        "python",
+        "async_scope",
+        50.0
+      ],
+      "experiment": "A",
+      "label": "A/A4d/python/async_scope/50",
+      "missingness": 0.0,
+      "n_observed": 39,
+      "n_planned": 39,
+      "n_planned_stage1": 39,
+      "n_rv_precondition_409": 0,
+      "primary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "quality_flag": "",
+      "secondary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "stage1_primary": {
+        "k": 0,
+        "n": 39,
+        "p_hat": 0.0,
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "tertiary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      }
+    },
+    {
+      "agreement": {
+        "n_agree": 39,
+        "n_both_classified": 39,
+        "prop": 1.0
+      },
+      "cell": [
+        "A",
+        "A4d",
+        "python",
+        "async_scope",
+        100.0
+      ],
+      "experiment": "A",
+      "label": "A/A4d/python/async_scope/100",
+      "missingness": 0.0,
+      "n_observed": 39,
+      "n_planned": 39,
+      "n_planned_stage1": 39,
+      "n_rv_precondition_409": 0,
+      "primary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "quality_flag": "",
+      "secondary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "stage1_primary": {
+        "k": 0,
+        "n": 39,
+        "p_hat": 0.0,
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "tertiary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      }
+    },
+    {
+      "agreement": {
+        "n_agree": 39,
+        "n_both_classified": 39,
+        "prop": 1.0
+      },
+      "cell": [
+        "A",
+        "A4d",
+        "python",
+        "async_scope",
+        200.0
+      ],
+      "experiment": "A",
+      "label": "A/A4d/python/async_scope/200",
+      "missingness": 0.0,
+      "n_observed": 39,
+      "n_planned": 39,
+      "n_planned_stage1": 39,
+      "n_rv_precondition_409": 0,
+      "primary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "quality_flag": "",
+      "secondary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "stage1_primary": {
+        "k": 0,
+        "n": 39,
+        "p_hat": 0.0,
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "tertiary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      }
+    },
+    {
+      "agreement": {
+        "n_agree": 39,
+        "n_both_classified": 39,
+        "prop": 1.0
+      },
+      "cell": [
+        "A",
+        "A4d",
+        "python",
+        "async_app_policy",
+        0.0
+      ],
+      "experiment": "A",
+      "label": "A/A4d/python/async_app_policy/0",
+      "missingness": 0.0,
+      "n_observed": 39,
+      "n_planned": 39,
+      "n_planned_stage1": 39,
+      "n_rv_precondition_409": 0,
+      "primary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "quality_flag": "",
+      "secondary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "stage1_primary": {
+        "k": 0,
+        "n": 39,
+        "p_hat": 0.0,
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "tertiary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      }
+    },
+    {
+      "agreement": {
+        "n_agree": 39,
+        "n_both_classified": 39,
+        "prop": 1.0
+      },
+      "cell": [
+        "A",
+        "A4d",
+        "python",
+        "async_app_policy",
+        2.0
+      ],
+      "experiment": "A",
+      "label": "A/A4d/python/async_app_policy/2",
+      "missingness": 0.0,
+      "n_observed": 39,
+      "n_planned": 39,
+      "n_planned_stage1": 39,
+      "n_rv_precondition_409": 0,
+      "primary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "quality_flag": "",
+      "secondary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "stage1_primary": {
+        "k": 0,
+        "n": 39,
+        "p_hat": 0.0,
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "tertiary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      }
+    },
+    {
+      "agreement": {
+        "n_agree": 39,
+        "n_both_classified": 39,
+        "prop": 1.0
+      },
+      "cell": [
+        "A",
+        "A4d",
+        "python",
+        "async_app_policy",
+        5.0
+      ],
+      "experiment": "A",
+      "label": "A/A4d/python/async_app_policy/5",
+      "missingness": 0.0,
+      "n_observed": 39,
+      "n_planned": 39,
+      "n_planned_stage1": 39,
+      "n_rv_precondition_409": 0,
+      "primary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "quality_flag": "",
+      "secondary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "stage1_primary": {
+        "k": 0,
+        "n": 39,
+        "p_hat": 0.0,
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "tertiary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      }
+    },
+    {
+      "agreement": {
+        "n_agree": 39,
+        "n_both_classified": 39,
+        "prop": 1.0
+      },
+      "cell": [
+        "A",
+        "A4d",
+        "python",
+        "async_app_policy",
+        10.0
+      ],
+      "experiment": "A",
+      "label": "A/A4d/python/async_app_policy/10",
+      "missingness": 0.0,
+      "n_observed": 39,
+      "n_planned": 39,
+      "n_planned_stage1": 39,
+      "n_rv_precondition_409": 0,
+      "primary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "quality_flag": "",
+      "secondary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "stage1_primary": {
+        "k": 0,
+        "n": 39,
+        "p_hat": 0.0,
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "tertiary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      }
+    },
+    {
+      "agreement": {
+        "n_agree": 39,
+        "n_both_classified": 39,
+        "prop": 1.0
+      },
+      "cell": [
+        "A",
+        "A4d",
+        "python",
+        "async_app_policy",
+        20.0
+      ],
+      "experiment": "A",
+      "label": "A/A4d/python/async_app_policy/20",
+      "missingness": 0.0,
+      "n_observed": 39,
+      "n_planned": 39,
+      "n_planned_stage1": 39,
+      "n_rv_precondition_409": 0,
+      "primary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "quality_flag": "",
+      "secondary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "stage1_primary": {
+        "k": 0,
+        "n": 39,
+        "p_hat": 0.0,
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "tertiary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      }
+    },
+    {
+      "agreement": {
+        "n_agree": 39,
+        "n_both_classified": 39,
+        "prop": 1.0
+      },
+      "cell": [
+        "A",
+        "A4d",
+        "python",
+        "async_app_policy",
+        50.0
+      ],
+      "experiment": "A",
+      "label": "A/A4d/python/async_app_policy/50",
+      "missingness": 0.0,
+      "n_observed": 39,
+      "n_planned": 39,
+      "n_planned_stage1": 39,
+      "n_rv_precondition_409": 0,
+      "primary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "quality_flag": "",
+      "secondary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "stage1_primary": {
+        "k": 0,
+        "n": 39,
+        "p_hat": 0.0,
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "tertiary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      }
+    },
+    {
+      "agreement": {
+        "n_agree": 39,
+        "n_both_classified": 39,
+        "prop": 1.0
+      },
+      "cell": [
+        "A",
+        "A4d",
+        "python",
+        "async_app_policy",
+        100.0
+      ],
+      "experiment": "A",
+      "label": "A/A4d/python/async_app_policy/100",
+      "missingness": 0.0,
+      "n_observed": 39,
+      "n_planned": 39,
+      "n_planned_stage1": 39,
+      "n_rv_precondition_409": 0,
+      "primary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "quality_flag": "",
+      "secondary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "stage1_primary": {
+        "k": 0,
+        "n": 39,
+        "p_hat": 0.0,
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "tertiary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      }
+    },
+    {
+      "agreement": {
+        "n_agree": 39,
+        "n_both_classified": 39,
+        "prop": 1.0
+      },
+      "cell": [
+        "A",
+        "A4d",
+        "python",
+        "async_app_policy",
+        200.0
+      ],
+      "experiment": "A",
+      "label": "A/A4d/python/async_app_policy/200",
+      "missingness": 0.0,
+      "n_observed": 39,
+      "n_planned": 39,
+      "n_planned_stage1": 39,
+      "n_rv_precondition_409": 0,
+      "primary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "quality_flag": "",
+      "secondary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "stage1_primary": {
+        "k": 0,
+        "n": 39,
+        "p_hat": 0.0,
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "tertiary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      }
+    },
+    {
+      "agreement": {
+        "n_agree": 39,
+        "n_both_classified": 39,
+        "prop": 1.0
+      },
+      "cell": [
+        "A",
+        "A4d",
+        "python",
+        "async_evidence_last_literal",
+        0.0
+      ],
+      "experiment": "A",
+      "label": "A/A4d/python/async_evidence_last_literal/0",
+      "missingness": 0.0,
+      "n_observed": 39,
+      "n_planned": 39,
+      "n_planned_stage1": 39,
+      "n_rv_precondition_409": 0,
+      "primary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "quality_flag": "",
+      "secondary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "stage1_primary": {
+        "k": 0,
+        "n": 39,
+        "p_hat": 0.0,
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "tertiary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      }
+    },
+    {
+      "agreement": {
+        "n_agree": 39,
+        "n_both_classified": 39,
+        "prop": 1.0
+      },
+      "cell": [
+        "A",
+        "A4d",
+        "python",
+        "async_evidence_last_literal",
+        2.0
+      ],
+      "experiment": "A",
+      "label": "A/A4d/python/async_evidence_last_literal/2",
+      "missingness": 0.0,
+      "n_observed": 39,
+      "n_planned": 39,
+      "n_planned_stage1": 39,
+      "n_rv_precondition_409": 0,
+      "primary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "quality_flag": "",
+      "secondary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "stage1_primary": {
+        "k": 0,
+        "n": 39,
+        "p_hat": 0.0,
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "tertiary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      }
+    },
+    {
+      "agreement": {
+        "n_agree": 39,
+        "n_both_classified": 39,
+        "prop": 1.0
+      },
+      "cell": [
+        "A",
+        "A4d",
+        "python",
+        "async_evidence_last_literal",
+        5.0
+      ],
+      "experiment": "A",
+      "label": "A/A4d/python/async_evidence_last_literal/5",
+      "missingness": 0.0,
+      "n_observed": 39,
+      "n_planned": 39,
+      "n_planned_stage1": 39,
+      "n_rv_precondition_409": 0,
+      "primary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "quality_flag": "",
+      "secondary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "stage1_primary": {
+        "k": 0,
+        "n": 39,
+        "p_hat": 0.0,
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "tertiary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      }
+    },
+    {
+      "agreement": {
+        "n_agree": 39,
+        "n_both_classified": 39,
+        "prop": 1.0
+      },
+      "cell": [
+        "A",
+        "A4d",
+        "python",
+        "async_evidence_last_literal",
+        10.0
+      ],
+      "experiment": "A",
+      "label": "A/A4d/python/async_evidence_last_literal/10",
+      "missingness": 0.0,
+      "n_observed": 39,
+      "n_planned": 39,
+      "n_planned_stage1": 39,
+      "n_rv_precondition_409": 0,
+      "primary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "quality_flag": "",
+      "secondary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "stage1_primary": {
+        "k": 0,
+        "n": 39,
+        "p_hat": 0.0,
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "tertiary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      }
+    },
+    {
+      "agreement": {
+        "n_agree": 39,
+        "n_both_classified": 39,
+        "prop": 1.0
+      },
+      "cell": [
+        "A",
+        "A4d",
+        "python",
+        "async_evidence_last_literal",
+        20.0
+      ],
+      "experiment": "A",
+      "label": "A/A4d/python/async_evidence_last_literal/20",
+      "missingness": 0.0,
+      "n_observed": 39,
+      "n_planned": 39,
+      "n_planned_stage1": 39,
+      "n_rv_precondition_409": 0,
+      "primary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "quality_flag": "",
+      "secondary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "stage1_primary": {
+        "k": 0,
+        "n": 39,
+        "p_hat": 0.0,
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "tertiary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      }
+    },
+    {
+      "agreement": {
+        "n_agree": 39,
+        "n_both_classified": 39,
+        "prop": 1.0
+      },
+      "cell": [
+        "A",
+        "A4d",
+        "python",
+        "async_evidence_last_literal",
+        50.0
+      ],
+      "experiment": "A",
+      "label": "A/A4d/python/async_evidence_last_literal/50",
+      "missingness": 0.0,
+      "n_observed": 39,
+      "n_planned": 39,
+      "n_planned_stage1": 39,
+      "n_rv_precondition_409": 0,
+      "primary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "quality_flag": "",
+      "secondary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "stage1_primary": {
+        "k": 0,
+        "n": 39,
+        "p_hat": 0.0,
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "tertiary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      }
+    },
+    {
+      "agreement": {
+        "n_agree": 39,
+        "n_both_classified": 39,
+        "prop": 1.0
+      },
+      "cell": [
+        "A",
+        "A4d",
+        "python",
+        "async_evidence_last_literal",
+        100.0
+      ],
+      "experiment": "A",
+      "label": "A/A4d/python/async_evidence_last_literal/100",
+      "missingness": 0.0,
+      "n_observed": 39,
+      "n_planned": 39,
+      "n_planned_stage1": 39,
+      "n_rv_precondition_409": 0,
+      "primary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "quality_flag": "",
+      "secondary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "stage1_primary": {
+        "k": 0,
+        "n": 39,
+        "p_hat": 0.0,
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "tertiary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      }
+    },
+    {
+      "agreement": {
+        "n_agree": 39,
+        "n_both_classified": 39,
+        "prop": 1.0
+      },
+      "cell": [
+        "A",
+        "A4d",
+        "python",
+        "async_evidence_last_literal",
+        200.0
+      ],
+      "experiment": "A",
+      "label": "A/A4d/python/async_evidence_last_literal/200",
+      "missingness": 0.0,
+      "n_observed": 39,
+      "n_planned": 39,
+      "n_planned_stage1": 39,
+      "n_rv_precondition_409": 0,
+      "primary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "quality_flag": "",
+      "secondary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "stage1_primary": {
+        "k": 0,
+        "n": 39,
+        "p_hat": 0.0,
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      },
+      "tertiary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 0,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 39
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 39,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 39,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 39,
+          "p_hat": 0.0,
+          "wilson_hi": 0.08966685370757142,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.08966685370757142,
+        "wilson_lo": 0.0
+      }
+    },
+    {
+      "agreement": {
+        "n_agree": 10,
+        "n_both_classified": 10,
+        "prop": 1.0
+      },
+      "cell": [
+        "A",
+        "A4d",
+        "python",
+        "uid_rebind_control",
+        null
+      ],
+      "experiment": "A",
+      "label": "A/A4d/python/uid_rebind_control/NA",
+      "missingness": 0.0,
+      "n_observed": 10,
+      "n_planned": 10,
+      "n_planned_stage1": 10,
+      "n_rv_precondition_409": 0,
+      "primary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 10,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 0
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 10,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 10,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 10,
+          "p_hat": 0.0,
+          "wilson_hi": 0.2775327998628892,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 10,
+          "p_hat": 0.0,
+          "wilson_hi": 0.2775327998628892,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.2775327998628892,
+        "wilson_lo": 0.0
+      },
+      "quality_flag": "",
+      "secondary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 10,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 0
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 10,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 10,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 10,
+          "p_hat": 0.0,
+          "wilson_hi": 0.2775327998628892,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 10,
+          "p_hat": 0.0,
+          "wilson_hi": 0.2775327998628892,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.2775327998628892,
+        "wilson_lo": 0.0
+      },
+      "stage1_primary": {
+        "k": 0,
+        "n": 10,
+        "p_hat": 0.0,
+        "wilson_hi": 0.2775327998628892,
+        "wilson_lo": 0.0
+      },
+      "tertiary": {
+        "counts": {
+          "CORRECT_ABORT": 0,
+          "FALSE_ABORT": 0,
+          "INFRA_ERROR": 0,
+          "INVALID_EXECUTED": 0,
+          "UID_BLOCKED": 10,
+          "UNKNOWN": 0,
+          "VALID_EXECUTED": 0
+        },
+        "k_invalid_executed": 0,
+        "n_analyzable": 10,
+        "n_fail_closed": 0,
+        "n_primary_denominator": 10,
+        "p_hat": 0.0,
+        "sensitivity_exclude_failclosed": {
+          "k": 0,
+          "n": 10,
+          "p_hat": 0.0,
+          "wilson_hi": 0.2775327998628892,
+          "wilson_lo": 0.0
+        },
+        "sensitivity_unknown_as_invalid": {
+          "k": 0,
+          "n": 10,
+          "p_hat": 0.0,
+          "wilson_hi": 0.2775327998628892,
+          "wilson_lo": 0.0
+        },
+        "unknown_reasons": {},
+        "wilson_hi": 0.2775327998628892,
+        "wilson_lo": 0.0
+      }
+    }
+  ],
+  "completeness_gate": {
+    "design_check": "off",
+    "lock_seed": 100120261,
+    "lock_unverified_hash_fields": [
+      "protocol_sha256"
+    ],
+    "lock_verified": [
+      "01_ENVIRONMENT/agent/00_reset_existing_k3s_agent.sh",
+      "01_ENVIRONMENT/agent/02_install_k3s_agent.sh",
+      "01_ENVIRONMENT/server/00_reset_existing_k3s_server.sh",
+      "01_ENVIRONMENT/server/01_install_k3s_server.sh",
+      "01_ENVIRONMENT/server/03_finalize_cluster.sh",
+      "01_ENVIRONMENT/shared/00_azure_vm_preflight.sh",
+      "01_ENVIRONMENT/shared/00_prepare_ubuntu.sh",
+      "01_ENVIRONMENT/shared/04_bootstrap_python.sh",
+      "A4D_CONFIRMATION/analysis/normalize_audit.py",
+      "A4D_CONFIRMATION/analysis/summarize_a4d.py",
+      "A4D_CONFIRMATION/analysis/validate_audit_evidence.py",
+      "A4D_CONFIRMATION/analysis/validate_smoke.py",
+      "A4D_CONFIRMATION/preflight/preflight_a4d.py",
+      "A4D_CONFIRMATION/preflight/validate_preflight_audit.py",
+      "A4D_CONFIRMATION/protocol/A4D_CONFIRMATION_PROTOCOL.md",
+      "A4D_CONFIRMATION/protocol/audit-policy.yaml",
+      "A4D_CONFIRMATION/scripts/a4d_confirmation.py",
+      "ops/analyze_a4d.sh",
+      "ops/audit_guardian.py",
+      "ops/collect_run.sh",
+      "ops/make_return_bundle.sh",
+      "ops/render_multihost.py",
+      "ops/run_a4d.sh",
+      "ops/setup_run.sh",
+      "ops/start_audit_stream.sh",
+      "ops/start_guardian.sh",
+      "ops/start_podwatch.sh",
+      "ops/stop_audit_stream.sh",
+      "ops/stop_guardian.sh",
+      "ops/stop_podwatch.sh",
+      "shared/E39_LOCKED_BASE/analysis/.snapshot_base.sh",
+      "shared/E39_LOCKED_BASE/analysis/analyze_e39.py",
+      "shared/E39_LOCKED_BASE/analysis/base_e38v2r/ANALYSIS_PLAN_E38v2.txt.orig",
+      "shared/E39_LOCKED_BASE/analysis/base_e38v2r/BASE_SHA256.txt",
+      "shared/E39_LOCKED_BASE/analysis/base_e38v2r/analyze_e38v2.py.orig",
+      "shared/E39_LOCKED_BASE/analysis/base_e38v2r/e38v2_common.py.orig",
+      "shared/E39_LOCKED_BASE/analysis/base_e38v2r/lock_hash.py.orig",
+      "shared/E39_LOCKED_BASE/analysis/base_e38v2r/oracle.py.orig",
+      "shared/E39_LOCKED_BASE/analysis/base_e38v2r/stage2_topup.py.orig",
+      "shared/E39_LOCKED_BASE/analysis/e39_common.py",
+      "shared/E39_LOCKED_BASE/analysis/fixtures/compare_truth.py",
+      "shared/E39_LOCKED_BASE/analysis/fixtures/dryrun_full.py",
+      "shared/E39_LOCKED_BASE/analysis/fixtures/e39_testkit.py",
+      "shared/E39_LOCKED_BASE/analysis/fixtures/synth_e39.py",
+      "shared/E39_LOCKED_BASE/analysis/oracle_e39.py",
+      "shared/E39_LOCKED_BASE/analysis/recompute_independent_e39.py",
+      "shared/E39_LOCKED_BASE/analysis/run_tests.sh",
+      "shared/E39_LOCKED_BASE/analysis/stage2_topup_e39.py",
+      "shared/E39_LOCKED_BASE/analysis/tests/conftest.py",
+      "shared/E39_LOCKED_BASE/analysis/tests/test_analysis_e39.py",
+      "shared/E39_LOCKED_BASE/analysis/tests/test_independent_e39.py",
+      "shared/E39_LOCKED_BASE/analysis/tests/test_oracle_e39.py",
+      "shared/E39_LOCKED_BASE/analysis/tests/test_precondition_v137.py",
+      "shared/E39_LOCKED_BASE/analysis/tests/test_stats_e39.py",
+      "shared/E39_LOCKED_BASE/analysis/tests/test_terminating_pod_write.py",
+      "shared/E39_LOCKED_BASE/deploy/audit-policy.yaml",
+      "shared/E39_LOCKED_BASE/deploy/gen_certs.sh",
+      "shared/E39_LOCKED_BASE/deploy/kind-config.yaml",
+      "shared/E39_LOCKED_BASE/deploy/namespace.yaml",
+      "shared/E39_LOCKED_BASE/deploy/rbac.yaml",
+      "shared/E39_LOCKED_BASE/deploy/render.sh",
+      "shared/E39_LOCKED_BASE/deploy/tests/validate_deploy.py",
+      "shared/E39_LOCKED_BASE/deploy/webhook-config.yaml",
+      "shared/E39_LOCKED_BASE/deploy/webhook.yaml",
+      "shared/E39_LOCKED_BASE/frozen_ref/source_provenance/E37_F5_PHYS_ORIGINAL.json",
+      "shared/E39_LOCKED_BASE/ops_scripts/bg.sh",
+      "shared/E39_LOCKED_BASE/ops_scripts/collect_logs.sh",
+      "shared/E39_LOCKED_BASE/ops_scripts/create_cluster.sh",
+      "shared/E39_LOCKED_BASE/ops_scripts/d_split.py",
+      "shared/E39_LOCKED_BASE/ops_scripts/e39_probe_audit.py",
+      "shared/E39_LOCKED_BASE/ops_scripts/e39_probes.py",
+      "shared/E39_LOCKED_BASE/ops_scripts/explain_independent.py",
+      "shared/E39_LOCKED_BASE/ops_scripts/export.sh",
+      "shared/E39_LOCKED_BASE/ops_scripts/final.sh",
+      "shared/E39_LOCKED_BASE/ops_scripts/headline.py",
+      "shared/E39_LOCKED_BASE/ops_scripts/interim.sh",
+      "shared/E39_LOCKED_BASE/ops_scripts/jq.py",
+      "shared/E39_LOCKED_BASE/ops_scripts/launch.sh",
+      "shared/E39_LOCKED_BASE/ops_scripts/lock.sh",
+      "shared/E39_LOCKED_BASE/ops_scripts/podwatch.sh",
+      "shared/E39_LOCKED_BASE/ops_scripts/q.sh",
+      "shared/E39_LOCKED_BASE/ops_scripts/quality_gates.py",
+      "shared/E39_LOCKED_BASE/ops_scripts/run_all.sh",
+      "shared/E39_LOCKED_BASE/ops_scripts/run_probes.sh",
+      "shared/E39_LOCKED_BASE/ops_scripts/setup_run.sh",
+      "shared/E39_LOCKED_BASE/ops_scripts/smoke_analyze.sh",
+      "shared/E39_LOCKED_BASE/ops_scripts/status.sh",
+      "shared/E39_LOCKED_BASE/ops_scripts/tests.sh",
+      "shared/E39_LOCKED_BASE/ops_scripts/timing.py",
+      "shared/E39_LOCKED_BASE/protocol/ANALYSIS_PLAN_E39.txt",
+      "shared/E39_LOCKED_BASE/protocol/BASE_COPY_SHA256_e38v2r.txt",
+      "shared/E39_LOCKED_BASE/protocol/E39_DESIGN_SPEC.txt",
+      "shared/E39_LOCKED_BASE/protocol/E39_ORACLE_INPUT_NOTES.txt",
+      "shared/E39_LOCKED_BASE/protocol/E39_RECORD_SCHEMA.json",
+      "shared/E39_LOCKED_BASE/protocol/E39_RUNBOOK.txt",
+      "shared/E39_LOCKED_BASE/protocol/LOCK_E39.json",
+      "shared/E39_LOCKED_BASE/protocol/LOCK_TEMPLATE_E39.json",
+      "shared/E39_LOCKED_BASE/protocol/lock_hash_e39.py",
+      "shared/E39_LOCKED_BASE/protocol/tests/test_lock_hash_e39.py",
+      "shared/E39_LOCKED_BASE/src/DESIGN_NOTES.txt",
+      "shared/E39_LOCKED_BASE/src/RUNNER_CHANGES.diff",
+      "shared/E39_LOCKED_BASE/src/action_netpol.py",
+      "shared/E39_LOCKED_BASE/src/arms_commit.py",
+      "shared/E39_LOCKED_BASE/src/conditions_e39.py",
+      "shared/E39_LOCKED_BASE/src/e38_independent_offline_oracle.py",
+      "shared/E39_LOCKED_BASE/src/e38v2_model.py",
+      "shared/E39_LOCKED_BASE/src/e38v2_runner.py",
+      "shared/E39_LOCKED_BASE/src/e39_fragments.py",
+      "shared/E39_LOCKED_BASE/src/e39_kube.py",
+      "shared/E39_LOCKED_BASE/src/e39_runner.py",
+      "shared/E39_LOCKED_BASE/src/fake_api.py",
+      "shared/E39_LOCKED_BASE/src/flashir_core/__init__.py",
+      "shared/E39_LOCKED_BASE/src/flashir_core/dcji.py",
+      "shared/E39_LOCKED_BASE/src/flashir_core/defenses.py",
+      "shared/E39_LOCKED_BASE/src/flashir_core/engine.py",
+      "shared/E39_LOCKED_BASE/src/flashir_core/expr.py",
+      "shared/E39_LOCKED_BASE/src/flashir_core/io.py",
+      "shared/E39_LOCKED_BASE/src/flashir_core/refresh.py",
+      "shared/E39_LOCKED_BASE/src/goclient/BUILD_INFO.txt",
+      "shared/E39_LOCKED_BASE/src/goclient/client.go",
+      "shared/E39_LOCKED_BASE/src/goclient/go.mod",
+      "shared/E39_LOCKED_BASE/src/goclient/go.sum",
+      "shared/E39_LOCKED_BASE/src/goclient/main.go",
+      "shared/E39_LOCKED_BASE/src/goclient/main_test.go",
+      "shared/E39_LOCKED_BASE/src/goclient_bridge.py",
+      "shared/E39_LOCKED_BASE/src/harness_arrivals.py",
+      "shared/E39_LOCKED_BASE/src/harness_delay_proxy.py",
+      "shared/E39_LOCKED_BASE/src/harness_load.py",
+      "shared/E39_LOCKED_BASE/src/harness_util.py",
+      "shared/E39_LOCKED_BASE/src/mirror_controller.py",
+      "shared/E39_LOCKED_BASE/src/pod_watch.py",
+      "shared/E39_LOCKED_BASE/src/schema.py",
+      "shared/E39_LOCKED_BASE/src/schema_e39.py",
+      "shared/E39_LOCKED_BASE/src/test_e38v2.py",
+      "shared/E39_LOCKED_BASE/src/test_e39_commit.py",
+      "shared/E39_LOCKED_BASE/src/test_e39_mirror.py",
+      "shared/E39_LOCKED_BASE/src/test_e39_netpol_conditions.py",
+      "shared/E39_LOCKED_BASE/src/test_e39_runner.py",
+      "shared/E39_LOCKED_BASE/src/test_goclient_bridge.py",
+      "shared/E39_LOCKED_BASE/src/test_pod_watch.py",
+      "shared/E39_LOCKED_BASE/src/tests_harness/conftest.py",
+      "shared/E39_LOCKED_BASE/src/tests_harness/harness_fakes.py",
+      "shared/E39_LOCKED_BASE/src/tests_harness/test_arrivals.py",
+      "shared/E39_LOCKED_BASE/src/tests_harness/test_delay_proxy.py",
+      "shared/E39_LOCKED_BASE/src/tests_harness/test_load.py",
+      "shared/E39_LOCKED_BASE/src/writer.py",
+      "shared/E39_LOCKED_BASE/webhook/policy.py",
+      "shared/E39_LOCKED_BASE/webhook/server.py",
+      "shared/E39_LOCKED_BASE/webhook/tests/fixtures/create_target.json",
+      "shared/E39_LOCKED_BASE/webhook/tests/fixtures/delete_other_ns.json",
+      "shared/E39_LOCKED_BASE/webhook/tests/fixtures/delete_target.json",
+      "shared/E39_LOCKED_BASE/webhook/tests/test_https_loopback.py",
+      "shared/E39_LOCKED_BASE/webhook/tests/test_netpol_admission.py",
+      "shared/E39_LOCKED_BASE/webhook/tests/test_policy.py",
+      "shared/E39_LOCKED_BASE/webhook/tests/test_server.py",
+      "tools/lock_util.py",
+      "schedule_sha256",
+      "analysis_plan_sha256"
+    ],
+    "n_observed": 985,
+    "n_planned": 985,
+    "passed": true,
+    "pod_events_supplied": true
+  },
+  "confirmatory": false,
+  "experiments": [
+    "A"
+  ],
+  "generated_utc": "2026-10-01T17:08:48Z",
+  "infra_error_reasons": {},
+  "inputs_sha256": {
+    "/home/azureuser/EA_TOCTOU_A4D_AUDIT_SAFE_CONFIRMATION_R2_20261001/runtime/a4dcr-r2-20261001/results/RAW_TRIALS.jsonl": "c108beaf23b3fb6fcc35b8f6161a3615425e74a281a7c9aea4bcf3229e9553c1",
+    "/home/azureuser/EA_TOCTOU_A4D_AUDIT_SAFE_CONFIRMATION_R2_20261001/runtime/a4dcr-r2-20261001/results/audit.log": "7bfab669036f55728b040a1033190ba24d763aa75edbfb3cbb714c87b4b86caf",
+    "/home/azureuser/EA_TOCTOU_A4D_AUDIT_SAFE_CONFIRMATION_R2_20261001/runtime/a4dcr-r2-20261001/results/pod_events.jsonl": "3c75194727c05ad2b838a099f4c872393c5dcf96eb2e0c6bc5a6e2820b5e187a",
+    "/home/azureuser/EA_TOCTOU_A4D_AUDIT_SAFE_CONFIRMATION_R2_20261001/runtime/a4dcr-r2-20261001/results/webhook_log.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "A4D_CONFIRMATION/protocol/LOCK_A4D_MAIN.json": "565e98300ad4dc6e69fde48cc5d363df45f3013431eababd4e6fcdca350cb2e6",
+    "A4D_CONFIRMATION/protocol/SCHEDULE_A4D_MAIN.json": "c9ea03d64d6604540868beb64013f9b096e47d6b70f39d152df41e7b74fe2fb4"
+  },
+  "oracle_version": "e39.oracle.v1",
+  "overall_counts_primary": {
+    "CORRECT_ABORT": 0,
+    "FALSE_ABORT": 0,
+    "INFRA_ERROR": 0,
+    "INVALID_EXECUTED": 0,
+    "UID_BLOCKED": 10,
+    "UNKNOWN": 0,
+    "VALID_EXECUTED": 975
+  },
+  "run_id": "a4dcr-r2-20261001",
+  "schema": "e39.results.v1",
+  "spec": "E39 design spec v1 (2026-09-26)",
+  "stage2_topup": [],
+  "stage2_topup_verified": null,
+  "stage_analyzed": 1,
+  "unknown_reasons_primary": {}
+}

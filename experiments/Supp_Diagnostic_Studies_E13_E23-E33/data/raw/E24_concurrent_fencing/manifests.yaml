@@ -1,0 +1,23 @@
+﻿apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: obs-a
+  namespace: flashir-e24
+data:
+  valid: "true"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: obs-c
+  namespace: flashir-e24
+data:
+  valid: "true"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: obs-e
+  namespace: flashir-e24
+data:
+  valid: "true"

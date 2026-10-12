@@ -1,0 +1,52 @@
+E38v2 CONFIRMATORY RERUN -- HEADLINE (run e38v2r-20260926t1032z, 2026-09-26)
+=============================================================================
+Cluster kind e38v2 (dedicated, disposable), seed 154080643, LOCKED-2026-09-26T10:34:43Z (53 hashes verified at export,
+final lock_sha256 7672ddda...). ANALYSIS_PLAN v1.2 (changelog (g)-(k), all pre-lock). Full per-cell tables:
+analysis_final/cells_E38v2.csv, HEADLINE_TABLES.txt, COMPARISON_FIRST_VS_RERUN.txt.
+
+WHAT CHANGED vs the first run: target Pod Running+Ready (pause:3.10; 8728/8728 trials Running+Ready at the gate;
+container killed after accepted DELETEs, crictl probe 20/20 x2); secondary oracle = writer RC < DELETE RC (old rule kept
+as tertiary); pod-event recorder as deletion-RV fallback (needed in 55 trials: A3 50, A2 4, A1 1); kube-apiserver
+--v=3 --vmodule=store=6,round_trippers=6 logs for the multi-evaluation question.
+
+RUN: stage 1 5812 + stage 2 2916 (54 cells topped up) = 8728 trials; 0 INFRA_ERROR, 0 UNKNOWN, 0 FALSE_ABORT.
+Primary: INVALID_EXECUTED 4979, VALID 2632, CORRECT_ABORT 1077, UID_BLOCKED 40. Gate passed, confirmatory.
+Independent recomputation (no analysis imports): k, n, k_secondary, k_tertiary identical in 152/152 cells.
+Oracle agreement primary vs corrected secondary: 8540/8728 = 97.8%, kappa(INVALID) 0.977 (smoke 100%);
+primary vs tertiary (v1 rule): 42.5%, kappa 0.009 (reproduces the first run's 41.3% / 0.009).
+Controls: no_write 0/39 invalid and 0 false aborts in every arm; uid_rebind_control 10/10 UID_BLOCKED (409) in every arm.
+
+P(INVALID_EXECUTED | writer released delta ms after the client gate), primary, Wilson 95%:
+ A0/A1/A2 (all conditions): delta -5..2 ms ~1.00 | 3 ms 0.91-1.00 | 5 ms 0.77-0.87 | 10 ms 0.18-0.38 |
+   20 ms 0.08-0.17 | 50 ms 0.03-0.11 (e.g. A2 app_policy 50 ms 10/93 = 0.108 [0.059, 0.187]).
+ A3 (DCJI + webhook): scope / app_policy writes 0/39 at -5..5 ms; 10 ms 0.527 [0.426,0.625] / 0.194 [0.126,0.285];
+   20 ms 0.796 [0.703,0.865] / 0.806 [0.715,0.874]; 50 ms 0.226 [0.153,0.321] / 0.280 [0.199,0.378].
+   evidence_last_literal: 0 ms 0.645, 0.5-3 ms 0.77-0.97, 5-10 ms 39/39, 20 ms 0.871, 50 ms 0.183 [0.117,0.273].
+Exposure d* (p<=0.05 from d* on): not closed within the 50 ms grid in 8 of 12 arm x condition series (all A3,
+ A0 scope/evidence, A1 scope/app_policy, A2 app_policy); d* = 50 ms in the other 4 (first run: 10-20 ms for A0-A2,
+ 50 ms for A3).
+Webhook latency cost (no_write DELETE RTT): A3 43.5 ms vs A1 12.7 ms median; Hodges-Lehmann +30.0 ms [23.2, 33.9]
+ (first run +21.3 [16.4, 24.8]). Availability cost: 0/39 false aborts in every arm.
+
+FIRST RUN vs RERUN (Newcombe 95% CI of the difference; 37/152 cells exclude 0): A0-A2 exposure is LONGER with a running
+Pod (+0.10..+0.36 at 3-10 ms; 20-50 ms cells go from 0/39 to 0.11-0.17). A3: lower at 10 ms (scope -0.28, app_policy
+-0.54) and at evidence 0-1 ms (-0.15/-0.18), higher at 20 ms (evidence +0.25) and at 50 ms (0 -> 0.18-0.28). Why
+(descriptive, measured): DELETE service time is longer and heavier-tailed with a running Pod (no_write RTT medians
+12.7-14.3 ms vs 9.0-10.2; p95 41-119 ms A0-A2, 144 ms A3), so later writes still commit before the deletion; the
+webhook's second (stale-copy) evaluation is ~10-20 ms after the first, shifting where A3 is exposed.
+
+WEBHOOK MULTI-EVALUATION -- apiserver-side evidence (MECHANISM_APISERVER.json; all 2155 A3 DELETEs, 74 probe DELETEs):
+ - every webhook call of the run (3699 in the run window) is attributed to exactly one DELETE request; A0-A2 DELETEs
+   have none; per A3 DELETE the webhook log and the apiserver's rest-client "Response" lines match 1:1 (2155/2155).
+ - one DELETE request (one httplog line, one audit ID) contains all its calls. In all 1068 accepted A3 DELETEs the first
+   evaluation precedes store.go:1277 "Going to delete object from registry"; in all 498 multi-evaluation DELETEs every
+   later evaluation follows that line, and the 2nd evaluation saw the SAME Pod resourceVersion as the 1st (498/498,
+   i.e. the pre-deletionTimestamp object).
+ - patterns: allow|GTD|terminating 559; allow|GTD|deny|terminating 295 (no conflict line between deny and the terminating
+   call in 297/297 such cases); allow|GTD|allow|CONFLICT("deletion ... failed because of a conflict, going to retry",
+   store.go:452)|terminating 151; allow|GTD|kubelet removal (store.go:660 "triggered by update")|deny 40 (DELETE 200,
+   response without RV). What the logs do NOT show: which code path issues the 2nd call or why a deny is followed by
+   success; an explanation from the storage-layer delete code is an interpretation, not log evidence.
+ - A3 sensitivity (differing evaluations treated as UNKNOWN): 10-20 ms cells remain 0.13-0.67.
+Descriptive alternative reference (write before the deletionTimestamp commit instead of removal): A0 515, A1 499, A2 510,
+ A3 539 INVALID vs primary 1437/1322/1438/782 -- with a running Pod the kill is triggered at the deletionTimestamp commit.

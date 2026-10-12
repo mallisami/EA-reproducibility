@@ -1,0 +1,16 @@
+{
+ "_about": "Documented differences between the experiment LOCK files and the package copies of the locked files. All other locked files (47/48 E38v2 preliminary, 49/50 E38v2 confirmatory, 78/80 E39, 64/65 E40) are byte-identical to the locked versions and are verified by scripts/L2_rerun_analysis.py. REDACTED: a public IP address was replaced by <PUBLIC_IP_REDACTED> in an operator runbook (documentation, not executed by the analysis); lock_sha256 is the hash of the original (unredacted) file as recorded in the LOCK, package_sha256 the hash of the package copy. WITHHELD: artefact not redistributed (compiled binary / third-party wheel bundle); its hash remains in the LOCK.",
+ "e38v2p": [
+  {"path": "protocol/RUNBOOK_E38v2.txt", "action": "REDACTED", "lock_sha256": "90b2dee7a96efbc7c28b09370425434379e522441a00531f53d11c3b45303314", "package_sha256": "ca05cba224eec7b3e12e251ea243f6d9dc55872027b64888adbe86738a0a002e", "reason": "public IP of the experiment VM replaced (1 occurrence)"}
+ ],
+ "e38v2r": [
+  {"path": "protocol/RUNBOOK_E38v2.txt", "action": "REDACTED", "lock_sha256": "866e5d0d96704e473b89242c7c1aca7c68dda50b7e64fe134a31d3919cc64dc2", "package_sha256": "78b596d9a8101b435ad575598e29905cc8332e3c3122b1507d762502ae454d1a", "reason": "public IP of the experiment VM replaced (1 occurrence)"}
+ ],
+ "e39": [
+  {"path": "protocol/E39_RUNBOOK.txt", "action": "REDACTED", "lock_sha256": "a3521f1d683210e711d4f2cf70eb43adecd954d22e565523b220fe63741defc8", "package_sha256": "a71ad81a5ebf1747070eb7996142285b71c3bed8c23929d54d1b947842b24244", "reason": "public IP of the experiment VM replaced (1 occurrence)"},
+  {"path": "src/goclient/bin/e39-goclient", "action": "WITHHELD", "lock_sha256": "6c7a68fc972d0d9a60123a2d2e3d987d874df11ed07a23470e96d8afac7398b7", "package_sha256": null, "reason": "compiled Go binary (E39-F responder); rebuild from src/goclient with go1.27.1 (environment/CONTAINER_IMAGES_AND_BUILD_INFO.txt); not used by the analysis"}
+ ],
+ "e40": [
+  {"path": "pylib.tgz", "action": "WITHHELD", "lock_sha256": "82f8715604eea39284fa6bfab538efaec7a8a4f2f37a310b1a554b7421c22f46", "package_sha256": null, "reason": "vendored third-party Python wheels for the in-cluster runner (contain maintainers' e-mail addresses); rebuild with pip download -r environment/requirements/requirements-E39-E40-runner.txt; not used by the analysis"}
+ ]
+}

@@ -1,0 +1,7 @@
+{
+ "P1_strictly_increasing_cross_kind": true,
+ "P2_stale_rv_delete_status": 409,
+ "P2_message": "Operation cannot be fulfilled on Pod \"probe\": the ResourceVersion in the precondition (961) does not match the ResourceVersion in record (963). The object might have been modified",
+ "P3_rv_changes_in_60s": 0
+}
+PROBES PASSED

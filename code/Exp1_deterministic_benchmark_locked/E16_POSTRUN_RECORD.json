@@ -1,0 +1,16 @@
+{
+  "results_version": "5.3.0-e16",
+  "freeze_id": "FLASHIR-E16-CONSEQUENCE-FREEZE-20260905",
+  "protocol_deviations": [],
+  "positive_templates": 23,
+  "parameterizations": [
+    "P1",
+    "P4"
+  ],
+  "defenses": [
+    "B0",
+    "B4",
+    "B6"
+  ],
+  "validation_status": "PASS"
+}

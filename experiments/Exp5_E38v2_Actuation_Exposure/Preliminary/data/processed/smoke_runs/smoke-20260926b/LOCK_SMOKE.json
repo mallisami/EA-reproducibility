@@ -1,0 +1,379 @@
+{
+  "schema": "e38v2.lock.v1",
+  "experiment": "E38v2",
+  "interface_spec_version": "1 (2026-09-26)",
+  "created_utc": "2026-09-26T08:03:45Z",
+  "root": "/home/azureuser/e38v2_20260926",
+  "files": [
+    {
+      "path": "src/e38v2_runner.py",
+      "role": "runner",
+      "sha256": "a7c99eb0508a24e2fcb36c8fbfad3c923e21801cc3735fc018e745528d64d1c1"
+    },
+    {
+      "path": "src/e38v2_model.py",
+      "role": "model",
+      "sha256": "b5af7e66b2c23876b88af92c72afe82e1e0365ed6f2674562d42c5d4fc3ea971"
+    },
+    {
+      "path": "src/DESIGN_NOTES.txt",
+      "role": "runner_design_notes",
+      "sha256": "43e394254b5f7859771c9230fd836c6a8fd41c073327094c50f347d2a42faae5"
+    },
+    {
+      "path": "src/flashir_core/__init__.py",
+      "role": "planner_core",
+      "from_glob": "src/flashir_core/*.py",
+      "sha256": "4b5ae5eaf5a4abb7261b679c773c843c2c1907204347c65b7eee62391c1e5550"
+    },
+    {
+      "path": "src/flashir_core/dcji.py",
+      "role": "planner_core",
+      "from_glob": "src/flashir_core/*.py",
+      "sha256": "adec97f6e46cbe006510f8fbabeed3dbfe94422f8226dfa3ae48dc68a788eb77"
+    },
+    {
+      "path": "src/flashir_core/defenses.py",
+      "role": "planner_core",
+      "from_glob": "src/flashir_core/*.py",
+      "sha256": "7d02941bdcc830cda3883ef4a546e75910383741d6baa9882c2ce88ab246838b"
+    },
+    {
+      "path": "src/flashir_core/engine.py",
+      "role": "planner_core",
+      "from_glob": "src/flashir_core/*.py",
+      "sha256": "a7227732ab7d30a1cecd61b622c6ec51d5c3c7768293c63d29bdafd34b9a943d"
+    },
+    {
+      "path": "src/flashir_core/expr.py",
+      "role": "planner_core",
+      "from_glob": "src/flashir_core/*.py",
+      "sha256": "f3e0aabf853755e7e2be6c77391022977c81220185b30bbbfe20d2a73c856a25"
+    },
+    {
+      "path": "src/flashir_core/io.py",
+      "role": "planner_core",
+      "from_glob": "src/flashir_core/*.py",
+      "sha256": "229fdc6186185a7318c535f3d5fee1a4379054bcf2751dc052b4cf7f44ab4fcd"
+    },
+    {
+      "path": "src/flashir_core/refresh.py",
+      "role": "planner_core",
+      "from_glob": "src/flashir_core/*.py",
+      "sha256": "444bc1c10e95bdcb07ea5204cbf8c82d57f113413e82bb72addb30a13330cc05"
+    },
+    {
+      "path": "src/writer.py",
+      "role": "writer",
+      "sha256": "5d336c9d2b34b2b5da90a1201212a185b2947fb68e9a2107f6a39f2c984e232e"
+    },
+    {
+      "path": "src/schema.py",
+      "role": "runner_schema",
+      "sha256": "fa604c157264feee9fd3d12e67b3736252f88c283614578050ebf19d67de69d4"
+    },
+    {
+      "path": "src/e38_independent_offline_oracle.py",
+      "role": "model_independent_check",
+      "sha256": "43a709db2581cffbcf8ca0ccd7c3d6ff4aa46e03bf8c5e77298c604897e2eea8"
+    },
+    {
+      "path": "src/fake_api.py",
+      "role": "runner_offline_fake",
+      "sha256": "05fe88a131528433d13422172af7b810122c0beab6b047eeb281c7cd1b330347"
+    },
+    {
+      "path": "src/test_e38v2.py",
+      "role": "runner_tests",
+      "sha256": "c807abee7c09538cb20b3020a29b13f2d168af15cf4f19f11e177c58321ce7d6"
+    },
+    {
+      "path": "webhook/server.py",
+      "role": "webhook_server",
+      "sha256": "103a0f5540984a3d72129dca17e5e1ea93cd603670ef6cd328d23741d699e7f5"
+    },
+    {
+      "path": "webhook/policy.py",
+      "role": "webhook_policy",
+      "sha256": "b4f4905ab3f15197bb4ab4655eb85bbd1ef9736c8c8eff66e51c9861f4bd3ba6"
+    },
+    {
+      "path": "webhook/tests/test_https_loopback.py",
+      "role": "webhook_tests",
+      "from_glob": "webhook/tests/*.py",
+      "sha256": "8fadf3a0b32abcf31832426611697c46f8ffd34af5eb6daefec3f017445d16e1"
+    },
+    {
+      "path": "webhook/tests/test_policy.py",
+      "role": "webhook_tests",
+      "from_glob": "webhook/tests/*.py",
+      "sha256": "6e69751e3e18f9dd6876e9ce01e40c7f2b54f10aa069193742e0d7cd8803fe93"
+    },
+    {
+      "path": "webhook/tests/test_server.py",
+      "role": "webhook_tests",
+      "from_glob": "webhook/tests/*.py",
+      "sha256": "d3394821167a7ceba1247965fcde2063e3dafb0080d368e3a9c191621b16dce7"
+    },
+    {
+      "path": "webhook/tests/fixtures/create_target.json",
+      "role": "webhook_test_fixtures",
+      "from_glob": "webhook/tests/fixtures/*.json",
+      "sha256": "5c82f2b9a7d71e32de803a00d4e47cad249deae2e02dedd02961763f47e20210"
+    },
+    {
+      "path": "webhook/tests/fixtures/delete_other_ns.json",
+      "role": "webhook_test_fixtures",
+      "from_glob": "webhook/tests/fixtures/*.json",
+      "sha256": "7b83863384b70dea655708c06954702c47fee570a0f1989ef2f503a3199ab372"
+    },
+    {
+      "path": "webhook/tests/fixtures/delete_target.json",
+      "role": "webhook_test_fixtures",
+      "from_glob": "webhook/tests/fixtures/*.json",
+      "sha256": "d24cb03782b54a833edfb41e6a42c2f9240fc4447f371b2f3201767c7af002e9"
+    },
+    {
+      "path": "deploy/kind-config.yaml",
+      "role": "deploy",
+      "sha256": "2a49c13a42a3117c698b6ef28438d3af685b9bebefb3e6d6f6048f69d0101bd0"
+    },
+    {
+      "path": "deploy/audit-policy.yaml",
+      "role": "deploy",
+      "sha256": "d1664b367eabc90888174d444efa890e583afb108dfd39699c026965a0f1180f"
+    },
+    {
+      "path": "deploy/namespace.yaml",
+      "role": "deploy_template",
+      "sha256": "dde1f020b4a20d1050ee10b3cdddf356f4b8db17ddb2d9784a5a48eb51e5215a"
+    },
+    {
+      "path": "deploy/rbac.yaml",
+      "role": "deploy_template",
+      "sha256": "b231f3a531f39146fdb66d1b658314f95a2753bf6ffc42e3e4913766074f1802"
+    },
+    {
+      "path": "deploy/webhook.yaml",
+      "role": "deploy_template",
+      "sha256": "a66602c7ecbb5ea70cf7908b62cedbc5d4aa55963f2ece4ede58c75cc6bb4cec"
+    },
+    {
+      "path": "deploy/webhook-config.yaml",
+      "role": "deploy_template",
+      "sha256": "448f708b1b984f9460e0e6c32443740827f20710ccc17f049aa8d794effa7410"
+    },
+    {
+      "path": "deploy/render.sh",
+      "role": "deploy_tool",
+      "sha256": "b604229e0ee0f7bb07dbea6c4efaff17b0b0d41259ab1a36a67fc206c415e955"
+    },
+    {
+      "path": "deploy/gen_certs.sh",
+      "role": "deploy_tool",
+      "sha256": "d2f04540a52b1010414f66a6ce6ba684a2578b9f23a27ac8e8c80e7d0d7050f1"
+    },
+    {
+      "path": "deploy/tests/validate_deploy.py",
+      "role": "deploy_tests",
+      "sha256": "03b52f7d58cc53ab0e9aff5124600db53d1584c5b470147a5ea8d00d9e1a458d"
+    },
+    {
+      "path": "analysis/oracle.py",
+      "role": "analysis_oracle",
+      "sha256": "4dce99eab3245b62773f799a9920222441b00d2b6a4734b1df0d8291760c08b3"
+    },
+    {
+      "path": "analysis/analyze_e38v2.py",
+      "role": "analysis",
+      "sha256": "ddfadb74d4609518b2e9c094e4dc6d9a9af850c20afc90d56ce7b7bc0b66c447"
+    },
+    {
+      "path": "analysis/stage2_topup.py",
+      "role": "analysis_stage2",
+      "sha256": "6a4fa91614b8314c6a42b00d3a362cae31ad72eae59aa0ed6a75868f12b4a068"
+    },
+    {
+      "path": "analysis/e38v2_common.py",
+      "role": "analysis_common",
+      "sha256": "bfca7b44ab42d355dcbfca9f10ff1058f6aa1060957b434f07d6ade33204b99b"
+    },
+    {
+      "path": "analysis/fixtures/synth.py",
+      "role": "analysis_test_simulator",
+      "sha256": "36dcab75f5a4df7bf976ffd4c9083d1fc52a59109bbcc59fac479e465530c7a1"
+    },
+    {
+      "path": "analysis/tests/conftest.py",
+      "role": "analysis_tests",
+      "from_glob": "analysis/tests/*.py",
+      "sha256": "13bef64ed94d693583111a9fafe8a4a936ba026ce5b0da2e4ee3e0c7bb74da4c"
+    },
+    {
+      "path": "analysis/tests/test_e2e_runner_offline.py",
+      "role": "analysis_tests",
+      "from_glob": "analysis/tests/*.py",
+      "sha256": "9fb09317bad08a98ca4f6e3f62a8a2df1f45638594397f52154bb7a74a8d5360"
+    },
+    {
+      "path": "analysis/tests/test_oracle.py",
+      "role": "analysis_tests",
+      "from_glob": "analysis/tests/*.py",
+      "sha256": "77737c4cb7c5ab018b3528a6284b14c30eeef316ac73bb6b185d055e74ce0057"
+    },
+    {
+      "path": "analysis/tests/test_pipeline.py",
+      "role": "analysis_tests",
+      "from_glob": "analysis/tests/*.py",
+      "sha256": "ea818cdafa55cbc98e5fcc7762d603b870c1c398a38671aea4c82d36aa334d47"
+    },
+    {
+      "path": "analysis/tests/test_stats.py",
+      "role": "analysis_tests",
+      "from_glob": "analysis/tests/*.py",
+      "sha256": "a0401886a1bdf439b2a89296475c28ec0f3d25555e411a5a238fbe500d2f4b54"
+    },
+    {
+      "path": "protocol/INTERFACE_SPEC_E38v2.txt",
+      "role": "protocol",
+      "sha256": "aaa1275673db8ce11f2956157d4d13885755a2091701ca5018e4ae86b174be79"
+    },
+    {
+      "path": "protocol/ANALYSIS_PLAN_E38v2.txt",
+      "role": "protocol_analysis_plan",
+      "sha256": "6397ad46b5c99f5990fed838f6fdd609a036075828895aee62edc41eee6f60ad"
+    },
+    {
+      "path": "protocol/RUNBOOK_E38v2.txt",
+      "role": "protocol",
+      "sha256": "90b2dee7a96efbc7c28b09370425434379e522441a00531f53d11c3b45303314"
+    },
+    {
+      "path": "protocol/lock_hash.py",
+      "role": "lock_tool",
+      "sha256": "bdaafaad8b9b0881906bb1c59b11352a43da4beb20f4affe92d9d3e1b27fa359"
+    },
+    {
+      "path": "protocol/tests/test_lock_hash.py",
+      "role": "lock_tool_tests",
+      "from_glob": "protocol/tests/*.py",
+      "sha256": "5a35b03880c1f961c9d2af396fc4450f9a5ba9ae54ec03d59e624ef33421dbb9"
+    }
+  ],
+  "pinned": [
+    {
+      "path": "frozen_ref/source_provenance/E37_F5_PHYS_ORIGINAL.json",
+      "role": "model_input_provenance",
+      "expected_sha256": "c54f4331cf0d73e7cde1b5da564480bb4911d4889b4f06c9670e1da4efd3cb2f",
+      "sha256": "c54f4331cf0d73e7cde1b5da564480bb4911d4889b4f06c9670e1da4efd3cb2f"
+    }
+  ],
+  "design": {
+    "arms": [
+      "A0_native_uid",
+      "A1_dcji",
+      "A2_fullrefresh",
+      "A3_dcji_webhook"
+    ],
+    "conditions": [
+      "no_write",
+      "async_scope",
+      "async_app_policy",
+      "async_evidence_last_literal",
+      "uid_rebind_control"
+    ],
+    "async_conditions": [
+      "async_scope",
+      "async_app_policy",
+      "async_evidence_last_literal"
+    ],
+    "delta_grid_ms": [
+      -5,
+      -2,
+      -1,
+      0,
+      0.5,
+      1,
+      2,
+      3,
+      5,
+      10,
+      20,
+      50
+    ],
+    "delta_reference": "gate end, monotonic clock; no_write and uid_rebind_control use delta = null",
+    "validity_policy": "J = (a AND b) OR (c AND d) OR (e AND f); V_core = J AND scope_allowed AND app_policy_allowed; missing/unparseable -> invalid (fail closed)",
+    "sample_sizes": {
+      "stage1_per_async_cell": 39,
+      "stage1_no_write_per_arm": 39,
+      "stage1_uid_rebind_control_per_arm": 10,
+      "stage2_target_per_cell": 93
+    },
+    "stage2_rule": "After stage 1, top up to n = 93 every (arm x async condition x delta) cell with 0.05 < p_hat(INVALID_EXECUTED) < 0.95, computed by analysis/stage2_topup.py (hashed above). Pre-registered; no other stopping or adding.",
+    "randomization": "arm and delta randomized within blocks using schedule_seed",
+    "schedule_seed": 777002,
+    "forbidden_schedule_seeds": [
+      20260912
+    ],
+    "planner_horizon_s": 30,
+    "horizon_invariance_assertion": "certificate {a,c,e,uid,scope} identical at 5, 10, 30, 60 s; runner fails closed otherwise",
+    "webhook_arm_selection": "A3 target Pods carry label e38v2-webhook=enforce (VWC objectSelector); A0-A2 target Pods do not"
+  },
+  "environment": {
+    "cluster_name": "e38v2",
+    "kubeconfig_context": "kind-e38v2",
+    "kubernetes_version": "v1.37.0",
+    "kind_version": "v0.33.0",
+    "kubectl_client_version": "v1.37.0",
+    "node_image": "kindest/node:v1.37.0",
+    "node_image_id": null,
+    "webhook_image": "python:3.12-slim",
+    "webhook_image_id": null,
+    "host": "Azure VM, Ubuntu 24.04, Python 3.12.3",
+    "protected_clusters_never_touched": [
+      "mape-cap-confirm",
+      "mcb-k137",
+      "rev-n5"
+    ]
+  },
+  "webhook": {
+    "failurePolicy": "Fail",
+    "sideEffects": "None",
+    "timeoutSeconds": 5,
+    "matchPolicy": "Exact",
+    "rules": "DELETE core/v1 pods, Namespaced",
+    "namespaceSelector": "kubernetes.io/metadata.name = e38v2-<run_id>",
+    "objectSelector": "e38v2-webhook = enforce",
+    "exempt_identities": [
+      "system:serviceaccount:e38v2-system:e38v2-reset",
+      "system:node:*",
+      "system:serviceaccount:kube-system:namespace-controller",
+      "system:serviceaccount:kube-system:generic-garbage-collector"
+    ],
+    "api_timeout_s": 1.0,
+    "budget_s": 3.5,
+    "read_mode": "8 sequential quorum GETs (no resourceVersion) over one persistent HTTPS connection"
+  },
+  "signers": [
+    {
+      "name": null,
+      "role": null,
+      "signed_utc": null,
+      "signature": null
+    },
+    {
+      "name": null,
+      "role": null,
+      "signed_utc": null,
+      "signature": null
+    }
+  ],
+  "lock_sha256": "253b05536945997d708a800703d5c8f7dc5d5285d71f83e9c5e1225a6c26f96d",
+  "schedule_seed": 777002,
+  "run_id": "smoke-20260926b",
+  "schedule_path": "results/smoke-20260926b/SCHEDULE.json",
+  "schedule_sha256": "226304d078a1fb36575166f93b3e8db0d2bcd2bd271573e2ce4d88bc2a4af887",
+  "analysis_plan_path": "protocol/ANALYSIS_PLAN_E38v2.txt",
+  "analysis_plan_sha256": "6397ad46b5c99f5990fed838f6fdd609a036075828895aee62edc41eee6f60ad",
+  "status": "LOCKED-2026-09-26T08:03:45Z"
+}

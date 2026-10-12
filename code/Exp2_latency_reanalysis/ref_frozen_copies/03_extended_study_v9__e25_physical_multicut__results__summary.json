@@ -1,0 +1,18 @@
+{
+  "n_total": 90,
+  "mismatches": 0,
+  "discordant": 0,
+  "mean_dcji_request_count": 6.0,
+  "mean_full_request_count": 6.0,
+  "mean_request_count_reduction": 0.0,
+  "trials_with_nonzero_reduction": 0,
+  "planner_certificate": [
+    "flag_a",
+    "flag_b",
+    "flag_c",
+    "flag_d",
+    "flag_e",
+    "flag_f"
+  ],
+  "planner_cost": 6.0
+}

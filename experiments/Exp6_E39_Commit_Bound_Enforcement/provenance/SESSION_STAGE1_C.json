@@ -1,0 +1,110 @@
+{
+  "schema": "e39.session.v1",
+  "created_wall": "2026-09-26T18:47:01Z",
+  "clock_anchor": {
+    "mono_ns": 67527632666441,
+    "wall_ns": 1790448421211325696
+  },
+  "file_sha256": {
+    "action_netpol.py": "d56a6f2031499ef2e2ddcd86ef0f692b471828db8e184cd83242aa06b3002f31",
+    "arms_commit.py": "b29d2379d7fa5061502e9a4fb487dbde3832f492b1bae65e65148f0c79b05692",
+    "conditions_e39.py": "21401c30fea4922875605f1c49c37cb9201d0020b1c09be007547bad57ff927d",
+    "e38_independent_offline_oracle.py": "43a709db2581cffbcf8ca0ccd7c3d6ff4aa46e03bf8c5e77298c604897e2eea8",
+    "e38v2_model.py": "0b1c37f50869d3f3bc2fb2cd898f9ded0c273ef85434ddddbf08e6399d430859",
+    "e38v2_runner.py": "6642740fa57703187df0918da31ede8e0e8ad22a9c7256c6da5af1a52c7e3da9",
+    "e39_fragments.py": "7290a9581609c24c67998dce04e55cd64aadc80ae89564a9a382a655e6895514",
+    "e39_kube.py": "a7696f01200ec586af481e7d82c17717b591b251e1ecf5a1152afc419ed947bd",
+    "e39_runner.py": "e67346d5058c90830fc9718b0c9f85355a34012952ac2d7eb70b9b780423b527",
+    "fake_api.py": "eca2bbf67ceebfd728e38942873e0d551dccaf982cdaa1471b5a83039f9ce5c8",
+    "goclient_bridge.py": "9d5c4fda59e7915e33a07737cf9cf06ee90b80d6411be95a4bf9197a4bfb17cf",
+    "harness_arrivals.py": "b11c48fe4a12597123ebfc6cb34f5b7096e73b0074b0a34803d80dc6308b3faa",
+    "harness_delay_proxy.py": "3ab84efff6364cbb495654743873cc3421edb4a20852fef149a138f37c61aeec",
+    "harness_load.py": "08693dfc52b56a274a1a85c2c4669096a5a1964d41c585a0f628a4cd4d1e6723",
+    "harness_util.py": "7e9b87cb38339b101129dc0fa518a2577388e4b275961d111b4f31902bf8c20c",
+    "mirror_controller.py": "e93564481eeec2252a72b281e0deb7028f826a34972ed9473778f4d68111e60a",
+    "pod_watch.py": "5c17cafed35035de9d211882fc459c7b90384ad8f729d0476689c45b19b818df",
+    "schema.py": "7d2cb085cd7c0d826f96fd17c4d4f1cfee905bb29438516bee0b7008c8c11c40",
+    "schema_e39.py": "8d0604c0fb78064004a4160ff958b7b3dbbd794ca4a71d8e071fb8fb3e2c14ae",
+    "test_e38v2.py": "ac01b4fc42b09a2cf8ba80afe10521ae9522f7df8c1d9c77b84c3009a9146ee4",
+    "test_e39_commit.py": "1e2a8dac17f673d3d75cd6d07b9d49e113be1b3141c66612da3898326a979727",
+    "test_e39_mirror.py": "da41c84536b13c94ce287abd92c4d67d9ec7a33e4eea5d44287c2cdfa3bbecb3",
+    "test_e39_netpol_conditions.py": "7873698e40b5253171114939e7e1617ce675b815b870232403dbc5139ff6786a",
+    "test_e39_runner.py": "261aa892ca39b8289b577a8ca7729ebc12ec4bf8eb5fa657d0b2e082eea63adb",
+    "test_goclient_bridge.py": "3873f4d50cd90f7e6b9b5cb4d5e0c2ba82ae4e282764a3bcb2b95eb48baaaaab",
+    "test_pod_watch.py": "3d4dd46397aa05c5abcf84061601cc28bcabcc576046222baa703f3eeb5cf8f6",
+    "writer.py": "b0d1abb59247a55543213e66512c7984c3c5641fdb1c74799af10d47094310f6",
+    "flashir_core/__init__.py": "4b5ae5eaf5a4abb7261b679c773c843c2c1907204347c65b7eee62391c1e5550",
+    "flashir_core/dcji.py": "adec97f6e46cbe006510f8fbabeed3dbfe94422f8226dfa3ae48dc68a788eb77",
+    "flashir_core/defenses.py": "7d02941bdcc830cda3883ef4a546e75910383741d6baa9882c2ce88ab246838b",
+    "flashir_core/engine.py": "a7227732ab7d30a1cecd61b622c6ec51d5c3c7768293c63d29bdafd34b9a943d",
+    "flashir_core/expr.py": "f3e0aabf853755e7e2be6c77391022977c81220185b30bbbfe20d2a73c856a25",
+    "flashir_core/io.py": "229fdc6186185a7318c535f3d5fee1a4379054bcf2751dc052b4cf7f44ab4fcd",
+    "flashir_core/refresh.py": "444bc1c10e95bdcb07ea5204cbf8c82d57f113413e82bb72addb30a13330cc05",
+    "goclient/bin/e39-goclient": "6c7a68fc972d0d9a60123a2d2e3d987d874df11ed07a23470e96d8afac7398b7",
+    "goclient/go.sum": "b71d045a9d9a5015db223bc978276e37f0050ab062ba64324ae52780c6cd4cfc",
+    "goclient/go.mod": "d6f8530173a339bb36c776f38c08066af8e4bedd4eefeb9982c5fb1fe37cd79a"
+  },
+  "python": "3.12.3",
+  "switchinterval_s": 4.9999999999999996e-05,
+  "mirror": {
+    "started_only_for": "A4m trials",
+    "resync_s": 3600.0,
+    "wait_for_propagation_s": 2.0
+  },
+  "runtime_model": {
+    "sec_per_running_pod_delete_trial_measured_smoke": 0.77,
+    "uid_rebind_extra_s_smoke": 0.8,
+    "a4m_mirror_extra_s_smoke": 0.1,
+    "b_arrival_tail_s": 0.05,
+    "e_netpol_cleanup_s_smoke": 0.0,
+    "c_overhead_s_smoke": 0.05,
+    "c_reads": "sequential: n_reads x c (A1 3, A2 6); parallel: c",
+    "c_planning_s_estimate": 0.01,
+    "d_level_settle_s": 10.0,
+    "note": "constants measured in the e39 smoke run smoke-e39-20260926a (budget 5 h, Amendment 1)"
+  },
+  "run_id": "e39-20260926t1515z",
+  "stage": 1,
+  "schedule_seed": 972231175,
+  "namespace": "e39-e39-20260926t1515z",
+  "context": "kind-e39",
+  "experiments": [
+    "C"
+  ],
+  "identities": {
+    "responder": {
+      "username": "system:serviceaccount:e39-system:e39-responder",
+      "token_file": "responder.token (not exported)"
+    },
+    "reset": {
+      "username": "system:serviceaccount:e39-system:e39-reset",
+      "token_file": "reset.token (not exported)"
+    },
+    "writer": {
+      "username": "system:serviceaccount:e39-system:e39-writer",
+      "token_file": "writer.token (not exported)"
+    }
+  },
+  "api_server": "https://127.0.0.1:46551",
+  "ca_sha256": "dd2c8b3235b5b9981ed006ae521e1b717a4fe4efc320a12ac70b0d3dc058d89f",
+  "apiserver_version": "v1.37.0",
+  "certificate": [
+    "a",
+    "c",
+    "e",
+    "scope",
+    "uid"
+  ],
+  "f5_path": "/home/azureuser/e39_20260926/frozen_ref/source_provenance/E37_F5_PHYS_ORIGINAL.json",
+  "f5_sha256": "c54f4331cf0d73e7cde1b5da564480bb4911d4889b4f06c9670e1da4efd3cb2f",
+  "schedule_file": "/home/azureuser/e39_20260926/results/e39-20260926t1515z/SCHEDULE.json",
+  "schedule_sha256": "295219f3f1c1dfcde657b0f17563fd11fd36b7865c5a5818b80832c4eaddc6c5",
+  "n_scheduled": 3840,
+  "lock_file": "protocol/LOCK_E39.json",
+  "lock_sha256_field": "5dab959095b999e223aeaf28f579b36eaca27eeed183989beac508b578f910ac",
+  "lock_status": "LOCKED-2026-09-26T15:22:23Z",
+  "unlocked_smoke": false,
+  "go_argv": null,
+  "go_client_version": null,
+  "load_level_settle_s": 10.0
+}

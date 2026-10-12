@@ -1,0 +1,20 @@
+{
+  "analysis": "frozen E39 oracle with retained E52 RequestResponse audit evidence",
+  "async_a4d_trials": 9360,
+  "async_primary_class_counts": {
+    "CORRECT_ABORT": 271,
+    "VALID_EXECUTED": 9089
+  },
+  "no_write_controls": 624,
+  "note": "E52 is a separate replication and is not pooled with the primary 0/42 study.",
+  "primary_class_counts": {
+    "CORRECT_ABORT": 271,
+    "UID_BLOCKED": 160,
+    "VALID_EXECUTED": 9713
+  },
+  "raw_trials": 10144,
+  "stale_accepts_among_challenges": 0,
+  "uid_rebind_controls": 160,
+  "wilson95_upper_if_zero": 0.013976999093140033,
+  "writer_attributed_rv_precondition_challenges": 271
+}

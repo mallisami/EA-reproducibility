@@ -1,0 +1,202 @@
+gate {'design_check': 'strict', 'lock_seed': 154080643, 'lock_unverified_hash_fields': ['lock_sha256', 'stage2_topup_sha256'], 'lock_verified': ['analysis/analyze_e38v2.py', 'analysis/e38v2_common.py', 'analysis/fixtures/synth.py', 'analysis/oracle.py', 'analysis/stage2_topup.py', 'analysis/tests/conftest.py', 'analysis/tests/test_e2e_runner_offline.py', 'analysis/tests/test_oracle.py', 'analysis/tests/test_pipeline.py', 'analysis/tests/test_stats.py', 'deploy/audit-policy.yaml', 'deploy/gen_certs.sh', 'deploy/kind-config.yaml', 'deploy/namespace.yaml', 'deploy/rbac.yaml', 'deploy/render.sh', 'deploy/tests/validate_deploy.py', 'deploy/webhook-config.yaml', 'deploy/webhook.yaml', 'frozen_ref/source_provenance/E37_F5_PHYS_ORIGINAL.json', 'protocol/ANALYSIS_PLAN_E38v2.txt', 'protocol/INTERFACE_SPEC_E38v2.txt', 'protocol/RUNBOOK_E38v2.txt', 'protocol/lock_hash.py', 'protocol/tests/test_lock_hash.py', 'src/DESIGN_NOTES.txt', 'src/e38_independent_offline_oracle.py', 'src/e38v2_model.py', 'src/e38v2_runner.py', 'src/fake_api.py', 'src/flashir_core/__init__.py', 'src/flashir_core/dcji.py', 'src/flashir_core/defenses.py', 'src/flashir_core/engine.py', 'src/flashir_core/expr.py', 'src/flashir_core/io.py', 'src/flashir_core/refresh.py', 'src/pod_watch.py', 'src/schema.py', 'src/test_e38v2.py', 'src/test_pod_watch.py', 'src/writer.py', 'webhook/policy.py', 'webhook/server.py', 'webhook/tests/fixtures/create_target.json', 'webhook/tests/fixtures/delete_other_ns.json', 'webhook/tests/fixtures/delete_target.json', 'webhook/tests/test_https_loopback.py', 'webhook/tests/test_policy.py', 'webhook/tests/test_server.py', 'schedule_sha256', 'stage2_schedule_sha256', 'analysis_plan_sha256'], 'n_observed': 8728, 'n_planned': 8728, 'passed': True} confirmatory True
+versions e38v2.analysis.v1.2 e38v2.oracle.v1.2
+overall primary {'CORRECT_ABORT': 1077, 'FALSE_ABORT': 0, 'INFRA_ERROR': 0, 'INVALID_EXECUTED': 4979, 'UID_BLOCKED': 40, 'UNKNOWN': 0, 'VALID_EXECUTED': 2632}
+overall secondary (v1.2) {'CORRECT_ABORT': 988, 'FALSE_ABORT': 89, 'INFRA_ERROR': 0, 'INVALID_EXECUTED': 4992, 'UID_BLOCKED': 40, 'UNKNOWN': 0, 'VALID_EXECUTED': 2619}
+overall tertiary (v1 rule) {'CORRECT_ABORT': 988, 'FALSE_ABORT': 89, 'INFRA_ERROR': 0, 'INVALID_EXECUTED': 53, 'UID_BLOCKED': 40, 'UNKNOWN': 0, 'VALID_EXECUTED': 7558}
+unknown reasons {}
+infra reasons {}
+pod events {'n_events': 61957, 'n_trials_delete_rv_from_pod_watch': 55, 'supplied': True}
+
+HEADLINE P(INVALID_EXECUTED) primary: arm | condition | delta | k/n | p | Wilson95 | sec k/n p | ter k/n p | stage1 k/n | flag
+A0_native_uid|no_write|NA|0/39|0.000|[0.000,0.090]|0/39 0.000|0/39 0.000|0/39|
+A0_native_uid|async_scope|-5|39/39|1.000|[0.910,1.000]|39/39 1.000|3/39 0.077|39/39|
+A0_native_uid|async_scope|-2|39/39|1.000|[0.910,1.000]|39/39 1.000|3/39 0.077|39/39|
+A0_native_uid|async_scope|-1|39/39|1.000|[0.910,1.000]|39/39 1.000|1/39 0.026|39/39|
+A0_native_uid|async_scope|0|39/39|1.000|[0.910,1.000]|39/39 1.000|0/39 0.000|39/39|
+A0_native_uid|async_scope|0.5|39/39|1.000|[0.910,1.000]|39/39 1.000|0/39 0.000|39/39|
+A0_native_uid|async_scope|1|39/39|1.000|[0.910,1.000]|39/39 1.000|0/39 0.000|39/39|
+A0_native_uid|async_scope|2|90/93|0.968|[0.909,0.989]|89/93 0.957|0/93 0.000|37/39|
+A0_native_uid|async_scope|3|86/93|0.925|[0.853,0.963]|84/93 0.903|0/93 0.000|33/39|
+A0_native_uid|async_scope|5|78/93|0.839|[0.751,0.900]|76/93 0.817|0/93 0.000|32/39|
+A0_native_uid|async_scope|10|21/93|0.226|[0.153,0.321]|23/93 0.247|0/93 0.000|9/39|
+A0_native_uid|async_scope|20|16/93|0.172|[0.109,0.261]|18/93 0.194|0/93 0.000|10/39|
+A0_native_uid|async_scope|50|5/93|0.054|[0.023,0.120]|5/93 0.054|0/93 0.000|3/39|
+A0_native_uid|async_app_policy|-5|39/39|1.000|[0.910,1.000]|39/39 1.000|3/39 0.077|39/39|
+A0_native_uid|async_app_policy|-2|39/39|1.000|[0.910,1.000]|39/39 1.000|2/39 0.051|39/39|
+A0_native_uid|async_app_policy|-1|39/39|1.000|[0.910,1.000]|39/39 1.000|2/39 0.051|39/39|
+A0_native_uid|async_app_policy|0|39/39|1.000|[0.910,1.000]|39/39 1.000|0/39 0.000|39/39|
+A0_native_uid|async_app_policy|0.5|39/39|1.000|[0.910,1.000]|38/39 0.974|0/39 0.000|39/39|
+A0_native_uid|async_app_policy|1|39/39|1.000|[0.910,1.000]|36/39 0.923|0/39 0.000|39/39|
+A0_native_uid|async_app_policy|2|39/39|1.000|[0.910,1.000]|39/39 1.000|0/39 0.000|39/39|
+A0_native_uid|async_app_policy|3|88/93|0.946|[0.880,0.977]|88/93 0.946|0/93 0.000|37/39|
+A0_native_uid|async_app_policy|5|77/93|0.828|[0.739,0.891]|77/93 0.828|0/93 0.000|32/39|
+A0_native_uid|async_app_policy|10|23/93|0.247|[0.171,0.344]|23/93 0.247|0/93 0.000|7/39|
+A0_native_uid|async_app_policy|20|7/93|0.075|[0.037,0.147]|6/93 0.065|0/93 0.000|2/39|
+A0_native_uid|async_app_policy|50|4/93|0.043|[0.017,0.105]|5/93 0.054|0/93 0.000|2/39|
+A0_native_uid|async_evidence_last_literal|-5|39/39|1.000|[0.910,1.000]|39/39 1.000|2/39 0.051|39/39|
+A0_native_uid|async_evidence_last_literal|-2|39/39|1.000|[0.910,1.000]|39/39 1.000|1/39 0.026|39/39|
+A0_native_uid|async_evidence_last_literal|-1|39/39|1.000|[0.910,1.000]|39/39 1.000|2/39 0.051|39/39|
+A0_native_uid|async_evidence_last_literal|0|38/39|0.974|[0.868,0.995]|37/39 0.949|0/39 0.000|38/39|
+A0_native_uid|async_evidence_last_literal|0.5|39/39|1.000|[0.910,1.000]|39/39 1.000|0/39 0.000|39/39|
+A0_native_uid|async_evidence_last_literal|1|39/39|1.000|[0.910,1.000]|37/39 0.949|0/39 0.000|39/39|
+A0_native_uid|async_evidence_last_literal|2|39/39|1.000|[0.910,1.000]|39/39 1.000|0/39 0.000|39/39|
+A0_native_uid|async_evidence_last_literal|3|38/39|0.974|[0.868,0.995]|38/39 0.974|0/39 0.000|38/39|
+A0_native_uid|async_evidence_last_literal|5|75/93|0.806|[0.715,0.874]|76/93 0.817|0/93 0.000|32/39|
+A0_native_uid|async_evidence_last_literal|10|32/93|0.344|[0.255,0.445]|35/93 0.376|0/93 0.000|12/39|
+A0_native_uid|async_evidence_last_literal|20|11/93|0.118|[0.067,0.199]|11/93 0.118|0/93 0.000|5/39|
+A0_native_uid|async_evidence_last_literal|50|7/93|0.075|[0.037,0.147]|6/93 0.065|0/93 0.000|4/39|
+A0_native_uid|uid_rebind_control|NA|0/10|0.000|[0.000,0.278]|0/10 0.000|0/10 0.000|0/10|
+A1_dcji|no_write|NA|0/39|0.000|[0.000,0.090]|0/39 0.000|0/39 0.000|0/39|
+A1_dcji|async_scope|-5|39/39|1.000|[0.910,1.000]|39/39 1.000|1/39 0.026|39/39|
+A1_dcji|async_scope|-2|39/39|1.000|[0.910,1.000]|39/39 1.000|2/39 0.051|39/39|
+A1_dcji|async_scope|-1|39/39|1.000|[0.910,1.000]|39/39 1.000|2/39 0.051|39/39|
+A1_dcji|async_scope|0|39/39|1.000|[0.910,1.000]|39/39 1.000|0/39 0.000|39/39|
+A1_dcji|async_scope|0.5|39/39|1.000|[0.910,1.000]|39/39 1.000|0/39 0.000|39/39|
+A1_dcji|async_scope|1|39/39|1.000|[0.910,1.000]|39/39 1.000|0/39 0.000|39/39|
+A1_dcji|async_scope|2|39/39|1.000|[0.910,1.000]|39/39 1.000|0/39 0.000|39/39|
+A1_dcji|async_scope|3|88/93|0.946|[0.880,0.977]|87/93 0.935|0/93 0.000|36/39|
+A1_dcji|async_scope|5|75/93|0.806|[0.715,0.874]|72/93 0.774|0/93 0.000|33/39|
+A1_dcji|async_scope|10|17/93|0.183|[0.117,0.273]|18/93 0.194|0/93 0.000|10/39|
+A1_dcji|async_scope|20|12/93|0.129|[0.075,0.212]|13/93 0.140|0/93 0.000|5/39|
+A1_dcji|async_scope|50|5/93|0.054|[0.023,0.120]|6/93 0.065|0/93 0.000|2/39|
+A1_dcji|async_app_policy|-5|39/39|1.000|[0.910,1.000]|39/39 1.000|0/39 0.000|39/39|
+A1_dcji|async_app_policy|-2|39/39|1.000|[0.910,1.000]|39/39 1.000|3/39 0.077|39/39|
+A1_dcji|async_app_policy|-1|39/39|1.000|[0.910,1.000]|39/39 1.000|0/39 0.000|39/39|
+A1_dcji|async_app_policy|0|38/39|0.974|[0.868,0.995]|38/39 0.974|0/39 0.000|38/39|
+A1_dcji|async_app_policy|0.5|39/39|1.000|[0.910,1.000]|38/39 0.974|0/39 0.000|39/39|
+A1_dcji|async_app_policy|1|39/39|1.000|[0.910,1.000]|39/39 1.000|0/39 0.000|39/39|
+A1_dcji|async_app_policy|2|39/39|1.000|[0.910,1.000]|39/39 1.000|0/39 0.000|39/39|
+A1_dcji|async_app_policy|3|39/39|1.000|[0.910,1.000]|38/39 0.974|0/39 0.000|39/39|
+A1_dcji|async_app_policy|5|72/93|0.774|[0.679,0.847]|75/93 0.806|0/93 0.000|30/39|
+A1_dcji|async_app_policy|10|27/93|0.290|[0.208,0.389]|30/93 0.323|0/93 0.000|10/39|
+A1_dcji|async_app_policy|20|9/93|0.097|[0.052,0.174]|10/93 0.108|0/93 0.000|4/39|
+A1_dcji|async_app_policy|50|6/93|0.065|[0.030,0.134]|6/93 0.065|0/93 0.000|3/39|
+A1_dcji|async_evidence_last_literal|-5|39/39|1.000|[0.910,1.000]|39/39 1.000|4/39 0.103|39/39|
+A1_dcji|async_evidence_last_literal|-2|39/39|1.000|[0.910,1.000]|39/39 1.000|3/39 0.077|39/39|
+A1_dcji|async_evidence_last_literal|-1|39/39|1.000|[0.910,1.000]|39/39 1.000|0/39 0.000|39/39|
+A1_dcji|async_evidence_last_literal|0|39/39|1.000|[0.910,1.000]|39/39 1.000|0/39 0.000|39/39|
+A1_dcji|async_evidence_last_literal|0.5|39/39|1.000|[0.910,1.000]|38/39 0.974|0/39 0.000|39/39|
+A1_dcji|async_evidence_last_literal|1|39/39|1.000|[0.910,1.000]|39/39 1.000|0/39 0.000|39/39|
+A1_dcji|async_evidence_last_literal|2|39/39|1.000|[0.910,1.000]|39/39 1.000|0/39 0.000|39/39|
+A1_dcji|async_evidence_last_literal|3|38/39|0.974|[0.868,0.995]|37/39 0.949|0/39 0.000|38/39|
+A1_dcji|async_evidence_last_literal|5|77/93|0.828|[0.739,0.891]|75/93 0.806|0/93 0.000|34/39|
+A1_dcji|async_evidence_last_literal|10|24/93|0.258|[0.180,0.355]|27/93 0.290|0/93 0.000|12/39|
+A1_dcji|async_evidence_last_literal|20|14/93|0.151|[0.092,0.237]|15/93 0.161|0/93 0.000|5/39|
+A1_dcji|async_evidence_last_literal|50|1/39|0.026|[0.005,0.132]|1/39 0.026|0/39 0.000|1/39|
+A1_dcji|uid_rebind_control|NA|0/10|0.000|[0.000,0.278]|0/10 0.000|0/10 0.000|0/10|
+A2_fullrefresh|no_write|NA|0/39|0.000|[0.000,0.090]|0/39 0.000|0/39 0.000|0/39|
+A2_fullrefresh|async_scope|-5|39/39|1.000|[0.910,1.000]|39/39 1.000|1/39 0.026|39/39|
+A2_fullrefresh|async_scope|-2|39/39|1.000|[0.910,1.000]|39/39 1.000|0/39 0.000|39/39|
+A2_fullrefresh|async_scope|-1|39/39|1.000|[0.910,1.000]|39/39 1.000|4/39 0.103|39/39|
+A2_fullrefresh|async_scope|0|39/39|1.000|[0.910,1.000]|39/39 1.000|0/39 0.000|39/39|
+A2_fullrefresh|async_scope|0.5|39/39|1.000|[0.910,1.000]|37/39 0.949|0/39 0.000|39/39|
+A2_fullrefresh|async_scope|1|39/39|1.000|[0.910,1.000]|39/39 1.000|0/39 0.000|39/39|
+A2_fullrefresh|async_scope|2|38/39|0.974|[0.868,0.995]|37/39 0.949|0/39 0.000|38/39|
+A2_fullrefresh|async_scope|3|87/93|0.935|[0.866,0.970]|86/93 0.925|0/93 0.000|36/39|
+A2_fullrefresh|async_scope|5|79/93|0.849|[0.763,0.908]|82/93 0.882|0/93 0.000|33/39|
+A2_fullrefresh|async_scope|10|20/93|0.215|[0.144,0.309]|22/93 0.237|0/93 0.000|11/39|
+A2_fullrefresh|async_scope|20|16/93|0.172|[0.109,0.261]|17/93 0.183|0/93 0.000|7/39|
+A2_fullrefresh|async_scope|50|3/93|0.032|[0.011,0.091]|5/93 0.054|0/93 0.000|3/39|
+A2_fullrefresh|async_app_policy|-5|39/39|1.000|[0.910,1.000]|39/39 1.000|3/39 0.077|39/39|
+A2_fullrefresh|async_app_policy|-2|39/39|1.000|[0.910,1.000]|39/39 1.000|0/39 0.000|39/39|
+A2_fullrefresh|async_app_policy|-1|39/39|1.000|[0.910,1.000]|39/39 1.000|3/39 0.077|39/39|
+A2_fullrefresh|async_app_policy|0|39/39|1.000|[0.910,1.000]|39/39 1.000|0/39 0.000|39/39|
+A2_fullrefresh|async_app_policy|0.5|39/39|1.000|[0.910,1.000]|39/39 1.000|0/39 0.000|39/39|
+A2_fullrefresh|async_app_policy|1|39/39|1.000|[0.910,1.000]|39/39 1.000|0/39 0.000|39/39|
+A2_fullrefresh|async_app_policy|2|39/39|1.000|[0.910,1.000]|39/39 1.000|0/39 0.000|39/39|
+A2_fullrefresh|async_app_policy|3|89/93|0.957|[0.895,0.983]|88/93 0.946|0/93 0.000|37/39|
+A2_fullrefresh|async_app_policy|5|81/93|0.871|[0.788,0.925]|83/93 0.892|0/93 0.000|35/39|
+A2_fullrefresh|async_app_policy|10|35/93|0.376|[0.285,0.478]|35/93 0.376|0/93 0.000|14/39|
+A2_fullrefresh|async_app_policy|20|10/93|0.108|[0.059,0.187]|11/93 0.118|0/93 0.000|4/39|
+A2_fullrefresh|async_app_policy|50|10/93|0.108|[0.059,0.187]|9/93 0.097|0/93 0.000|2/39|
+A2_fullrefresh|async_evidence_last_literal|-5|39/39|1.000|[0.910,1.000]|39/39 1.000|3/39 0.077|39/39|
+A2_fullrefresh|async_evidence_last_literal|-2|39/39|1.000|[0.910,1.000]|39/39 1.000|1/39 0.026|39/39|
+A2_fullrefresh|async_evidence_last_literal|-1|38/39|0.974|[0.868,0.995]|38/39 0.974|4/39 0.103|38/39|
+A2_fullrefresh|async_evidence_last_literal|0|39/39|1.000|[0.910,1.000]|39/39 1.000|0/39 0.000|39/39|
+A2_fullrefresh|async_evidence_last_literal|0.5|39/39|1.000|[0.910,1.000]|38/39 0.974|0/39 0.000|39/39|
+A2_fullrefresh|async_evidence_last_literal|1|39/39|1.000|[0.910,1.000]|39/39 1.000|0/39 0.000|39/39|
+A2_fullrefresh|async_evidence_last_literal|2|39/39|1.000|[0.910,1.000]|39/39 1.000|0/39 0.000|39/39|
+A2_fullrefresh|async_evidence_last_literal|3|85/93|0.914|[0.839,0.956]|84/93 0.903|0/93 0.000|35/39|
+A2_fullrefresh|async_evidence_last_literal|5|72/93|0.774|[0.679,0.847]|72/93 0.774|0/93 0.000|31/39|
+A2_fullrefresh|async_evidence_last_literal|10|21/93|0.226|[0.153,0.321]|22/93 0.237|0/93 0.000|6/39|
+A2_fullrefresh|async_evidence_last_literal|20|12/93|0.129|[0.075,0.212]|13/93 0.140|0/93 0.000|3/39|
+A2_fullrefresh|async_evidence_last_literal|50|1/39|0.026|[0.005,0.132]|2/39 0.051|0/39 0.000|1/39|
+A2_fullrefresh|uid_rebind_control|NA|0/10|0.000|[0.000,0.278]|0/10 0.000|0/10 0.000|0/10|
+A3_dcji_webhook|no_write|NA|0/39|0.000|[0.000,0.090]|0/39 0.000|0/39 0.000|0/39|
+A3_dcji_webhook|async_scope|-5|0/39|0.000|[0.000,0.090]|0/39 0.000|0/39 0.000|0/39|
+A3_dcji_webhook|async_scope|-2|0/39|0.000|[0.000,0.090]|0/39 0.000|0/39 0.000|0/39|
+A3_dcji_webhook|async_scope|-1|0/39|0.000|[0.000,0.090]|0/39 0.000|0/39 0.000|0/39|
+A3_dcji_webhook|async_scope|0|0/39|0.000|[0.000,0.090]|0/39 0.000|0/39 0.000|0/39|
+A3_dcji_webhook|async_scope|0.5|0/39|0.000|[0.000,0.090]|0/39 0.000|0/39 0.000|0/39|
+A3_dcji_webhook|async_scope|1|0/39|0.000|[0.000,0.090]|0/39 0.000|0/39 0.000|0/39|
+A3_dcji_webhook|async_scope|2|0/39|0.000|[0.000,0.090]|0/39 0.000|0/39 0.000|0/39|
+A3_dcji_webhook|async_scope|3|0/39|0.000|[0.000,0.090]|0/39 0.000|0/39 0.000|0/39|
+A3_dcji_webhook|async_scope|5|0/39|0.000|[0.000,0.090]|0/39 0.000|0/39 0.000|0/39|
+A3_dcji_webhook|async_scope|10|49/93|0.527|[0.426,0.625]|49/93 0.527|0/93 0.000|20/39|
+A3_dcji_webhook|async_scope|20|74/93|0.796|[0.703,0.865]|74/93 0.796|0/93 0.000|28/39|
+A3_dcji_webhook|async_scope|50|21/93|0.226|[0.153,0.321]|24/93 0.258|0/93 0.000|9/39|
+A3_dcji_webhook|async_app_policy|-5|0/39|0.000|[0.000,0.090]|0/39 0.000|0/39 0.000|0/39|
+A3_dcji_webhook|async_app_policy|-2|0/39|0.000|[0.000,0.090]|0/39 0.000|0/39 0.000|0/39|
+A3_dcji_webhook|async_app_policy|-1|0/39|0.000|[0.000,0.090]|0/39 0.000|0/39 0.000|0/39|
+A3_dcji_webhook|async_app_policy|0|0/39|0.000|[0.000,0.090]|0/39 0.000|0/39 0.000|0/39|
+A3_dcji_webhook|async_app_policy|0.5|0/39|0.000|[0.000,0.090]|0/39 0.000|0/39 0.000|0/39|
+A3_dcji_webhook|async_app_policy|1|0/39|0.000|[0.000,0.090]|0/39 0.000|0/39 0.000|0/39|
+A3_dcji_webhook|async_app_policy|2|0/39|0.000|[0.000,0.090]|0/39 0.000|0/39 0.000|0/39|
+A3_dcji_webhook|async_app_policy|3|0/39|0.000|[0.000,0.090]|0/39 0.000|0/39 0.000|0/39|
+A3_dcji_webhook|async_app_policy|5|0/39|0.000|[0.000,0.090]|0/39 0.000|0/39 0.000|0/39|
+A3_dcji_webhook|async_app_policy|10|18/93|0.194|[0.126,0.285]|18/93 0.194|0/93 0.000|4/39|
+A3_dcji_webhook|async_app_policy|20|75/93|0.806|[0.715,0.874]|76/93 0.817|0/93 0.000|34/39|
+A3_dcji_webhook|async_app_policy|50|26/93|0.280|[0.199,0.378]|26/93 0.280|0/93 0.000|10/39|
+A3_dcji_webhook|async_evidence_last_literal|-5|0/39|0.000|[0.000,0.090]|0/39 0.000|0/39 0.000|0/39|
+A3_dcji_webhook|async_evidence_last_literal|-2|1/39|0.026|[0.005,0.132]|1/39 0.026|0/39 0.000|1/39|
+A3_dcji_webhook|async_evidence_last_literal|-1|4/93|0.043|[0.017,0.105]|4/93 0.043|0/93 0.000|2/39|
+A3_dcji_webhook|async_evidence_last_literal|0|60/93|0.645|[0.544,0.735]|60/93 0.645|0/93 0.000|26/39|
+A3_dcji_webhook|async_evidence_last_literal|0.5|79/93|0.849|[0.763,0.908]|79/93 0.849|0/93 0.000|30/39|
+A3_dcji_webhook|async_evidence_last_literal|1|72/93|0.774|[0.679,0.847]|72/93 0.774|0/93 0.000|31/39|
+A3_dcji_webhook|async_evidence_last_literal|2|38/39|0.974|[0.868,0.995]|38/39 0.974|0/39 0.000|38/39|
+A3_dcji_webhook|async_evidence_last_literal|3|89/93|0.957|[0.895,0.983]|89/93 0.957|0/93 0.000|36/39|
+A3_dcji_webhook|async_evidence_last_literal|5|39/39|1.000|[0.910,1.000]|39/39 1.000|0/39 0.000|39/39|
+A3_dcji_webhook|async_evidence_last_literal|10|39/39|1.000|[0.910,1.000]|39/39 1.000|0/39 0.000|39/39|
+A3_dcji_webhook|async_evidence_last_literal|20|81/93|0.871|[0.788,0.925]|81/93 0.871|0/93 0.000|33/39|
+A3_dcji_webhook|async_evidence_last_literal|50|17/93|0.183|[0.117,0.273]|21/93 0.226|0/93 0.000|9/39|
+A3_dcji_webhook|uid_rebind_control|NA|0/10|0.000|[0.000,0.278]|0/10 0.000|0/10 0.000|0/10|
+
+EXPOSURE WINDOW
+{'arm': 'A0_native_uid', 'condition': 'async_scope', 'threshold': '0.05', 'd_star_ms': 'not_closed', 'last_exposed_delta_ms': '50', 'wilson_hi_at_d_star': '', 'max_wilson_hi_at_or_above_d_star': '', 'd_star_secondary_ms': 'not_closed', 'd_star_tertiary_ms': '-1', 'boot_ci95_lo_ms': '50', 'boot_ci95_hi_ms': 'not_closed', 'boot_frac_not_closed': '0.5685', 'boot_reps': '2000'}
+{'arm': 'A0_native_uid', 'condition': 'async_app_policy', 'threshold': '0.05', 'd_star_ms': '50', 'last_exposed_delta_ms': '20', 'wilson_hi_at_d_star': '0.105426', 'max_wilson_hi_at_or_above_d_star': '0.105426', 'd_star_secondary_ms': 'not_closed', 'd_star_tertiary_ms': '0', 'boot_ci95_lo_ms': '20', 'boot_ci95_hi_ms': 'not_closed', 'boot_frac_not_closed': '0.372', 'boot_reps': '2000'}
+{'arm': 'A0_native_uid', 'condition': 'async_evidence_last_literal', 'threshold': '0.05', 'd_star_ms': 'not_closed', 'last_exposed_delta_ms': '50', 'wilson_hi_at_d_star': '', 'max_wilson_hi_at_or_above_d_star': '', 'd_star_secondary_ms': 'not_closed', 'd_star_tertiary_ms': '0', 'boot_ci95_lo_ms': '50', 'boot_ci95_hi_ms': 'not_closed', 'boot_frac_not_closed': '0.822', 'boot_reps': '2000'}
+{'arm': 'A1_dcji', 'condition': 'async_scope', 'threshold': '0.05', 'd_star_ms': 'not_closed', 'last_exposed_delta_ms': '50', 'wilson_hi_at_d_star': '', 'max_wilson_hi_at_or_above_d_star': '', 'd_star_secondary_ms': 'not_closed', 'd_star_tertiary_ms': '0', 'boot_ci95_lo_ms': '50', 'boot_ci95_hi_ms': 'not_closed', 'boot_frac_not_closed': '0.5515', 'boot_reps': '2000'}
+{'arm': 'A1_dcji', 'condition': 'async_app_policy', 'threshold': '0.05', 'd_star_ms': 'not_closed', 'last_exposed_delta_ms': '50', 'wilson_hi_at_d_star': '', 'max_wilson_hi_at_or_above_d_star': '', 'd_star_secondary_ms': 'not_closed', 'd_star_tertiary_ms': '-1', 'boot_ci95_lo_ms': '50', 'boot_ci95_hi_ms': 'not_closed', 'boot_frac_not_closed': '0.721', 'boot_reps': '2000'}
+{'arm': 'A1_dcji', 'condition': 'async_evidence_last_literal', 'threshold': '0.05', 'd_star_ms': '50', 'last_exposed_delta_ms': '20', 'wilson_hi_at_d_star': '0.13181', 'max_wilson_hi_at_or_above_d_star': '0.13181', 'd_star_secondary_ms': '50', 'd_star_tertiary_ms': '-1', 'boot_ci95_lo_ms': '50', 'boot_ci95_hi_ms': 'not_closed', 'boot_frac_not_closed': '0.271', 'boot_reps': '2000'}
+{'arm': 'A2_fullrefresh', 'condition': 'async_scope', 'threshold': '0.05', 'd_star_ms': '50', 'last_exposed_delta_ms': '20', 'wilson_hi_at_d_star': '0.0905938', 'max_wilson_hi_at_or_above_d_star': '0.0905938', 'd_star_secondary_ms': 'not_closed', 'd_star_tertiary_ms': '0', 'boot_ci95_lo_ms': '50', 'boot_ci95_hi_ms': 'not_closed', 'boot_frac_not_closed': '0.1985', 'boot_reps': '2000'}
+{'arm': 'A2_fullrefresh', 'condition': 'async_app_policy', 'threshold': '0.05', 'd_star_ms': 'not_closed', 'last_exposed_delta_ms': '50', 'wilson_hi_at_d_star': '', 'max_wilson_hi_at_or_above_d_star': '', 'd_star_secondary_ms': 'not_closed', 'd_star_tertiary_ms': '0', 'boot_ci95_lo_ms': 'not_closed', 'boot_ci95_hi_ms': 'not_closed', 'boot_frac_not_closed': '0.9785', 'boot_reps': '2000'}
+{'arm': 'A2_fullrefresh', 'condition': 'async_evidence_last_literal', 'threshold': '0.05', 'd_star_ms': '50', 'last_exposed_delta_ms': '20', 'wilson_hi_at_d_star': '0.13181', 'max_wilson_hi_at_or_above_d_star': '0.13181', 'd_star_secondary_ms': 'not_closed', 'd_star_tertiary_ms': '0', 'boot_ci95_lo_ms': '50', 'boot_ci95_hi_ms': 'not_closed', 'boot_frac_not_closed': '0.257', 'boot_reps': '2000'}
+{'arm': 'A3_dcji_webhook', 'condition': 'async_scope', 'threshold': '0.05', 'd_star_ms': 'not_closed', 'last_exposed_delta_ms': '50', 'wilson_hi_at_d_star': '', 'max_wilson_hi_at_or_above_d_star': '', 'd_star_secondary_ms': 'not_closed', 'd_star_tertiary_ms': '-5', 'boot_ci95_lo_ms': 'not_closed', 'boot_ci95_hi_ms': 'not_closed', 'boot_frac_not_closed': '1', 'boot_reps': '2000'}
+{'arm': 'A3_dcji_webhook', 'condition': 'async_app_policy', 'threshold': '0.05', 'd_star_ms': 'not_closed', 'last_exposed_delta_ms': '50', 'wilson_hi_at_d_star': '', 'max_wilson_hi_at_or_above_d_star': '', 'd_star_secondary_ms': 'not_closed', 'd_star_tertiary_ms': '-5', 'boot_ci95_lo_ms': 'not_closed', 'boot_ci95_hi_ms': 'not_closed', 'boot_frac_not_closed': '1', 'boot_reps': '2000'}
+{'arm': 'A3_dcji_webhook', 'condition': 'async_evidence_last_literal', 'threshold': '0.05', 'd_star_ms': 'not_closed', 'last_exposed_delta_ms': '50', 'wilson_hi_at_d_star': '', 'max_wilson_hi_at_or_above_d_star': '', 'd_star_secondary_ms': 'not_closed', 'd_star_tertiary_ms': '-5', 'boot_ci95_lo_ms': 'not_closed', 'boot_ci95_hi_ms': 'not_closed', 'boot_frac_not_closed': '1', 'boot_reps': '2000'}
+
+WEBHOOK LATENCY
+{'arm': 'A0_native_uid', 'n': '39', 'median_ms': '14.1021', 'p05_ms': '9.39001', 'p95_ms': '40.7113', 'hl_ms': '', 'hl_ci95_lo_ms': '', 'hl_ci95_hi_ms': ''}
+{'arm': 'A1_dcji', 'n': '39', 'median_ms': '12.663', 'p05_ms': '9.54284', 'p95_ms': '73.2215', 'hl_ms': '', 'hl_ci95_lo_ms': '', 'hl_ci95_hi_ms': ''}
+{'arm': 'A2_fullrefresh', 'n': '39', 'median_ms': '14.3303', 'p05_ms': '8.85367', 'p95_ms': '119.192', 'hl_ms': '', 'hl_ci95_lo_ms': '', 'hl_ci95_hi_ms': ''}
+{'arm': 'A3_dcji_webhook', 'n': '39', 'median_ms': '43.5215', 'p05_ms': '24.1797', 'p95_ms': '143.644', 'hl_ms': '', 'hl_ci95_lo_ms': '', 'hl_ci95_hi_ms': ''}
+{'arm': 'A3_minus_A1', 'n': '', 'median_ms': '30.8584', 'p05_ms': '', 'p95_ms': '', 'hl_ms': '30.0135', 'hl_ci95_lo_ms': '23.2165', 'hl_ci95_hi_ms': '33.8548'}
+
+AVAILABILITY
+{'arm': 'A0_native_uid', 'k_false_abort': '0', 'n_analyzable': '39', 'p_hat': '0', 'wilson_lo': '0', 'wilson_hi': '0.0896669'}
+{'arm': 'A1_dcji', 'k_false_abort': '0', 'n_analyzable': '39', 'p_hat': '0', 'wilson_lo': '0', 'wilson_hi': '0.0896669'}
+{'arm': 'A2_fullrefresh', 'k_false_abort': '0', 'n_analyzable': '39', 'p_hat': '0', 'wilson_lo': '0', 'wilson_hi': '0.0896669'}
+{'arm': 'A3_dcji_webhook', 'k_false_abort': '0', 'n_analyzable': '39', 'p_hat': '0', 'wilson_lo': '0', 'wilson_hi': '0.0896669'}
+
+oracle_agreement {'compared_with': 'secondary_class', 'n_both_classified': 8728, 'n_exact_agree': 8540, 'prop_exact_agree': 0.9784601283226397, 'kappa_invalid_executed': 0.976844806026023, 'invalid_executed_2x2': {'both': 4936, 'neither': 3693, 'primary_only': 43, 'secondary_only': 56}}
+
+oracle_agreement_tertiary {'compared_with': 'tertiary_class', 'n_both_classified': 8728, 'n_exact_agree': 3713, 'prop_exact_agree': 0.42541246562786433, 'kappa_invalid_executed': 0.009158332819023918, 'invalid_executed_2x2': {'both': 53, 'neither': 3749, 'primary_only': 4926, 'secondary_only': 0}}
+UID [{'arm': 'A0_native_uid', 'counts': {'CORRECT_ABORT': 0, 'FALSE_ABORT': 0, 'INFRA_ERROR': 0, 'INVALID_EXECUTED': 0, 'UID_BLOCKED': 10, 'UNKNOWN': 0, 'VALID_EXECUTED': 0}, 'n_observed': 10}, {'arm': 'A1_dcji', 'counts': {'CORRECT_ABORT': 0, 'FALSE_ABORT': 0, 'INFRA_ERROR': 0, 'INVALID_EXECUTED': 0, 'UID_BLOCKED': 10, 'UNKNOWN': 0, 'VALID_EXECUTED': 0}, 'n_observed': 10}, {'arm': 'A2_fullrefresh', 'counts': {'CORRECT_ABORT': 0, 'FALSE_ABORT': 0, 'INFRA_ERROR': 0, 'INVALID_EXECUTED': 0, 'UID_BLOCKED': 10, 'UNKNOWN': 0, 'VALID_EXECUTED': 0}, 'n_observed': 10}, {'arm': 'A3_dcji_webhook', 'counts': {'CORRECT_ABORT': 0, 'FALSE_ABORT': 0, 'INFRA_ERROR': 0, 'INVALID_EXECUTED': 0, 'UID_BLOCKED': 10, 'UNKNOWN': 0, 'VALID_EXECUTED': 0}, 'n_observed': 10}]
+writer release A0_native_uid {'n': 2214, 'median': 1.0695000000000001, 'p05': 0.663, 'p95': 5035.9631, 'max': 22109.224, 'frac_abs_gt_100us': 0.21680216802168023, 'frac_abs_gt_500us': 0.17750677506775067}
+writer release A1_dcji {'n': 2052, 'median': 1.162, 'p05': 0.69655, 'p95': 5066.601, 'max': 41577.731, 'frac_abs_gt_100us': 0.2573099415204678, 'frac_abs_gt_500us': 0.19980506822612085}
+writer release A2_fullrefresh {'n': 2160, 'median': 1.1175000000000002, 'p05': 0.68795, 'p95': 5068.01235, 'max': 42335.849, 'frac_abs_gt_100us': 0.2337962962962963, 'frac_abs_gt_500us': 0.1865740740740741}
+writer release A3_dcji_webhook {'n': 2106, 'median': 1.2845, 'p05': 0.72925, 'p95': 5067.1675, 'max': 27591.977, 'frac_abs_gt_100us': 0.2858499525166192, 'frac_abs_gt_500us': 0.21794871794871795}
+A3 dispatched 2155 multi-eval 498 differ 337 first-not-governing 0
+multi-eval classes Counter({'INVALID_EXECUTED': 383, 'VALID_EXECUTED': 115})
+differ classes Counter({'INVALID_EXECUTED': 335, 'VALID_EXECUTED': 2})
+deletion RV from pod watch by arm Counter({'A3_dcji_webhook': 50, 'A2_fullrefresh': 4, 'A1_dcji': 1})

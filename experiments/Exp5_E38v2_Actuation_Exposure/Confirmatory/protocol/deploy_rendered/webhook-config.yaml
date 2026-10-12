@@ -1,0 +1,51 @@
+# Template: e38v2r-20260926t1032z substituted by deploy/render.sh; the caBundle placeholder below by deploy/gen_certs.sh.
+# Installed once for the whole run (arms are randomised within blocks, so the webhook
+# cannot be toggled per trial). Per-trial arm selection is done by objectSelector:
+# the webhook is called ONLY for Pods labelled e38v2-webhook=enforce, which the runner
+# sets on the target Pod for A3_dcji_webhook trials only (for DELETE the selector is
+# evaluated against oldObject). A0/A1/A2 target Pods carry no such label -> no call, no latency.
+# Scope:
+#   - operations DELETE on core/v1 pods only, namespaced
+#   - namespaceSelector: exactly the test namespace (kubernetes.io/metadata.name is set by the API server)
+#   - objectSelector: e38v2-webhook=enforce
+#   - matchConditions (CEL, GA since v1.30): the webhook is NOT called for the reset identity,
+#     kubelets (final grace-0 DELETE of an already-terminating Pod) and the namespace/GC controllers,
+#     so fixture reset and namespace teardown can never be blocked by failurePolicy Fail.
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  name: e38v2-delete-revalidation
+  labels: {e38-managed: "true", e38-run-id: e38v2r-20260926t1032z}
+webhooks:
+- name: delete-revalidation.e38v2.e38-managed.local
+  admissionReviewVersions: ["v1"]
+  sideEffects: None
+  failurePolicy: Fail
+  matchPolicy: Exact
+  timeoutSeconds: 5
+  clientConfig:
+    service:
+      namespace: e38v2-system
+      name: e38v2-webhook
+      path: /validate
+      port: 443
+    caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURKekNDQWcrZ0F3SUJBZ0lVWkY4d3N5U2pHOXptclVmOUI1bjJjak02emNvd0RRWUpLb1pJaHZjTkFRRUwKQlFBd0d6RVpNQmNHQTFVRUF3d1FaVE00ZGpJdGQyVmlhRzl2YXkxallUQWVGdzB5TmpBNU1qWXhNRE16TVRoYQpGdzB5TmpFd01qWXhNRE16TVRoYU1Cc3hHVEFYQmdOVkJBTU1FR1V6T0hZeUxYZGxZbWh2YjJzdFkyRXdnZ0VpCk1BMEdDU3FHU0liM0RRRUJBUVVBQTRJQkR3QXdnZ0VLQW9JQkFRQ1ZoRkkrR0tiM3laV2VkOVJ6b2lCZC8xaysKcGsxaXRKZkVCWEE0MWdyLzl1VXpQUmNHUHZqNklJTmQ4U0FGWktrb1pzYzQ5UVFiVkJLS0piNW5KWk9aVkFaRwpmczcwQU5pUW0xZ2lSOG0yL1U1T3VQOFE4UTgvaUlRc0pyVHJZbzlFQ3N0dVdyOEZjSFdFMWR6aHQ4d0ZZUU1XCmFuNUJ6MTJaK2lrbEtjd3lpVUhFNVVIeGZIUlg5c1NXOEtMclUxQkRSUVZHYXR2OVBXYVJFVGxSZkpkRjFaUlAKaFBlNWVwa2hyb1ZHdk1RcFpaeE5aNWxyZ25UN0NkTGtnYnlQdVJzZ1pEU1dpN2JrcHVYZU5oOXlBemdLeGJOVApTWTdVa0wrQ1RiUTVPMmtQZWdLR1U2WGh6ZlRzYnRRSjl0aU9hd3BHRHdvLy8ya1pzb3hibmxoN1o1cXhBZ01CCkFBR2pZekJoTUIwR0ExVWREZ1FXQkJUREFTY01EWmh0WlFmZjBpT2U1WFAwalc2bnVqQWZCZ05WSFNNRUdEQVcKZ0JUREFTY01EWmh0WlFmZjBpT2U1WFAwalc2bnVqQVBCZ05WSFJNQkFmOEVCVEFEQVFIL01BNEdBMVVkRHdFQgovd1FFQXdJQkJqQU5CZ2txaGtpRzl3MEJBUXNGQUFPQ0FRRUFGY1duSnRmZmtaTmkwZVB0b0tEbHl5aDNvUkI2ClQydTd0MDM1QjVwd25YVXU0RmR6dDFjNkg2M3d3emIycTZSUTMraUhmbEFldGJmZVJLTDQwbWQ1cTdRa2ZQMW0KcmNjVTIzVk5ydGo4R2Z4T3ppRUd5VjZqdlkrdDRTTERzak1DYjNhejBNOE9hakpKUkJQV3cvcitxRm9YbmFMeQpZZ2ovWXRNMURsREh0RWU0TEVFWDBMMVpTOGVzYmZhTU45RWFoc0IxeFA3am5KTHU4R25jVzZ5ZUMycEpYT3hvClVzV3pUNlgzV3BwVWU3NGI2OEl5ZmZKVGZDaFV2eVJCWGIzenFkaVJXTXdxZlFLTnJJd0JQdmk4aEI5VVN0UXMKL0FNT1FNZ3Eva251THJYM050L21JNXJRMlltd1hURFB2YmprbFFhMG9QV2hETGQxcDlxQ1NwNjlldz09Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+  rules:
+  - apiGroups: [""]
+    apiVersions: ["v1"]
+    operations: ["DELETE"]
+    resources: ["pods"]
+    scope: Namespaced
+  namespaceSelector:
+    matchLabels:
+      kubernetes.io/metadata.name: e38v2-e38v2r-20260926t1032z
+  objectSelector:
+    matchLabels:
+      e38v2-webhook: enforce
+  matchConditions:
+  - name: exempt-reset-identity
+    expression: "request.userInfo.username != 'system:serviceaccount:e38v2-system:e38v2-reset'"
+  - name: exempt-kubelets
+    expression: "!request.userInfo.username.startsWith('system:node:')"
+  - name: exempt-namespace-and-gc-controllers
+    expression: "!(request.userInfo.username in ['system:serviceaccount:kube-system:namespace-controller', 'system:serviceaccount:kube-system:generic-garbage-collector'])"

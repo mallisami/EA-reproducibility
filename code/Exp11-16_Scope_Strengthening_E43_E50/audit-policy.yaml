@@ -1,0 +1,10 @@
+apiVersion: audit.k8s.io/v1
+kind: Policy
+omitStages: ["RequestReceived"]
+rules:
+- level: RequestResponse
+  namespaces: ["ea-followup"]
+  resources:
+  - group: ""
+    resources: ["pods", "configmaps"]
+- level: None

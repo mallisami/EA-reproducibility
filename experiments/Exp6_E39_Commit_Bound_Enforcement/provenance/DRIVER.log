@@ -1,0 +1,90 @@
+2026-09-26T15:22:37Z start A (/home/azureuser/e39_20260926/results/e39-20260926t1515z/SCHEDULE.json)
+2026-09-26T16:33:04Z end A rc=0; 2026-09-26T16:33:04Z END {"written": 5344, "infra": 0, "aborted": null, "skipped_recorded": 0, "elapsed_s": 4226.9}
+2026-09-26T16:33:04Z start G (/home/azureuser/e39_20260926/results/e39-20260926t1515z/SCHEDULE.json)
+2026-09-26T16:35:04Z end G rc=0; 2026-09-26T16:35:04Z END {"written": 156, "infra": 0, "aborted": null, "skipped_recorded": 0, "elapsed_s": 118.5}
+2026-09-26T16:35:04Z start E (/home/azureuser/e39_20260926/results/e39-20260926t1515z/SCHEDULE.json)
+2026-09-26T16:52:17Z end E rc=0; 2026-09-26T16:52:17Z END {"written": 1248, "infra": 0, "aborted": null, "skipped_recorded": 0, "elapsed_s": 1032.4}
+2026-09-26T16:52:17Z start F (/home/azureuser/e39_20260926/results/e39-20260926t1515z/SCHEDULE.json)
+2026-09-26T17:04:23Z end F rc=0; 2026-09-26T17:04:23Z END {"written": 936, "infra": 0, "aborted": null, "skipped_recorded": 0, "elapsed_s": 724.9}
+2026-09-26T17:04:23Z start B (/home/azureuser/e39_20260926/results/e39-20260926t1515z/SCHEDULE.json)
+2026-09-26T18:06:04Z end B rc=0; 2026-09-26T18:06:04Z END {"written": 4800, "infra": 0, "aborted": null, "skipped_recorded": 0, "elapsed_s": 3700.3}
+2026-09-26T18:06:04Z start D (/home/azureuser/e39_20260926/results/e39-20260926t1515z/SCHEDULE.json)
+2026-09-26T18:47:00Z end D rc=0; 2026-09-26T18:47:00Z END {"written": 1872, "infra": 0, "aborted": null, "skipped_recorded": 0, "elapsed_s": 2455.0}
+2026-09-26T18:47:00Z start C (/home/azureuser/e39_20260926/results/e39-20260926t1515z/SCHEDULE.json)
+2026-09-26T19:45:01Z end C rc=0; 2026-09-26T19:45:01Z END {"written": 3840, "infra": 0, "aborted": null, "skipped_recorded": 0, "elapsed_s": 3479.5}
+2026-09-26T19:45:01Z stage 1 complete; E39-A stage-1 analysis + stage-2 top-up
+pod_events snapshot: 101793 lines -> /home/azureuser/e39_20260926/results/e39-20260926t1515z/stage1_inputs
+f0d6d086c994b6e709181e515a5708b4bb4318780c4b76364d0bd689fe36e5c9  /home/azureuser/e39_20260926/results/e39-20260926t1515z/webhook_log.jsonl
+6fdadd2c7d807106736e62c60d1441dbf9a2f27ea0696cbeeb766f8468f944d0  /home/azureuser/e39_20260926/results/e39-20260926t1515z/audit.log
+6c480a6c8bd092c18b5299aec5f5478459c113a89c5bfcc45b3d6d84ba1f3577  /home/azureuser/e39_20260926/results/e39-20260926t1515z/apiserver.log
+      6696 /home/azureuser/e39_20260926/results/e39-20260926t1515z/webhook_log.jsonl
+    258499 /home/azureuser/e39_20260926/results/e39-20260926t1515z/audit.log
+     18196 /home/azureuser/e39_20260926/results/e39-20260926t1515z/RAW_TRIALS.jsonl
+    101793 /home/azureuser/e39_20260926/results/e39-20260926t1515z/pod_events.jsonl
+      7967 /home/azureuser/e39_20260926/results/e39-20260926t1515z/mirror_log.jsonl
+   1297358 /home/azureuser/e39_20260926/results/e39-20260926t1515z/apiserver.log
+   1690509 total
+drwxrwxr-x 2 azureuser azureuser      4096 Sep 26 18:01 .
+drwxrwxr-x 8 azureuser azureuser      4096 Sep 26 18:40 ..
+-rw------- 1 root      root      209711812 Sep 26 16:43 audit-2026-09-26T16-43-03.244.log
+-rw------- 1 root      root      209714621 Sep 26 18:01 audit-2026-09-26T18-01-17.532.log
+-rw------- 1 root      root      122617178 Sep 26 19:45 audit.log
+E39 analysis written to /home/azureuser/e39_20260926/results/e39-20260926t1515z/analysis_A_stage1 (stage 1, experiments A, 5344 trials, confirmatory=True)
+2026-09-26T19:45:24Z analysis A stage 1 rc=0
+E39-A stage-2 top-up: 47 cells, 2538 new trials
+2026-09-26T19:45:24Z stage2_topup rc=0
+{
+  "stage": 2,
+  "seed": 972231175,
+  "run_id": "e39-20260926t1515z",
+  "counts_by_experiment": {
+    "A": 2538
+  },
+  "design_totals_stage1": {
+    "A": 5344,
+    "B": 4800,
+    "C": 3840,
+    "D": 1872,
+    "E": 1248,
+    "F": 936,
+    "G": 156
+  },
+  "total_trials": 2538,
+  "c_pairs": 0,
+  "runtime_estimate": {
+    "per_experiment": {
+      "A": {
+        "trials": 2538,
+        "seconds": 2035.3,
+        "level_switches": 0,
+        "injected_latency_s": 0.0,
+        "hours": 0.565
+      }
+    },
+    "total_seconds": 2035.3,
+    "total_hours": 0.565,
+    "budget_hours": 5.0,
+    "within_budget": true,
+    "model": {
+      "sec_per_running_pod_delete_trial_measured_smoke": 0.77,
+      "uid_rebind_extra_s_smoke": 0.8,
+      "a4m_mirror_extra_s_smoke": 0.1,
+      "b_arrival_tail_s": 0.05,
+      "e_netpol_cleanup_s_smoke": 0.0,
+      "c_overhead_s_smoke": 0.05,
+      "c_reads": "sequential: n_reads x c (A1 3, A2 6); parallel: c",
+      "c_planning_s_estimate": 0.01,
+      "d_level_settle_s": 10.0,
+      "note": "constants measured in the e39 smoke run smoke-e39-20260926a (budget 5 h, Amendment 1)"
+    }
+  },
+  "schedule_file": "/home/azureuser/e39_20260926/results/e39-20260926t1515z/SCHEDULE_STAGE2.json"
+}
+2026-09-26T19:45:24Z make stage-2 schedule rc=0
+OK: 82 hashes verified, 0 problem(s), lock_sha256=5dab959095b999e223aeaf28f579b36eaca27eeed183989beac508b578f910ac
+stage-2 schedule recorded: results/e39-20260926t1515z/SCHEDULE_STAGE2.json sha256=4a9df6835c442dce7fa6c816f82944b571cfeff1a99b114fa16e12eab4887a2f; lock_sha256=36cec6d770bee0413d6491464cadce8b2f60fde86f3c43a5fc60fb2cb09b0de0
+2026-09-26T19:45:24Z lock add-stage2 rc=0; 6cf4e371a52a30433b7dce3710f988b717a91eda69f20412b5bb95b4bf3e5016  protocol/LOCK_E39.json
+stage-2 trials 2538
+2026-09-26T19:45:24Z start A (/home/azureuser/e39_20260926/results/e39-20260926t1515z/SCHEDULE_STAGE2.json)
+2026-09-26T20:13:14Z end A rc=0; 2026-09-26T20:13:14Z END {"written": 2538, "infra": 0, "aborted": null, "skipped_recorded": 0, "elapsed_s": 1668.7}
+2026-09-26T20:13:14Z ALL RUNS COMPLETE

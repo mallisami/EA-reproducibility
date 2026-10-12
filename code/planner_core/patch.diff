@@ -1,0 +1,538 @@
+diff -ruN -x __pycache__ deterministic_orig/flashir_core/dcji.py deterministic_patched/flashir_core/dcji.py
+--- deterministic_orig/flashir_core/dcji.py	1979-12-31 19:00:00.000000000 +0000
++++ deterministic_patched/flashir_core/dcji.py	2026-09-26 05:10:21.717241557 +0000
+@@ -1,8 +1,10 @@
+ 
+-import copy, heapq, itertools, json
++import copy, heapq, itertools, json, warnings
++from fractions import Fraction
+ from .engine import transition_allowed_for_attacker_model, can_apply_transition, apply_transition
+ from .expr import commit_components, eval_predicate
+-from .refresh import material_predicates, query_id_for_predicate, query_cost, refresh_queries, predicates_for_queries
++from .refresh import (material_predicates, query_id_for_predicate, query_cost, refresh_queries,
++                      predicates_for_queries, refreshable_query_ids, exact_query_cost, exact_cost_value)
+ 
+ def _state_key(state,completed):
+     semantic=copy.deepcopy(state)
+@@ -111,15 +113,76 @@
+             qids.add(qid)
+     return sorted(qids)
+ 
++# ---------------------------------------------------------------------------
++# PATCH (offline reanalysis, C2/C7): lazy best-first subset enumeration.
++#
++# The locked implementation materialised and sorted all 2^n subsets BEFORE the
++# max_subset_evals cap was consulted, so the cap bounded neither time nor memory.
++# iter_subsets_in_certificate_order() yields subsets lazily in exactly the same
++# total order the locked code used -- (cost, cardinality, lexicographic tuple of
++# query IDs in code-point order) -- using a heap over the classic "extend / replace
++# last" successor tree on indices sorted by (cost, query_id).
++#
++# Correctness (requires NON-NEGATIVE costs; checked):
++#   * every non-empty index set {i1<...<ik} has exactly one parent (extend if
++#     ik == i(k-1)+1, else replace-last from ik-1), so each subset is generated once;
++#   * children have a STRICTLY larger key than their parent: "extend" adds a
++#     non-negative cost and one element (cardinality +1); "replace last i by i+1"
++#     does not decrease cost (indices sorted by cost) and, at equal cost, replaces an
++#     ID by a code-point-larger ID, which makes the sorted ID tuple lexicographically
++#     larger at equal cardinality.
++#   Popping a heap over a tree with monotone keys therefore yields the global sorted
++#   order. The heap never holds more than evals+1 entries, so max_subset_evals now
++#   bounds both time and memory.
++# Costs are exact Fractions of the decimal literal (no float-summation order effects).
++# ---------------------------------------------------------------------------
++def iter_subsets_in_certificate_order(query_ids,cost_of):
++    """Yield (exact_cost:Fraction, subset:tuple[str]) in (cost, |subset|, subset) order.
++    query_ids: iterable of distinct query IDs; cost_of: dict qid -> Fraction (>=0)."""
++    ids=sorted(set(query_ids))                       # explicit code-point order (C7)
++    for q in ids:
++        if cost_of[q] < 0:
++            raise ValueError(f"negative query cost for {q}; lazy enumeration requires costs >= 0")
++    order=sorted(ids,key=lambda q:(cost_of[q],q))
++    yield Fraction(0),()
++    if not order:
++        return
++    def key(idx,c):
++        combo=tuple(sorted(order[i] for i in idx))
++        return (c,len(combo),combo)
++    heap=[(key((0,),cost_of[order[0]]),(0,))]
++    while heap:
++        (c,_,combo),idx=heapq.heappop(heap)
++        yield c,combo
++        last=idx[-1]
++        if last+1<len(order):
++            nxt=last+1
++            ext=idx+(nxt,)
++            heapq.heappush(heap,(key(ext,c+cost_of[order[nxt]]),ext))
++            rep=idx[:-1]+(nxt,)
++            heapq.heappush(heap,(key(rep,c-cost_of[order[last]]+cost_of[order[nxt]]),rep))
++
++def _full_refresh_rejects_all_goals(scenario,initial,goals,profile):
++    """PATCH (C1): True iff refreshing EVERY refreshable (cost>0) material query makes the
++    commit policy reject every enumerated goal state."""
++    qids=sorted(refreshable_query_ids(scenario,profile))
++    for goal in goals:
++        hybrid,_=refresh_queries(scenario,initial,goal["state"],qids,profile)
++        if commit_components(scenario,hybrid,profile)["valid"]:
++            return False
++    return True
++
+ def derive_critical_predicates(
+     scenario,deadline_s,attacker_capability=None,profile="balanced",
+     max_expansions=100000,max_subset_evals=100000
+ ):
+     enum=enumerate_attack_goals(scenario,deadline_s,attacker_capability,profile,max_expansions)
+     if enum["status"]=="UNKNOWN_TIMEOUT":
++        # PATCH (C1): goal set is incomplete, so no refresh set can be PROVEN to cover it.
+         return {"status":"UNKNOWN_TIMEOUT","critical_query_ids":None,"critical_predicates":None,
+                 "query_cost_units":None,"goal_count":len(enum["goals"]),"candidate_query_ids":None,
+-                "expanded":enum["expanded"],"subset_evals":0}
++                "expanded":enum["expanded"],"subset_evals":0,
++                "goal_enumeration_complete":False,"full_refresh_rejects_all_goals":False}
+     if not enum["goals"]:
+         return {"status":"NOT_EXPLOITABLE","critical_query_ids":[],"critical_predicates":[],
+                 "query_cost_units":0.0,"goal_count":0,"candidate_query_ids":[],
+@@ -132,19 +195,17 @@
+         per_goal.append(qs); candidate.update(qs)
+     candidates=sorted(candidate)
+ 
+-    combos=[]
+-    for r in range(len(candidates)+1):
+-        for combo in itertools.combinations(candidates,r):
+-            combos.append((query_cost(scenario,combo),len(combo),combo))
+-    combos.sort(key=lambda x:(x[0],x[1],x[2]))
+-
++    # PATCH (C2): lazy generation; the cap is enforced while generating.
++    cost_of={q:exact_cost_value(scenario["refresh_model"]["query_costs"][q]) for q in candidates}
+     evals=0
+-    for cost,_,combo in combos:
++    for cost,combo in iter_subsets_in_certificate_order(candidates,cost_of):
+         evals+=1
+         if evals>max_subset_evals:
+             return {"status":"UNKNOWN_SUBSET_TIMEOUT","critical_query_ids":None,"critical_predicates":None,
+                     "query_cost_units":None,"goal_count":len(enum["goals"]),"candidate_query_ids":candidates,
+-                    "expanded":enum["expanded"],"subset_evals":evals-1}
++                    "expanded":enum["expanded"],"subset_evals":evals-1,
++                    "goal_enumeration_complete":True,
++                    "full_refresh_rejects_all_goals":_full_refresh_rejects_all_goals(scenario,initial,enum["goals"],profile)}
+         good=True
+         for goal in enum["goals"]:
+             hybrid,_=refresh_queries(scenario,initial,goal["state"],combo,profile)
+@@ -157,6 +218,48 @@
+                     "candidate_query_ids":candidates,"per_goal_changed_queries":per_goal,
+                     "expanded":enum["expanded"],"subset_evals":evals}
+ 
++    # PATCH (C1): no subset of the (changed, cost>0) candidate queries rejects every goal.
++    # Record explicitly whether FullRefresh would; B6 must NOT fall back to it otherwise.
+     return {"status":"NO_SELECTIVE_CERTIFICATE","critical_query_ids":None,"critical_predicates":None,
+             "query_cost_units":None,"goal_count":len(enum["goals"]),"candidate_query_ids":candidates,
+-            "expanded":enum["expanded"],"subset_evals":evals}
++            "expanded":enum["expanded"],"subset_evals":evals,
++            "goal_enumeration_complete":True,
++            "full_refresh_rejects_all_goals":_full_refresh_rejects_all_goals(scenario,initial,enum["goals"],profile)}
++
++# ---------------------------------------------------------------------------
++# PATCH (validator, optional): transitions that write state observable ONLY through
++# zero-cost ("immutable") queries. Such writes can invalidate justification in a way
++# no refresh can detect; with the C1 patch B6 then aborts, but the scenario model is
++# almost certainly mis-specified, so we surface it.
++# ---------------------------------------------------------------------------
++def _paths_overlap(a,b):
++    a=a.rstrip("/"); b=b.rstrip("/")
++    return a==b or a.startswith(b+"/") or b.startswith(a+"/")
++
++def zero_cost_observability_violations(scenario,profile="balanced"):
++    costs=scenario["refresh_model"]["query_costs"]
++    mats=sorted(material_predicates(scenario,profile))
++    out=[]
++    for t in scenario["transitions"]:
++        for e in t.get("effects",[]):
++            readers=[pid for pid in mats if _paths_overlap(scenario["predicates"][pid]["path"],e["path"])]
++            if not readers:
++                continue
++            qids=sorted({query_id_for_predicate(scenario,pid) for pid in readers})
++            if all(exact_cost_value(costs[q])<=0 for q in qids):
++                out.append({"transition_id":t["transition_id"],"path":e["path"],
++                            "material_predicates":readers,"query_ids":qids})
++    return out
++
++def validate_refresh_observability(scenario,profile="balanced",mode="warn"):
++    """mode: 'off' | 'warn' (warnings.warn, returns violations) | 'reject' (raises ValueError)."""
++    if mode=="off":
++        return []
++    v=zero_cost_observability_violations(scenario,profile)
++    if v:
++        msg=(f"scenario {scenario.get('scenario_id','?')}: {len(v)} transition effect(s) write material "
++             f"state observable only through zero-cost queries: {v}")
++        if mode=="reject":
++            raise ValueError(msg)
++        warnings.warn(msg)
++    return v
+diff -ruN -x __pycache__ deterministic_orig/flashir_core/defenses.py deterministic_patched/flashir_core/defenses.py
+--- deterministic_orig/flashir_core/defenses.py	1979-12-31 19:00:00.000000000 +0000
++++ deterministic_patched/flashir_core/defenses.py	2026-09-26 05:10:26.542313079 +0000
+@@ -5,7 +5,7 @@
+     policy_predicates, refreshable_query_ids, refresh_queries,
+     query_cost, stale_query_ids, query_id_for_predicate
+ )
+-from .dcji import derive_critical_predicates
++from .dcji import derive_critical_predicates, validate_refresh_observability
+ 
+ def B0_oneshot(scenario,initial_state,commit_state,profile="balanced",**kwargs):
+     return {"defense_id":"B0","supported":True,"decision":"EXECUTE","query_cost_units":0.0,
+@@ -63,12 +63,25 @@
+             "planning_runtime_s":0.0,
+             "reason":"Atomic server-side UID/resource-version style commit precondition."}
+ 
++def _fail_closed(plan,planning_runtime,reason):
++    return {"defense_id":"B6","supported":True,"decision":"ABORT_REPLAN","query_cost_units":0.0,
++            "refreshed_predicates":[],"critical_predicates":[],"critical_query_ids":[],
++            "defense_mode":"dcji_fail_closed_abort","planning_runtime_s":planning_runtime,
++            "attack_goal_state_count":plan.get("goal_count") if plan else None,"reason":reason}
++
+ def B6_dcji_gate(
+     scenario,initial_state,commit_state,profile="balanced",deadline_s=None,
+-    attacker_capability=None,max_expansions=100000,max_subset_evals=100000,critical_plan=None,**kwargs
++    attacker_capability=None,max_expansions=100000,max_subset_evals=100000,critical_plan=None,
++    observability_check="off",**kwargs
+ ):
+     if deadline_s is None: deadline_s=float(commit_state.get("timestamp_s",0))
+     t0=time.perf_counter()
++    # PATCH (validator, optional; default 'off' preserves locked behaviour).
++    if observability_check!="off":
++        v=validate_refresh_observability(scenario,profile,mode="warn")
++        if v and observability_check=="reject":
++            return _fail_closed(None,time.perf_counter()-t0,
++                                f"Scenario has {len(v)} material write(s) observable only via zero-cost queries; fail closed.")
+     plan=critical_plan or derive_critical_predicates(
+         scenario,deadline_s,attacker_capability,profile,max_expansions,max_subset_evals
+     )
+@@ -81,12 +94,20 @@
+                 "attack_goal_state_count":0,"reason":"No modeled effectful EA-TOCTOU state is reachable before commit."}
+ 
+     if plan["status"]!="EXPLOITABLE":
+-        fb=B4_fullrefresh(scenario,initial_state,commit_state,profile)
+-        fb.update({"defense_id":"B6","defense_mode":"dcji_fallback_full_refresh",
+-                   "critical_predicates":[],"critical_query_ids":[],
+-                   "planning_runtime_s":planning_runtime,"attack_goal_state_count":plan.get("goal_count"),
+-                   "reason":f"Selective planning returned {plan['status']}; fail-safe FullRefresh fallback."})
+-        return fb
++        # PATCH (C1, fail-closed): the locked code fell back to FullRefresh unconditionally.
++        # FullRefresh never refreshes zero-cost queries, so when some goal is invalidated only
++        # through such a query FullRefresh EXECUTEs that goal (fail-open). Fall back only when
++        # the planner has PROVEN (complete goal enumeration) that FullRefresh rejects every
++        # enumerated goal; otherwise abort/replan.
++        if plan.get("goal_enumeration_complete") is True and plan.get("full_refresh_rejects_all_goals") is True:
++            fb=B4_fullrefresh(scenario,initial_state,commit_state,profile)
++            fb.update({"defense_id":"B6","defense_mode":"dcji_fallback_full_refresh",
++                       "critical_predicates":[],"critical_query_ids":[],
++                       "planning_runtime_s":planning_runtime,"attack_goal_state_count":plan.get("goal_count"),
++                       "reason":f"Selective planning returned {plan['status']}; FullRefresh fallback (proven to reject all enumerated goals)."})
++            return fb
++        return _fail_closed(plan,planning_runtime,
++                            f"Selective planning returned {plan['status']}; FullRefresh not proven to reject all goals; fail closed.")
+ 
+     qids=plan["critical_query_ids"]
+     hybrid,pids=refresh_queries(scenario,initial_state,commit_state,qids,profile)
+diff -ruN -x __pycache__ deterministic_orig/flashir_core/refresh.py deterministic_patched/flashir_core/refresh.py
+--- deterministic_orig/flashir_core/refresh.py	1979-12-31 19:00:00.000000000 +0000
++++ deterministic_patched/flashir_core/refresh.py	2026-09-26 05:10:24.134277385 +0000
+@@ -1,5 +1,6 @@
+ 
+ import copy
++from fractions import Fraction
+ from .expr import pointer_get, pointer_set
+ 
+ def policy_predicates(expr):
+@@ -29,8 +30,23 @@
+ def query_id_for_predicate(scenario,pid):
+     return scenario["refresh_model"]["predicate_query_ids"][pid]
+ 
++# PATCH (C7): exact, order-independent cost arithmetic. A cost literal is converted
++# through its shortest decimal repr (str(float)) into a Fraction, so e.g. 0.1+0.2 == 0.3
++# exactly and the result no longer depends on set-iteration (hash) order.
++def exact_cost_value(v):
++    if isinstance(v,Fraction): return v
++    if isinstance(v,int): return Fraction(v)
++    return Fraction(str(float(v)))
++
++def exact_query_cost(scenario,query_ids):
++    costs=scenario["refresh_model"]["query_costs"]
++    return sum((exact_cost_value(costs[q]) for q in sorted(set(query_ids))),Fraction(0))
++
+ def query_cost(scenario,query_ids):
+-    return sum(float(scenario["refresh_model"]["query_costs"][qid]) for qid in set(query_ids))
++    ids=set(query_ids)
++    if not ids:
++        return 0          # locked code returned int 0 for the empty set (sum of empty generator)
++    return float(exact_query_cost(scenario,ids))
+ 
+ def refreshable_query_ids(scenario,profile="balanced"):
+     out=set()
+--- /dev/null
++++ deterministic_patched/tests/test_offline_patches.py (new file)
+@@ -0,0 +1,264 @@
++"""Offline-reanalysis tests for the C1/C2/C7 patches and the observability validator.
++
++Runs against whichever flashir_core is on sys.path (pytest.ini: pythonpath = .).
++* Against the PATCHED core every test must pass.
++* Against the LOCKED core, test_i_fail_open_zero_cost_path asserts the documented
++  fail-open behaviour (EXECUTE of an attack-goal state) and the patch-only tests skip.
++"""
++import copy, itertools, json, random, time, tracemalloc, unittest, warnings
++from fractions import Fraction
++
++from flashir_core import dcji, defenses
++from flashir_core.expr import commit_components
++from flashir_core.refresh import refresh_queries
++
++PATCHED = hasattr(dcji, "iter_subsets_in_certificate_order")
++
++
++def base_scenario(facts, justification, transitions, costs, pq, binding=True):
++    s = {
++        "scenario_id": "OFFLINE_TEST", "attacker_capability_tier": "C1", "primary_policy": "balanced",
++        "initial_state": {"timestamp_s": 0, "facts": dict(facts, auth=True), "resources": [], "processes": [],
++                          "network_bindings": [], "sessions": [], "context": {}, "evidence": [], "queue": []},
++        "predicates": {n: {"path": f"/facts/{n}", "op": "eq", "value": facts[n]} for n in facts},
++        "action": {"authorization": {"predicate": "p_auth"}, "execution_precondition": True},
++        "policy_profiles": {"balanced": {"justification": justification, "binding": binding, "scope": True}},
++        "transitions": transitions,
++        "refresh_model": {"cost_unit": "normalized_query_unit", "query_costs": costs, "predicate_query_ids": pq,
++                          "query_observed_at_s": {q: 0.0 for q in costs}},
++    }
++    s["predicates"]["p_auth"] = {"path": "/facts/auth", "op": "eq", "value": True}
++    return s
++
++
++def cut(tid, var, value=False, dur=1.0):
++    return {"transition_id": tid, "actor": "attacker", "capability_tier": "C1", "duration_s": dur, "cost_ops": 1,
++            "preconditions": True, "effects": [{"op": "set", "path": f"/facts/{var}", "value": value}],
++            "adversarially_induced": True, "causal_parent_ids": []}
++
++
++def fail_open_scenario():
++    # Justification = x AND y. x is only observable through a zero-cost ("immutable") query,
++    # yet an in-model attacker transition flips x. No refresh can reveal the change.
++    return base_scenario({"x": True, "y": True}, {"all": [{"predicate": "x"}, {"predicate": "y"}]},
++                         [cut("flip_x", "x")], {"imm:x": 0.0, "q:y": 1.0}, {"x": "imm:x", "y": "q:y"})
++
++
++def wide_or_scenario(n):
++    # E12c-style: justification = OR of n independent bases, one step cuts all of them.
++    # The only certificate is the full set, so the locked planner must visit all 2^n subsets.
++    names = [f"b{i:02d}" for i in range(n)]
++    t = {"transition_id": "cut_all", "actor": "attacker", "capability_tier": "C1", "duration_s": 0.001, "cost_ops": 1,
++         "preconditions": True, "effects": [{"op": "set", "path": f"/facts/{v}", "value": False} for v in names],
++         "adversarially_induced": True, "causal_parent_ids": []}
++    return base_scenario({v: True for v in names}, {"any": [{"predicate": v} for v in names]}, [t],
++                         {f"q:{v}": 1.0 for v in names}, {v: f"q:{v}" for v in names})
++
++
++def goal_state(s, deadline):
++    e = dcji.enumerate_attack_goals(s, deadline, "C1", "balanced")
++    assert e["goals"], e
++    st = copy.deepcopy(e["goals"][0]["state"]); st["timestamp_s"] = deadline
++    return st
++
++
++class FailClosed(unittest.TestCase):
++    def test_i_fail_open_zero_cost_path(self):
++        s = fail_open_scenario()
++        plan = dcji.derive_critical_predicates(s, 2.0, "C1", "balanced")
++        self.assertEqual(plan["status"], "NO_SELECTIVE_CERTIFICATE")
++        cs = goal_state(s, 2.0)
++        truth = commit_components(s, cs, "balanced")
++        self.assertTrue(truth["attack_goal"])
++        d = defenses.B6_dcji_gate(s, s["initial_state"], cs, "balanced", deadline_s=2.0, attacker_capability="C1")
++        if PATCHED:
++            self.assertEqual(d["decision"], "ABORT_REPLAN")
++            self.assertEqual(d["defense_mode"], "dcji_fail_closed_abort")
++            self.assertFalse(plan["full_refresh_rejects_all_goals"])
++        else:
++            # Locked core: FullRefresh fallback EXECUTEs an attack-goal state (fail-open, C1).
++            self.assertEqual(d["decision"], "EXECUTE")
++            self.assertEqual(d["defense_mode"], "dcji_fallback_full_refresh")
++
++    @unittest.skipUnless(PATCHED, "patch-only")
++    def test_i_b_fallback_kept_when_fullrefresh_proven(self):
++        # Subset cap hit, but FullRefresh provably rejects every goal -> keep locked fallback.
++        s = wide_or_scenario(6)
++        cs = goal_state(s, 0.01)
++        d = defenses.B6_dcji_gate(s, s["initial_state"], cs, "balanced", deadline_s=0.01,
++                                  attacker_capability="C1", max_subset_evals=3)
++        self.assertEqual(d["defense_mode"], "dcji_fallback_full_refresh")
++        self.assertEqual(d["decision"], "ABORT_REPLAN")
++
++    @unittest.skipUnless(PATCHED, "patch-only")
++    def test_i_c_enumeration_timeout_fails_closed(self):
++        s = wide_or_scenario(4)
++        cs = goal_state(s, 0.01)
++        d = defenses.B6_dcji_gate(s, s["initial_state"], cs, "balanced", deadline_s=0.01,
++                                  attacker_capability="C1", max_expansions=1)
++        self.assertEqual(d["decision"], "ABORT_REPLAN")
++        self.assertEqual(d["defense_mode"], "dcji_fail_closed_abort")
++
++    @unittest.skipUnless(PATCHED, "patch-only")
++    def test_validator(self):
++        s = fail_open_scenario()
++        v = dcji.zero_cost_observability_violations(s, "balanced")
++        self.assertEqual([x["transition_id"] for x in v], ["flip_x"])
++        with warnings.catch_warnings(record=True) as w:
++            warnings.simplefilter("always")
++            dcji.validate_refresh_observability(s, "balanced", mode="warn")
++            self.assertTrue(any("zero-cost" in str(x.message) for x in w))
++        with self.assertRaises(ValueError):
++            dcji.validate_refresh_observability(s, "balanced", mode="reject")
++        cs = goal_state(s, 2.0)
++        d = defenses.B6_dcji_gate(s, s["initial_state"], cs, "balanced", deadline_s=2.0,
++                                  attacker_capability="C1", observability_check="reject")
++        self.assertEqual(d["decision"], "ABORT_REPLAN")
++        self.assertEqual(dcji.zero_cost_observability_violations(wide_or_scenario(3), "balanced"), [])
++
++
++@unittest.skipUnless(PATCHED, "patch-only")
++class CapBound(unittest.TestCase):
++    def test_ii_n24_cap1000_bounded_and_fail_closed(self):
++        s = wide_or_scenario(24)
++        tracemalloc.start()
++        t0 = time.perf_counter()
++        plan = dcji.derive_critical_predicates(s, 0.01, "C1", "balanced", max_subset_evals=1000)
++        dt = time.perf_counter() - t0
++        _, peak = tracemalloc.get_traced_memory()
++        tracemalloc.stop()
++        self.assertEqual(plan["status"], "UNKNOWN_SUBSET_TIMEOUT")
++        self.assertEqual(plan["subset_evals"], 1000)
++        self.assertEqual(len(plan["candidate_query_ids"]), 24)
++        self.assertLess(dt, 5.0)               # locked code would materialise 2^24 = 16.7M subsets first
++        self.assertLess(peak, 64 * 2 ** 20)    # < 64 MiB traced
++        cs = goal_state(s, 0.01)
++        d = defenses.B6_dcji_gate(s, s["initial_state"], cs, "balanced", deadline_s=0.01,
++                                  attacker_capability="C1", max_subset_evals=1000, critical_plan=plan)
++        self.assertEqual(d["decision"], "ABORT_REPLAN")   # fail closed (FullRefresh proven to reject)
++        # and the same when FullRefresh cannot be proven: add a zero-cost-only basis flip
++        s2 = copy.deepcopy(s)
++        s2["transitions"][0]["effects"].append({"op": "set", "path": "/facts/z", "value": False})
++        s2["initial_state"]["facts"]["z"] = True
++        s2["predicates"]["z"] = {"path": "/facts/z", "op": "eq", "value": True}
++        # J = z OR (b00 OR ... OR b23); z is observable only via a zero-cost query, so no
++        # refresh set (incl. FullRefresh) rejects the goal -> must not fall back to FullRefresh.
++        s2["policy_profiles"]["balanced"]["justification"] = {"any": [{"predicate": "z"}, s["policy_profiles"]["balanced"]["justification"]]}
++        s2["refresh_model"]["query_costs"]["imm:z"] = 0.0
++        s2["refresh_model"]["predicate_query_ids"]["z"] = "imm:z"
++        p2 = dcji.derive_critical_predicates(s2, 0.01, "C1", "balanced", max_subset_evals=1000)
++        self.assertEqual(p2["status"], "UNKNOWN_SUBSET_TIMEOUT")
++        self.assertFalse(p2["full_refresh_rejects_all_goals"])
++        d2 =defenses.B6_dcji_gate(s2, s2["initial_state"], goal_state(s2, 0.01), "balanced", deadline_s=0.01,
++                                   attacker_capability="C1", critical_plan=p2)
++        self.assertEqual(d2["decision"], "ABORT_REPLAN")
++        self.assertEqual(d2["defense_mode"], "dcji_fail_closed_abort")
++
++
++def locked_reference_derive(scenario, deadline_s, cap, profile, max_subset_evals=100000):
++    """Verbatim re-statement of the LOCKED exhaustive algorithm (dcji.py v8.1.1 lines 128-162),
++    using float costs summed over a set, all subsets materialised and sorted."""
++    enum = dcji.enumerate_attack_goals(scenario, deadline_s, cap, profile)
++    if not enum["goals"]:
++        return ("NOT_EXPLOITABLE", [], 0.0, 0)
++    initial = scenario["initial_state"]
++    cand = set()
++    for g in enum["goals"]:
++        cand.update(dcji.changed_material_queries(scenario, initial, g["state"], profile))
++    cands = sorted(cand)
++    qc = lambda combo: sum(float(scenario["refresh_model"]["query_costs"][q]) for q in set(combo))
++    combos = sorted(((qc(c), len(c), c) for r in range(len(cands) + 1) for c in itertools.combinations(cands, r)),
++                    key=lambda x: (x[0], x[1], x[2]))
++    evals = 0
++    for cost, _, combo in combos:
++        evals += 1
++        if evals > max_subset_evals:
++            return ("UNKNOWN_SUBSET_TIMEOUT", None, None, evals - 1)
++        if all(not commit_components(scenario, refresh_queries(scenario, initial, g["state"], combo, profile)[0], profile)["valid"]
++               for g in enum["goals"]):
++            return ("EXPLOITABLE", list(combo), float(cost), evals)
++    return ("NO_SELECTIVE_CERTIFICATE", None, None, evals)
++
++
++def random_expr(rng, names, depth=0):
++    r = rng.random()
++    if depth >= 2 or r < 0.35:
++        e = {"predicate": rng.choice(names)}
++        return {"not": e} if rng.random() < 0.1 else e
++    k = "all" if r < 0.7 else "any"
++    return {k: [random_expr(rng, names, depth + 1) for _ in range(rng.randint(2, 3))]}
++
++
++def random_scenario(rng, cost_pool):
++    n = rng.randint(1, 7)
++    names = [f"v{i}" for i in range(n)]
++    facts = {v: True for v in names}
++    trans = []
++    for i in range(rng.randint(1, 4)):
++        eff = [{"op": "set", "path": f"/facts/{v}", "value": rng.random() < 0.2} for v in rng.sample(names, rng.randint(1, min(2, n)))]
++        trans.append({"transition_id": f"t{i}", "actor": "attacker", "capability_tier": "C1",
++                      "duration_s": rng.choice([0.5, 1.0, 1.5]), "cost_ops": rng.randint(1, 3), "preconditions": True,
++                      "effects": eff, "adversarially_induced": True,
++                      "causal_parent_ids": [f"t{i-1}"] if i and rng.random() < 0.2 else []})
++    # queries: sometimes two predicates share a query
++    qids = {}
++    for v in names:
++        qids[v] = f"q:{rng.choice(names)}" if rng.random() < 0.15 else f"q:{v}"
++    costs = {q: rng.choice(cost_pool) for q in set(qids.values())}
++    j = random_expr(rng, names)
++    b = {"predicate": rng.choice(names)} if rng.random() < 0.3 else True
++    return base_scenario(facts, j, trans, costs, qids, binding=b)
++
++
++@unittest.skipUnless(PATCHED, "patch-only")
++class LazyEquivalence(unittest.TestCase):
++    def test_iii_a_generator_order_equals_exhaustive_sort(self):
++        rng = random.Random(20260926)
++        pool = [Fraction(1), Fraction(2), Fraction(3), Fraction(1, 2), Fraction(1, 10), Fraction(3, 10), Fraction(0)]
++        for _ in range(600):
++            n = rng.randint(0, 9)
++            ids = [f"q{rng.randint(0, 999):03d}" for _ in range(n)]
++            ids = sorted(set(ids))
++            cost = {q: rng.choice(pool) for q in ids}
++            lazy = list(dcji.iter_subsets_in_certificate_order(ids, cost))
++            ref = sorted(((sum((cost[q] for q in c), Fraction(0)), len(c), c)
++                          for r in range(len(ids) + 1) for c in itertools.combinations(ids, r)))
++            self.assertEqual([(c, x) for c, x in lazy], [(c, x) for c, _, x in ref])
++
++    def test_iii_b_derive_equals_locked_reference_on_random_scenarios(self):
++        rng = random.Random(7)
++        dyadic = [0.5, 1.0, 1.0, 2.0, 3.0, 4.0]
++        checked = exploitable = multi_goal = 0
++        for _ in range(600):
++            s = random_scenario(rng, dyadic)
++            try:
++                if not commit_components(s, s["initial_state"], "balanced")["valid"]:
++                    continue
++            except Exception:
++                continue
++            ref = locked_reference_derive(s, 3.0, "C1", "balanced")
++            p = dcji.derive_critical_predicates(s, 3.0, "C1", "balanced")
++            got = (p["status"], p["critical_query_ids"], p["query_cost_units"], p["subset_evals"])
++            self.assertEqual(got, ref, json.dumps(s)[:2000])
++            checked += 1
++            exploitable += ref[0] == "EXPLOITABLE"
++            multi_goal += p["goal_count"] > 1
++        self.assertGreaterEqual(checked, 500)
++        self.assertGreater(exploitable, 100)
++        self.assertGreater(multi_goal, 50)
++        print(f"\n[iii-b] random scenarios checked={checked} exploitable={exploitable} multi_goal={multi_goal}")
++
++    def test_iii_c_small_caps_equal(self):
++        rng = random.Random(99)
++        for _ in range(200):
++            s = random_scenario(rng, [1.0, 2.0, 0.5])
++            if not commit_components(s, s["initial_state"], "balanced")["valid"]:
++                continue
++            cap = rng.randint(1, 6)
++            ref = locked_reference_derive(s, 3.0, "C1", "balanced", max_subset_evals=cap)
++            p = dcji.derive_critical_predicates(s, 3.0, "C1", "balanced", max_subset_evals=cap)
++            self.assertEqual((p["status"], p["critical_query_ids"], p["query_cost_units"], p["subset_evals"]), ref)
++
++
++if __name__ == "__main__":
++    unittest.main()

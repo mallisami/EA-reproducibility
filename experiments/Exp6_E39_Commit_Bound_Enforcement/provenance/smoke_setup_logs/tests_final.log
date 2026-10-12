@@ -1,0 +1,21 @@
+== 2026-09-26T15:10:37Z src pytest
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+149 passed, 19 warnings in 143.37s (0:02:23)
+== webhook unittest
+Ran 41 tests in 5.291s
+
+OK
+== deploy validate
+validate_deploy.py
+PASS temp render/cert output deleted
+
+OK: 0 failure(s)
+== analysis + lock tool
+.............................................                            [100%]
+117 passed in 16.77s
+== offline self-test
+selftest rc=0
+selftest trials 324 schema_invalid [] gate True analysis rc 0 infra {'A': 0, 'B': 0, 'C': 0, 'D': 0, 'E': 0, 'F': 0, 'G': 0}
+8
+== 2026-09-26T15:13:56Z done

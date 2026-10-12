@@ -1,0 +1,45 @@
+== unittest (orig) ==
+Ran 15 tests in 0.041s
+
+OK
+run_heldout_e1_e5.py exit=0 	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.96
+run_heldout_e3_e4.py exit=0 	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:01.73
+run_heldout_e10.py exit=0 	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:09.29
+run_heldout_e11.py exit=0 	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.97
+dev matrix: jsonschema not installed in venv -> using schema-free mirror
+dev matrix (noschema) exit=0
+pilot exit=0 n=68 B4_unsafe=0 B6_unsafe=0 mean_B4_cost=2.324 mean_B6_cost=1.441
+== comparisons vs FROZEN ==
+Traceback (most recent call last):
+  File "/home/azureuser/dcji_reanalysis_20260926/work/offline/scripts/compare_results.py", line 10, in <module>
+    from collections import Counte
+ImportError: cannot import name 'Counte' from 'collections' (/usr/lib/python3.12/collections/__init__.py). Did you mean: 'Counter'?
+Traceback (most recent call last):
+  File "/home/azureuser/dcji_reanalysis_20260926/work/offline/scripts/compare_results.py", line 10, in <module>
+    from collections import Counte
+ImportError: cannot import name 'Counte' from 'collections' (/usr/lib/python3.12/collections/__init__.py). Did you mean: 'Counter'?
+Traceback (most recent call last):
+  File "/home/azureuser/dcji_reanalysis_20260926/work/offline/scripts/compare_results.py", line 10, in <module>
+    from collections import Counte
+ImportError: cannot import name 'Counte' from 'collections' (/usr/lib/python3.12/collections/__init__.py). Did you mean: 'Counter'?
+[e3_long_horizon] NOT PRODUCED
+Traceback (most recent call last):
+  File "/home/azureuser/dcji_reanalysis_20260926/work/offline/scripts/compare_results.py", line 10, in <module>
+    from collections import Counte
+ImportError: cannot import name 'Counte' from 'collections' (/usr/lib/python3.12/collections/__init__.py). Did you mean: 'Counter'?
+Traceback (most recent call last):
+  File "/home/azureuser/dcji_reanalysis_20260926/work/offline/scripts/compare_results.py", line 10, in <module>
+    from collections import Counte
+ImportError: cannot import name 'Counte' from 'collections' (/usr/lib/python3.12/collections/__init__.py). Did you mean: 'Counter'?
+Traceback (most recent call last):
+  File "/home/azureuser/dcji_reanalysis_20260926/work/offline/scripts/compare_results.py", line 10, in <module>
+    from collections import Counte
+ImportError: cannot import name 'Counte' from 'collections' (/usr/lib/python3.12/collections/__init__.py). Did you mean: 'Counter'?
+Traceback (most recent call last):
+  File "/home/azureuser/dcji_reanalysis_20260926/work/offline/scripts/compare_results.py", line 10, in <module>
+    from collections import Counte
+ImportError: cannot import name 'Counte' from 'collections' (/usr/lib/python3.12/collections/__init__.py). Did you mean: 'Counter'?
+Traceback (most recent call last):
+  File "/home/azureuser/dcji_reanalysis_20260926/work/offline/scripts/compare_results.py", line 10, in <module>
+    from collections import Counte
+ImportError: cannot import name 'Counte' from 'collections' (/usr/lib/python3.12/collections/__init__.py). Did you mean: 'Counter'?

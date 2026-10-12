@@ -1,0 +1,93 @@
+2026-09-26T14:10:05Z
+mape-cap-confirm
+mcb-k137
+rev-n5
+mape-cap-confirm-control-plane Up 14 hours
+mape-cap-confirm-worker Up 14 hours
+mape-cap-confirm-worker2 Up 14 hours
+mape-cap-confirm-worker3 Up 14 hours
+mcb-k137-control-plane Up 14 hours
+mcb-k137-worker Up 14 hours
+mcb-k137-worker2 Up 14 hours
+mcb-k137-worker3 Up 14 hours
+rev-n5-control-plane Up 13 hours
+rev-n5-worker Up 13 hours
+rev-n5-worker2 Up 13 hours
+rev-n5-worker3 Up 13 hours
+/dev/root       123G   34G   89G  28% /
+               total        used        free      shared  buff/cache   available
+Mem:           15939        5424        2938         184        8107       10515
+4
+ 14:10:05 up 14:08,  3 users,  load average: 0.67, 0.63, 0.70
+sha256:a1ed56cfb0e7b93589bdf97c8cd566405a265939e3620fc4f5de89adff580ae5 [kindest/node:v1.37.0 kindest/node@sha256:a1ed56cfb0e7b93589bdf97c8cd566405a265939e3620fc4f5de89adff580ae5]
+sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9 [python:3.12-slim]
+kind v0.33.0 go1.26.7 linux/amd64
+Client Version: v1.37.0
+kind-rev-n5
+drwxrwxr-x 2 azureuser azureuser 4096 Sep 26 14:10 results/_audit_host
+drwxrwxrwx 2 azureuser azureuser 4096 Sep 26 14:10 results/_webhook_host
+ ✓ Ensuring node image (kindest/node:v1.37.0) 🖼️
+ • Preparing nodes 📦   ...
+ ✓ Preparing nodes 📦 
+ • Writing configuration 📜  ...
+ ✓ Writing configuration 📜
+ • Starting control-plane 🕹️  ...
+ ✓ Starting control-plane 🕹️
+ • Installing CNI 🔌  ...
+ ✓ Installing CNI 🔌
+ • Installing StorageClass 💾  ...
+ ✓ Installing StorageClass 💾
+ • Waiting ≤ 3m0s for control-plane = Ready ⏳  ...
+ ✓ Waiting ≤ 3m0s for control-plane = Ready ⏳
+ • Ready after 17s 💚
+Set kubectl context to "kind-e39"
+You can now use your cluster with:
+
+kubectl cluster-info --context kind-e39 --kubeconfig /home/azureuser/e39_20260926/.kubeconfig_e39
+
+Have a nice day! 👋
+rc=0
+2026-09-26T14:10:44Z
+e39
+mape-cap-confirm
+mcb-k137
+rev-n5
+kind-rev-n5
+NAME                STATUS   ROLES           AGE   VERSION   INTERNAL-IP   EXTERNAL-IP   OS-IMAGE                       KERNEL-VERSION              CONTAINER-RUNTIME
+e39-control-plane   Ready    control-plane   23s   v1.37.0   172.18.0.5    <none>        Debian GNU/Linux 13 (trixie)   6.17.0-1022-azure (amd64)   containerd://2.3.4
+== import python:3.12-slim into the e39 node (docker save | ctr import; no pull)
+import 2026 09 26@sha256:6569d6988a3933a	saved	
+application/vnd.oci.image.index.v1+json sha256:6569d6988a3933af0c3def554ee15c2cfb701d7bdd5e95480e0c85b53ba0dc7a
+Importing	elapsed: 3.5 s	total:   0.0 B	(0.0 B/s)	
+import 2026 09 26@sha256:6569d6988a3933a	saved	
+docker.io/library/python:3.12 slim      	saved	
+application/vnd.oci.image.index.v1+json sha256:6569d6988a3933af0c3def554ee15c2cfb701d7bdd5e95480e0c85b53ba0dc7a
+application/vnd.oci.image.index.v1+json sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9
+Importing	elapsed: 3.5 s	total:   0.0 B	(0.0 B/s)	
+import rc=0
+docker.io/library/python                        3.12-slim            9e87977b86784       43.3MB
+registry.k8s.io/pause                           3.10                 873ed75102791       320kB
+    - --audit-policy-file=/etc/kubernetes/e39/audit-policy.yaml
+    - --audit-log-path=/var/log/kubernetes/e39-audit/audit.log
+    - --audit-log-format=json
+    - --audit-log-maxsize=200
+    - --audit-log-maxbackup=30
+    - --audit-log-maxage=30
+    - --audit-log-compress=false
+    - --audit-log-mode=blocking
+    - --v=3
+    - --vmodule=store=6,round_trippers=6
+      name: e39-audit-log
+    - mountPath: /etc/kubernetes/e39/audit-policy.yaml
+      name: e39-audit-policy
+    name: e39-audit-log
+      path: /etc/kubernetes/e39/audit-policy.yaml
+    name: e39-audit-policy
+containerLogMaxFiles: 5
+containerLogMaxSize: 4Gi
+Taints:             <none>
+  pods:               110
+  pods:               110
+Non-terminated Pods:          (9 in total)
+               total        used        free      shared  buff/cache   available
+Mem:           15939        6113         859         194        9506        9825

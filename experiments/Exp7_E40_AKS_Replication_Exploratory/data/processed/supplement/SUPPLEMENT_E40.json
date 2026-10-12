@@ -1,0 +1,121 @@
+{
+ "a4d_availability": {
+  "async": {
+   "attribution_409": {
+    "writer": 6
+   },
+   "false_abort_by_reason": {},
+   "false_abort_rate": [
+    0.0,
+    0.0,
+    0.006118517289236887
+   ],
+   "n": 624,
+   "n_409": 6,
+   "n_dispatched": 624,
+   "n_false_abort": 0,
+   "rate_409_among_dispatched": [
+    0.009615384615384616,
+    0.0044140575040763595,
+    0.020817565221905972
+   ]
+  },
+  "no_write": {
+   "attribution_409": {},
+   "false_abort_by_reason": {},
+   "false_abort_rate": [
+    0.0,
+    0.0,
+    0.08966685370757144
+   ],
+   "n": 39,
+   "n_409": 0,
+   "n_dispatched": 39,
+   "n_false_abort": 0,
+   "rate_409_among_dispatched": [
+    0.0,
+    0.0,
+    0.08966685370757144
+   ]
+  }
+ },
+ "agreement_primary_vs_client_secondary": {
+  "invalid_2x2": {
+   "(False, False)": 1487,
+   "(False, True)": 16,
+   "(True, False)": 107,
+   "(True, True)": 409
+  },
+  "kappa_invalid": 0.8300550408238263,
+  "n_both_classified": 2019,
+  "n_exact_agree": 1816,
+  "prop": 0.8994551758296186
+ },
+ "comparison_references": [
+  "E38v2_rerun_kind"
+ ],
+ "n_comparison_cells": 24,
+ "n_trials": 2019,
+ "overlap_accepted_deletes": {
+  "n": 1042,
+  "n_overlap": 642,
+  "prop": 0.6161228406909789
+ },
+ "schema": "e40.supplement.v1",
+ "secondary_reasons": {
+  "rv409_writer_resp_vs_delete_resp(client)": 6,
+  "same_as_primary(control)": 147,
+  "webhook_read_vs_writer_resp(client_wall)": 308,
+  "writer_not_committed(same_as_primary)": 516,
+  "writer_resp_after_delete_resp(client)": 617,
+  "writer_resp_before_delete_resp(client)": 425
+ },
+ "webhook_latency": {
+  "A3_minus_A1_all_accepted": {
+   "ci95": [
+    100.65734570000001,
+    104.23830855
+   ],
+   "hl_shift_ms": 102.430599,
+   "median_x": 118.239702,
+   "median_y": 14.345206,
+   "n_x": 355,
+   "n_y": 663,
+   "p95_x": 155.4436148,
+   "p95_y": 23.974681499999996
+  },
+  "A3_minus_A1_no_write": {
+   "ci95": [
+    97.399068,
+    106.874478
+   ],
+   "hl_shift_ms": 102.400037,
+   "median_x": 117.288845,
+   "median_y": 14.240251,
+   "n_x": 39,
+   "n_y": 39,
+   "p95_x": 160.90029460000002,
+   "p95_y": 20.0122768
+  },
+  "A4d_minus_A1_all_accepted": {
+   "ci95": [
+    -0.2531059750000001,
+    0.24356639999999982
+   ],
+   "hl_shift_ms": -0.007433000000000689,
+   "median_x": 14.331123,
+   "median_y": 14.345206,
+   "n_x": 657,
+   "n_y": 663,
+   "p95_x": 22.248505799999986,
+   "p95_y": 23.974681499999996
+  },
+  "webhook_calls_per_accepted_A3_delete": 2.664788732394366,
+  "webhook_evaluation_ms": {
+   "max": 197.712287,
+   "median": 45.084195,
+   "n": 943,
+   "p95": 65.655411
+  }
+ }
+}

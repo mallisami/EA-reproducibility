@@ -1,0 +1,36 @@
+{
+  "schema_id": "e39.trial.v1",
+  "description": "E39 trial record = e38v2.trial.v1 (see protocol/INTERFACE_SPEC_E38v2.txt in the base tree) plus the fields below. All e38v2 fields keep their meaning. Timestamps: *_mono_ns monotonic, *_wall_ns wall clock, anchored per session.",
+  "base": "e38v2.trial.v1",
+  "added_fields": {
+    "schema": "const 'e39.trial.v1'",
+    "experiment": "enum A|B|C|D|E|F|G",
+    "arm": "enum A0_native_uid|A1_dcji|A2_fullrefresh|A3_dcji_webhook|A4d_commit_direct|A4m_commit_mirror|A1_dcji_go|A4d_commit_direct_go",
+    "client_impl": "enum python|client-go",
+    "action_type": "enum pod_delete|netpol_create",
+    "condition": "enum no_write|async_scope|async_app_policy|async_evidence_last_literal|uid_rebind_control|poisson_scope|stable|ea_attack|out_of_model_bdf|in_model_ace",
+    "delta_ms": "number|null (A, D, E, F); null for B, C, G",
+    "lambda_per_s": "number|null (B only)",
+    "writer_arrivals": "array|null (B only) of {planned_offset_ms, actual_release_mono_ns, t_resp_mono_ns, http_status, resulting_resource_version, audit_id, object}",
+    "injected_latency_ms": "number|null (C only; per ConfigMap GET, responder identity only)",
+    "acquisition_mode": "enum sequential|parallel|null (C only)",
+    "planning_mode": "enum precomputed|per_incident|null (C only)",
+    "planning_ms": "number|null (C: measured planner time when per_incident)",
+    "guard_order": "enum dcji_first|fullrefresh_first|null (C paired trials)",
+    "pair_id": "int|null (C paired trials)",
+    "load_level": "enum idle|moderate|high|null (D; others record 'idle')",
+    "load_observed_rps": "number|null",
+    "host": "{cpu_pct: number, free_ram_mb: number, load_throttled: bool}",
+    "bound_state": "object|null (A4d/A4m): {pod_rv_at_gate: str, annotations_at_gate: {key: value}}",
+    "delete_preconditions": "{uid: str|null, resource_version: str|null}",
+    "mirror": "object|null (A4m): {source_object, source_commit_rv, source_commit_wall_ns, mirror_commit_rv, mirror_commit_wall_ns, mirror_audit_id}",
+    "netpol": "object|null (E): {name, t_send_mono_ns, t_resp_mono_ns, http_status, audit_id, created_resource_version}",
+    "go_client_version": "str|null (F)"
+  },
+  "notes": [
+    "Runner logs raw facts only; ground truth comes from the offline oracle using the apiserver audit log.",
+    "Negative deltas are not used in E39.",
+    "For A4d the evidence/scope/policy live as Pod annotations e38.evidence/a..f, e38.scope, e38.app-policy; writers patch the Pod.",
+    "For A4m writers patch ConfigMaps; mirror controller copies to Pod annotations."
+  ]
+}

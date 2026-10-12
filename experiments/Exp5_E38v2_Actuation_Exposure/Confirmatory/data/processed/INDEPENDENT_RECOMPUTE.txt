@@ -1,0 +1,2 @@
+independent recomputation over 152 cells: {'n': 8728, 'k': 4979, 'k_sec': 4992, 'k_ter': 53, 'n_drv_from_watch': 55}
+cells identical: k 152/152; n 152/152; k_secondary 152/152; k_tertiary 152/152

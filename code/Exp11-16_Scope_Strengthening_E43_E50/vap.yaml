@@ -1,0 +1,41 @@
+# Admission rule that looks only at the validity annotations on the Pod being deleted.
+# It applies to Pods labelled ea-vap in the experiment namespace and passes Pods already in deletion.
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingAdmissionPolicy
+metadata:
+  name: ea-target-state
+spec:
+  failurePolicy: Fail
+  matchConstraints:
+    resourceRules:
+    - apiGroups: [""]
+      apiVersions: ["v1"]
+      operations: ["DELETE"]
+      resources: ["pods"]
+  matchConditions:
+  - name: labelled-and-not-terminating
+    expression: >-
+      has(oldObject.metadata.labels) && 'ea-vap' in oldObject.metadata.labels
+      && !has(oldObject.metadata.deletionTimestamp)
+  validations:
+  - expression: >-
+      has(oldObject.metadata.annotations)
+      && 'ea.example/scope' in oldObject.metadata.annotations
+      && oldObject.metadata.annotations['ea.example/scope'] == 'valid'
+      && 'ea.example/evidence' in oldObject.metadata.annotations
+      && oldObject.metadata.annotations['ea.example/evidence'] == 'valid'
+      && 'ea.example/policy' in oldObject.metadata.annotations
+      && oldObject.metadata.annotations['ea.example/policy'] == 'valid'
+    message: "ea-target-state: validity annotations on the target are not all valid"
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingAdmissionPolicyBinding
+metadata:
+  name: ea-target-state
+spec:
+  policyName: ea-target-state
+  validationActions: ["Deny"]
+  matchResources:
+    namespaceSelector:
+      matchLabels:
+        kubernetes.io/metadata.name: ea-followup

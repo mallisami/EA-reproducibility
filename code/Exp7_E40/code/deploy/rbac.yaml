@@ -1,0 +1,180 @@
+# Template: RUNID is substituted by deploy/render.sh.
+# Identities live in e40-system (stable usernames across runs); permissions are granted ONLY inside
+# the per-run test namespace e40-RUNID, except the load identity (namespace e40-load only).
+#   responder : system:serviceaccount:e40-system:e40-responder  get policy CMs, get/delete pods,
+#                                                              create/delete networkpolicies, create SSAR
+#   writer    : system:serviceaccount:e40-system:e40-writer     get/patch policy CMs, get/patch pods (A4d annotations)
+#   reset     : system:serviceaccount:e40-system:e40-reset      full fixture control (CMs, pods, networkpolicies);
+#                                                              EXEMPT from the webhook
+#   mirror    : system:serviceaccount:e40-system:e40-mirror     get/list/watch CMs, get/patch pods (A4m controller)
+#   load      : system:serviceaccount:e40-system:e40-load       get/list/patch/create CMs in e40-load ONLY
+#   webhook   : system:serviceaccount:e40-system:e40-webhook    get the 8 policy CMs only (it reads no Pods)
+# The runner obtains short-lived tokens with `kubectl create token` (see RUNBOOK).
+# ConfigMap names (incl. the epoch object "e38-epoch") are the ones used by the runner code (src/).
+apiVersion: v1
+kind: ServiceAccount
+metadata: {name: e40-responder, namespace: e40-system, labels: {e40-managed: "true"}}
+automountServiceAccountToken: false
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata: {name: e40-writer, namespace: e40-system, labels: {e40-managed: "true"}}
+automountServiceAccountToken: false
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata: {name: e40-reset, namespace: e40-system, labels: {e40-managed: "true"}}
+automountServiceAccountToken: false
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata: {name: e40-mirror, namespace: e40-system, labels: {e40-managed: "true"}}
+automountServiceAccountToken: false
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata: {name: e40-load, namespace: e40-system, labels: {e40-managed: "true"}}
+automountServiceAccountToken: false
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata: {name: e40-webhook, namespace: e40-system, labels: {e40-managed: "true"}}
+automountServiceAccountToken: true
+---
+# ---------------------------------------------------------------- responder
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata: {name: e40-responder, namespace: e40-RUNID, labels: {e40-managed: "true"}}
+rules:
+- apiGroups: [""]
+  resources: ["configmaps"]
+  resourceNames: [evidence-a, evidence-b, evidence-c, evidence-d, evidence-e, evidence-f,
+                  response-scope, application-policy, e38-epoch]
+  verbs: ["get"]
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get", "delete"]
+- apiGroups: ["networking.k8s.io"]
+  resources: ["networkpolicies"]
+  verbs: ["create", "delete"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata: {name: e40-responder, namespace: e40-RUNID, labels: {e40-managed: "true"}}
+roleRef: {apiGroup: rbac.authorization.k8s.io, kind: Role, name: e40-responder}
+subjects:
+- {kind: ServiceAccount, name: e40-responder, namespace: e40-system}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata: {name: e40-ssar, labels: {e40-managed: "true"}}
+rules:
+- apiGroups: ["authorization.k8s.io"]
+  resources: ["selfsubjectaccessreviews"]
+  verbs: ["create"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata: {name: e40-ssar, labels: {e40-managed: "true"}}
+roleRef: {apiGroup: rbac.authorization.k8s.io, kind: ClusterRole, name: e40-ssar}
+subjects:
+- {kind: ServiceAccount, name: e40-responder, namespace: e40-system}
+- {kind: ServiceAccount, name: e40-reset, namespace: e40-system}
+---
+# ---------------------------------------------------------------- writer
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata: {name: e40-writer, namespace: e40-RUNID, labels: {e40-managed: "true"}}
+rules:
+- apiGroups: [""]
+  resources: ["configmaps"]
+  resourceNames: [evidence-a, evidence-b, evidence-c, evidence-d, evidence-e, evidence-f,
+                  response-scope, application-policy, e38-epoch]
+  verbs: ["get", "patch"]
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get", "patch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata: {name: e40-writer, namespace: e40-RUNID, labels: {e40-managed: "true"}}
+roleRef: {apiGroup: rbac.authorization.k8s.io, kind: Role, name: e40-writer}
+subjects:
+- {kind: ServiceAccount, name: e40-writer, namespace: e40-system}
+---
+# ---------------------------------------------------------------- reset (fixture control)
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata: {name: e40-reset, namespace: e40-RUNID, labels: {e40-managed: "true"}}
+rules:
+- apiGroups: [""]
+  resources: ["configmaps", "pods"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete", "deletecollection"]
+- apiGroups: ["networking.k8s.io"]
+  resources: ["networkpolicies"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete", "deletecollection"]
+- apiGroups: [""]
+  resources: ["pods/log", "pods/status", "events"]
+  verbs: ["get", "list", "watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata: {name: e40-reset, namespace: e40-RUNID, labels: {e40-managed: "true"}}
+roleRef: {apiGroup: rbac.authorization.k8s.io, kind: Role, name: e40-reset}
+subjects:
+- {kind: ServiceAccount, name: e40-reset, namespace: e40-system}
+---
+# ---------------------------------------------------------------- mirror (A4m controller)
+# list/watch cannot be narrowed by resourceNames (the controller watches the namespace's ConfigMaps);
+# the identity is read-only on ConfigMaps and can only get/patch Pods.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata: {name: e40-mirror, namespace: e40-RUNID, labels: {e40-managed: "true"}}
+rules:
+- apiGroups: [""]
+  resources: ["configmaps"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get", "patch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata: {name: e40-mirror, namespace: e40-RUNID, labels: {e40-managed: "true"}}
+roleRef: {apiGroup: rbac.authorization.k8s.io, kind: Role, name: e40-mirror}
+subjects:
+- {kind: ServiceAccount, name: e40-mirror, namespace: e40-system}
+---
+# ---------------------------------------------------------------- webhook (read-only, 8 objects)
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata: {name: e40-webhook-reader, namespace: e40-RUNID, labels: {e40-managed: "true"}}
+rules:
+- apiGroups: [""]
+  resources: ["configmaps"]
+  resourceNames: [evidence-a, evidence-b, evidence-c, evidence-d, evidence-e, evidence-f,
+                  response-scope, application-policy]
+  verbs: ["get"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata: {name: e40-webhook-reader, namespace: e40-RUNID, labels: {e40-managed: "true"}}
+roleRef: {apiGroup: rbac.authorization.k8s.io, kind: Role, name: e40-webhook-reader}
+subjects:
+- {kind: ServiceAccount, name: e40-webhook, namespace: e40-system}
+---
+# ---------------------------------------------------------------- load (E39-D, namespace e40-load ONLY)
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata: {name: e40-load, namespace: e40-load, labels: {e40-managed: "true"}}
+rules:
+- apiGroups: [""]
+  resources: ["configmaps"]
+  verbs: ["get", "list", "patch", "create"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata: {name: e40-load, namespace: e40-load, labels: {e40-managed: "true"}}
+roleRef: {apiGroup: rbac.authorization.k8s.io, kind: Role, name: e40-load}
+subjects:
+- {kind: ServiceAccount, name: e40-load, namespace: e40-system}

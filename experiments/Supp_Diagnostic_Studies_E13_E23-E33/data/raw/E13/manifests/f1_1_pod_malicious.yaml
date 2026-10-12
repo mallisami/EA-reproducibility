@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: flashir-target
+  namespace: flashir-e13
+  labels:
+    flashir-role: malicious
+spec:
+  nodeName: flashir-nonexistent
+  containers:
+  - name: hold
+    image: registry.k8s.io/pause:3.10.1

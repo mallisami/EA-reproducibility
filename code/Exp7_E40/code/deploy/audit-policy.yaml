@@ -1,0 +1,67 @@
+# E39 kube-apiserver audit policy. First matching rule wins.
+#
+# Goal: full RequestResponse events (ResponseComplete: requestObject, responseObject incl.
+# metadata.resourceVersion, responseStatus incl. message) for exactly the writes the oracle joins on,
+# in the per-run test namespace(s) e40-<run_id>:
+#   - pods patch/update            (A4d writer / arrivals / cuts on annotations; A4m mirror PATCH)
+#   - pods/status patch/update     (kubelet status writes; responseObject RV attributes A4 409s)
+#   - pods delete                  (responder DELETE; 200 = deleted Pod incl. RV, 409 = precondition message)
+#   - configmaps patch/update      (writers, arrivals, cuts, A4m source, reset)
+#   - networkpolicies create/delete (E39-E action; delete = fixture reset)
+# Everything else: level None (reads, watches, other resources, cluster-scoped, non-resource URLs).
+#
+# Namespace scoping: audit policy `namespaces` does not support wildcards, and this file is read once
+# at `kind create cluster` (before any RUN_ID namespace exists; smoke and main RUN_IDs share the
+# cluster), so it cannot carry a rendered RUN_ID. As before, every namespace that is NOT a test
+# namespace is therefore excluded first by explicit name (rule 1). The cluster is dedicated: besides
+# the namespaces in rule 1 only e40-<run_id> test namespaces are ever created, so the RequestResponse
+# rules below are effectively "namespaces matching e40-* except e40-system and e40-load".
+#
+# omitStages RequestReceived: justified. The ResponseComplete event carries
+# requestReceivedTimestamp (the DELETE "received" time for the secondary oracle
+# rule), stageTimestamp (writer ResponseComplete time) and responseObject; the
+# RequestReceived event would duplicate every line without adding a field the
+# oracle uses. Panic stage is kept (rule-level omitStages lists only RequestReceived).
+apiVersion: audit.k8s.io/v1
+kind: Policy
+omitStages:
+- RequestReceived
+omitManagedFields: true
+rules:
+# 1. Never log system / infrastructure namespaces, the control namespace (webhook + identities)
+#    or the E39-D background-load namespace (keeps the log small under load).
+- level: None
+  namespaces:
+  - kube-system
+  - kube-public
+  - kube-node-lease
+  - local-path-storage
+  - default
+  - e40-system
+  - e40-load
+# 2. Test namespaces: Pod object and Pod status writes (annotation PATCHes, mirror PATCHes, kubelet status).
+- level: RequestResponse
+  verbs: ["update", "patch"]
+  resources:
+  - group: ""
+    resources: ["pods", "pods/status"]
+# 3. Test namespaces: Pod deletes (the response action; 409 precondition failures included).
+- level: RequestResponse
+  verbs: ["delete"]
+  resources:
+  - group: ""
+    resources: ["pods"]
+# 4. Test namespaces: ConfigMap writes.
+- level: RequestResponse
+  verbs: ["update", "patch"]
+  resources:
+  - group: ""
+    resources: ["configmaps"]
+# 5. Test namespaces: NetworkPolicy isolation create (E39-E action) and delete (reset).
+- level: RequestResponse
+  verbs: ["create", "delete"]
+  resources:
+  - group: "networking.k8s.io"
+    resources: ["networkpolicies"]
+# 6. Everything else: not logged.
+- level: None

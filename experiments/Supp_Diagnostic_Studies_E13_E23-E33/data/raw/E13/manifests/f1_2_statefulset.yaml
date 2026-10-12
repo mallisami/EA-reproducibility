@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: flashir-sts
+  namespace: flashir-e13
+spec:
+  serviceName: flashir-sts-headless
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flashir-sts
+  template:
+    metadata:
+      labels:
+        app: flashir-sts
+        flashir-role: malicious
+    spec:
+      nodeName: flashir-nonexistent
+      containers:
+      - name: hold
+        image: registry.k8s.io/pause:3.10.1

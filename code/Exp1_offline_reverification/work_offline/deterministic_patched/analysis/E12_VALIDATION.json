@@ -1,0 +1,9 @@
+{
+  "rows": 180,
+  "structural_error_count": 0,
+  "all_status_exploitable": true,
+  "all_expanded_equal_target": true,
+  "all_subset_evals_2": true,
+  "all_candidate_query_count_1": true,
+  "frozen_input_hash_mismatches_before_e12": []
+}

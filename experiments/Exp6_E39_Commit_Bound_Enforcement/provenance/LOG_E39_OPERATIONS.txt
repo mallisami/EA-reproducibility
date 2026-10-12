@@ -1,0 +1,105 @@
+E39 OPERATIONS LOG (UTC)                                        operator: Claude (agent) for the paper's authors
+=====================================================================================================================
+VM azureuser@<PUBLIC_IP_REDACTED> (4 vCPU, 15.9 GB RAM). E39 tree ~/e39_20260926, operator scripts ~/e39_ops (outside the
+LOCK). Dedicated cluster kind "e39" (kindest/node:v1.37.0), dedicated kubeconfig ~/e39_20260926/.kubeconfig_e39,
+every kubectl call --context kind-e39. Other clusters (mape-cap-confirm, mcb-k137, rev-n5) never addressed by the
+operator; no docker prune; ~/e38v2_20260926 and ~/e38v2r_20260926 only read (rerun LOCK for the forbidden seed,
+rerun ops scripts as templates). sudo used only to READ the root-owned audit log of the e39 cluster.
+
+STEP 0 PRE-LOCK CODE UPDATE (13:55-14:10Z)
+13:55Z Read E39_RUNBOOK, ANALYSIS_PLAN_E39, E39_DESIGN_SPEC (+Amendment 1), rerun LOG/DEVIATIONS. VM MemAvailable
+       10 GB, 88 GB disk free; 3 other clusters (12 containers) running.
+14:00Z Go binary sha256 6c7a68fc...7398b7 == BUILD_INFO (not rebuilt). Runner E39-F path switched to split ops
+       (A1_dcji_go: gate_uid -> writer armed at the Go TRUE gate end -> delete_uid; A4d_commit_direct_go keeps
+       gate_delete_rv because the binary has no split annotation gate; DEVIATIONS D1). Originals backed up in
+       ~/e39_ops/pre_step0_backup. Suites: src 149 passed (147 + 2 new), webhook 41 OK, analysis 110 passed,
+       offline self-test rc 0 (324 trials, analysis gate passed).
+
+STEP 1 BRING-UP (14:10Z)
+14:10Z kind create cluster --name e39 --config deploy/kind-config.yaml --kubeconfig .kubeconfig_e39: Ready in 39 s
+       (v1.37.0, audit policy + log path, --v=3 --vmodule=store=6,round_trippers=6, containerLogMaxSize 4Gi);
+       pause:3.10 present in the node; python:3.12-slim imported via docker save | ctr import (no pull).
+14:13Z setup_run.sh smoke-e39-20260926a: render + certs, namespaces e39-system / e39-smoke-... / e39-load, RBAC,
+       webhook (code identical to webhook/), VWC (DELETE pods + CREATE networkpolicies, failurePolicy Fail),
+       RBAC checks yes yes no yes no yes no no yes (as runbook) + reset cannot delete in kube-system; fixture
+       ConfigMaps; 24 h tokens for responder/writer/reset/mirror/load; SelfSubjectReview username of every token =
+       system:serviceaccount:e39-system:e39-<identity>.
+
+STEP 2 PROBES (smoke namespace 14:18-14:34Z; repeated in the run namespace 15:16-15:22Z, all PASS)
+  - Pod DELETE webhook: invalid app-policy -> responder DELETE of labelled Running Pod 403; unlabelled Pod 200 and no
+    webhook entry; reset identity 200 and no webhook entry; valid -> 200; scope=false -> 403, restored -> 200.
+  - Kubelet exemption (run ns): admin DELETE with default grace -> webhook allow (1 entry); the kubelet's final
+    DELETE (system:node:e39-control-plane, 200) produced no webhook entry.
+  - NetworkPolicy webhook: invalid -> CREATE of labelled isolation policy 403 (webhook deny by object name);
+    unlabelled 201 (not intercepted); valid 201 with responseObject RV in audit; cleanup by reset.
+  - A4d: DELETE with stale RV -> 409, message names precondition RV0 and record RV = the writer's annotate commit;
+    wrong UID -> 409 (UID); current RV -> 200. FINDING: kube-apiserver v1.37 wording differs from the pre-registered
+    parser (DEVIATIONS D2) -> fixed pre-lock, probes re-run PASS.
+  - Kubelet status-update rate on Running pause Pods: 0 resourceVersion changes in the 3 s after Ready (10 Pods)
+    and 0 in 60 s steady state; kubelet pods/status PATCHes occur at Pod start (3-4 per Pod lifecycle, logged at
+    RequestResponse with responseObject).
+  - A4m mirror sample (12 ConfigMap flips, mirror identity, resync 3600 s): Pod annotation followed in median
+    18.5 ms (max 26 ms) in the smoke ns, 19.7 ms (max 27.7 ms) in the run ns (upper bounds incl. 1 ms polling);
+    mirror RV = source RV + 1; mirror patches audited with the mirror identity.
+  - Delay proxy (TLS, responder UA only), 30 GETs per c: median error +0.01/+0.98/+1.04/+1.17 ms (smoke) and
+    -0.03/+0.98/+0.86/+0.86 ms (run ns) for c = 0/50/200/1000 ms (accept +-2 ms, +-1 %); at c = 200 writer GET,
+    responder LIST and Pod GET through the proxy not delayed, ConfigMap GET delayed.
+  - Load guard: moderate 50.0 req/s, 0 errors (host CPU 13-18 %); high + injected MemAvailable 1500 MB ->
+    throttled high -> moderate, latched, 1 event; after reset high 150.0 req/s for 60 s, host CPU max 28-29 %;
+    e39-load produced no audit lines.
+  - Client-go: ping; gate_uid (t_gate_end inside the call window) + delete_uid 200 with t_send >= gate end and a
+    joined Audit-Id; gate_delete_rv 200; delete_rv with a stale RV -> 409 with the full message.
+  - Audit: configmaps patch, pods patch (writer + mirror), pods/status patch (kubelet), pods delete 200/403/409 with
+    message, networkpolicies create - all RequestResponse with responseObject; no RequestReceived stage; nothing
+    from e39-load / e39-system / kube-system. Audit-Id join of all probe writes/actions 100 % (pod CREATE and GETs
+    are not audited by design). RV vs ResponseComplete order: sequential writes 99/99 adjacent concordant;
+    concurrent bursts pairwise 33,888 concordant of 33,930 (run ns).
+
+STEP 3 SMOKE smoke-e39-20260926a (seed 3902601, 1 rep/cell, 324 trials)
+14:41-14:46Z 324/324 COMPLETE, 0 INFRA_ERROR, 283.5 s (0.875 s/trial).
+14:50Z First smoke analysis: gates FAILED (primary vs secondary agreement 93.5 %, join 90.8 %). Diagnosis: 17
+       A4d/A4d-go trials where the writer's Pod PATCH was applied to the Pod already marked for deletion by the
+       accepted DELETE (pod watch MODIFIED with deletionTimestamp at the returned RV, apiserver "Going to delete
+       object from registry, triggered by update"); the join metric of the gate script mis-counted 404/terminating
+       writes. Fixed pre-lock: oracle rule 2.3 (f) + same rule in the independent recomputation, recompute
+       included E39-G cut writes, gate script joins every audit id from RAW (DEVIATIONS D3, D4).
+15:05Z Smoke re-analysed (same data): INFRA 0 %, audit ids joined 559/559 (100 %), primary vs secondary 100 %,
+       controls correct (no_write VALID 4/4, uid_rebind UID_BLOCKED 4/4, G in-model CORRECT_ABORT 2/2), schema
+       valid 324/324, no unparsed 409, C records carry acquisition.refresh_ms/gate_ms, D records carry host fields;
+       independent recomputation identical in every cell; UNKNOWN only in C (guard-only records, expected).
+15:08Z Runtime constants replaced by smoke measurements (DEVIATIONS D5). Final suites: src 149, webhook 41, deploy OK,
+       analysis + lock 117, self-test rc 0.
+
+STEP 4 LOCK + RUNS (run e39-20260926t1515z, namespace e39-e39-20260926t1515z)
+15:15Z setup_run.sh (RBAC as expected), 15:16-15:22Z probes (all PASS, see step 2).
+15:22:23Z LOCK: seed 972231175, SCHEDULE.json sha256 295219f3..., 18,196 trials (A 5344, B 4800, C 3840, D 1872,
+       E 1248, F 936, G 156), dry-run estimate 4.44 h; LOCK_E39.json 82 hashes verified, lock_sha256 5dab9590...
+15:22:37Z driver run_all.sh (LOCK verified before every runner call):
+       A 5344 trials 15:22-16:33Z (4227 s, 0 INFRA) | G 156 16:33-16:35Z | E 1248 16:35-16:52Z | F 936 16:52-17:04Z
+       | B 4800 17:04-18:06Z (3700 s) | D 1872 18:06-18:47Z (2455 s, no host-guard throttle) | C 3840 18:47-19:45Z
+       (3480 s). Stage 1: 18,196/18,196, 0 INFRA_ERROR.
+~15:38Z A foreign niced Azure CLI process (az vm list-skus) used ~1 core for a few minutes (DEVIATIONS O3).
+16:10Z / 17:14Z Interim oracle checks on snapshots (outside the run dir): gates pass; UNKNOWN only
+       A4m mirror_rv_not_after_source (DEVIATIONS P1).
+18:40:42-18:41:17Z The three unrelated clusters were STOPPED at the user's request (not by the operator); E39 in D
+       (DEVIATIONS O5). Not restarted.
+19:45Z E39-A stage-1 analysis (strict gate passed, confirmatory=True); stage2_topup: 47 cells, 2538 trials;
+       SCHEDULE_STAGE2.json sha256 4a9df683...; lock add-stage2 -> lock_sha256 36cec6d7...
+19:45Z stage 2 launched (ids >= 100001).
+20:13:14Z stage 2 complete: 2538/2538, 0 INFRA (1669 s). ALL RUNS COMPLETE: 20,734 trials, 0 INFRA_ERROR.
+          Host during the runs: MemAvailable >= 8.3 GB (>= 13 GB after 18:41Z), host-guard never throttled, no
+          runner pause/abort, disk use ~0.6 GB audit.
+
+STEP 5 ANALYSIS (20:16-20:40Z)
+20:16Z final.sh: pod-event recorder stopped (119,607 events); LOCK verify at export OK (84 hashes, lock_sha256
+       36cec6d7...); logs collected (audit.log 294,319 events sha256 078e74f4..., webhook_log 8,890 lines
+       46c98298..., apiserver.log 1,471,641 lines b79e06d7..., mirror_log 12,827 lines).
+       analyze_e39.py --stage 2 (both schedules, pod events, --w-external A2=12.3883385 ms = trapezoid area of the
+       E38v2-rerun A2_fullrefresh async_scope primary curve over its 0-50 ms grid): gate PASSED, strict design
+       check, confirmatory=True.
+       recompute_independent_e39.py: exit 3 (32 cell differences) - every differing trial explained
+       (INDEPENDENT_DIFFERENCES_EXPLAINED.txt: 64 pod-watch-fallback trials excluded by the simplified
+       recomputation, 10 A4m mirror UNKNOWNs counted INVALID by it). Results not edited.
+       Quality gates on the final oracle table: INFRA 0/20734, audit ids joined 45,141/45,141, primary vs
+       secondary 98.57 %, controls correct, schema valid, no unparsed 409.
+       Exploratory E39-D split by the cluster stop written (coordinator request).

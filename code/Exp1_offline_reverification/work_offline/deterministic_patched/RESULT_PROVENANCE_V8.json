@@ -1,0 +1,8 @@
+{
+  "version": "8.0.0",
+  "parent_archive": "flashir_complete_v7_1_kubernetes_trace_primary.zip",
+  "parent_archive_sha256": "33552f37e358bae4ae0fc92c0a79538a72c8b4cdc8c59897de0719dca4c272fa",
+  "controlled_result_files_locked": 74,
+  "statement": "All controlled result files in this v8 package are carried forward unchanged; active configuration/documentation is rewritten for the systems-security study before remaining live/trace experiments.",
+  "controlled_results_manifest": "CONTROLLED_RESULTS_LOCK.sha256.json"
+}

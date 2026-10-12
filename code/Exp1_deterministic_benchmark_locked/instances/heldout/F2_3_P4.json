@@ -1,0 +1,396 @@
+{
+  "instance_id": "F2.3-P4",
+  "template_id": "F2.3",
+  "parameterization_id": "P4",
+  "split": "heldout",
+  "materialization_version": "3.1.0",
+  "causal_core_hash": "fb15b8ac91f051bb3b9445750ef437be96a96bb38485bd6664d4527434f18d5e",
+  "template_hash": "5aca7e660ea39834d73a6133273f30bc8813893a4eb418df99a608b3196d5b6e",
+  "scenario": {
+    "scenario_id": "F2.3",
+    "title": "Service Cluster Address Recreation",
+    "family": "F2",
+    "realism_tier": "R2",
+    "scenario_role": "positive_ea_toctou",
+    "development": false,
+    "action": {
+      "action_type": "block_network_identity",
+      "target_reference": "service-ip/10.96.0.44",
+      "target_snapshot": {
+        "identifier": "service-ip/10.96.0.44",
+        "resource_uid": "SVC1"
+      },
+      "queue_semantics": "single_exactly_once_attempt",
+      "execution_precondition": {
+        "predicate": "p_target_resolves"
+      },
+      "authorization": {
+        "predicate": "p_authorized",
+        "must_remain_valid": true
+      }
+    },
+    "attacker_capability_tier": "C2",
+    "initial_state": {
+      "timestamp_s": 0,
+      "facts": {
+        "original_malicious": true,
+        "F2_3_binding": "SVC1",
+        "irrelevant_metric": 0,
+        "action_authorized": true,
+        "materialization_benign_resource_count": 6,
+        "materialization_high_impact": true,
+        "materialization_irrelevant_1": true,
+        "materialization_irrelevant_2": true
+      },
+      "resources": [
+        {
+          "kind": "SyntheticBenignResource",
+          "name": "benign-1",
+          "uid": "BENIGN-F2.3-1",
+          "active": true,
+          "security_state": "clean",
+          "criticality": "low"
+        },
+        {
+          "kind": "SyntheticBenignResource",
+          "name": "benign-2",
+          "uid": "BENIGN-F2.3-2",
+          "active": true,
+          "security_state": "clean",
+          "criticality": "low"
+        },
+        {
+          "kind": "SyntheticBenignResource",
+          "name": "benign-3",
+          "uid": "BENIGN-F2.3-3",
+          "active": true,
+          "security_state": "clean",
+          "criticality": "low"
+        },
+        {
+          "kind": "SyntheticBenignResource",
+          "name": "benign-4",
+          "uid": "BENIGN-F2.3-4",
+          "active": true,
+          "security_state": "clean",
+          "criticality": "low"
+        },
+        {
+          "kind": "SyntheticBenignResource",
+          "name": "benign-5",
+          "uid": "BENIGN-F2.3-5",
+          "active": true,
+          "security_state": "clean",
+          "criticality": "low"
+        },
+        {
+          "kind": "SyntheticBenignResource",
+          "name": "benign-6",
+          "uid": "BENIGN-F2.3-6",
+          "active": true,
+          "security_state": "clean",
+          "criticality": "low"
+        },
+        {
+          "kind": "SyntheticBenignResource",
+          "name": "critical-benign-1",
+          "uid": "CRIT-F2.3-1",
+          "active": true,
+          "security_state": "clean",
+          "criticality": "high"
+        },
+        {
+          "kind": "SyntheticBenignResource",
+          "name": "critical-benign-2",
+          "uid": "CRIT-F2.3-2",
+          "active": true,
+          "security_state": "clean",
+          "criticality": "high"
+        },
+        {
+          "kind": "SyntheticBenignResource",
+          "name": "critical-benign-3",
+          "uid": "CRIT-F2.3-3",
+          "active": true,
+          "security_state": "clean",
+          "criticality": "medium"
+        },
+        {
+          "kind": "SyntheticBenignResource",
+          "name": "critical-benign-4",
+          "uid": "CRIT-F2.3-4",
+          "active": true,
+          "security_state": "clean",
+          "criticality": "medium"
+        },
+        {
+          "kind": "SyntheticBenignResource",
+          "name": "critical-benign-5",
+          "uid": "CRIT-F2.3-5",
+          "active": true,
+          "security_state": "clean",
+          "criticality": "medium"
+        },
+        {
+          "kind": "SyntheticBenignResource",
+          "name": "critical-benign-6",
+          "uid": "CRIT-F2.3-6",
+          "active": true,
+          "security_state": "clean",
+          "criticality": "medium"
+        }
+      ],
+      "processes": [],
+      "network_bindings": [
+        {
+          "identifier": "service-ip/10.96.0.44",
+          "resource_uid": "SVC1"
+        }
+      ],
+      "sessions": [],
+      "context": {
+        "materialization": {
+          "parameterization_id": "P4",
+          "template_id": "F2.3",
+          "description": "High-impact background topology."
+        },
+        "business_impact": {
+          "service_tier": "tier-1",
+          "benign_dependency_count": 6,
+          "recovery_priority": "high"
+        }
+      },
+      "evidence": [
+        {
+          "evidence_id": "MAT-IRR-1",
+          "predicate": "materialization_irrelevant_1",
+          "evidence_class": "S",
+          "source": "synthetic-background",
+          "observed_at_s": 0,
+          "subject_uid": null,
+          "truth_value": true,
+          "supersedes": null
+        },
+        {
+          "evidence_id": "MAT-IRR-2",
+          "predicate": "materialization_irrelevant_2",
+          "evidence_class": "S",
+          "source": "synthetic-background",
+          "observed_at_s": 0,
+          "subject_uid": null,
+          "truth_value": true,
+          "supersedes": null
+        }
+      ],
+      "queue": []
+    },
+    "predicates": {
+      "p_original_malicious": {
+        "path": "/facts/original_malicious",
+        "op": "eq",
+        "value": true,
+        "evidence_class": "H",
+        "description": "Original network-bound resource was malicious."
+      },
+      "p_same_binding": {
+        "path": "/facts/F2_3_binding",
+        "op": "eq",
+        "value": "SVC1",
+        "evidence_class": "B",
+        "description": "Network identifier still denotes the original malicious resource."
+      },
+      "p_target_resolves": {
+        "path": "/facts/F2_3_binding",
+        "op": "ne",
+        "value": null,
+        "evidence_class": "B",
+        "description": "Network identifier resolves to a concrete target."
+      },
+      "p_authorized": {
+        "path": "/facts/action_authorized",
+        "op": "eq",
+        "value": true,
+        "evidence_class": "DERIVED",
+        "description": "Response executor remains technically authorized."
+      }
+    },
+    "policy_profiles": {
+      "balanced": {
+        "justification": {
+          "predicate": "p_original_malicious"
+        },
+        "binding": {
+          "predicate": "p_same_binding"
+        },
+        "scope": true
+      }
+    },
+    "transitions": [
+      {
+        "transition_id": "irrelevant_change",
+        "title": "Irrelevant telemetry change",
+        "actor": "environment",
+        "capability_tier": "NONE",
+        "duration_s": 0.1,
+        "cost_ops": 0,
+        "preconditions": true,
+        "effects": [
+          {
+            "op": "set",
+            "path": "/facts/irrelevant_metric",
+            "value": 1
+          }
+        ],
+        "notes": "",
+        "adversarially_induced": false,
+        "causal_parent_ids": []
+      },
+      {
+        "transition_id": "release_original",
+        "title": "Attacker releases original binding",
+        "actor": "attacker",
+        "capability_tier": "C2",
+        "duration_s": 0.9,
+        "cost_ops": 1,
+        "preconditions": true,
+        "effects": [
+          {
+            "op": "set",
+            "path": "/facts/F2_3_binding",
+            "value": null
+          }
+        ],
+        "notes": "",
+        "adversarially_induced": true,
+        "causal_parent_ids": []
+      },
+      {
+        "transition_id": "assign_successor",
+        "title": "Platform/allocator maps identifier to benign successor",
+        "actor": "environment",
+        "capability_tier": "NONE",
+        "duration_s": 1.1,
+        "cost_ops": 0,
+        "preconditions": true,
+        "effects": [
+          {
+            "op": "set",
+            "path": "/facts/F2_3_binding",
+            "value": "SVC2"
+          }
+        ],
+        "notes": "",
+        "adversarially_induced": true,
+        "causal_parent_ids": [
+          "release_original"
+        ]
+      }
+    ],
+    "worlds": {
+      "W0": {
+        "commit_deadline_s": 5,
+        "transition_path": [],
+        "expected_commit": "EXECUTE",
+        "expected_attack_path_completed": false,
+        "control_semantics": "stable",
+        "expected_commit_by_policy": {
+          "balanced": "EXECUTE"
+        }
+      },
+      "W1": {
+        "commit_deadline_s": 5,
+        "transition_path": [
+          "irrelevant_change"
+        ],
+        "expected_commit": "EXECUTE",
+        "expected_attack_path_completed": false,
+        "control_semantics": "irrelevant_change",
+        "expected_commit_by_policy": {
+          "balanced": "EXECUTE"
+        }
+      },
+      "W2": {
+        "commit_deadline_s": 5,
+        "transition_path": [
+          "release_original",
+          "assign_successor"
+        ],
+        "expected_commit": "ABORT_REPLAN",
+        "expected_attack_path_completed": true,
+        "control_semantics": "ea_toctou",
+        "expected_commit_by_policy": {
+          "balanced": "ABORT_REPLAN"
+        }
+      },
+      "W3": {
+        "commit_deadline_s": 0.4,
+        "transition_path": [
+          "release_original",
+          "assign_successor"
+        ],
+        "expected_commit": "EXECUTE",
+        "expected_attack_path_completed": false,
+        "control_semantics": "deadline_miss",
+        "expected_commit_by_policy": {
+          "balanced": "EXECUTE"
+        }
+      }
+    },
+    "provenance": {
+      "platform_basis": "Dynamic network/service identity is explicitly modeled and is not assumed to be immutable.",
+      "incident_basis": "SOC queues a network-targeted containment action from a malicious binding.",
+      "policy_basis": "The action remains valid only while the identifier denotes the original malicious resource.",
+      "limitations": "Specific reuse/reassignment mechanics require environment-specific validation."
+    },
+    "severity": "S2",
+    "notes": "Held-out network-identity rebinding template.",
+    "primary_policy": "balanced",
+    "justification_bases_by_policy": {
+      "balanced": [
+        [
+          "p_original_malicious"
+        ]
+      ]
+    },
+    "justification_bases": [
+      [
+        "p_original_malicious"
+      ]
+    ],
+    "parameterizations": [
+      {
+        "id": "P1",
+        "description": "Minimal topology with only essential resources and evidence."
+      },
+      {
+        "id": "P2",
+        "description": "Distractor topology with benign resources and irrelevant evidence."
+      },
+      {
+        "id": "P3",
+        "description": "Noisy SOC context with non-material alerts and unrelated transitions."
+      },
+      {
+        "id": "P4",
+        "description": "High-impact variant with larger benign background or higher criticality."
+      }
+    ],
+    "native_controls": [],
+    "refresh_model": {
+      "cost_unit": "normalized_query_unit",
+      "query_costs": {
+        "immutable:p_original_malicious": 0.0,
+        "query:/facts/F2_3_binding": 1.0
+      },
+      "predicate_query_ids": {
+        "p_original_malicious": "immutable:p_original_malicious",
+        "p_same_binding": "query:/facts/F2_3_binding",
+        "p_target_resolves": "query:/facts/F2_3_binding"
+      },
+      "query_observed_at_s": {
+        "immutable:p_original_malicious": 0.0,
+        "query:/facts/F2_3_binding": 0.0
+      }
+    }
+  }
+}

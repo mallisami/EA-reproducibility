@@ -1,0 +1,12 @@
+{
+  "modes": {
+    "dcji_selective": 1063,
+    "dcji_no_feasible_attack": 777
+  },
+  "hidden_transition_counts": {
+    "0": 1063,
+    "1": 614,
+    "2": 152,
+    "3": 11
+  }
+}

@@ -1,0 +1,166 @@
+== kind
+kind v0.33.0 go1.26.7 linux/amd64
+== kubectl
+{
+  "clientVersion": {
+    "major": "1",
+    "minor": "37",
+    "gitVersion": "v1.37.0",
+    "gitCommit": "f54c212e3a2f75d674b717a9b29052b20b60aefc",
+    "gitTreeState": "clean",
+    "buildDate": "2026-08-26T10:48:06Z",
+    "goVersion": "go1.26.6",
+    "compiler": "gc",
+    "platform": "linux/amd64"
+  },
+  "kustomizeVersion": "v5.8.1",
+  "serverVersion": {
+    "major": "1",
+    "minor": "37",
+    "emulationMajor": "1",
+    "emulationMinor": "37",
+    "minCompatibilityMajor": "1",
+    "minCompatibilityMinor": "36",
+    "gitVersion": "v1.37.0",
+    "gitCommit": "f54c212e3a2f75d674b717a9b29052b20b60aefc",
+    "gitTreeState": "clean",
+    "buildDate": "2026-08-26T10:44:25Z",
+    "goVersion": "go1.26.6",
+    "compiler": "gc",
+    "platform": "linux/amd64"
+  }
+}
+== images
+sha256:a1ed56cfb0e7b93589bdf97c8cd566405a265939e3620fc4f5de89adff580ae5 [kindest/node:v1.37.0 kindest/node@sha256:a1ed56cfb0e7b93589bdf97c8cd566405a265939e3620fc4f5de89adff580ae5]
+sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9 [python:3.12-slim]
+== node images (crictl)
+IMAGE                                           TAG                  IMAGE ID            SIZE
+docker.io/kindest/kindnetd                      v20260820-69b56db7   4626fe10df5b9       39.7MB
+docker.io/kindest/local-path-helper             v20260131-7181c60a   19aa6a21b42cb       2.87MB
+docker.io/kindest/local-path-provisioner        v20260820-69b56db7   c82008e2cd018       15.9MB
+docker.io/library/python                        3.12-slim            9e87977b86784       43.3MB
+registry.k8s.io/coredns/coredns                 v1.14.6              520212b8b0fcd       23.8MB
+registry.k8s.io/etcd                            3.7.0-0              270fbeb697171       22.3MB
+registry.k8s.io/kube-apiserver-amd64            v1.37.0              bec5f0e1e2eeb       104MB
+registry.k8s.io/kube-apiserver                  v1.37.0              bec5f0e1e2eeb       104MB
+registry.k8s.io/kube-controller-manager-amd64   v1.37.0              364b3c3d9ec19       91MB
+registry.k8s.io/kube-controller-manager         v1.37.0              364b3c3d9ec19       91MB
+registry.k8s.io/kube-proxy-amd64                v1.37.0              d6a28daf3e6b0       82.8MB
+registry.k8s.io/kube-proxy                      v1.37.0              d6a28daf3e6b0       82.8MB
+registry.k8s.io/kube-scheduler-amd64            v1.37.0              1fabf80a1273a       62.7MB
+registry.k8s.io/kube-scheduler                  v1.37.0              1fabf80a1273a       62.7MB
+registry.k8s.io/pause                           3.10                 873ed75102791       320kB
+== nodes
+NAME                STATUS   ROLES           AGE     VERSION   INTERNAL-IP   EXTERNAL-IP   OS-IMAGE                       KERNEL-VERSION              CONTAINER-RUNTIME
+e39-control-plane   Ready    control-plane   6h17m   v1.37.0   172.18.0.5    <none>        Debian GNU/Linux 13 (trixie)   6.17.0-1022-azure (amd64)   containerd://2.3.4
+== vwc
+apiVersion: v1
+items:
+- apiVersion: admissionregistration.k8s.io/v1
+  kind: ValidatingWebhookConfiguration
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"admissionregistration.k8s.io/v1","kind":"ValidatingWebhookConfiguration","metadata":{"annotations":{},"labels":{"e39-managed":"true","e39-run-id":"e39-20260926t1515z"},"name":"e39-action-revalidation"},"webhooks":[{"admissionReviewVersions":["v1"],"clientConfig":{"caBundle":"LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURJekNDQWd1Z0F3SUJBZ0lVVW9yLzQ2YkJ1R0FUaGFXa3dNWHp3dWNsdWNVd0RRWUpLb1pJaHZjTkFRRUwKQlFBd0dURVhNQlVHQTFVRUF3d09aVE01TFhkbFltaHZiMnN0WTJFd0hoY05Nall3T1RJMk1UVXhOVEUyV2hjTgpNall4TURJMk1UVXhOVEUyV2pBWk1SY3dGUVlEVlFRRERBNWxNemt0ZDJWaWFHOXZheTFqWVRDQ0FTSXdEUVlKCktvWklodmNOQVFFQkJRQURnZ0VQQURDQ0FRb0NnZ0VCQUxHeDIzbDZFOVJBOFhuSmtmWWh5bDg5VmZqRXVkL0sKUysyTWN4WCt0V0VxbTZLRFlwdWdlTGVXVUkrZWw4c1FXdlFpbzJYbGV3TDcxcE5pUTVhQWRFZzBHQW9VYW9Hdwo3Y0lmRCtVK2VOSGxwR1AwN3E5U3p0bENKTWZBUDZTajhCbHc2K3dGRXJtSjllWW1qZldOa0lTS0xVaGk5VUUwCjg5b2dEUWdKNzI1UU1zVTYvcWhmN2o5a0hrVkdaWkFrbS96a1dsbmk4Tlp5b2ZRd3pva0l3Skw4a2hoTEZETmkKWHNldGdRQUZIVlRTVVFpWFBlN0xiN3hQaWVVVHdxb1dnZEE2bDZTY2dDdGJYeU9LRWFzeTEyL05EVjVQVnJ0SwpzdGFUNTc0S0hneGRxQVNGb0RrYnlTamlOUVR4UVF3UW9zZ0ExblQ5cytMek4ySWdOemY1cnpjQ0F3RUFBYU5qCk1HRXdIUVlEVlIwT0JCWUVGRUdJb1dVVkhxdHRQMzFocFR1M0VTMHBvVmF0TUI4R0ExVWRJd1FZTUJhQUZFR0kKb1dVVkhxdHRQMzFocFR1M0VTMHBvVmF0TUE4R0ExVWRFd0VCL3dRRk1BTUJBZjh3RGdZRFZSMFBBUUgvQkFRRApBZ0VHTUEwR0NTcUdTSWIzRFFFQkN3VUFBNElCQVFCS3VMWlpxL3JwbVVuUm5DbWNPVG5RMG5iazVFZGYxSlpKCmdiTVduQk5hYzY5NjBrUlBPZXNIaXJZZ0w4bElhY3JraTV2czdOeXdrditRZDBsMEVwL29CVXVkL2Y1WGYvN3MKakVDLzJKTUxjeU0xVVBpdEVSR1U2NDBQbHlpdzNHTkFtU2o2YTBobkFOVkRSM1BsNmI0bzl5MWh0ZGx0SGk3UwpjQlRXMkJ6TVpDTDJpQnN1MXhwWi82WTBpU0doN3lTWXVLc2VISzFuTHBGVTNNaHVFVWdHc3V0T3pYK1kwU1E5CkJQWS9DQldCaEVPenNsVFE5UHpITUdJaUNYMVNpK0dtTFV1Q2Q1ZmNlOTB3c1FlZkQ2NXhYV2NNbVAyMTRoOUQKSFA1S3VRM1ZRSU5sbGJUdmFSME5wU0FjSUZnSncrcmhoYW1jYUl5WUYxeVpwMnYyVWVnZAotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==","service":{"name":"e39-webhook","namespace":"e39-system","path":"/validate","port":443}},"failurePolicy":"Fail","matchConditions":[{"expression":"request.userInfo.username != 'system:serviceaccount:e39-system:e39-reset'","name":"exempt-reset-identity"},{"expression":"!request.userInfo.username.startsWith('system:node:')","name":"exempt-kubelets"},{"expression":"!(request.userInfo.username in ['system:serviceaccount:kube-system:namespace-controller', 'system:serviceaccount:kube-system:generic-garbage-collector'])","name":"exempt-namespace-and-gc-controllers"}],"matchPolicy":"Exact","name":"action-revalidation.e39.e39-managed.local","namespaceSelector":{"matchLabels":{"kubernetes.io/metadata.name":"e39-e39-20260926t1515z"}},"objectSelector":{"matchLabels":{"e39-webhook":"enforce"}},"rules":[{"apiGroups":[""],"apiVersions":["v1"],"operations":["DELETE"],"resources":["pods"],"scope":"Namespaced"},{"apiGroups":["networking.k8s.io"],"apiVersions":["v1"],"operations":["CREATE"],"resources":["networkpolicies"],"scope":"Namespaced"}],"sideEffects":"None","timeoutSeconds":5}]}
+    creationTimestamp: "2026-09-26T14:13:34Z"
+    generation: 2
+    labels:
+      e39-managed: "true"
+      e39-run-id: e39-20260926t1515z
+    name: e39-action-revalidation
+    resourceVersion: "14132"
+    uid: 5062e034-a721-4036-b655-ada660d246e1
+  webhooks:
+  - admissionReviewVersions:
+    - v1
+    clientConfig:
+      caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURJekNDQWd1Z0F3SUJBZ0lVVW9yLzQ2YkJ1R0FUaGFXa3dNWHp3dWNsdWNVd0RRWUpLb1pJaHZjTkFRRUwKQlFBd0dURVhNQlVHQTFVRUF3d09aVE01TFhkbFltaHZiMnN0WTJFd0hoY05Nall3T1RJMk1UVXhOVEUyV2hjTgpNall4TURJMk1UVXhOVEUyV2pBWk1SY3dGUVlEVlFRRERBNWxNemt0ZDJWaWFHOXZheTFqWVRDQ0FTSXdEUVlKCktvWklodmNOQVFFQkJRQURnZ0VQQURDQ0FRb0NnZ0VCQUxHeDIzbDZFOVJBOFhuSmtmWWh5bDg5VmZqRXVkL0sKUysyTWN4WCt0V0VxbTZLRFlwdWdlTGVXVUkrZWw4c1FXdlFpbzJYbGV3TDcxcE5pUTVhQWRFZzBHQW9VYW9Hdwo3Y0lmRCtVK2VOSGxwR1AwN3E5U3p0bENKTWZBUDZTajhCbHc2K3dGRXJtSjllWW1qZldOa0lTS0xVaGk5VUUwCjg5b2dEUWdKNzI1UU1zVTYvcWhmN2o5a0hrVkdaWkFrbS96a1dsbmk4Tlp5b2ZRd3pva0l3Skw4a2hoTEZETmkKWHNldGdRQUZIVlRTVVFpWFBlN0xiN3hQaWVVVHdxb1dnZEE2bDZTY2dDdGJYeU9LRWFzeTEyL05EVjVQVnJ0SwpzdGFUNTc0S0hneGRxQVNGb0RrYnlTamlOUVR4UVF3UW9zZ0ExblQ5cytMek4ySWdOemY1cnpjQ0F3RUFBYU5qCk1HRXdIUVlEVlIwT0JCWUVGRUdJb1dVVkhxdHRQMzFocFR1M0VTMHBvVmF0TUI4R0ExVWRJd1FZTUJhQUZFR0kKb1dVVkhxdHRQMzFocFR1M0VTMHBvVmF0TUE4R0ExVWRFd0VCL3dRRk1BTUJBZjh3RGdZRFZSMFBBUUgvQkFRRApBZ0VHTUEwR0NTcUdTSWIzRFFFQkN3VUFBNElCQVFCS3VMWlpxL3JwbVVuUm5DbWNPVG5RMG5iazVFZGYxSlpKCmdiTVduQk5hYzY5NjBrUlBPZXNIaXJZZ0w4bElhY3JraTV2czdOeXdrditRZDBsMEVwL29CVXVkL2Y1WGYvN3MKakVDLzJKTUxjeU0xVVBpdEVSR1U2NDBQbHlpdzNHTkFtU2o2YTBobkFOVkRSM1BsNmI0bzl5MWh0ZGx0SGk3UwpjQlRXMkJ6TVpDTDJpQnN1MXhwWi82WTBpU0doN3lTWXVLc2VISzFuTHBGVTNNaHVFVWdHc3V0T3pYK1kwU1E5CkJQWS9DQldCaEVPenNsVFE5UHpITUdJaUNYMVNpK0dtTFV1Q2Q1ZmNlOTB3c1FlZkQ2NXhYV2NNbVAyMTRoOUQKSFA1S3VRM1ZRSU5sbGJUdmFSME5wU0FjSUZnSncrcmhoYW1jYUl5WUYxeVpwMnYyVWVnZAotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
+      service:
+        name: e39-webhook
+        namespace: e39-system
+        path: /validate
+        port: 443
+    failurePolicy: Fail
+    matchConditions:
+    - expression: request.userInfo.username != 'system:serviceaccount:e39-system:e39-reset'
+      name: exempt-reset-identity
+    - expression: '!request.userInfo.username.startsWith(''system:node:'')'
+      name: exempt-kubelets
+    - expression: '!(request.userInfo.username in [''system:serviceaccount:kube-system:namespace-controller'',
+        ''system:serviceaccount:kube-system:generic-garbage-collector''])'
+      name: exempt-namespace-and-gc-controllers
+    matchPolicy: Exact
+    name: action-revalidation.e39.e39-managed.local
+    namespaceSelector:
+      matchLabels:
+        kubernetes.io/metadata.name: e39-e39-20260926t1515z
+    objectSelector:
+      matchLabels:
+        e39-webhook: enforce
+    rules:
+    - apiGroups:
+      - ""
+      apiVersions:
+      - v1
+      operations:
+      - DELETE
+      resources:
+      - pods
+      scope: Namespaced
+    - apiGroups:
+      - networking.k8s.io
+      apiVersions:
+      - v1
+      operations:
+      - CREATE
+      resources:
+      - networkpolicies
+      scope: Namespaced
+    sideEffects: None
+    timeoutSeconds: 5
+kind: List
+metadata:
+  resourceVersion: ""
+== webhook deployment
+NAME          READY   UP-TO-DATE   AVAILABLE   AGE     CONTAINERS   IMAGES             SELECTOR
+e39-webhook   1/1     1            1           6h14m   webhook      python:3.12-slim   app=e39-webhook
+NAME                           READY   STATUS    RESTARTS   AGE     IP            NODE                NOMINATED NODE   READINESS GATES
+e39-webhook-79cf9b5b79-6jnv4   1/1     Running   0          5h12m   10.244.0.45   e39-control-plane   <none>           <none>
+== apiserver flags
+    - --audit-policy-file=/etc/kubernetes/e39/audit-policy.yaml
+    - --audit-log-path=/var/log/kubernetes/e39-audit/audit.log
+    - --audit-log-format=json
+    - --audit-log-maxsize=200
+    - --audit-log-maxbackup=30
+    - --audit-log-maxage=30
+    - --audit-log-compress=false
+    - --audit-log-mode=blocking
+    - --v=3
+    - --vmodule=store=6,round_trippers=6
+      name: e39-audit-log
+    - mountPath: /etc/kubernetes/e39/audit-policy.yaml
+      name: e39-audit-policy
+    name: e39-audit-log
+      path: /etc/kubernetes/e39/audit-policy.yaml
+    name: e39-audit-policy
+== kubelet log settings
+containerLogMaxFiles: 5
+containerLogMaxSize: 4Gi
+== go client
+e39-goclient BUILD_INFO
+=======================
+go_version: go version go1.27.1 linux/amd64
+client_go_version: k8s.io/client-go v0.37.0
+k8s_api_version: k8s.io/api v0.37.0
+apimachinery_version: k8s.io/apimachinery v0.37.0
+golang_x_sys_version: golang.org/x/sys v0.47.0
+go.sum_sha256: b71d045a9d9a5015db223bc978276e37f0050ab062ba64324ae52780c6cd4cfc
+binary_bin/e39-goclient_sha256: 6c7a68fc972d0d9a60123a2d2e3d987d874df11ed07a23470e96d8afac7398b7
+built_utc: 2026-09-26T13:47:11Z
+== host
+Linux mcb-k8s-v137 6.17.0-1022-azure #22-Ubuntu SMP Mon Jul 27 17:24:03 UTC 2026 x86_64 x86_64 x86_64 GNU/Linux
+4
+               total        used        free      shared  buff/cache   available
+Mem:           15939        2465        4165         676       10330       13473
+Swap:              0           0           0
+Python 3.12.3

@@ -1,0 +1,5749 @@
+{
+  "scenario_id": "E12.S250",
+  "title": "E12 causal-state scalability 250",
+  "family": "F1",
+  "realism_tier": "R1",
+  "development": true,
+  "action": {
+    "action_type": "quarantine_workload",
+    "target_reference": "pod/api-0",
+    "target_snapshot": {
+      "name": "api-0",
+      "uid": "U1",
+      "namespace": "prod"
+    },
+    "queue_semantics": "single_exactly_once_attempt",
+    "authorization": {
+      "predicate": "p_authorized",
+      "must_remain_valid": true
+    },
+    "execution_precondition": {
+      "predicate": "p_target_resolves"
+    }
+  },
+  "attacker_capability_tier": "C2",
+  "initial_state": {
+    "timestamp_s": 0,
+    "facts": {
+      "u1_compromised": true,
+      "api0_current_uid": "U1",
+      "irrelevant_annotation": "v1",
+      "action_authorized": true,
+      "scale_progress": 0
+    },
+    "resources": [
+      {
+        "kind": "Pod",
+        "namespace": "prod",
+        "name": "api-0",
+        "uid": "U1",
+        "resource_version": "101",
+        "active": true,
+        "security_state": "compromised"
+      },
+      {
+        "kind": "Pod",
+        "namespace": "prod",
+        "name": "api-0",
+        "uid": "U2",
+        "resource_version": "202",
+        "active": false,
+        "security_state": "clean"
+      }
+    ],
+    "processes": [],
+    "network_bindings": [],
+    "sessions": [],
+    "context": {},
+    "evidence": [
+      {
+        "evidence_id": "H1",
+        "predicate": "u1_compromised",
+        "evidence_class": "H",
+        "source": "EDR",
+        "observed_at_s": 0,
+        "subject_uid": "U1",
+        "truth_value": true,
+        "supersedes": null
+      }
+    ],
+    "queue": []
+  },
+  "predicates": {
+    "p_compromised_u1": {
+      "path": "/facts/u1_compromised",
+      "op": "eq",
+      "value": true,
+      "evidence_class": "H",
+      "description": "Confirmed compromise of original Pod U1."
+    },
+    "p_binding_u1": {
+      "path": "/facts/api0_current_uid",
+      "op": "eq",
+      "value": "U1",
+      "evidence_class": "B",
+      "description": "Reusable name still resolves to original UID U1."
+    },
+    "p_authorized": {
+      "path": "/facts/action_authorized",
+      "op": "eq",
+      "value": true,
+      "evidence_class": "DERIVED",
+      "description": "Response executor remains technically authorized."
+    },
+    "p_target_resolves": {
+      "path": "/facts/api0_current_uid",
+      "op": "ne",
+      "value": null,
+      "evidence_class": "B",
+      "description": "Queued Pod name resolves to a concrete resource at actuation."
+    }
+  },
+  "policy_profiles": {
+    "balanced": {
+      "justification": {
+        "predicate": "p_compromised_u1"
+      },
+      "binding": {
+        "predicate": "p_binding_u1"
+      },
+      "scope": true
+    },
+    "conservative": {
+      "justification": {
+        "predicate": "p_compromised_u1"
+      },
+      "binding": {
+        "predicate": "p_binding_u1"
+      },
+      "scope": true
+    },
+    "aggressive": {
+      "justification": {
+        "predicate": "p_compromised_u1"
+      },
+      "binding": {
+        "predicate": "p_binding_u1"
+      },
+      "scope": true
+    }
+  },
+  "primary_policy": "balanced",
+  "justification_bases": [
+    [
+      "p_compromised_u1"
+    ]
+  ],
+  "transitions": [
+    {
+      "transition_id": "scale_t0001",
+      "title": "Attacker initiates causal sequence",
+      "actor": "attacker",
+      "capability_tier": "C2",
+      "duration_s": 0.001,
+      "cost_ops": 1,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 1
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": []
+    },
+    {
+      "transition_id": "scale_t0002",
+      "title": "Adversarially induced causal step 2",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 2
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0001"
+      ]
+    },
+    {
+      "transition_id": "scale_t0003",
+      "title": "Adversarially induced causal step 3",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 3
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0002"
+      ]
+    },
+    {
+      "transition_id": "scale_t0004",
+      "title": "Adversarially induced causal step 4",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 4
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0003"
+      ]
+    },
+    {
+      "transition_id": "scale_t0005",
+      "title": "Adversarially induced causal step 5",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 5
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0004"
+      ]
+    },
+    {
+      "transition_id": "scale_t0006",
+      "title": "Adversarially induced causal step 6",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 6
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0005"
+      ]
+    },
+    {
+      "transition_id": "scale_t0007",
+      "title": "Adversarially induced causal step 7",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 7
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0006"
+      ]
+    },
+    {
+      "transition_id": "scale_t0008",
+      "title": "Adversarially induced causal step 8",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 8
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0007"
+      ]
+    },
+    {
+      "transition_id": "scale_t0009",
+      "title": "Adversarially induced causal step 9",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 9
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0008"
+      ]
+    },
+    {
+      "transition_id": "scale_t0010",
+      "title": "Adversarially induced causal step 10",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 10
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0009"
+      ]
+    },
+    {
+      "transition_id": "scale_t0011",
+      "title": "Adversarially induced causal step 11",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 11
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0010"
+      ]
+    },
+    {
+      "transition_id": "scale_t0012",
+      "title": "Adversarially induced causal step 12",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 12
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0011"
+      ]
+    },
+    {
+      "transition_id": "scale_t0013",
+      "title": "Adversarially induced causal step 13",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 13
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0012"
+      ]
+    },
+    {
+      "transition_id": "scale_t0014",
+      "title": "Adversarially induced causal step 14",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 14
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0013"
+      ]
+    },
+    {
+      "transition_id": "scale_t0015",
+      "title": "Adversarially induced causal step 15",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 15
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0014"
+      ]
+    },
+    {
+      "transition_id": "scale_t0016",
+      "title": "Adversarially induced causal step 16",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 16
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0015"
+      ]
+    },
+    {
+      "transition_id": "scale_t0017",
+      "title": "Adversarially induced causal step 17",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 17
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0016"
+      ]
+    },
+    {
+      "transition_id": "scale_t0018",
+      "title": "Adversarially induced causal step 18",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 18
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0017"
+      ]
+    },
+    {
+      "transition_id": "scale_t0019",
+      "title": "Adversarially induced causal step 19",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 19
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0018"
+      ]
+    },
+    {
+      "transition_id": "scale_t0020",
+      "title": "Adversarially induced causal step 20",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 20
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0019"
+      ]
+    },
+    {
+      "transition_id": "scale_t0021",
+      "title": "Adversarially induced causal step 21",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 21
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0020"
+      ]
+    },
+    {
+      "transition_id": "scale_t0022",
+      "title": "Adversarially induced causal step 22",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 22
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0021"
+      ]
+    },
+    {
+      "transition_id": "scale_t0023",
+      "title": "Adversarially induced causal step 23",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 23
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0022"
+      ]
+    },
+    {
+      "transition_id": "scale_t0024",
+      "title": "Adversarially induced causal step 24",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 24
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0023"
+      ]
+    },
+    {
+      "transition_id": "scale_t0025",
+      "title": "Adversarially induced causal step 25",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 25
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0024"
+      ]
+    },
+    {
+      "transition_id": "scale_t0026",
+      "title": "Adversarially induced causal step 26",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 26
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0025"
+      ]
+    },
+    {
+      "transition_id": "scale_t0027",
+      "title": "Adversarially induced causal step 27",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 27
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0026"
+      ]
+    },
+    {
+      "transition_id": "scale_t0028",
+      "title": "Adversarially induced causal step 28",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 28
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0027"
+      ]
+    },
+    {
+      "transition_id": "scale_t0029",
+      "title": "Adversarially induced causal step 29",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 29
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0028"
+      ]
+    },
+    {
+      "transition_id": "scale_t0030",
+      "title": "Adversarially induced causal step 30",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 30
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0029"
+      ]
+    },
+    {
+      "transition_id": "scale_t0031",
+      "title": "Adversarially induced causal step 31",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 31
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0030"
+      ]
+    },
+    {
+      "transition_id": "scale_t0032",
+      "title": "Adversarially induced causal step 32",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 32
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0031"
+      ]
+    },
+    {
+      "transition_id": "scale_t0033",
+      "title": "Adversarially induced causal step 33",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 33
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0032"
+      ]
+    },
+    {
+      "transition_id": "scale_t0034",
+      "title": "Adversarially induced causal step 34",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 34
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0033"
+      ]
+    },
+    {
+      "transition_id": "scale_t0035",
+      "title": "Adversarially induced causal step 35",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 35
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0034"
+      ]
+    },
+    {
+      "transition_id": "scale_t0036",
+      "title": "Adversarially induced causal step 36",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 36
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0035"
+      ]
+    },
+    {
+      "transition_id": "scale_t0037",
+      "title": "Adversarially induced causal step 37",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 37
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0036"
+      ]
+    },
+    {
+      "transition_id": "scale_t0038",
+      "title": "Adversarially induced causal step 38",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 38
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0037"
+      ]
+    },
+    {
+      "transition_id": "scale_t0039",
+      "title": "Adversarially induced causal step 39",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 39
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0038"
+      ]
+    },
+    {
+      "transition_id": "scale_t0040",
+      "title": "Adversarially induced causal step 40",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 40
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0039"
+      ]
+    },
+    {
+      "transition_id": "scale_t0041",
+      "title": "Adversarially induced causal step 41",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 41
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0040"
+      ]
+    },
+    {
+      "transition_id": "scale_t0042",
+      "title": "Adversarially induced causal step 42",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 42
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0041"
+      ]
+    },
+    {
+      "transition_id": "scale_t0043",
+      "title": "Adversarially induced causal step 43",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 43
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0042"
+      ]
+    },
+    {
+      "transition_id": "scale_t0044",
+      "title": "Adversarially induced causal step 44",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 44
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0043"
+      ]
+    },
+    {
+      "transition_id": "scale_t0045",
+      "title": "Adversarially induced causal step 45",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 45
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0044"
+      ]
+    },
+    {
+      "transition_id": "scale_t0046",
+      "title": "Adversarially induced causal step 46",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 46
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0045"
+      ]
+    },
+    {
+      "transition_id": "scale_t0047",
+      "title": "Adversarially induced causal step 47",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 47
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0046"
+      ]
+    },
+    {
+      "transition_id": "scale_t0048",
+      "title": "Adversarially induced causal step 48",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 48
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0047"
+      ]
+    },
+    {
+      "transition_id": "scale_t0049",
+      "title": "Adversarially induced causal step 49",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 49
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0048"
+      ]
+    },
+    {
+      "transition_id": "scale_t0050",
+      "title": "Adversarially induced causal step 50",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 50
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0049"
+      ]
+    },
+    {
+      "transition_id": "scale_t0051",
+      "title": "Adversarially induced causal step 51",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 51
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0050"
+      ]
+    },
+    {
+      "transition_id": "scale_t0052",
+      "title": "Adversarially induced causal step 52",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 52
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0051"
+      ]
+    },
+    {
+      "transition_id": "scale_t0053",
+      "title": "Adversarially induced causal step 53",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 53
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0052"
+      ]
+    },
+    {
+      "transition_id": "scale_t0054",
+      "title": "Adversarially induced causal step 54",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 54
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0053"
+      ]
+    },
+    {
+      "transition_id": "scale_t0055",
+      "title": "Adversarially induced causal step 55",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 55
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0054"
+      ]
+    },
+    {
+      "transition_id": "scale_t0056",
+      "title": "Adversarially induced causal step 56",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 56
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0055"
+      ]
+    },
+    {
+      "transition_id": "scale_t0057",
+      "title": "Adversarially induced causal step 57",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 57
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0056"
+      ]
+    },
+    {
+      "transition_id": "scale_t0058",
+      "title": "Adversarially induced causal step 58",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 58
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0057"
+      ]
+    },
+    {
+      "transition_id": "scale_t0059",
+      "title": "Adversarially induced causal step 59",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 59
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0058"
+      ]
+    },
+    {
+      "transition_id": "scale_t0060",
+      "title": "Adversarially induced causal step 60",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 60
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0059"
+      ]
+    },
+    {
+      "transition_id": "scale_t0061",
+      "title": "Adversarially induced causal step 61",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 61
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0060"
+      ]
+    },
+    {
+      "transition_id": "scale_t0062",
+      "title": "Adversarially induced causal step 62",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 62
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0061"
+      ]
+    },
+    {
+      "transition_id": "scale_t0063",
+      "title": "Adversarially induced causal step 63",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 63
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0062"
+      ]
+    },
+    {
+      "transition_id": "scale_t0064",
+      "title": "Adversarially induced causal step 64",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 64
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0063"
+      ]
+    },
+    {
+      "transition_id": "scale_t0065",
+      "title": "Adversarially induced causal step 65",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 65
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0064"
+      ]
+    },
+    {
+      "transition_id": "scale_t0066",
+      "title": "Adversarially induced causal step 66",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 66
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0065"
+      ]
+    },
+    {
+      "transition_id": "scale_t0067",
+      "title": "Adversarially induced causal step 67",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 67
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0066"
+      ]
+    },
+    {
+      "transition_id": "scale_t0068",
+      "title": "Adversarially induced causal step 68",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 68
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0067"
+      ]
+    },
+    {
+      "transition_id": "scale_t0069",
+      "title": "Adversarially induced causal step 69",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 69
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0068"
+      ]
+    },
+    {
+      "transition_id": "scale_t0070",
+      "title": "Adversarially induced causal step 70",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 70
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0069"
+      ]
+    },
+    {
+      "transition_id": "scale_t0071",
+      "title": "Adversarially induced causal step 71",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 71
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0070"
+      ]
+    },
+    {
+      "transition_id": "scale_t0072",
+      "title": "Adversarially induced causal step 72",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 72
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0071"
+      ]
+    },
+    {
+      "transition_id": "scale_t0073",
+      "title": "Adversarially induced causal step 73",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 73
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0072"
+      ]
+    },
+    {
+      "transition_id": "scale_t0074",
+      "title": "Adversarially induced causal step 74",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 74
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0073"
+      ]
+    },
+    {
+      "transition_id": "scale_t0075",
+      "title": "Adversarially induced causal step 75",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 75
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0074"
+      ]
+    },
+    {
+      "transition_id": "scale_t0076",
+      "title": "Adversarially induced causal step 76",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 76
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0075"
+      ]
+    },
+    {
+      "transition_id": "scale_t0077",
+      "title": "Adversarially induced causal step 77",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 77
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0076"
+      ]
+    },
+    {
+      "transition_id": "scale_t0078",
+      "title": "Adversarially induced causal step 78",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 78
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0077"
+      ]
+    },
+    {
+      "transition_id": "scale_t0079",
+      "title": "Adversarially induced causal step 79",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 79
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0078"
+      ]
+    },
+    {
+      "transition_id": "scale_t0080",
+      "title": "Adversarially induced causal step 80",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 80
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0079"
+      ]
+    },
+    {
+      "transition_id": "scale_t0081",
+      "title": "Adversarially induced causal step 81",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 81
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0080"
+      ]
+    },
+    {
+      "transition_id": "scale_t0082",
+      "title": "Adversarially induced causal step 82",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 82
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0081"
+      ]
+    },
+    {
+      "transition_id": "scale_t0083",
+      "title": "Adversarially induced causal step 83",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 83
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0082"
+      ]
+    },
+    {
+      "transition_id": "scale_t0084",
+      "title": "Adversarially induced causal step 84",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 84
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0083"
+      ]
+    },
+    {
+      "transition_id": "scale_t0085",
+      "title": "Adversarially induced causal step 85",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 85
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0084"
+      ]
+    },
+    {
+      "transition_id": "scale_t0086",
+      "title": "Adversarially induced causal step 86",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 86
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0085"
+      ]
+    },
+    {
+      "transition_id": "scale_t0087",
+      "title": "Adversarially induced causal step 87",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 87
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0086"
+      ]
+    },
+    {
+      "transition_id": "scale_t0088",
+      "title": "Adversarially induced causal step 88",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 88
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0087"
+      ]
+    },
+    {
+      "transition_id": "scale_t0089",
+      "title": "Adversarially induced causal step 89",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 89
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0088"
+      ]
+    },
+    {
+      "transition_id": "scale_t0090",
+      "title": "Adversarially induced causal step 90",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 90
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0089"
+      ]
+    },
+    {
+      "transition_id": "scale_t0091",
+      "title": "Adversarially induced causal step 91",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 91
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0090"
+      ]
+    },
+    {
+      "transition_id": "scale_t0092",
+      "title": "Adversarially induced causal step 92",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 92
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0091"
+      ]
+    },
+    {
+      "transition_id": "scale_t0093",
+      "title": "Adversarially induced causal step 93",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 93
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0092"
+      ]
+    },
+    {
+      "transition_id": "scale_t0094",
+      "title": "Adversarially induced causal step 94",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 94
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0093"
+      ]
+    },
+    {
+      "transition_id": "scale_t0095",
+      "title": "Adversarially induced causal step 95",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 95
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0094"
+      ]
+    },
+    {
+      "transition_id": "scale_t0096",
+      "title": "Adversarially induced causal step 96",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 96
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0095"
+      ]
+    },
+    {
+      "transition_id": "scale_t0097",
+      "title": "Adversarially induced causal step 97",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 97
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0096"
+      ]
+    },
+    {
+      "transition_id": "scale_t0098",
+      "title": "Adversarially induced causal step 98",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 98
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0097"
+      ]
+    },
+    {
+      "transition_id": "scale_t0099",
+      "title": "Adversarially induced causal step 99",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 99
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0098"
+      ]
+    },
+    {
+      "transition_id": "scale_t0100",
+      "title": "Adversarially induced causal step 100",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 100
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0099"
+      ]
+    },
+    {
+      "transition_id": "scale_t0101",
+      "title": "Adversarially induced causal step 101",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 101
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0100"
+      ]
+    },
+    {
+      "transition_id": "scale_t0102",
+      "title": "Adversarially induced causal step 102",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 102
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0101"
+      ]
+    },
+    {
+      "transition_id": "scale_t0103",
+      "title": "Adversarially induced causal step 103",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 103
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0102"
+      ]
+    },
+    {
+      "transition_id": "scale_t0104",
+      "title": "Adversarially induced causal step 104",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 104
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0103"
+      ]
+    },
+    {
+      "transition_id": "scale_t0105",
+      "title": "Adversarially induced causal step 105",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 105
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0104"
+      ]
+    },
+    {
+      "transition_id": "scale_t0106",
+      "title": "Adversarially induced causal step 106",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 106
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0105"
+      ]
+    },
+    {
+      "transition_id": "scale_t0107",
+      "title": "Adversarially induced causal step 107",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 107
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0106"
+      ]
+    },
+    {
+      "transition_id": "scale_t0108",
+      "title": "Adversarially induced causal step 108",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 108
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0107"
+      ]
+    },
+    {
+      "transition_id": "scale_t0109",
+      "title": "Adversarially induced causal step 109",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 109
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0108"
+      ]
+    },
+    {
+      "transition_id": "scale_t0110",
+      "title": "Adversarially induced causal step 110",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 110
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0109"
+      ]
+    },
+    {
+      "transition_id": "scale_t0111",
+      "title": "Adversarially induced causal step 111",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 111
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0110"
+      ]
+    },
+    {
+      "transition_id": "scale_t0112",
+      "title": "Adversarially induced causal step 112",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 112
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0111"
+      ]
+    },
+    {
+      "transition_id": "scale_t0113",
+      "title": "Adversarially induced causal step 113",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 113
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0112"
+      ]
+    },
+    {
+      "transition_id": "scale_t0114",
+      "title": "Adversarially induced causal step 114",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 114
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0113"
+      ]
+    },
+    {
+      "transition_id": "scale_t0115",
+      "title": "Adversarially induced causal step 115",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 115
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0114"
+      ]
+    },
+    {
+      "transition_id": "scale_t0116",
+      "title": "Adversarially induced causal step 116",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 116
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0115"
+      ]
+    },
+    {
+      "transition_id": "scale_t0117",
+      "title": "Adversarially induced causal step 117",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 117
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0116"
+      ]
+    },
+    {
+      "transition_id": "scale_t0118",
+      "title": "Adversarially induced causal step 118",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 118
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0117"
+      ]
+    },
+    {
+      "transition_id": "scale_t0119",
+      "title": "Adversarially induced causal step 119",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 119
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0118"
+      ]
+    },
+    {
+      "transition_id": "scale_t0120",
+      "title": "Adversarially induced causal step 120",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 120
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0119"
+      ]
+    },
+    {
+      "transition_id": "scale_t0121",
+      "title": "Adversarially induced causal step 121",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 121
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0120"
+      ]
+    },
+    {
+      "transition_id": "scale_t0122",
+      "title": "Adversarially induced causal step 122",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 122
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0121"
+      ]
+    },
+    {
+      "transition_id": "scale_t0123",
+      "title": "Adversarially induced causal step 123",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 123
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0122"
+      ]
+    },
+    {
+      "transition_id": "scale_t0124",
+      "title": "Adversarially induced causal step 124",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 124
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0123"
+      ]
+    },
+    {
+      "transition_id": "scale_t0125",
+      "title": "Adversarially induced causal step 125",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 125
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0124"
+      ]
+    },
+    {
+      "transition_id": "scale_t0126",
+      "title": "Adversarially induced causal step 126",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 126
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0125"
+      ]
+    },
+    {
+      "transition_id": "scale_t0127",
+      "title": "Adversarially induced causal step 127",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 127
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0126"
+      ]
+    },
+    {
+      "transition_id": "scale_t0128",
+      "title": "Adversarially induced causal step 128",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 128
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0127"
+      ]
+    },
+    {
+      "transition_id": "scale_t0129",
+      "title": "Adversarially induced causal step 129",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 129
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0128"
+      ]
+    },
+    {
+      "transition_id": "scale_t0130",
+      "title": "Adversarially induced causal step 130",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 130
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0129"
+      ]
+    },
+    {
+      "transition_id": "scale_t0131",
+      "title": "Adversarially induced causal step 131",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 131
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0130"
+      ]
+    },
+    {
+      "transition_id": "scale_t0132",
+      "title": "Adversarially induced causal step 132",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 132
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0131"
+      ]
+    },
+    {
+      "transition_id": "scale_t0133",
+      "title": "Adversarially induced causal step 133",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 133
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0132"
+      ]
+    },
+    {
+      "transition_id": "scale_t0134",
+      "title": "Adversarially induced causal step 134",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 134
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0133"
+      ]
+    },
+    {
+      "transition_id": "scale_t0135",
+      "title": "Adversarially induced causal step 135",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 135
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0134"
+      ]
+    },
+    {
+      "transition_id": "scale_t0136",
+      "title": "Adversarially induced causal step 136",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 136
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0135"
+      ]
+    },
+    {
+      "transition_id": "scale_t0137",
+      "title": "Adversarially induced causal step 137",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 137
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0136"
+      ]
+    },
+    {
+      "transition_id": "scale_t0138",
+      "title": "Adversarially induced causal step 138",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 138
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0137"
+      ]
+    },
+    {
+      "transition_id": "scale_t0139",
+      "title": "Adversarially induced causal step 139",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 139
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0138"
+      ]
+    },
+    {
+      "transition_id": "scale_t0140",
+      "title": "Adversarially induced causal step 140",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 140
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0139"
+      ]
+    },
+    {
+      "transition_id": "scale_t0141",
+      "title": "Adversarially induced causal step 141",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 141
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0140"
+      ]
+    },
+    {
+      "transition_id": "scale_t0142",
+      "title": "Adversarially induced causal step 142",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 142
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0141"
+      ]
+    },
+    {
+      "transition_id": "scale_t0143",
+      "title": "Adversarially induced causal step 143",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 143
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0142"
+      ]
+    },
+    {
+      "transition_id": "scale_t0144",
+      "title": "Adversarially induced causal step 144",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 144
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0143"
+      ]
+    },
+    {
+      "transition_id": "scale_t0145",
+      "title": "Adversarially induced causal step 145",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 145
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0144"
+      ]
+    },
+    {
+      "transition_id": "scale_t0146",
+      "title": "Adversarially induced causal step 146",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 146
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0145"
+      ]
+    },
+    {
+      "transition_id": "scale_t0147",
+      "title": "Adversarially induced causal step 147",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 147
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0146"
+      ]
+    },
+    {
+      "transition_id": "scale_t0148",
+      "title": "Adversarially induced causal step 148",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 148
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0147"
+      ]
+    },
+    {
+      "transition_id": "scale_t0149",
+      "title": "Adversarially induced causal step 149",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 149
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0148"
+      ]
+    },
+    {
+      "transition_id": "scale_t0150",
+      "title": "Adversarially induced causal step 150",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 150
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0149"
+      ]
+    },
+    {
+      "transition_id": "scale_t0151",
+      "title": "Adversarially induced causal step 151",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 151
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0150"
+      ]
+    },
+    {
+      "transition_id": "scale_t0152",
+      "title": "Adversarially induced causal step 152",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 152
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0151"
+      ]
+    },
+    {
+      "transition_id": "scale_t0153",
+      "title": "Adversarially induced causal step 153",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 153
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0152"
+      ]
+    },
+    {
+      "transition_id": "scale_t0154",
+      "title": "Adversarially induced causal step 154",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 154
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0153"
+      ]
+    },
+    {
+      "transition_id": "scale_t0155",
+      "title": "Adversarially induced causal step 155",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 155
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0154"
+      ]
+    },
+    {
+      "transition_id": "scale_t0156",
+      "title": "Adversarially induced causal step 156",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 156
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0155"
+      ]
+    },
+    {
+      "transition_id": "scale_t0157",
+      "title": "Adversarially induced causal step 157",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 157
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0156"
+      ]
+    },
+    {
+      "transition_id": "scale_t0158",
+      "title": "Adversarially induced causal step 158",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 158
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0157"
+      ]
+    },
+    {
+      "transition_id": "scale_t0159",
+      "title": "Adversarially induced causal step 159",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 159
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0158"
+      ]
+    },
+    {
+      "transition_id": "scale_t0160",
+      "title": "Adversarially induced causal step 160",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 160
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0159"
+      ]
+    },
+    {
+      "transition_id": "scale_t0161",
+      "title": "Adversarially induced causal step 161",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 161
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0160"
+      ]
+    },
+    {
+      "transition_id": "scale_t0162",
+      "title": "Adversarially induced causal step 162",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 162
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0161"
+      ]
+    },
+    {
+      "transition_id": "scale_t0163",
+      "title": "Adversarially induced causal step 163",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 163
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0162"
+      ]
+    },
+    {
+      "transition_id": "scale_t0164",
+      "title": "Adversarially induced causal step 164",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 164
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0163"
+      ]
+    },
+    {
+      "transition_id": "scale_t0165",
+      "title": "Adversarially induced causal step 165",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 165
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0164"
+      ]
+    },
+    {
+      "transition_id": "scale_t0166",
+      "title": "Adversarially induced causal step 166",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 166
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0165"
+      ]
+    },
+    {
+      "transition_id": "scale_t0167",
+      "title": "Adversarially induced causal step 167",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 167
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0166"
+      ]
+    },
+    {
+      "transition_id": "scale_t0168",
+      "title": "Adversarially induced causal step 168",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 168
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0167"
+      ]
+    },
+    {
+      "transition_id": "scale_t0169",
+      "title": "Adversarially induced causal step 169",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 169
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0168"
+      ]
+    },
+    {
+      "transition_id": "scale_t0170",
+      "title": "Adversarially induced causal step 170",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 170
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0169"
+      ]
+    },
+    {
+      "transition_id": "scale_t0171",
+      "title": "Adversarially induced causal step 171",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 171
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0170"
+      ]
+    },
+    {
+      "transition_id": "scale_t0172",
+      "title": "Adversarially induced causal step 172",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 172
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0171"
+      ]
+    },
+    {
+      "transition_id": "scale_t0173",
+      "title": "Adversarially induced causal step 173",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 173
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0172"
+      ]
+    },
+    {
+      "transition_id": "scale_t0174",
+      "title": "Adversarially induced causal step 174",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 174
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0173"
+      ]
+    },
+    {
+      "transition_id": "scale_t0175",
+      "title": "Adversarially induced causal step 175",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 175
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0174"
+      ]
+    },
+    {
+      "transition_id": "scale_t0176",
+      "title": "Adversarially induced causal step 176",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 176
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0175"
+      ]
+    },
+    {
+      "transition_id": "scale_t0177",
+      "title": "Adversarially induced causal step 177",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 177
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0176"
+      ]
+    },
+    {
+      "transition_id": "scale_t0178",
+      "title": "Adversarially induced causal step 178",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 178
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0177"
+      ]
+    },
+    {
+      "transition_id": "scale_t0179",
+      "title": "Adversarially induced causal step 179",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 179
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0178"
+      ]
+    },
+    {
+      "transition_id": "scale_t0180",
+      "title": "Adversarially induced causal step 180",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 180
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0179"
+      ]
+    },
+    {
+      "transition_id": "scale_t0181",
+      "title": "Adversarially induced causal step 181",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 181
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0180"
+      ]
+    },
+    {
+      "transition_id": "scale_t0182",
+      "title": "Adversarially induced causal step 182",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 182
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0181"
+      ]
+    },
+    {
+      "transition_id": "scale_t0183",
+      "title": "Adversarially induced causal step 183",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 183
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0182"
+      ]
+    },
+    {
+      "transition_id": "scale_t0184",
+      "title": "Adversarially induced causal step 184",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 184
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0183"
+      ]
+    },
+    {
+      "transition_id": "scale_t0185",
+      "title": "Adversarially induced causal step 185",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 185
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0184"
+      ]
+    },
+    {
+      "transition_id": "scale_t0186",
+      "title": "Adversarially induced causal step 186",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 186
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0185"
+      ]
+    },
+    {
+      "transition_id": "scale_t0187",
+      "title": "Adversarially induced causal step 187",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 187
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0186"
+      ]
+    },
+    {
+      "transition_id": "scale_t0188",
+      "title": "Adversarially induced causal step 188",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 188
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0187"
+      ]
+    },
+    {
+      "transition_id": "scale_t0189",
+      "title": "Adversarially induced causal step 189",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 189
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0188"
+      ]
+    },
+    {
+      "transition_id": "scale_t0190",
+      "title": "Adversarially induced causal step 190",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 190
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0189"
+      ]
+    },
+    {
+      "transition_id": "scale_t0191",
+      "title": "Adversarially induced causal step 191",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 191
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0190"
+      ]
+    },
+    {
+      "transition_id": "scale_t0192",
+      "title": "Adversarially induced causal step 192",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 192
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0191"
+      ]
+    },
+    {
+      "transition_id": "scale_t0193",
+      "title": "Adversarially induced causal step 193",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 193
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0192"
+      ]
+    },
+    {
+      "transition_id": "scale_t0194",
+      "title": "Adversarially induced causal step 194",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 194
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0193"
+      ]
+    },
+    {
+      "transition_id": "scale_t0195",
+      "title": "Adversarially induced causal step 195",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 195
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0194"
+      ]
+    },
+    {
+      "transition_id": "scale_t0196",
+      "title": "Adversarially induced causal step 196",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 196
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0195"
+      ]
+    },
+    {
+      "transition_id": "scale_t0197",
+      "title": "Adversarially induced causal step 197",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 197
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0196"
+      ]
+    },
+    {
+      "transition_id": "scale_t0198",
+      "title": "Adversarially induced causal step 198",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 198
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0197"
+      ]
+    },
+    {
+      "transition_id": "scale_t0199",
+      "title": "Adversarially induced causal step 199",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 199
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0198"
+      ]
+    },
+    {
+      "transition_id": "scale_t0200",
+      "title": "Adversarially induced causal step 200",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 200
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0199"
+      ]
+    },
+    {
+      "transition_id": "scale_t0201",
+      "title": "Adversarially induced causal step 201",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 201
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0200"
+      ]
+    },
+    {
+      "transition_id": "scale_t0202",
+      "title": "Adversarially induced causal step 202",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 202
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0201"
+      ]
+    },
+    {
+      "transition_id": "scale_t0203",
+      "title": "Adversarially induced causal step 203",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 203
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0202"
+      ]
+    },
+    {
+      "transition_id": "scale_t0204",
+      "title": "Adversarially induced causal step 204",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 204
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0203"
+      ]
+    },
+    {
+      "transition_id": "scale_t0205",
+      "title": "Adversarially induced causal step 205",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 205
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0204"
+      ]
+    },
+    {
+      "transition_id": "scale_t0206",
+      "title": "Adversarially induced causal step 206",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 206
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0205"
+      ]
+    },
+    {
+      "transition_id": "scale_t0207",
+      "title": "Adversarially induced causal step 207",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 207
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0206"
+      ]
+    },
+    {
+      "transition_id": "scale_t0208",
+      "title": "Adversarially induced causal step 208",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 208
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0207"
+      ]
+    },
+    {
+      "transition_id": "scale_t0209",
+      "title": "Adversarially induced causal step 209",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 209
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0208"
+      ]
+    },
+    {
+      "transition_id": "scale_t0210",
+      "title": "Adversarially induced causal step 210",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 210
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0209"
+      ]
+    },
+    {
+      "transition_id": "scale_t0211",
+      "title": "Adversarially induced causal step 211",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 211
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0210"
+      ]
+    },
+    {
+      "transition_id": "scale_t0212",
+      "title": "Adversarially induced causal step 212",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 212
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0211"
+      ]
+    },
+    {
+      "transition_id": "scale_t0213",
+      "title": "Adversarially induced causal step 213",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 213
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0212"
+      ]
+    },
+    {
+      "transition_id": "scale_t0214",
+      "title": "Adversarially induced causal step 214",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 214
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0213"
+      ]
+    },
+    {
+      "transition_id": "scale_t0215",
+      "title": "Adversarially induced causal step 215",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 215
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0214"
+      ]
+    },
+    {
+      "transition_id": "scale_t0216",
+      "title": "Adversarially induced causal step 216",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 216
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0215"
+      ]
+    },
+    {
+      "transition_id": "scale_t0217",
+      "title": "Adversarially induced causal step 217",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 217
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0216"
+      ]
+    },
+    {
+      "transition_id": "scale_t0218",
+      "title": "Adversarially induced causal step 218",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 218
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0217"
+      ]
+    },
+    {
+      "transition_id": "scale_t0219",
+      "title": "Adversarially induced causal step 219",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 219
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0218"
+      ]
+    },
+    {
+      "transition_id": "scale_t0220",
+      "title": "Adversarially induced causal step 220",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 220
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0219"
+      ]
+    },
+    {
+      "transition_id": "scale_t0221",
+      "title": "Adversarially induced causal step 221",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 221
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0220"
+      ]
+    },
+    {
+      "transition_id": "scale_t0222",
+      "title": "Adversarially induced causal step 222",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 222
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0221"
+      ]
+    },
+    {
+      "transition_id": "scale_t0223",
+      "title": "Adversarially induced causal step 223",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 223
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0222"
+      ]
+    },
+    {
+      "transition_id": "scale_t0224",
+      "title": "Adversarially induced causal step 224",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 224
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0223"
+      ]
+    },
+    {
+      "transition_id": "scale_t0225",
+      "title": "Adversarially induced causal step 225",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 225
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0224"
+      ]
+    },
+    {
+      "transition_id": "scale_t0226",
+      "title": "Adversarially induced causal step 226",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 226
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0225"
+      ]
+    },
+    {
+      "transition_id": "scale_t0227",
+      "title": "Adversarially induced causal step 227",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 227
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0226"
+      ]
+    },
+    {
+      "transition_id": "scale_t0228",
+      "title": "Adversarially induced causal step 228",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 228
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0227"
+      ]
+    },
+    {
+      "transition_id": "scale_t0229",
+      "title": "Adversarially induced causal step 229",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 229
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0228"
+      ]
+    },
+    {
+      "transition_id": "scale_t0230",
+      "title": "Adversarially induced causal step 230",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 230
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0229"
+      ]
+    },
+    {
+      "transition_id": "scale_t0231",
+      "title": "Adversarially induced causal step 231",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 231
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0230"
+      ]
+    },
+    {
+      "transition_id": "scale_t0232",
+      "title": "Adversarially induced causal step 232",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 232
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0231"
+      ]
+    },
+    {
+      "transition_id": "scale_t0233",
+      "title": "Adversarially induced causal step 233",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 233
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0232"
+      ]
+    },
+    {
+      "transition_id": "scale_t0234",
+      "title": "Adversarially induced causal step 234",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 234
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0233"
+      ]
+    },
+    {
+      "transition_id": "scale_t0235",
+      "title": "Adversarially induced causal step 235",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 235
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0234"
+      ]
+    },
+    {
+      "transition_id": "scale_t0236",
+      "title": "Adversarially induced causal step 236",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 236
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0235"
+      ]
+    },
+    {
+      "transition_id": "scale_t0237",
+      "title": "Adversarially induced causal step 237",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 237
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0236"
+      ]
+    },
+    {
+      "transition_id": "scale_t0238",
+      "title": "Adversarially induced causal step 238",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 238
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0237"
+      ]
+    },
+    {
+      "transition_id": "scale_t0239",
+      "title": "Adversarially induced causal step 239",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 239
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0238"
+      ]
+    },
+    {
+      "transition_id": "scale_t0240",
+      "title": "Adversarially induced causal step 240",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 240
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0239"
+      ]
+    },
+    {
+      "transition_id": "scale_t0241",
+      "title": "Adversarially induced causal step 241",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 241
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0240"
+      ]
+    },
+    {
+      "transition_id": "scale_t0242",
+      "title": "Adversarially induced causal step 242",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 242
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0241"
+      ]
+    },
+    {
+      "transition_id": "scale_t0243",
+      "title": "Adversarially induced causal step 243",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 243
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0242"
+      ]
+    },
+    {
+      "transition_id": "scale_t0244",
+      "title": "Adversarially induced causal step 244",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 244
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0243"
+      ]
+    },
+    {
+      "transition_id": "scale_t0245",
+      "title": "Adversarially induced causal step 245",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 245
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0244"
+      ]
+    },
+    {
+      "transition_id": "scale_t0246",
+      "title": "Adversarially induced causal step 246",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 246
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0245"
+      ]
+    },
+    {
+      "transition_id": "scale_t0247",
+      "title": "Adversarially induced causal step 247",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 247
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0246"
+      ]
+    },
+    {
+      "transition_id": "scale_t0248",
+      "title": "Adversarially induced causal step 248",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 248
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0247"
+      ]
+    },
+    {
+      "transition_id": "scale_t0249",
+      "title": "Final adversarially induced rebinding",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.001,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/scale_progress",
+          "value": 249
+        },
+        {
+          "op": "set",
+          "path": "/facts/api0_current_uid",
+          "value": "U2"
+        }
+      ],
+      "notes": "E12 synthetic scaling transition.",
+      "adversarially_induced": true,
+      "causal_parent_ids": [
+        "scale_t0248"
+      ]
+    }
+  ],
+  "worlds": {
+    "W0": {
+      "commit_deadline_s": 5,
+      "transition_path": [],
+      "expected_commit": "EXECUTE",
+      "expected_attack_path_completed": false,
+      "control_semantics": "stable",
+      "expected_commit_by_policy": {
+        "balanced": "EXECUTE",
+        "conservative": "EXECUTE",
+        "aggressive": "EXECUTE"
+      }
+    },
+    "W1": {
+      "commit_deadline_s": 5,
+      "transition_path": [
+        "irrelevant_annotation_change"
+      ],
+      "expected_commit": "EXECUTE",
+      "expected_attack_path_completed": false,
+      "control_semantics": "irrelevant_change",
+      "expected_commit_by_policy": {
+        "balanced": "EXECUTE",
+        "conservative": "EXECUTE",
+        "aggressive": "EXECUTE"
+      }
+    },
+    "W2": {
+      "commit_deadline_s": 1.0,
+      "transition_path": [
+        "scale_t0001",
+        "scale_t0002",
+        "scale_t0003",
+        "scale_t0004",
+        "scale_t0005",
+        "scale_t0006",
+        "scale_t0007",
+        "scale_t0008",
+        "scale_t0009",
+        "scale_t0010",
+        "scale_t0011",
+        "scale_t0012",
+        "scale_t0013",
+        "scale_t0014",
+        "scale_t0015",
+        "scale_t0016",
+        "scale_t0017",
+        "scale_t0018",
+        "scale_t0019",
+        "scale_t0020",
+        "scale_t0021",
+        "scale_t0022",
+        "scale_t0023",
+        "scale_t0024",
+        "scale_t0025",
+        "scale_t0026",
+        "scale_t0027",
+        "scale_t0028",
+        "scale_t0029",
+        "scale_t0030",
+        "scale_t0031",
+        "scale_t0032",
+        "scale_t0033",
+        "scale_t0034",
+        "scale_t0035",
+        "scale_t0036",
+        "scale_t0037",
+        "scale_t0038",
+        "scale_t0039",
+        "scale_t0040",
+        "scale_t0041",
+        "scale_t0042",
+        "scale_t0043",
+        "scale_t0044",
+        "scale_t0045",
+        "scale_t0046",
+        "scale_t0047",
+        "scale_t0048",
+        "scale_t0049",
+        "scale_t0050",
+        "scale_t0051",
+        "scale_t0052",
+        "scale_t0053",
+        "scale_t0054",
+        "scale_t0055",
+        "scale_t0056",
+        "scale_t0057",
+        "scale_t0058",
+        "scale_t0059",
+        "scale_t0060",
+        "scale_t0061",
+        "scale_t0062",
+        "scale_t0063",
+        "scale_t0064",
+        "scale_t0065",
+        "scale_t0066",
+        "scale_t0067",
+        "scale_t0068",
+        "scale_t0069",
+        "scale_t0070",
+        "scale_t0071",
+        "scale_t0072",
+        "scale_t0073",
+        "scale_t0074",
+        "scale_t0075",
+        "scale_t0076",
+        "scale_t0077",
+        "scale_t0078",
+        "scale_t0079",
+        "scale_t0080",
+        "scale_t0081",
+        "scale_t0082",
+        "scale_t0083",
+        "scale_t0084",
+        "scale_t0085",
+        "scale_t0086",
+        "scale_t0087",
+        "scale_t0088",
+        "scale_t0089",
+        "scale_t0090",
+        "scale_t0091",
+        "scale_t0092",
+        "scale_t0093",
+        "scale_t0094",
+        "scale_t0095",
+        "scale_t0096",
+        "scale_t0097",
+        "scale_t0098",
+        "scale_t0099",
+        "scale_t0100",
+        "scale_t0101",
+        "scale_t0102",
+        "scale_t0103",
+        "scale_t0104",
+        "scale_t0105",
+        "scale_t0106",
+        "scale_t0107",
+        "scale_t0108",
+        "scale_t0109",
+        "scale_t0110",
+        "scale_t0111",
+        "scale_t0112",
+        "scale_t0113",
+        "scale_t0114",
+        "scale_t0115",
+        "scale_t0116",
+        "scale_t0117",
+        "scale_t0118",
+        "scale_t0119",
+        "scale_t0120",
+        "scale_t0121",
+        "scale_t0122",
+        "scale_t0123",
+        "scale_t0124",
+        "scale_t0125",
+        "scale_t0126",
+        "scale_t0127",
+        "scale_t0128",
+        "scale_t0129",
+        "scale_t0130",
+        "scale_t0131",
+        "scale_t0132",
+        "scale_t0133",
+        "scale_t0134",
+        "scale_t0135",
+        "scale_t0136",
+        "scale_t0137",
+        "scale_t0138",
+        "scale_t0139",
+        "scale_t0140",
+        "scale_t0141",
+        "scale_t0142",
+        "scale_t0143",
+        "scale_t0144",
+        "scale_t0145",
+        "scale_t0146",
+        "scale_t0147",
+        "scale_t0148",
+        "scale_t0149",
+        "scale_t0150",
+        "scale_t0151",
+        "scale_t0152",
+        "scale_t0153",
+        "scale_t0154",
+        "scale_t0155",
+        "scale_t0156",
+        "scale_t0157",
+        "scale_t0158",
+        "scale_t0159",
+        "scale_t0160",
+        "scale_t0161",
+        "scale_t0162",
+        "scale_t0163",
+        "scale_t0164",
+        "scale_t0165",
+        "scale_t0166",
+        "scale_t0167",
+        "scale_t0168",
+        "scale_t0169",
+        "scale_t0170",
+        "scale_t0171",
+        "scale_t0172",
+        "scale_t0173",
+        "scale_t0174",
+        "scale_t0175",
+        "scale_t0176",
+        "scale_t0177",
+        "scale_t0178",
+        "scale_t0179",
+        "scale_t0180",
+        "scale_t0181",
+        "scale_t0182",
+        "scale_t0183",
+        "scale_t0184",
+        "scale_t0185",
+        "scale_t0186",
+        "scale_t0187",
+        "scale_t0188",
+        "scale_t0189",
+        "scale_t0190",
+        "scale_t0191",
+        "scale_t0192",
+        "scale_t0193",
+        "scale_t0194",
+        "scale_t0195",
+        "scale_t0196",
+        "scale_t0197",
+        "scale_t0198",
+        "scale_t0199",
+        "scale_t0200",
+        "scale_t0201",
+        "scale_t0202",
+        "scale_t0203",
+        "scale_t0204",
+        "scale_t0205",
+        "scale_t0206",
+        "scale_t0207",
+        "scale_t0208",
+        "scale_t0209",
+        "scale_t0210",
+        "scale_t0211",
+        "scale_t0212",
+        "scale_t0213",
+        "scale_t0214",
+        "scale_t0215",
+        "scale_t0216",
+        "scale_t0217",
+        "scale_t0218",
+        "scale_t0219",
+        "scale_t0220",
+        "scale_t0221",
+        "scale_t0222",
+        "scale_t0223",
+        "scale_t0224",
+        "scale_t0225",
+        "scale_t0226",
+        "scale_t0227",
+        "scale_t0228",
+        "scale_t0229",
+        "scale_t0230",
+        "scale_t0231",
+        "scale_t0232",
+        "scale_t0233",
+        "scale_t0234",
+        "scale_t0235",
+        "scale_t0236",
+        "scale_t0237",
+        "scale_t0238",
+        "scale_t0239",
+        "scale_t0240",
+        "scale_t0241",
+        "scale_t0242",
+        "scale_t0243",
+        "scale_t0244",
+        "scale_t0245",
+        "scale_t0246",
+        "scale_t0247",
+        "scale_t0248",
+        "scale_t0249"
+      ],
+      "expected_commit": "ABORT_REPLAN",
+      "expected_attack_path_completed": true,
+      "control_semantics": "ea_toctou",
+      "expected_commit_by_policy": {
+        "balanced": "ABORT_REPLAN",
+        "conservative": "ABORT_REPLAN",
+        "aggressive": "ABORT_REPLAN"
+      }
+    },
+    "W3": {
+      "commit_deadline_s": 0.5,
+      "transition_path": [
+        "delete_u1",
+        "recreate_u2"
+      ],
+      "expected_commit": "EXECUTE",
+      "expected_attack_path_completed": false,
+      "notes": "Neither deletion nor successor recreation completes before the commit boundary.",
+      "control_semantics": "deadline_miss",
+      "expected_commit_by_policy": {
+        "balanced": "EXECUTE",
+        "conservative": "EXECUTE",
+        "aggressive": "EXECUTE"
+      }
+    }
+  },
+  "parameterizations": [
+    {
+      "id": "P1",
+      "description": "Minimal topology with only essential resources and evidence."
+    },
+    {
+      "id": "P2",
+      "description": "Distractor topology with benign resources and irrelevant evidence."
+    },
+    {
+      "id": "P3",
+      "description": "Noisy SOC context with non-material alerts and unrelated transitions."
+    },
+    {
+      "id": "P4",
+      "description": "High-impact variant with larger benign background or higher criticality."
+    }
+  ],
+  "provenance": {
+    "platform_basis": "Kubernetes Pods have immutable UIDs; replacement objects can reuse names with a new UID.",
+    "incident_basis": "Autonomous response queues quarantine after confirmed compromise.",
+    "policy_basis": "Historical compromise still applies to U1, but response must remain bound to U1.",
+    "limitations": "Simulated timing; live timing depends on controller and cluster configuration."
+  },
+  "severity": "S2",
+  "notes": "Synthetic E12 stress harness derived from development F1.1; not a held-out security incident.",
+  "justification_bases_by_policy": {
+    "balanced": [
+      [
+        "p_compromised_u1"
+      ]
+    ],
+    "conservative": [
+      [
+        "p_compromised_u1"
+      ]
+    ],
+    "aggressive": [
+      [
+        "p_compromised_u1"
+      ]
+    ]
+  },
+  "refresh_model": {
+    "cost_unit": "normalized_query_unit",
+    "query_costs": {
+      "query:/facts/api0_current_uid": 1.0,
+      "immutable:p_compromised_u1": 0.0
+    },
+    "predicate_query_ids": {
+      "p_binding_u1": "query:/facts/api0_current_uid",
+      "p_compromised_u1": "immutable:p_compromised_u1",
+      "p_target_resolves": "query:/facts/api0_current_uid"
+    },
+    "query_observed_at_s": {
+      "query:/facts/api0_current_uid": 0.0,
+      "immutable:p_compromised_u1": 0.0
+    }
+  },
+  "native_controls": [
+    {
+      "control_id": "k8s_uid_precondition",
+      "control_type": "uid_precondition",
+      "predicate_ids": [
+        "p_binding_u1"
+      ],
+      "normalized_cost_units": 0.0,
+      "applicable": true,
+      "notes": "Atomic server-side commit precondition; modeled as zero additional query round-trips. Live API behavior is deferred to E13."
+    }
+  ],
+  "scenario_role": "synthetic_scalability"
+}

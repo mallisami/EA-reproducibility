@@ -1,0 +1,7 @@
+aks list: 
+ERROR: Operation returned an invalid status 'Forbidden'
+MC_ group exists: 
+southeastasia Standard_B2s restrictions=[]
+southeastasia Standard_B2als_v2 restrictions=[]
+southeastasia Standard_B2as_v2 restrictions=[]
+southeastasia Standard_B2s_v2 restrictions=[]

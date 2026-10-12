@@ -1,0 +1,92 @@
+{
+  "abort_or_reject_horizon_misses": 0,
+  "accepted_actions_without_verified_effect": 0,
+  "by_guard_condition": {
+    "DCJI|binding_rebind": {
+      "horizon_misses": 0,
+      "mismatches": 0,
+      "n": 20,
+      "wrong_target_effects": 0
+    },
+    "DCJI|irrelevant_mutation": {
+      "horizon_misses": 0,
+      "mismatches": 0,
+      "n": 20,
+      "wrong_target_effects": 0
+    },
+    "DCJI|scope_drift": {
+      "horizon_misses": 0,
+      "mismatches": 0,
+      "n": 20,
+      "wrong_target_effects": 0
+    },
+    "DCJI|stable": {
+      "horizon_misses": 0,
+      "mismatches": 0,
+      "n": 20,
+      "wrong_target_effects": 0
+    },
+    "FULL_REFRESH|binding_rebind": {
+      "horizon_misses": 0,
+      "mismatches": 0,
+      "n": 20,
+      "wrong_target_effects": 0
+    },
+    "FULL_REFRESH|irrelevant_mutation": {
+      "horizon_misses": 0,
+      "mismatches": 0,
+      "n": 20,
+      "wrong_target_effects": 0
+    },
+    "FULL_REFRESH|scope_drift": {
+      "horizon_misses": 0,
+      "mismatches": 0,
+      "n": 20,
+      "wrong_target_effects": 0
+    },
+    "FULL_REFRESH|stable": {
+      "horizon_misses": 0,
+      "mismatches": 0,
+      "n": 20,
+      "wrong_target_effects": 0
+    },
+    "NATIVE_UID_PRECONDITION|binding_rebind": {
+      "horizon_misses": 0,
+      "mismatches": 0,
+      "n": 20,
+      "wrong_target_effects": 0
+    },
+    "NATIVE_UID_PRECONDITION|irrelevant_mutation": {
+      "horizon_misses": 0,
+      "mismatches": 0,
+      "n": 20,
+      "wrong_target_effects": 0
+    },
+    "NATIVE_UID_PRECONDITION|stable": {
+      "horizon_misses": 0,
+      "mismatches": 0,
+      "n": 20,
+      "wrong_target_effects": 0
+    }
+  },
+  "client_guard_actions_sent_after_abort": 0,
+  "decision_mismatches": 0,
+  "execute_effect_horizon_misses": 0,
+  "experiment": "E36",
+  "horizon_interpretation": "EXECUTE rows use decision-to-observed-Pod-absence as a conservative upper bound on first effective deletion; client ABORT rows use decision-to-gate, and rejected native-precondition rows use decision-to-server-response.",
+  "horizon_misses": 0,
+  "n_trials": 220,
+  "pass": true,
+  "pass_criteria": {
+    "accepted_actions_without_verified_effect": 0,
+    "client_guard_actions_sent_after_abort": 0,
+    "decision_mismatches": 0,
+    "wrong_target_effects": 0
+  },
+  "planner_certificate_query_ids": [
+    "query:/facts/current_uid",
+    "query:/facts/scope_ok"
+  ],
+  "scope_note": "Native UID precondition is intentionally not run for scope_drift because UID-only atomicity does not encode the scope predicate.",
+  "wrong_target_effects": 0
+}

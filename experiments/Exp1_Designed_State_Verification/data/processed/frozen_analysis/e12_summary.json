@@ -1,0 +1,147 @@
+{
+  "design": {
+    "state_targets": [
+      10,
+      25,
+      50,
+      100,
+      250,
+      500
+    ],
+    "replicates_per_target": 30,
+    "max_expansions": 100000,
+    "max_subset_evals": 100000,
+    "source_template": "development F1.1",
+    "harness": "single attacker-rooted causal chain; one material dynamic query; one terminal EA-TOCTOU goal",
+    "replicate_semantics": "runtime repeats of the same deterministic structure at each target",
+    "warmup": "one untimed 5-state harness before reported timings"
+  },
+  "by_target": {
+    "10": {
+      "n": 30,
+      "status_counts": {
+        "EXPLOITABLE": 30
+      },
+      "expanded_states_unique": [
+        10
+      ],
+      "subset_evals_unique": [
+        2
+      ],
+      "median_runtime_s": 0.000890765,
+      "iqr_runtime_s": [
+        0.0008448145,
+        0.00094557075
+      ],
+      "p95_runtime_s": 0.0015869313999999995,
+      "min_runtime_s": 0.000795621,
+      "max_runtime_s": 0.001728906
+    },
+    "25": {
+      "n": 30,
+      "status_counts": {
+        "EXPLOITABLE": 30
+      },
+      "expanded_states_unique": [
+        25
+      ],
+      "subset_evals_unique": [
+        2
+      ],
+      "median_runtime_s": 0.0018639375000000001,
+      "iqr_runtime_s": [
+        0.00183517425,
+        0.00189897175
+      ],
+      "p95_runtime_s": 0.0022489759999999998,
+      "min_runtime_s": 0.001775635,
+      "max_runtime_s": 0.003009188
+    },
+    "50": {
+      "n": 30,
+      "status_counts": {
+        "EXPLOITABLE": 30
+      },
+      "expanded_states_unique": [
+        50
+      ],
+      "subset_evals_unique": [
+        2
+      ],
+      "median_runtime_s": 0.0040822845,
+      "iqr_runtime_s": [
+        0.003996088,
+        0.00421975075
+      ],
+      "p95_runtime_s": 0.005149875649999997,
+      "min_runtime_s": 0.003901097,
+      "max_runtime_s": 0.005710466
+    },
+    "100": {
+      "n": 30,
+      "status_counts": {
+        "EXPLOITABLE": 30
+      },
+      "expanded_states_unique": [
+        100
+      ],
+      "subset_evals_unique": [
+        2
+      ],
+      "median_runtime_s": 0.011807423000000001,
+      "iqr_runtime_s": [
+        0.011592416749999999,
+        0.012406049249999999
+      ],
+      "p95_runtime_s": 0.01482864735,
+      "min_runtime_s": 0.011236521,
+      "max_runtime_s": 0.016626086
+    },
+    "250": {
+      "n": 30,
+      "status_counts": {
+        "EXPLOITABLE": 30
+      },
+      "expanded_states_unique": [
+        250
+      ],
+      "subset_evals_unique": [
+        2
+      ],
+      "median_runtime_s": 0.0874049705,
+      "iqr_runtime_s": [
+        0.08494287750000001,
+        0.09101414125
+      ],
+      "p95_runtime_s": 0.0920182408,
+      "min_runtime_s": 0.083408362,
+      "max_runtime_s": 0.094547929
+    },
+    "500": {
+      "n": 30,
+      "status_counts": {
+        "EXPLOITABLE": 30
+      },
+      "expanded_states_unique": [
+        500
+      ],
+      "subset_evals_unique": [
+        2
+      ],
+      "median_runtime_s": 0.5721842125000001,
+      "iqr_runtime_s": [
+        0.56166395,
+        0.619275732
+      ],
+      "p95_runtime_s": 0.9370029753499992,
+      "min_runtime_s": 0.539308807,
+      "max_runtime_s": 1.113790786
+    }
+  },
+  "runtime_growth": {
+    "median_500_over_10": 642.351475978513,
+    "median_500_over_100": 48.4597030613708,
+    "loglog_slope": 1.652205692520416,
+    "loglog_r2": 0.9526977823026903
+  }
+}

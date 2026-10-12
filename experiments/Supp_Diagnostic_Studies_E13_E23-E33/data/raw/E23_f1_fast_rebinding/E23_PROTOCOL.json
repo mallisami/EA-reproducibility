@@ -1,0 +1,21 @@
+{
+  "experiment": "E23",
+  "title": "F1 Fast-Rebinding Deadline-Feasibility Replication",
+  "motivation": "In the original E13 120-trial run, F1.1 and F1.2 (locked scenarios, both frozen with a 5.0s commit_deadline_s) had live delete/recreate transition durations of approximately 39-80 seconds against their 5s deadline -- structurally unable to complete within the modeled action horizon, so those 40 trials could only demonstrate functional stale-state detection, not deadline-bounded EA-TOCTOU validation. This experiment reproduces the identical same-name-UID-rebinding mechanism, but hosted on a ConfigMap instead of a Pod, isolating the identity-rebinding mechanism's timing from container-scheduling/image-pull/start latency, to test whether deadline-bounded live evidence for the F1 mechanism family is achievable.",
+  "scenario": "F1_FAST",
+  "namespace": "flashir-f1fast",
+  "target_resource": "f1-target",
+  "irrelevant_resource": "f1-irrelevant",
+  "deadline_s": 5.0,
+  "conditions": ["ea_attack", "nc_stable", "nc_irrelevant"],
+  "repetitions_per_condition": 20,
+  "expected_decision": {
+    "ea_attack": "ABORT_REPLAN",
+    "nc_stable": "EXECUTE",
+    "nc_irrelevant": "EXECUTE"
+  },
+  "proxy_port": 8001,
+  "primary_endpoint": "transition_duration_s",
+  "secondary_endpoints": ["gate_decision_correct", "gate_latency_ms", "deadline_feasible"],
+  "notes": "Preregistered post-hoc extension (E23), run outside the locked v8.1.1 package and outside all prior v9/E21 evidence. Uses the real, unmodified derive_critical_predicates() and commit_components() from the locked engine. The real Kubernetes-assigned metadata.uid is used as the binding evidence (not a synthetic data field), making this a faithful identity-rebinding analog of F1.1/F1.2 rather than a different mechanism."
+}

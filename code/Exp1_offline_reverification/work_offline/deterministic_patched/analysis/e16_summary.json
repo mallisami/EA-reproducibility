@@ -1,0 +1,221 @@
+{
+  "by_defense_parameterization": {
+    "B0_P1": {
+      "n": 23,
+      "unsafe": 23,
+      "severity_distribution": {
+        "S2": 20,
+        "S1": 3
+      },
+      "mean_recovery_action_count": 2.347826086956522,
+      "median_recovery_action_count": 2,
+      "mean_time_to_recovery_units": 3.217391304347826,
+      "median_time_to_recovery_units": 3
+    },
+    "B0_P4": {
+      "n": 23,
+      "unsafe": 23,
+      "severity_distribution": {
+        "S3": 20,
+        "S1": 3
+      },
+      "mean_recovery_action_count": 3.217391304347826,
+      "median_recovery_action_count": 3,
+      "mean_time_to_recovery_units": 4.956521739130435,
+      "median_time_to_recovery_units": 5
+    },
+    "B4_P1": {
+      "n": 23,
+      "unsafe": 0,
+      "severity_distribution": {
+        "S0": 23
+      },
+      "mean_recovery_action_count": 0,
+      "median_recovery_action_count": 0,
+      "mean_time_to_recovery_units": 0,
+      "median_time_to_recovery_units": 0
+    },
+    "B4_P4": {
+      "n": 23,
+      "unsafe": 0,
+      "severity_distribution": {
+        "S0": 23
+      },
+      "mean_recovery_action_count": 0,
+      "median_recovery_action_count": 0,
+      "mean_time_to_recovery_units": 0,
+      "median_time_to_recovery_units": 0
+    },
+    "B6_P1": {
+      "n": 23,
+      "unsafe": 0,
+      "severity_distribution": {
+        "S0": 23
+      },
+      "mean_recovery_action_count": 0,
+      "median_recovery_action_count": 0,
+      "mean_time_to_recovery_units": 0,
+      "median_time_to_recovery_units": 0
+    },
+    "B6_P4": {
+      "n": 23,
+      "unsafe": 0,
+      "severity_distribution": {
+        "S0": 23
+      },
+      "mean_recovery_action_count": 0,
+      "median_recovery_action_count": 0,
+      "mean_time_to_recovery_units": 0,
+      "median_time_to_recovery_units": 0
+    }
+  },
+  "severity_distribution": {
+    "B0": {
+      "S2": 20,
+      "S3": 20,
+      "S1": 6
+    },
+    "B4": {
+      "S0": 46
+    },
+    "B6": {
+      "S0": 46
+    }
+  },
+  "by_family": {
+    "F1": {
+      "B0": {
+        "n": 10,
+        "severity_distribution": {
+          "S2": 5,
+          "S3": 5
+        },
+        "mean_recovery_action_count": 3.5,
+        "mean_time_to_recovery_units": 5.8
+      },
+      "B4": {
+        "n": 10,
+        "severity_distribution": {
+          "S0": 10
+        },
+        "mean_recovery_action_count": 0,
+        "mean_time_to_recovery_units": 0
+      },
+      "B6": {
+        "n": 10,
+        "severity_distribution": {
+          "S0": 10
+        },
+        "mean_recovery_action_count": 0,
+        "mean_time_to_recovery_units": 0
+      }
+    },
+    "F2": {
+      "B0": {
+        "n": 10,
+        "severity_distribution": {
+          "S2": 5,
+          "S3": 5
+        },
+        "mean_recovery_action_count": 2.7,
+        "mean_time_to_recovery_units": 3.4
+      },
+      "B4": {
+        "n": 10,
+        "severity_distribution": {
+          "S0": 10
+        },
+        "mean_recovery_action_count": 0,
+        "mean_time_to_recovery_units": 0
+      },
+      "B6": {
+        "n": 10,
+        "severity_distribution": {
+          "S0": 10
+        },
+        "mean_recovery_action_count": 0,
+        "mean_time_to_recovery_units": 0
+      }
+    },
+    "F3": {
+      "B0": {
+        "n": 10,
+        "severity_distribution": {
+          "S2": 5,
+          "S3": 5
+        },
+        "mean_recovery_action_count": 2.5,
+        "mean_time_to_recovery_units": 4
+      },
+      "B4": {
+        "n": 10,
+        "severity_distribution": {
+          "S0": 10
+        },
+        "mean_recovery_action_count": 0,
+        "mean_time_to_recovery_units": 0
+      },
+      "B6": {
+        "n": 10,
+        "severity_distribution": {
+          "S0": 10
+        },
+        "mean_recovery_action_count": 0,
+        "mean_time_to_recovery_units": 0
+      }
+    },
+    "F4": {
+      "B0": {
+        "n": 10,
+        "severity_distribution": {
+          "S2": 5,
+          "S3": 5
+        },
+        "mean_recovery_action_count": 3.5,
+        "mean_time_to_recovery_units": 5
+      },
+      "B4": {
+        "n": 10,
+        "severity_distribution": {
+          "S0": 10
+        },
+        "mean_recovery_action_count": 0,
+        "mean_time_to_recovery_units": 0
+      },
+      "B6": {
+        "n": 10,
+        "severity_distribution": {
+          "S0": 10
+        },
+        "mean_recovery_action_count": 0,
+        "mean_time_to_recovery_units": 0
+      }
+    },
+    "F5": {
+      "B0": {
+        "n": 6,
+        "severity_distribution": {
+          "S1": 6
+        },
+        "mean_recovery_action_count": 1,
+        "mean_time_to_recovery_units": 1
+      },
+      "B4": {
+        "n": 6,
+        "severity_distribution": {
+          "S0": 6
+        },
+        "mean_recovery_action_count": 0,
+        "mean_time_to_recovery_units": 0
+      },
+      "B6": {
+        "n": 6,
+        "severity_distribution": {
+          "S0": 6
+        },
+        "mean_recovery_action_count": 0,
+        "mean_time_to_recovery_units": 0
+      }
+    }
+  }
+}

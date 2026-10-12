@@ -1,0 +1,30 @@
+{
+  "paper_title": "Freshness Is Not Binding: Evidence-to-Action Races and Conditional Enforcement in Kubernetes Incident Response",
+  "paper_reference": "Discover_Computing_Journal_Figures_2_5_2026-10-12_V3.zip",
+  "source_archive": "V3(1).zip",
+  "source_hashes": {
+    "V3(1).zip": "1183a2947faaca87937f8a69a66abbe3768abf8a2c9dde755b23d32904338707",
+    "Discover_Computing_Journal_Figures_2_5_2026-10-12_V3.zip": "79fce4246872a2fce089fc55a3e2d56e722bf78e3a6b4436d075320760ad8829"
+  },
+  "updated_paper_files": {
+    "main/main.tex": "6bdd98e259b7e859e5c1c02f29a761a8271e858447873f8cd0e8a9704c8b0421",
+    "supplement/supplement.tex": "d564993e72460b63243ddfcee1f49f7faafa75046ad904c4eeeb582ef84a6660",
+    "main/Figures/make_main_figures.py": "f6a8ee1c642789a25d8642306b210d2e3d05a7766939e929d7d6550f99083cbc"
+  },
+  "changes": [
+    "Excluded manuscripts, editorial/reviewer audits, package history, caches and disposable test-console output.",
+    "Preserved distributed raw evidence archives and retained scientific source bytes.",
+    "Reorganized top-level directories and adjusted integration-script paths only.",
+    "Changed updated Figures 2-5 generator input/output paths to CSV inputs and fresh outputs; plotting/statistical logic unchanged.",
+    "Preserved scientific statistical plotting sources separately from document builders.",
+    "Added portable staging wrappers for E5, independent T4/T5 and TTL analyses.",
+    "Verified the full extracted E39 audit hash and adapted temporary audit input naming; all observations and frozen classifier bytes unchanged."
+  ],
+  "excluded_files_within_selected_trees": 127,
+  "excluded_groups": [
+    "Paper/manuscript snapshots and document builders",
+    "Editorial/reviewer and administrative audit reports",
+    "Historical packaging/release validation reports",
+    "Caches and disposable generated output"
+  ]
+}

@@ -1,0 +1,165 @@
+{
+  "B6_vs_B4_query_reduction": {
+    "n": 92,
+    "mean_fraction_reduction": 0.1782608695652174,
+    "median_fraction_reduction": 0.0,
+    "min_fraction_reduction": 0.0,
+    "max_fraction_reduction": 0.6
+  },
+  "primary_UCR_by_family_and_defense": {
+    "F1": {
+      "B0": {
+        "n": 20,
+        "unsafe": 20,
+        "UCR": 1.0,
+        "mean_query_cost": 0.0
+      },
+      "B2": {
+        "n": 20,
+        "unsafe": 0,
+        "UCR": 0.0,
+        "mean_query_cost": 1.0
+      },
+      "B3": {
+        "n": 20,
+        "unsafe": 0,
+        "UCR": 0.0,
+        "mean_query_cost": 1.0
+      },
+      "B4": {
+        "n": 20,
+        "unsafe": 0,
+        "UCR": 0.0,
+        "mean_query_cost": 1.0
+      },
+      "B5": {
+        "n": 20,
+        "unsafe": 0,
+        "UCR": 0.0,
+        "mean_query_cost": 0.0
+      },
+      "B6": {
+        "n": 20,
+        "unsafe": 0,
+        "UCR": 0.0,
+        "mean_query_cost": 1.0
+      }
+    },
+    "F2": {
+      "B0": {
+        "n": 20,
+        "unsafe": 20,
+        "UCR": 1.0,
+        "mean_query_cost": 0.0
+      },
+      "B2": {
+        "n": 20,
+        "unsafe": 0,
+        "UCR": 0.0,
+        "mean_query_cost": 1.0
+      },
+      "B3": {
+        "n": 20,
+        "unsafe": 0,
+        "UCR": 0.0,
+        "mean_query_cost": 1.0
+      },
+      "B4": {
+        "n": 20,
+        "unsafe": 0,
+        "UCR": 0.0,
+        "mean_query_cost": 1.0
+      },
+      "B6": {
+        "n": 20,
+        "unsafe": 0,
+        "UCR": 0.0,
+        "mean_query_cost": 1.0
+      }
+    },
+    "F3": {
+      "B0": {
+        "n": 20,
+        "unsafe": 20,
+        "UCR": 1.0,
+        "mean_query_cost": 0.0
+      },
+      "B2": {
+        "n": 20,
+        "unsafe": 0,
+        "UCR": 0.0,
+        "mean_query_cost": 2.0
+      },
+      "B3": {
+        "n": 20,
+        "unsafe": 0,
+        "UCR": 0.0,
+        "mean_query_cost": 1.0
+      },
+      "B4": {
+        "n": 20,
+        "unsafe": 0,
+        "UCR": 0.0,
+        "mean_query_cost": 2.0
+      },
+      "B6": {
+        "n": 20,
+        "unsafe": 0,
+        "UCR": 0.0,
+        "mean_query_cost": 1.0
+      }
+    },
+    "F4": {
+      "B0": {
+        "n": 20,
+        "unsafe": 20,
+        "UCR": 1.0,
+        "mean_query_cost": 0.0
+      },
+      "B2": {
+        "n": 20,
+        "unsafe": 0,
+        "UCR": 0.0,
+        "mean_query_cost": 1.0
+      },
+      "B4": {
+        "n": 20,
+        "unsafe": 0,
+        "UCR": 0.0,
+        "mean_query_cost": 1.0
+      },
+      "B6": {
+        "n": 20,
+        "unsafe": 0,
+        "UCR": 0.0,
+        "mean_query_cost": 1.0
+      }
+    },
+    "F5": {
+      "B0": {
+        "n": 12,
+        "unsafe": 12,
+        "UCR": 1.0,
+        "mean_query_cost": 0.0
+      },
+      "B2": {
+        "n": 12,
+        "unsafe": 0,
+        "UCR": 0.0,
+        "mean_query_cost": 6.333333333333333
+      },
+      "B4": {
+        "n": 12,
+        "unsafe": 0,
+        "UCR": 0.0,
+        "mean_query_cost": 6.333333333333333
+      },
+      "B6": {
+        "n": 12,
+        "unsafe": 0,
+        "UCR": 0.0,
+        "mean_query_cost": 3.0
+      }
+    }
+  }
+}

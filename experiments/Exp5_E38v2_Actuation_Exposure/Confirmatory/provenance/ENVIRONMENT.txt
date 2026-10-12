@@ -1,0 +1,142 @@
+== kind
+kind v0.33.0 go1.26.7 linux/amd64
+== kubectl
+{
+  "clientVersion": {
+    "major": "1",
+    "minor": "37",
+    "gitVersion": "v1.37.0",
+    "gitCommit": "f54c212e3a2f75d674b717a9b29052b20b60aefc",
+    "gitTreeState": "clean",
+    "buildDate": "2026-08-26T10:48:06Z",
+    "goVersion": "go1.26.6",
+    "compiler": "gc",
+    "platform": "linux/amd64"
+  },
+  "kustomizeVersion": "v5.8.1",
+  "serverVersion": {
+    "major": "1",
+    "minor": "37",
+    "emulationMajor": "1",
+    "emulationMinor": "37",
+    "minCompatibilityMajor": "1",
+    "minCompatibilityMinor": "36",
+    "gitVersion": "v1.37.0",
+    "gitCommit": "f54c212e3a2f75d674b717a9b29052b20b60aefc",
+    "gitTreeState": "clean",
+    "buildDate": "2026-08-26T10:44:25Z",
+    "goVersion": "go1.26.6",
+    "compiler": "gc",
+    "platform": "linux/amd64"
+  }
+}
+== images
+sha256:a1ed56cfb0e7b93589bdf97c8cd566405a265939e3620fc4f5de89adff580ae5 [kindest/node:v1.37.0 kindest/node@sha256:a1ed56cfb0e7b93589bdf97c8cd566405a265939e3620fc4f5de89adff580ae5]
+sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9 [python:3.12-slim]
+== node images (crictl)
+IMAGE                                           TAG                  IMAGE ID            SIZE
+docker.io/kindest/kindnetd                      v20260820-69b56db7   4626fe10df5b9       39.7MB
+docker.io/kindest/local-path-helper             v20260131-7181c60a   19aa6a21b42cb       2.87MB
+docker.io/kindest/local-path-provisioner        v20260820-69b56db7   c82008e2cd018       15.9MB
+docker.io/library/python                        3.12-slim            9e87977b86784       43.2MB
+registry.k8s.io/coredns/coredns                 v1.14.6              520212b8b0fcd       23.8MB
+registry.k8s.io/etcd                            3.7.0-0              270fbeb697171       22.3MB
+registry.k8s.io/kube-apiserver-amd64            v1.37.0              bec5f0e1e2eeb       104MB
+registry.k8s.io/kube-apiserver                  v1.37.0              bec5f0e1e2eeb       104MB
+registry.k8s.io/kube-controller-manager-amd64   v1.37.0              364b3c3d9ec19       91MB
+registry.k8s.io/kube-controller-manager         v1.37.0              364b3c3d9ec19       91MB
+registry.k8s.io/kube-proxy-amd64                v1.37.0              d6a28daf3e6b0       82.8MB
+registry.k8s.io/kube-proxy                      v1.37.0              d6a28daf3e6b0       82.8MB
+registry.k8s.io/kube-scheduler-amd64            v1.37.0              1fabf80a1273a       62.7MB
+registry.k8s.io/kube-scheduler                  v1.37.0              1fabf80a1273a       62.7MB
+docker.io/library/import-2026-09-26             <none>               410fee2cef994       2.18MB
+registry.k8s.io/pause                           3.10                 873ed75102791       320kB
+== nodes
+NAME                  STATUS   ROLES           AGE     VERSION   INTERNAL-IP   EXTERNAL-IP   OS-IMAGE                       KERNEL-VERSION              CONTAINER-RUNTIME
+e38v2-control-plane   Ready    control-plane   3h29m   v1.37.0   172.18.0.5    <none>        Debian GNU/Linux 13 (trixie)   6.17.0-1022-azure (amd64)   containerd://2.3.4
+== vwc
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"admissionregistration.k8s.io/v1","kind":"ValidatingWebhookConfiguration","metadata":{"annotations":{},"labels":{"e38-managed":"true","e38-run-id":"e38v2r-20260926t1032z"},"name":"e38v2-delete-revalidation"},"webhooks":[{"admissionReviewVersions":["v1"],"clientConfig":{"caBundle":"LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURKekNDQWcrZ0F3SUJBZ0lVWkY4d3N5U2pHOXptclVmOUI1bjJjak02emNvd0RRWUpLb1pJaHZjTkFRRUwKQlFBd0d6RVpNQmNHQTFVRUF3d1FaVE00ZGpJdGQyVmlhRzl2YXkxallUQWVGdzB5TmpBNU1qWXhNRE16TVRoYQpGdzB5TmpFd01qWXhNRE16TVRoYU1Cc3hHVEFYQmdOVkJBTU1FR1V6T0hZeUxYZGxZbWh2YjJzdFkyRXdnZ0VpCk1BMEdDU3FHU0liM0RRRUJBUVVBQTRJQkR3QXdnZ0VLQW9JQkFRQ1ZoRkkrR0tiM3laV2VkOVJ6b2lCZC8xaysKcGsxaXRKZkVCWEE0MWdyLzl1VXpQUmNHUHZqNklJTmQ4U0FGWktrb1pzYzQ5UVFiVkJLS0piNW5KWk9aVkFaRwpmczcwQU5pUW0xZ2lSOG0yL1U1T3VQOFE4UTgvaUlRc0pyVHJZbzlFQ3N0dVdyOEZjSFdFMWR6aHQ4d0ZZUU1XCmFuNUJ6MTJaK2lrbEtjd3lpVUhFNVVIeGZIUlg5c1NXOEtMclUxQkRSUVZHYXR2OVBXYVJFVGxSZkpkRjFaUlAKaFBlNWVwa2hyb1ZHdk1RcFpaeE5aNWxyZ25UN0NkTGtnYnlQdVJzZ1pEU1dpN2JrcHVYZU5oOXlBemdLeGJOVApTWTdVa0wrQ1RiUTVPMmtQZWdLR1U2WGh6ZlRzYnRRSjl0aU9hd3BHRHdvLy8ya1pzb3hibmxoN1o1cXhBZ01CCkFBR2pZekJoTUIwR0ExVWREZ1FXQkJUREFTY01EWmh0WlFmZjBpT2U1WFAwalc2bnVqQWZCZ05WSFNNRUdEQVcKZ0JUREFTY01EWmh0WlFmZjBpT2U1WFAwalc2bnVqQVBCZ05WSFJNQkFmOEVCVEFEQVFIL01BNEdBMVVkRHdFQgovd1FFQXdJQkJqQU5CZ2txaGtpRzl3MEJBUXNGQUFPQ0FRRUFGY1duSnRmZmtaTmkwZVB0b0tEbHl5aDNvUkI2ClQydTd0MDM1QjVwd25YVXU0RmR6dDFjNkg2M3d3emIycTZSUTMraUhmbEFldGJmZVJLTDQwbWQ1cTdRa2ZQMW0KcmNjVTIzVk5ydGo4R2Z4T3ppRUd5VjZqdlkrdDRTTERzak1DYjNhejBNOE9hakpKUkJQV3cvcitxRm9YbmFMeQpZZ2ovWXRNMURsREh0RWU0TEVFWDBMMVpTOGVzYmZhTU45RWFoc0IxeFA3am5KTHU4R25jVzZ5ZUMycEpYT3hvClVzV3pUNlgzV3BwVWU3NGI2OEl5ZmZKVGZDaFV2eVJCWGIzenFkaVJXTXdxZlFLTnJJd0JQdmk4aEI5VVN0UXMKL0FNT1FNZ3Eva251THJYM050L21JNXJRMlltd1hURFB2YmprbFFhMG9QV2hETGQxcDlxQ1NwNjlldz09Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K","service":{"name":"e38v2-webhook","namespace":"e38v2-system","path":"/validate","port":443}},"failurePolicy":"Fail","matchConditions":[{"expression":"request.userInfo.username != 'system:serviceaccount:e38v2-system:e38v2-reset'","name":"exempt-reset-identity"},{"expression":"!request.userInfo.username.startsWith('system:node:')","name":"exempt-kubelets"},{"expression":"!(request.userInfo.username in ['system:serviceaccount:kube-system:namespace-controller', 'system:serviceaccount:kube-system:generic-garbage-collector'])","name":"exempt-namespace-and-gc-controllers"}],"matchPolicy":"Exact","name":"delete-revalidation.e38v2.e38-managed.local","namespaceSelector":{"matchLabels":{"kubernetes.io/metadata.name":"e38v2-e38v2r-20260926t1032z"}},"objectSelector":{"matchLabels":{"e38v2-webhook":"enforce"}},"rules":[{"apiGroups":[""],"apiVersions":["v1"],"operations":["DELETE"],"resources":["pods"],"scope":"Namespaced"}],"sideEffects":"None","timeoutSeconds":5}]}
+  creationTimestamp: "2026-09-26T09:26:42Z"
+  generation: 3
+  labels:
+    e38-managed: "true"
+    e38-run-id: e38v2r-20260926t1032z
+  name: e38v2-delete-revalidation
+  resourceVersion: "9560"
+  uid: b67e3467-7888-4ac6-b607-d7852f0f9c6d
+webhooks:
+- admissionReviewVersions:
+  - v1
+  clientConfig:
+    caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURKekNDQWcrZ0F3SUJBZ0lVWkY4d3N5U2pHOXptclVmOUI1bjJjak02emNvd0RRWUpLb1pJaHZjTkFRRUwKQlFBd0d6RVpNQmNHQTFVRUF3d1FaVE00ZGpJdGQyVmlhRzl2YXkxallUQWVGdzB5TmpBNU1qWXhNRE16TVRoYQpGdzB5TmpFd01qWXhNRE16TVRoYU1Cc3hHVEFYQmdOVkJBTU1FR1V6T0hZeUxYZGxZbWh2YjJzdFkyRXdnZ0VpCk1BMEdDU3FHU0liM0RRRUJBUVVBQTRJQkR3QXdnZ0VLQW9JQkFRQ1ZoRkkrR0tiM3laV2VkOVJ6b2lCZC8xaysKcGsxaXRKZkVCWEE0MWdyLzl1VXpQUmNHUHZqNklJTmQ4U0FGWktrb1pzYzQ5UVFiVkJLS0piNW5KWk9aVkFaRwpmczcwQU5pUW0xZ2lSOG0yL1U1T3VQOFE4UTgvaUlRc0pyVHJZbzlFQ3N0dVdyOEZjSFdFMWR6aHQ4d0ZZUU1XCmFuNUJ6MTJaK2lrbEtjd3lpVUhFNVVIeGZIUlg5c1NXOEtMclUxQkRSUVZHYXR2OVBXYVJFVGxSZkpkRjFaUlAKaFBlNWVwa2hyb1ZHdk1RcFpaeE5aNWxyZ25UN0NkTGtnYnlQdVJzZ1pEU1dpN2JrcHVYZU5oOXlBemdLeGJOVApTWTdVa0wrQ1RiUTVPMmtQZWdLR1U2WGh6ZlRzYnRRSjl0aU9hd3BHRHdvLy8ya1pzb3hibmxoN1o1cXhBZ01CCkFBR2pZekJoTUIwR0ExVWREZ1FXQkJUREFTY01EWmh0WlFmZjBpT2U1WFAwalc2bnVqQWZCZ05WSFNNRUdEQVcKZ0JUREFTY01EWmh0WlFmZjBpT2U1WFAwalc2bnVqQVBCZ05WSFJNQkFmOEVCVEFEQVFIL01BNEdBMVVkRHdFQgovd1FFQXdJQkJqQU5CZ2txaGtpRzl3MEJBUXNGQUFPQ0FRRUFGY1duSnRmZmtaTmkwZVB0b0tEbHl5aDNvUkI2ClQydTd0MDM1QjVwd25YVXU0RmR6dDFjNkg2M3d3emIycTZSUTMraUhmbEFldGJmZVJLTDQwbWQ1cTdRa2ZQMW0KcmNjVTIzVk5ydGo4R2Z4T3ppRUd5VjZqdlkrdDRTTERzak1DYjNhejBNOE9hakpKUkJQV3cvcitxRm9YbmFMeQpZZ2ovWXRNMURsREh0RWU0TEVFWDBMMVpTOGVzYmZhTU45RWFoc0IxeFA3am5KTHU4R25jVzZ5ZUMycEpYT3hvClVzV3pUNlgzV3BwVWU3NGI2OEl5ZmZKVGZDaFV2eVJCWGIzenFkaVJXTXdxZlFLTnJJd0JQdmk4aEI5VVN0UXMKL0FNT1FNZ3Eva251THJYM050L21JNXJRMlltd1hURFB2YmprbFFhMG9QV2hETGQxcDlxQ1NwNjlldz09Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+    service:
+      name: e38v2-webhook
+      namespace: e38v2-system
+      path: /validate
+      port: 443
+  failurePolicy: Fail
+  matchConditions:
+  - expression: request.userInfo.username != 'system:serviceaccount:e38v2-system:e38v2-reset'
+    name: exempt-reset-identity
+  - expression: '!request.userInfo.username.startsWith(''system:node:'')'
+    name: exempt-kubelets
+  - expression: '!(request.userInfo.username in [''system:serviceaccount:kube-system:namespace-controller'',
+      ''system:serviceaccount:kube-system:generic-garbage-collector''])'
+    name: exempt-namespace-and-gc-controllers
+  matchPolicy: Exact
+  name: delete-revalidation.e38v2.e38-managed.local
+  namespaceSelector:
+    matchLabels:
+      kubernetes.io/metadata.name: e38v2-e38v2r-20260926t1032z
+  objectSelector:
+    matchLabels:
+      e38v2-webhook: enforce
+  rules:
+  - apiGroups:
+    - ""
+    apiVersions:
+    - v1
+    operations:
+    - DELETE
+    resources:
+    - pods
+    scope: Namespaced
+  sideEffects: None
+  timeoutSeconds: 5
+== webhook deployment
+NAME            READY   UP-TO-DATE   AVAILABLE   AGE     CONTAINERS   IMAGES             SELECTOR
+e38v2-webhook   1/1     1            1           3h29m   webhook      python:3.12-slim   app=e38v2-webhook
+NAME                             READY   STATUS    RESTARTS   AGE    IP             NODE                  NOMINATED NODE   READINESS GATES
+e38v2-webhook-6755788f47-tx44s   1/1     Running   0          142m   10.244.0.224   e38v2-control-plane   <none>           <none>
+== apiserver flags
+    - --audit-policy-file=/etc/kubernetes/e38v2/audit-policy.yaml
+    - --audit-log-path=/var/log/kubernetes/e38v2-audit/audit.log
+    - --audit-log-format=json
+    - --audit-log-maxsize=200
+    - --audit-log-maxbackup=30
+    - --audit-log-maxage=30
+    - --audit-log-compress=false
+    - --audit-log-mode=blocking
+    - --v=3
+    - --vmodule=store=6,round_trippers=6
+      name: e38v2-audit-log
+    - mountPath: /etc/kubernetes/e38v2/audit-policy.yaml
+      name: e38v2-audit-policy
+    name: e38v2-audit-log
+      path: /etc/kubernetes/e38v2/audit-policy.yaml
+    name: e38v2-audit-policy
+== kubelet log settings
+containerLogMaxFiles: 5
+containerLogMaxSize: 4Gi
+== host
+Linux mcb-k8s-v137 6.17.0-1022-azure #22-Ubuntu SMP Mon Jul 27 17:24:03 UTC 2026 x86_64 x86_64 x86_64 GNU/Linux
+4
+               total        used        free      shared  buff/cache   available
+Mem:           15939        6502        1381         538        8939        9437
+Swap:              0           0           0
+Python 3.12.3

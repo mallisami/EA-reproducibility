@@ -1,0 +1,16 @@
+{
+ "A1_dcji": {
+  "write_before_deletion_accepted (true pre-commit exposure)": 84,
+  "n": 211,
+  "write_after_deletion_accepted_before_removal (terminating-Pod window)": 127
+ },
+ "A3_dcji_webhook": {
+  "write_before_deletion_accepted (true pre-commit exposure)": 136,
+  "n": 203,
+  "write_after_deletion_accepted_before_removal (terminating-Pod window)": 67
+ },
+ "A4d_commit_direct": {
+  "write_after_deletion_accepted_before_removal (terminating-Pod window)": 102,
+  "n": 102
+ }
+}

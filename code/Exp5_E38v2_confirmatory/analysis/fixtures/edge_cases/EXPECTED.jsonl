@@ -1,0 +1,12 @@
+{"case": "evidence_last_literal_invalid", "expected_primary": "INVALID_EXECUTED", "expected_secondary": "INVALID_EXECUTED", "expected_tertiary": "INVALID_EXECUTED", "trial_id": 0}
+{"case": "fence_negative_delta", "expected_primary": "UNKNOWN", "expected_secondary": "UNKNOWN", "expected_tertiary": "UNKNOWN", "trial_id": 1}
+{"case": "gate_sees_write_correct_abort", "expected_primary": "CORRECT_ABORT", "expected_secondary": "CORRECT_ABORT", "expected_tertiary": "CORRECT_ABORT", "trial_id": 2}
+{"case": "late_write_valid", "expected_primary": "VALID_EXECUTED", "expected_secondary": "VALID_EXECUTED", "expected_tertiary": "VALID_EXECUTED", "trial_id": 3}
+{"case": "no_write_valid", "expected_primary": "VALID_EXECUTED", "expected_secondary": "VALID_EXECUTED", "expected_tertiary": "VALID_EXECUTED", "trial_id": 4}
+{"case": "uid_block_409", "expected_primary": "UID_BLOCKED", "expected_secondary": "UID_BLOCKED", "expected_tertiary": "UID_BLOCKED", "trial_id": 5}
+{"case": "webhook_catches_write", "expected_primary": "CORRECT_ABORT", "expected_secondary": "CORRECT_ABORT", "expected_tertiary": "CORRECT_ABORT", "trial_id": 6}
+{"case": "webhook_catches_write_time_rule_per_read", "expected_primary": "CORRECT_ABORT", "expected_secondary": "CORRECT_ABORT", "expected_tertiary": "CORRECT_ABORT", "trial_id": 7}
+{"case": "webhook_residual_window", "expected_primary": "INVALID_EXECUTED", "expected_secondary": "INVALID_EXECUTED", "expected_tertiary": "VALID_EXECUTED", "trial_id": 8}
+{"case": "write_just_after_delete_commit", "expected_primary": "VALID_EXECUTED", "expected_secondary": "VALID_EXECUTED", "expected_tertiary": "VALID_EXECUTED", "trial_id": 9}
+{"case": "write_just_before_delete_commit", "expected_primary": "INVALID_EXECUTED", "expected_secondary": "INVALID_EXECUTED", "expected_tertiary": "VALID_EXECUTED", "trial_id": 10}
+{"case": "write_well_before_delete", "expected_primary": "INVALID_EXECUTED", "expected_secondary": "INVALID_EXECUTED", "expected_tertiary": "INVALID_EXECUTED", "trial_id": 11}

@@ -1,0 +1,285 @@
+{
+  "by_capability": {
+    "C0": {
+      "positive_templates": 23,
+      "exploitable_templates": 0,
+      "exploitability_rate": 0.0,
+      "wilson_95": [
+        0,
+        0.14311661845042686
+      ],
+      "median_C_star": null,
+      "median_T_star_s": null,
+      "B0_UCR_on_exploitable": null,
+      "B6_UCR_on_exploitable": null
+    },
+    "C1": {
+      "positive_templates": 23,
+      "exploitable_templates": 6,
+      "exploitability_rate": 0.2608695652173913,
+      "wilson_95": [
+        0.12548616044986347,
+        0.4647000483742537
+      ],
+      "median_C_star": 1.5,
+      "median_T_star_s": 1.1,
+      "B0_UCR_on_exploitable": 1.0,
+      "B6_UCR_on_exploitable": 0.0
+    },
+    "C2": {
+      "positive_templates": 23,
+      "exploitable_templates": 20,
+      "exploitability_rate": 0.8695652173913043,
+      "wilson_95": [
+        0.6787251772990404,
+        0.9546234090636876
+      ],
+      "median_C_star": 1.0,
+      "median_T_star_s": 1.4,
+      "B0_UCR_on_exploitable": 1.0,
+      "B6_UCR_on_exploitable": 0.0
+    },
+    "C3": {
+      "positive_templates": 23,
+      "exploitable_templates": 23,
+      "exploitability_rate": 1.0,
+      "wilson_95": [
+        0.8568833815495731,
+        1
+      ],
+      "median_C_star": 1,
+      "median_T_star_s": 1.6,
+      "B0_UCR_on_exploitable": 1.0,
+      "B6_UCR_on_exploitable": 0.0
+    }
+  },
+  "minimum_capability": {
+    "F1.2": {
+      "minimum_capability": "C2",
+      "family": "F1",
+      "frozen_scenario_capability": "C2"
+    },
+    "F1.3": {
+      "minimum_capability": "C2",
+      "family": "F1",
+      "frozen_scenario_capability": "C2"
+    },
+    "F1.4": {
+      "minimum_capability": "C2",
+      "family": "F1",
+      "frozen_scenario_capability": "C2"
+    },
+    "F1.5": {
+      "minimum_capability": "C2",
+      "family": "F1",
+      "frozen_scenario_capability": "C2"
+    },
+    "F1.6": {
+      "minimum_capability": "C2",
+      "family": "F1",
+      "frozen_scenario_capability": "C2"
+    },
+    "F2.2": {
+      "minimum_capability": "C3",
+      "family": "F2",
+      "frozen_scenario_capability": "C3"
+    },
+    "F2.3": {
+      "minimum_capability": "C2",
+      "family": "F2",
+      "frozen_scenario_capability": "C2"
+    },
+    "F2.4": {
+      "minimum_capability": "C2",
+      "family": "F2",
+      "frozen_scenario_capability": "C2"
+    },
+    "F2.5": {
+      "minimum_capability": "C2",
+      "family": "F2",
+      "frozen_scenario_capability": "C2"
+    },
+    "F2.6": {
+      "minimum_capability": "C3",
+      "family": "F2",
+      "frozen_scenario_capability": "C3"
+    },
+    "F3.2": {
+      "minimum_capability": "C2",
+      "family": "F3",
+      "frozen_scenario_capability": "C2"
+    },
+    "F3.3": {
+      "minimum_capability": "C1",
+      "family": "F3",
+      "frozen_scenario_capability": "C1"
+    },
+    "F3.4": {
+      "minimum_capability": "C2",
+      "family": "F3",
+      "frozen_scenario_capability": "C2"
+    },
+    "F3.5": {
+      "minimum_capability": "C1",
+      "family": "F3",
+      "frozen_scenario_capability": "C1"
+    },
+    "F3.6": {
+      "minimum_capability": "C1",
+      "family": "F3",
+      "frozen_scenario_capability": "C1"
+    },
+    "F4.2": {
+      "minimum_capability": "C2",
+      "family": "F4",
+      "frozen_scenario_capability": "C2"
+    },
+    "F4.3": {
+      "minimum_capability": "C2",
+      "family": "F4",
+      "frozen_scenario_capability": "C2"
+    },
+    "F4.4": {
+      "minimum_capability": "C2",
+      "family": "F4",
+      "frozen_scenario_capability": "C2"
+    },
+    "F4.5": {
+      "minimum_capability": "C3",
+      "family": "F4",
+      "frozen_scenario_capability": "C3"
+    },
+    "F4.6": {
+      "minimum_capability": "C2",
+      "family": "F4",
+      "frozen_scenario_capability": "C2"
+    },
+    "F5.2": {
+      "minimum_capability": "C1",
+      "family": "F5",
+      "frozen_scenario_capability": "C1"
+    },
+    "F5.3": {
+      "minimum_capability": "C1",
+      "family": "F5",
+      "frozen_scenario_capability": "C1"
+    },
+    "F5.4": {
+      "minimum_capability": "C1",
+      "family": "F5",
+      "frozen_scenario_capability": "C1"
+    }
+  },
+  "by_family": {
+    "F1": {
+      "C0": {
+        "n": 5,
+        "exploitable": 0,
+        "rate": 0.0
+      },
+      "C1": {
+        "n": 5,
+        "exploitable": 0,
+        "rate": 0.0
+      },
+      "C2": {
+        "n": 5,
+        "exploitable": 5,
+        "rate": 1.0
+      },
+      "C3": {
+        "n": 5,
+        "exploitable": 5,
+        "rate": 1.0
+      }
+    },
+    "F2": {
+      "C0": {
+        "n": 5,
+        "exploitable": 0,
+        "rate": 0.0
+      },
+      "C1": {
+        "n": 5,
+        "exploitable": 0,
+        "rate": 0.0
+      },
+      "C2": {
+        "n": 5,
+        "exploitable": 3,
+        "rate": 0.6
+      },
+      "C3": {
+        "n": 5,
+        "exploitable": 5,
+        "rate": 1.0
+      }
+    },
+    "F3": {
+      "C0": {
+        "n": 5,
+        "exploitable": 0,
+        "rate": 0.0
+      },
+      "C1": {
+        "n": 5,
+        "exploitable": 3,
+        "rate": 0.6
+      },
+      "C2": {
+        "n": 5,
+        "exploitable": 5,
+        "rate": 1.0
+      },
+      "C3": {
+        "n": 5,
+        "exploitable": 5,
+        "rate": 1.0
+      }
+    },
+    "F4": {
+      "C0": {
+        "n": 5,
+        "exploitable": 0,
+        "rate": 0.0
+      },
+      "C1": {
+        "n": 5,
+        "exploitable": 0,
+        "rate": 0.0
+      },
+      "C2": {
+        "n": 5,
+        "exploitable": 4,
+        "rate": 0.8
+      },
+      "C3": {
+        "n": 5,
+        "exploitable": 5,
+        "rate": 1.0
+      }
+    },
+    "F5": {
+      "C0": {
+        "n": 3,
+        "exploitable": 0,
+        "rate": 0.0
+      },
+      "C1": {
+        "n": 3,
+        "exploitable": 3,
+        "rate": 1.0
+      },
+      "C2": {
+        "n": 3,
+        "exploitable": 3,
+        "rate": 1.0
+      },
+      "C3": {
+        "n": 3,
+        "exploitable": 3,
+        "rate": 1.0
+      }
+    }
+  }
+}

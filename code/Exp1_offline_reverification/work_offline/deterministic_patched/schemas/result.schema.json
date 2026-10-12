@@ -1,0 +1,327 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "result.schema.json",
+  "title": "FlashIR Result Record",
+  "type": "object",
+  "required": [
+    "scenario_id",
+    "parameterization_id",
+    "world",
+    "model_id",
+    "seed",
+    "initial_action_correct",
+    "eligible_ea_toctou",
+    "defense_id",
+    "attack_path_completed",
+    "valid_at_commit",
+    "commit_decision",
+    "unsafe_commit",
+    "timings_s",
+    "hashes",
+    "trial_status",
+    "policy_profile",
+    "authorization_valid_at_commit",
+    "justification_valid_at_commit",
+    "binding_valid_at_commit",
+    "scope_valid_at_commit",
+    "wrong_binding",
+    "unsafe_scope",
+    "attack_cost_ops",
+    "attack_time_s",
+    "attacker_capability_tier",
+    "trial_stage",
+    "actuation_effectful",
+    "commit_validity_violation",
+    "solver_path",
+    "solver_cost_ops",
+    "solver_elapsed_s",
+    "completed_transition_ids",
+    "potential_exploitability",
+    "observed_attack_success",
+    "query_cost_units",
+    "refreshed_predicates",
+    "defense_supported",
+    "defense_mode",
+    "critical_predicates",
+    "attack_goal_state_count",
+    "critical_query_ids"
+  ],
+  "properties": {
+    "scenario_id": {
+      "type": "string"
+    },
+    "parameterization_id": {
+      "enum": [
+        "CANONICAL",
+        "P1",
+        "P2",
+        "P3",
+        "P4"
+      ]
+    },
+    "world": {
+      "enum": [
+        "W0",
+        "W1",
+        "W2",
+        "W3"
+      ]
+    },
+    "model_id": {
+      "type": "string"
+    },
+    "seed": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "initial_action_correct": {
+      "type": "boolean"
+    },
+    "eligible_ea_toctou": {
+      "type": "boolean"
+    },
+    "defense_id": {
+      "enum": [
+        "B0",
+        "B2",
+        "B3",
+        "B4",
+        "B5",
+        "B6"
+      ]
+    },
+    "attack_path_completed": {
+      "type": "boolean"
+    },
+    "valid_at_commit": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "commit_decision": {
+      "enum": [
+        "EXECUTE",
+        "ABORT_REPLAN",
+        null
+      ]
+    },
+    "unsafe_commit": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "exclusion_reason": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "timings_s": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "number"
+      }
+    },
+    "hashes": {
+      "type": "object",
+      "required": [
+        "scenario",
+        "policy",
+        "prompt",
+        "transition_model"
+      ],
+      "properties": {
+        "scenario": {
+          "type": "string"
+        },
+        "policy": {
+          "type": "string"
+        },
+        "prompt": {
+          "type": "string"
+        },
+        "transition_model": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "notes": {
+      "type": "string"
+    },
+    "trial_status": {
+      "enum": [
+        "COMPLETED",
+        "EXCLUDED",
+        "INFRA_FAILURE"
+      ]
+    },
+    "policy_profile": {
+      "type": "string"
+    },
+    "authorization_valid_at_commit": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "justification_valid_at_commit": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "binding_valid_at_commit": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "scope_valid_at_commit": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "wrong_binding": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "unsafe_scope": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "attack_cost_ops": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "attack_time_s": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "attacker_capability_tier": {
+      "enum": [
+        "C0",
+        "C1",
+        "C2",
+        "C3",
+        null
+      ]
+    },
+    "trial_stage": {
+      "enum": [
+        "development",
+        "held_out",
+        "live"
+      ]
+    },
+    "actuation_effectful": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "commit_validity_violation": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "solver_path": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string"
+      }
+    },
+    "solver_cost_ops": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "solver_elapsed_s": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "completed_transition_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "potential_exploitability": {
+      "enum": [
+        "EXPLOITABLE",
+        "NOT_EXPLOITABLE",
+        "UNKNOWN_TIMEOUT",
+        "INVALID_INITIAL_STATE"
+      ]
+    },
+    "observed_attack_success": {
+      "type": "boolean"
+    },
+    "query_cost_units": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "refreshed_predicates": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "defense_supported": {
+      "type": "boolean"
+    },
+    "defense_mode": {
+      "type": "string"
+    },
+    "critical_predicates": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "attack_goal_state_count": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "critical_query_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    }
+  },
+  "additionalProperties": false
+}

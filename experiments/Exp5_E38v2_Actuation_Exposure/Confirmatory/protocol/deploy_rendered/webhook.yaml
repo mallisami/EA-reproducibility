@@ -1,0 +1,85 @@
+# Template: e38v2r-20260926t1032z is substituted by deploy/render.sh.
+# Prerequisites created by the RUNBOOK (not in this file, so that exact hashed files are used):
+#   kubectl -n e38v2-system create configmap e38v2-webhook-code --from-file=server.py --from-file=policy.py
+#   kubectl -n e38v2-system create secret tls e38v2-webhook-tls --cert=<out>/tls.crt --key=<out>/tls.key
+# Image python:3.12-slim is side-loaded with `kind load docker-image`; imagePullPolicy Never (no pulls).
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: e38v2-webhook
+  namespace: e38v2-system
+  labels: {app: e38v2-webhook, e38-managed: "true"}
+spec:
+  replicas: 1                # exactly one writer of webhook_log.jsonl
+  strategy: {type: Recreate}
+  selector:
+    matchLabels: {app: e38v2-webhook}
+  template:
+    metadata:
+      labels: {app: e38v2-webhook, e38-managed: "true"}
+    spec:
+      serviceAccountName: e38v2-webhook
+      automountServiceAccountToken: true
+      enableServiceLinks: false
+      terminationGracePeriodSeconds: 5
+      tolerations:
+      - {key: node-role.kubernetes.io/control-plane, operator: Exists, effect: NoSchedule}
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000        # = azureuser on the host -> log files readable/removable without sudo
+        runAsGroup: 1000
+        fsGroup: 1000          # lets uid 1000 read the TLS secret files (mode 0440, group 1000)
+        seccompProfile: {type: RuntimeDefault}
+      containers:
+      - name: webhook
+        image: python:3.12-slim
+        imagePullPolicy: Never
+        command: ["python", "-u", "/app/server.py"]
+        env:
+        - {name: WEBHOOK_NAMESPACE, value: e38v2-e38v2r-20260926t1032z}
+        - {name: WEBHOOK_BIND, value: "0.0.0.0"}
+        - {name: WEBHOOK_PORT, value: "8443"}
+        - {name: WEBHOOK_TLS_CERT, value: /tls/tls.crt}
+        - {name: WEBHOOK_TLS_KEY, value: /tls/tls.key}
+        - {name: WEBHOOK_LOG_PATH, value: /var/log/e38v2-webhook/e38v2r-20260926t1032z/webhook_log.jsonl}
+        - {name: WEBHOOK_API_TIMEOUT_S, value: "1.0"}
+        - {name: WEBHOOK_BUDGET_S, value: "3.5"}
+        - {name: WEBHOOK_EXEMPT_USERS, value: "system:serviceaccount:e38v2-system:e38v2-reset"}
+        - {name: PYTHONDONTWRITEBYTECODE, value: "1"}
+        ports:
+        - {name: https, containerPort: 8443, protocol: TCP}
+        readinessProbe:
+          httpGet: {path: /healthz, port: 8443, scheme: HTTPS}
+          periodSeconds: 5
+        livenessProbe:
+          tcpSocket: {port: 8443}
+          periodSeconds: 20
+        resources:
+          requests: {cpu: 200m, memory: 64Mi}
+          limits: {memory: 256Mi}   # no CPU limit: CFS throttling would distort admission latency
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities: {drop: ["ALL"]}
+        volumeMounts:
+        - {name: code, mountPath: /app, readOnly: true}
+        - {name: tls, mountPath: /tls, readOnly: true}
+        - {name: log, mountPath: /var/log/e38v2-webhook}
+      volumes:
+      - name: code
+        configMap: {name: e38v2-webhook-code, defaultMode: 0444}
+      - name: tls
+        secret: {secretName: e38v2-webhook-tls, defaultMode: 0440}
+      - name: log
+        hostPath: {path: /var/log/e38v2-webhook, type: Directory}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: e38v2-webhook
+  namespace: e38v2-system
+  labels: {app: e38v2-webhook, e38-managed: "true"}
+spec:
+  selector: {app: e38v2-webhook}
+  ports:
+  - {name: https, port: 443, targetPort: 8443, protocol: TCP}

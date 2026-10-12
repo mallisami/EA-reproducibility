@@ -1,0 +1,641 @@
+{
+ "scenario_id": "E12C_Q20_OFFLINE",
+ "title": "E12c 16 independent query bases",
+ "family": "F1",
+ "realism_tier": "R1",
+ "development": true,
+ "action": {
+  "action_type": "quarantine_workload",
+  "target_reference": "pod/api-0",
+  "target_snapshot": {
+   "name": "api-0",
+   "uid": "U1",
+   "namespace": "prod"
+  },
+  "queue_semantics": "single_exactly_once_attempt",
+  "authorization": {
+   "predicate": "p_authorized",
+   "must_remain_valid": true
+  },
+  "execution_precondition": true
+ },
+ "attacker_capability_tier": "C1",
+ "initial_state": {
+  "timestamp_s": 0,
+  "facts": {
+   "u1_compromised": true,
+   "api0_current_uid": "U1",
+   "irrelevant_annotation": "v1",
+   "action_authorized": true,
+   "e12c_q1": true,
+   "e12c_q2": true,
+   "e12c_q3": true,
+   "e12c_q4": true,
+   "e12c_q5": true,
+   "e12c_q6": true,
+   "e12c_q7": true,
+   "e12c_q8": true,
+   "e12c_q9": true,
+   "e12c_q10": true,
+   "e12c_q11": true,
+   "e12c_q12": true,
+   "e12c_q13": true,
+   "e12c_q14": true,
+   "e12c_q15": true,
+   "e12c_q16": true,
+   "e12c_q17": true,
+   "e12c_q18": true,
+   "e12c_q19": true,
+   "e12c_q20": true
+  },
+  "resources": [
+   {
+    "kind": "Pod",
+    "namespace": "prod",
+    "name": "api-0",
+    "uid": "U1",
+    "resource_version": "101",
+    "active": true,
+    "security_state": "compromised"
+   },
+   {
+    "kind": "Pod",
+    "namespace": "prod",
+    "name": "api-0",
+    "uid": "U2",
+    "resource_version": "202",
+    "active": false,
+    "security_state": "clean"
+   }
+  ],
+  "processes": [],
+  "network_bindings": [],
+  "sessions": [],
+  "context": {},
+  "evidence": [
+   {
+    "evidence_id": "H1",
+    "predicate": "u1_compromised",
+    "evidence_class": "H",
+    "source": "EDR",
+    "observed_at_s": 0,
+    "subject_uid": "U1",
+    "truth_value": true,
+    "supersedes": null
+   }
+  ],
+  "queue": []
+ },
+ "predicates": {
+  "p_compromised_u1": {
+   "path": "/facts/u1_compromised",
+   "op": "eq",
+   "value": true,
+   "evidence_class": "H",
+   "description": "Confirmed compromise of original Pod U1."
+  },
+  "p_binding_u1": {
+   "path": "/facts/api0_current_uid",
+   "op": "eq",
+   "value": "U1",
+   "evidence_class": "B",
+   "description": "Reusable name still resolves to original UID U1."
+  },
+  "p_authorized": {
+   "path": "/facts/action_authorized",
+   "op": "eq",
+   "value": true,
+   "evidence_class": "DERIVED",
+   "description": "Response executor remains technically authorized."
+  },
+  "p_target_resolves": {
+   "path": "/facts/api0_current_uid",
+   "op": "ne",
+   "value": null,
+   "evidence_class": "B",
+   "description": "Queued Pod name resolves to a concrete resource at actuation."
+  },
+  "e12c_q1": {
+   "path": "/facts/e12c_q1",
+   "op": "eq",
+   "value": true,
+   "evidence_class": "L",
+   "description": "Synthetic independent live basis 1."
+  },
+  "e12c_q2": {
+   "path": "/facts/e12c_q2",
+   "op": "eq",
+   "value": true,
+   "evidence_class": "L",
+   "description": "Synthetic independent live basis 2."
+  },
+  "e12c_q3": {
+   "path": "/facts/e12c_q3",
+   "op": "eq",
+   "value": true,
+   "evidence_class": "L",
+   "description": "Synthetic independent live basis 3."
+  },
+  "e12c_q4": {
+   "path": "/facts/e12c_q4",
+   "op": "eq",
+   "value": true,
+   "evidence_class": "L",
+   "description": "Synthetic independent live basis 4."
+  },
+  "e12c_q5": {
+   "path": "/facts/e12c_q5",
+   "op": "eq",
+   "value": true,
+   "evidence_class": "L",
+   "description": "Synthetic independent live basis 5."
+  },
+  "e12c_q6": {
+   "path": "/facts/e12c_q6",
+   "op": "eq",
+   "value": true,
+   "evidence_class": "L",
+   "description": "Synthetic independent live basis 6."
+  },
+  "e12c_q7": {
+   "path": "/facts/e12c_q7",
+   "op": "eq",
+   "value": true,
+   "evidence_class": "L",
+   "description": "Synthetic independent live basis 7."
+  },
+  "e12c_q8": {
+   "path": "/facts/e12c_q8",
+   "op": "eq",
+   "value": true,
+   "evidence_class": "L",
+   "description": "Synthetic independent live basis 8."
+  },
+  "e12c_q9": {
+   "path": "/facts/e12c_q9",
+   "op": "eq",
+   "value": true,
+   "evidence_class": "L",
+   "description": "Synthetic independent live basis 9."
+  },
+  "e12c_q10": {
+   "path": "/facts/e12c_q10",
+   "op": "eq",
+   "value": true,
+   "evidence_class": "L",
+   "description": "Synthetic independent live basis 10."
+  },
+  "e12c_q11": {
+   "path": "/facts/e12c_q11",
+   "op": "eq",
+   "value": true,
+   "evidence_class": "L",
+   "description": "Synthetic independent live basis 11."
+  },
+  "e12c_q12": {
+   "path": "/facts/e12c_q12",
+   "op": "eq",
+   "value": true,
+   "evidence_class": "L",
+   "description": "Synthetic independent live basis 12."
+  },
+  "e12c_q13": {
+   "path": "/facts/e12c_q13",
+   "op": "eq",
+   "value": true,
+   "evidence_class": "L",
+   "description": "Synthetic independent live basis 13."
+  },
+  "e12c_q14": {
+   "path": "/facts/e12c_q14",
+   "op": "eq",
+   "value": true,
+   "evidence_class": "L",
+   "description": "Synthetic independent live basis 14."
+  },
+  "e12c_q15": {
+   "path": "/facts/e12c_q15",
+   "op": "eq",
+   "value": true,
+   "evidence_class": "L",
+   "description": "Synthetic independent live basis 15."
+  },
+  "e12c_q16": {
+   "path": "/facts/e12c_q16",
+   "op": "eq",
+   "value": true,
+   "evidence_class": "L",
+   "description": "Synthetic independent live basis 16."
+  },
+  "e12c_q17": {
+   "path": "/facts/e12c_q17",
+   "op": "eq",
+   "value": true,
+   "evidence_class": "L",
+   "description": "Synthetic independent live basis 17 (offline extension)."
+  },
+  "e12c_q18": {
+   "path": "/facts/e12c_q18",
+   "op": "eq",
+   "value": true,
+   "evidence_class": "L",
+   "description": "Synthetic independent live basis 18 (offline extension)."
+  },
+  "e12c_q19": {
+   "path": "/facts/e12c_q19",
+   "op": "eq",
+   "value": true,
+   "evidence_class": "L",
+   "description": "Synthetic independent live basis 19 (offline extension)."
+  },
+  "e12c_q20": {
+   "path": "/facts/e12c_q20",
+   "op": "eq",
+   "value": true,
+   "evidence_class": "L",
+   "description": "Synthetic independent live basis 20 (offline extension)."
+  }
+ },
+ "policy_profiles": {
+  "balanced": {
+   "justification": {
+    "any": [
+     {
+      "predicate": "e12c_q1"
+     },
+     {
+      "predicate": "e12c_q2"
+     },
+     {
+      "predicate": "e12c_q3"
+     },
+     {
+      "predicate": "e12c_q4"
+     },
+     {
+      "predicate": "e12c_q5"
+     },
+     {
+      "predicate": "e12c_q6"
+     },
+     {
+      "predicate": "e12c_q7"
+     },
+     {
+      "predicate": "e12c_q8"
+     },
+     {
+      "predicate": "e12c_q9"
+     },
+     {
+      "predicate": "e12c_q10"
+     },
+     {
+      "predicate": "e12c_q11"
+     },
+     {
+      "predicate": "e12c_q12"
+     },
+     {
+      "predicate": "e12c_q13"
+     },
+     {
+      "predicate": "e12c_q14"
+     },
+     {
+      "predicate": "e12c_q15"
+     },
+     {
+      "predicate": "e12c_q16"
+     },
+     {
+      "predicate": "e12c_q17"
+     },
+     {
+      "predicate": "e12c_q18"
+     },
+     {
+      "predicate": "e12c_q19"
+     },
+     {
+      "predicate": "e12c_q20"
+     }
+    ]
+   },
+   "binding": true,
+   "scope": true
+  }
+ },
+ "primary_policy": "balanced",
+ "justification_bases": [
+  [
+   "p_compromised_u1"
+  ]
+ ],
+ "transitions": [
+  {
+   "transition_id": "cut_all_bases",
+   "title": "Synthetic one-step cut of all independent bases",
+   "actor": "attacker",
+   "capability_tier": "C1",
+   "duration_s": 0.001,
+   "cost_ops": 1,
+   "preconditions": true,
+   "effects": [
+    {
+     "op": "set",
+     "path": "/facts/e12c_q1",
+     "value": false
+    },
+    {
+     "op": "set",
+     "path": "/facts/e12c_q2",
+     "value": false
+    },
+    {
+     "op": "set",
+     "path": "/facts/e12c_q3",
+     "value": false
+    },
+    {
+     "op": "set",
+     "path": "/facts/e12c_q4",
+     "value": false
+    },
+    {
+     "op": "set",
+     "path": "/facts/e12c_q5",
+     "value": false
+    },
+    {
+     "op": "set",
+     "path": "/facts/e12c_q6",
+     "value": false
+    },
+    {
+     "op": "set",
+     "path": "/facts/e12c_q7",
+     "value": false
+    },
+    {
+     "op": "set",
+     "path": "/facts/e12c_q8",
+     "value": false
+    },
+    {
+     "op": "set",
+     "path": "/facts/e12c_q9",
+     "value": false
+    },
+    {
+     "op": "set",
+     "path": "/facts/e12c_q10",
+     "value": false
+    },
+    {
+     "op": "set",
+     "path": "/facts/e12c_q11",
+     "value": false
+    },
+    {
+     "op": "set",
+     "path": "/facts/e12c_q12",
+     "value": false
+    },
+    {
+     "op": "set",
+     "path": "/facts/e12c_q13",
+     "value": false
+    },
+    {
+     "op": "set",
+     "path": "/facts/e12c_q14",
+     "value": false
+    },
+    {
+     "op": "set",
+     "path": "/facts/e12c_q15",
+     "value": false
+    },
+    {
+     "op": "set",
+     "path": "/facts/e12c_q16",
+     "value": false
+    },
+    {
+     "op": "set",
+     "path": "/facts/e12c_q17",
+     "value": false
+    },
+    {
+     "op": "set",
+     "path": "/facts/e12c_q18",
+     "value": false
+    },
+    {
+     "op": "set",
+     "path": "/facts/e12c_q19",
+     "value": false
+    },
+    {
+     "op": "set",
+     "path": "/facts/e12c_q20",
+     "value": false
+    }
+   ],
+   "adversarially_induced": true,
+   "causal_parent_ids": []
+  }
+ ],
+ "worlds": {
+  "W0": {
+   "commit_deadline_s": 5,
+   "transition_path": [],
+   "expected_commit": "EXECUTE",
+   "expected_attack_path_completed": false,
+   "control_semantics": "stable",
+   "expected_commit_by_policy": {
+    "balanced": "EXECUTE",
+    "conservative": "EXECUTE",
+    "aggressive": "EXECUTE"
+   }
+  },
+  "W1": {
+   "commit_deadline_s": 5,
+   "transition_path": [
+    "irrelevant_annotation_change"
+   ],
+   "expected_commit": "EXECUTE",
+   "expected_attack_path_completed": false,
+   "control_semantics": "irrelevant_change",
+   "expected_commit_by_policy": {
+    "balanced": "EXECUTE",
+    "conservative": "EXECUTE",
+    "aggressive": "EXECUTE"
+   }
+  },
+  "W2": {
+   "commit_deadline_s": 0.01,
+   "transition_path": [
+    "delete_u1",
+    "recreate_u2"
+   ],
+   "expected_commit": "ABORT_REPLAN",
+   "expected_attack_path_completed": true,
+   "control_semantics": "ea_toctou",
+   "expected_commit_by_policy": {
+    "balanced": "ABORT_REPLAN",
+    "conservative": "ABORT_REPLAN",
+    "aggressive": "ABORT_REPLAN"
+   }
+  },
+  "W3": {
+   "commit_deadline_s": 0.5,
+   "transition_path": [
+    "delete_u1",
+    "recreate_u2"
+   ],
+   "expected_commit": "EXECUTE",
+   "expected_attack_path_completed": false,
+   "notes": "Neither deletion nor successor recreation completes before the commit boundary.",
+   "control_semantics": "deadline_miss",
+   "expected_commit_by_policy": {
+    "balanced": "EXECUTE",
+    "conservative": "EXECUTE",
+    "aggressive": "EXECUTE"
+   }
+  }
+ },
+ "parameterizations": [
+  {
+   "id": "P1",
+   "description": "Minimal topology with only essential resources and evidence."
+  },
+  {
+   "id": "P2",
+   "description": "Distractor topology with benign resources and irrelevant evidence."
+  },
+  {
+   "id": "P3",
+   "description": "Noisy SOC context with non-material alerts and unrelated transitions."
+  },
+  {
+   "id": "P4",
+   "description": "High-impact variant with larger benign background or higher criticality."
+  }
+ ],
+ "provenance": {
+  "platform_basis": "Kubernetes Pods have immutable UIDs; replacement objects can reuse names with a new UID.",
+  "incident_basis": "Autonomous response queues quarantine after confirmed compromise.",
+  "policy_basis": "Historical compromise still applies to U1, but response must remain bound to U1.",
+  "limitations": "Simulated timing; live timing depends on controller and cluster configuration."
+ },
+ "severity": "S2",
+ "notes": "Development control for reusable name versus immutable identity.",
+ "justification_bases_by_policy": {
+  "balanced": [
+   [
+    "p_compromised_u1"
+   ]
+  ],
+  "conservative": [
+   [
+    "p_compromised_u1"
+   ]
+  ],
+  "aggressive": [
+   [
+    "p_compromised_u1"
+   ]
+  ]
+ },
+ "refresh_model": {
+  "cost_unit": "normalized_query_unit",
+  "query_costs": {
+   "query:/facts/api0_current_uid": 1.0,
+   "immutable:p_compromised_u1": 0.0,
+   "query:/facts/e12c_q1": 1.0,
+   "query:/facts/e12c_q2": 1.0,
+   "query:/facts/e12c_q3": 1.0,
+   "query:/facts/e12c_q4": 1.0,
+   "query:/facts/e12c_q5": 1.0,
+   "query:/facts/e12c_q6": 1.0,
+   "query:/facts/e12c_q7": 1.0,
+   "query:/facts/e12c_q8": 1.0,
+   "query:/facts/e12c_q9": 1.0,
+   "query:/facts/e12c_q10": 1.0,
+   "query:/facts/e12c_q11": 1.0,
+   "query:/facts/e12c_q12": 1.0,
+   "query:/facts/e12c_q13": 1.0,
+   "query:/facts/e12c_q14": 1.0,
+   "query:/facts/e12c_q15": 1.0,
+   "query:/facts/e12c_q16": 1.0,
+   "query:/facts/e12c_q17": 1.0,
+   "query:/facts/e12c_q18": 1.0,
+   "query:/facts/e12c_q19": 1.0,
+   "query:/facts/e12c_q20": 1.0
+  },
+  "predicate_query_ids": {
+   "p_binding_u1": "query:/facts/api0_current_uid",
+   "p_compromised_u1": "immutable:p_compromised_u1",
+   "p_target_resolves": "query:/facts/api0_current_uid",
+   "e12c_q1": "query:/facts/e12c_q1",
+   "e12c_q2": "query:/facts/e12c_q2",
+   "e12c_q3": "query:/facts/e12c_q3",
+   "e12c_q4": "query:/facts/e12c_q4",
+   "e12c_q5": "query:/facts/e12c_q5",
+   "e12c_q6": "query:/facts/e12c_q6",
+   "e12c_q7": "query:/facts/e12c_q7",
+   "e12c_q8": "query:/facts/e12c_q8",
+   "e12c_q9": "query:/facts/e12c_q9",
+   "e12c_q10": "query:/facts/e12c_q10",
+   "e12c_q11": "query:/facts/e12c_q11",
+   "e12c_q12": "query:/facts/e12c_q12",
+   "e12c_q13": "query:/facts/e12c_q13",
+   "e12c_q14": "query:/facts/e12c_q14",
+   "e12c_q15": "query:/facts/e12c_q15",
+   "e12c_q16": "query:/facts/e12c_q16",
+   "e12c_q17": "query:/facts/e12c_q17",
+   "e12c_q18": "query:/facts/e12c_q18",
+   "e12c_q19": "query:/facts/e12c_q19",
+   "e12c_q20": "query:/facts/e12c_q20"
+  },
+  "query_observed_at_s": {
+   "query:/facts/api0_current_uid": 0.0,
+   "immutable:p_compromised_u1": 0.0,
+   "query:/facts/e12c_q1": 0.0,
+   "query:/facts/e12c_q2": 0.0,
+   "query:/facts/e12c_q3": 0.0,
+   "query:/facts/e12c_q4": 0.0,
+   "query:/facts/e12c_q5": 0.0,
+   "query:/facts/e12c_q6": 0.0,
+   "query:/facts/e12c_q7": 0.0,
+   "query:/facts/e12c_q8": 0.0,
+   "query:/facts/e12c_q9": 0.0,
+   "query:/facts/e12c_q10": 0.0,
+   "query:/facts/e12c_q11": 0.0,
+   "query:/facts/e12c_q12": 0.0,
+   "query:/facts/e12c_q13": 0.0,
+   "query:/facts/e12c_q14": 0.0,
+   "query:/facts/e12c_q15": 0.0,
+   "query:/facts/e12c_q16": 0.0,
+   "query:/facts/e12c_q17": 0.0,
+   "query:/facts/e12c_q18": 0.0,
+   "query:/facts/e12c_q19": 0.0,
+   "query:/facts/e12c_q20": 0.0
+  }
+ },
+ "native_controls": [
+  {
+   "control_id": "k8s_uid_precondition",
+   "control_type": "uid_precondition",
+   "predicate_ids": [
+    "p_binding_u1"
+   ],
+   "normalized_cost_units": 0.0,
+   "applicable": true,
+   "notes": "Atomic server-side commit precondition; modeled as zero additional query round-trips. Live API behavior is deferred to E13."
+  }
+ ],
+ "scenario_role": "synthetic_scalability"
+}

@@ -1,0 +1,84 @@
+E39 (run_id e39-20260926t1515z) -- DEVIATIONS / CHANGES vs the pre-registered documents
+===================================================================================================
+Governing documents: protocol/E39_DESIGN_SPEC.txt v1 + AMENDMENT 1, protocol/ANALYSIS_PLAN_E39.txt v1.0 (+ section
+10 items (10), (11) and rule 2.3 (f), all added BEFORE the LOCK), protocol/E39_RUNBOOK.txt v1.
+LOCK: protocol/LOCK_E39.json, status LOCKED-2026-09-26T15:22:23Z, seed 972231175 (secrets.randbelow; not 20260912,
+1772720255, 154080643, 424242), stage-1 lock_sha256 5dab959095b999e223aeaf28f579b36eaca27eeed183989beac508b578f910ac.
+Everything under PRE-LOCK was decided and implemented before 15:22:23Z; smoke data (smoke-e39-20260926a) are
+not E39 results.
+
+PRE-LOCK CODE / PROTOCOL CHANGES
+D1  (task step 0) E39-F runner path switched to the split ops of the Go client (binary sha256 6c7a68fc...,
+    unchanged, not rebuilt). A1_dcji_go: gate_uid -> writer armed at the Go-reported TRUE gate end
+    (t_gate_end_mono_ns, CLOCK_MONOTONIC, same clock as the runner) -> delete_uid; delete.t_send_mono_ns /
+    t_resp_mono_ns now come from Go (t_resp_is_upper_bound false). The previous code converted Go times from a
+    wall-anchored clock; with the new binary that conversion would have been wrong and was removed.
+    LIMITATION: the binary has no split ANNOTATION gate (gate_uid decides from ConfigMaps only), so
+    A4d_commit_direct_go keeps the combined op gate_delete_rv (one Pod GET + annotation decision + DELETE with
+    {uid, RV}) and its writer is armed at a PREDICTED gate end (running median of the true Go gate durations);
+    the true gate end, DELETE send time and anchor error are recorded (trial.go). Using gate_uid + delete_rv for
+    A4d would have replaced the annotation decision by a ConfigMap decision (not the A4d arm) - not done.
+    New test test_go_split_ops_against_tls_fake (real binary vs TLS fake). Suites after all pre-lock changes:
+    src 149 passed, webhook 41 OK, deploy validate OK, analysis + lock 117 passed, offline self-test rc 0
+    (324 trials, 0 INFRA, analysis gate passed).
+D2  (probe RUNBOOK 4.2) kube-apiserver v1.37 words the storage precondition failure as
+    'Operation cannot be fulfilled on Pod "<n>": the ResourceVersion in the precondition (<p>) does not match the
+    ResourceVersion in record (<c>). The object might have been modified' (UID analogous), not
+    'Precondition failed: ResourceVersion in precondition: <p>, ResourceVersion in object meta: <c>' as assumed
+    by the runbook, the oracle parser, arms_commit.classify_conflict and the fake apiserver. Without the fix every
+    A4 409 would have been primary UNKNOWN (unparsed) and conflict_kind 'other'. Fixed: e39_common.
+    parse_precondition_message accepts both wordings (new tests analysis/tests/test_precondition_v137.py),
+    arms_commit.classify_conflict + runner (F) accept both, fake_api emits the v1.37 wording; plan section 10
+    item (10). No rule/endpoint change.
+D3  (smoke) A4d writer PATCH vs grace-0 DELETE race: in 17 smoke trials (13 E39-A A4d, 1 E39-B A4d, 3 E39-F
+    A4d-go) the writer's Pod
+    PATCH returned 200 with resourceVersion R and a responseObject carrying deletionTimestamp, while the DELETE
+    (precondition R-1) returned 200 with R+1. Evidence (pod watch + apiserver log): R = the DELETE's own
+    deletion-mark update (MODIFIED with deletionTimestamp, grace 0), then the writer's PATCH hit the terminating
+    Pod and kube-apiserver deleted the object during that update ("Going to delete object from registry,
+    triggered by update"); the annotation was never persisted. The pre-registered primary rule took R as the
+    write's commit revision -> INVALID_EXECUTED (secondary rule: VALID). New rule 2.3 (f) (oracle_e39.py and,
+    identically, recompute_independent_e39.py): an A4d Pod PATCH whose responseObject has deletionTimestamp is
+    NOT committed (flag <role>_on_terminating_pod); only consistent with an accepted DELETE (else UNKNOWN).
+    Tests analysis/tests/test_terminating_pod_write.py. After the fix the smoke primary/secondary agreement was
+    100% (was 93.5%).
+D4  (smoke) recompute_independent_e39.py ignored trial.cut_writes (E39-G pre-gate cuts), so it saw no committed
+    write in G and disagreed with the oracle (G A1 out_of_model 0/1 vs 1/1). Fixed pre-lock (cut writes are
+    writes, plan 2.3); smoke recomputation then agreed in every cell.
+D5  Runtime-estimate constants of the dry-run replaced by smoke measurements (pod trial 0.77 s, uid_rebind
+    +0.80 s, A4m +0.10 s, E +0.0 s, C overhead 0.05 s) and the budget line updated to 5 h (Amendment 1).
+    Dry-run only; no effect on trials. Stage-1 estimate 4.44 h.
+D6  Probe/operator tooling is outside the LOCK (e39_ops/*.sh, e39_probes.py, e39_probe_audit.py,
+    quality_gates.py, headline.py, timing.py); it only reads data or performs probe requests in the run
+    namespace before the LOCK.
+
+OPERATIONAL
+O1  Sub-experiment order A, G, E, F, B, D, C (task instruction; the runbook lists G first) then E39-A stage 2,
+    executed by one detached driver (e39_ops/run_all.sh) that verifies the LOCK before every runner call.
+O2  python:3.12-slim imported into the node with docker save | ctr import (as E38v2 D3), no pulls.
+O3  A detached Azure CLI process of another project (niced, 'az vm list-skus') used up to ~1 core for a few
+    minutes during E39-A (host load average up to ~10); CPU idle stayed > 8 %, MemAvailable >= 8 GB; no
+    throttling was needed and no action was taken on the foreign process.
+O4  Runner/probe identities, Audit-Id join, RV-order and webhook/exemption probes were run twice (smoke namespace
+    and run namespace); both passed.
+O5  HOST CHANGE DURING E39-D (user request, relayed by the study coordinator): the three unrelated kind clusters
+    (mape-cap-confirm, mcb-k137, rev-n5; 12 containers incl. an Online Boutique load generator) were STOPPED (not
+    deleted) between 2026-09-26T18:40:42.881Z and 18:41:17.593Z, while E39 was in sub-experiment D (runner log
+    18:40:36Z "LOAD level -> high"; 14,036 RAW trials recorded at the stop). Not done by the E39 operator; the
+    clusters were not restarted. Host background load therefore dropped mid-D (MemAvailable ~9.0 -> ~13.4 GB,
+    load average ~6 -> <1). E39-D is reported pooled (pre-registered, ITT) AND split before/after the stop as an
+    EXPLORATORY post-LOCK analysis (EXPLORATORY_D_SPLIT_BY_CLUSTER_STOP.txt, per-trial gate wall stamps + host
+    snapshots). E39-C (18:47Z-) and the E39-A stage-2 top-up ran entirely without the background clusters.
+    Details: OTHER_CLUSTERS_STOPPED.txt (written by the coordinator). A code+environment reproducibility bundle
+    was taken by the coordinator at 18:45Z at ionice idle priority.
+
+POST-LOCK OBSERVATIONS (no code, rule or data change)
+P1  A4m mirror PATCH vs grace-0 DELETE: in a few A4m trials the mirror controller's Pod PATCH hit the Pod after the
+    DELETE's deletion mark (responseObject with deletionTimestamp; returned RV = mark revision = source RV - 1;
+    the object was then removed by that update at source RV + 1). The locked rule classifies these as UNKNOWN
+    (mirror_rv_not_after_source) - they are excluded from the primary denominator and counted as INVALID in S1.
+    Rule 2.3 (f) was written for A4d writer PATCHes only; it was not extended post-LOCK.
+P2  Action commit revision for grace-0 Pod DELETEs is the pre-registered DELETE responseObject RV (final removal).
+    When another request's update removes the Pod (P1, D3), the removal revision is one step after the DELETE's
+    own deletion-mark revision; writes committing between the mark and the removal count as "before the action"
+    under the primary rule. Reported as a limitation of the E38v2-carried rule, not changed.

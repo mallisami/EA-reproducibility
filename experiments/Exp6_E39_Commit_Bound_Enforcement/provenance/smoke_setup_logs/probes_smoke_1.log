@@ -1,0 +1,90 @@
+2026-09-26T14:18:17.938606504Z
+podwatch pid 3209813
+{"namespace":"e39-smoke-e39-20260926a","pid":3209813,"schema":"e38v2.podevent.v1","seq":1,"t_recv_mono_ns":51404432981747,"t_recv_wall_ns":1790432298011639508,"type":"START"}
+               total        used        free      shared  buff/cache   available
+Mem:           15939        6049         916         194        9514        9889
+ 14:18:20 up 14:16,  1 user,  load average: 0.83, 1.21, 1.01
+14:18:21 == part wh
+14:18:24    PASS wh {}
+14:18:24 == part np
+14:18:25    PASS np {}
+14:18:25 == part a4d
+14:18:25    FAIL a4d {}
+14:18:25 == part go
+14:18:27    FAIL go {}
+14:18:27 == part mirror
+14:18:35    PASS mirror {"observed_lag_ms": {"n": 12, "median": 18.5436935, "max": 26.116755}}
+14:18:35 == part order
+14:18:36    PASS order {}
+14:18:36 ALL_PASS False {'wh': True, 'np': True, 'a4d': False, 'go': False, 'mirror': True, 'order': True}
+{
+ "checks": {
+  "configmaps_patch_RR": true,
+  "pods_patch_writer_RR": true,
+  "pods_patch_mirror_RR": true,
+  "pods_status_kubelet_RR": true,
+  "pods_delete_200": true,
+  "pods_delete_409": true,
+  "pods_delete_403": true,
+  "netpol_create_RR": true,
+  "no_RequestReceived": true,
+  "no_load_ns_events": true,
+  "no_system_ns_events": true,
+  "delete_409_message_in_audit": false,
+  "audit_join_all": false
+ },
+ "audit_join": {
+  "ops_with_audit_id": 326,
+  "matched": 311,
+  "rv_mismatch": 0
+ },
+ "rv_time_order": {
+  "n": 261,
+  "pairwise_concordant": 33894,
+  "discordant": 36,
+  "ties": 0,
+  "adjacent_nondecreasing": 232,
+  "adjacent_total": 260,
+  "seq_only_adjacent_nondecreasing": 99,
+  "seq_only_n": 100
+ },
+ "pods_status_writes_per_pod": {
+  "e39-target": 3,
+  "probe-a4": 3,
+  "probe-go1": 4,
+  "probe-go2": 3,
+  "probe-go3": 3,
+  "probe-wh-deny": 4,
+  "probe-wh-nolabel": 3,
+  "probe-wh-reset": 3,
+  "probe-wh-scope": 4
+ },
+ "delete_409_messages": [
+  [
+   "probe-a4",
+   "Operation cannot be fulfilled on Pod \"probe-a4\": the ResourceVersion in the precondition (1293) does not match the ResourceVersion in record (1294). The object might have been modified"
+  ],
+  [
+   "probe-a4",
+   "Operation cannot be fulfilled on Pod \"probe-a4\": the UID in the precondition (00000000-0000-0000-0000-000000000000) does not match the UID in record (50683df6-746a-49db-a629-b3d6ce96e3c0). The object might have been deleted and then recreated"
+  ],
+  [
+   "probe-go3",
+   "Operation cannot be fulfilled on Pod \"probe-go3\": the ResourceVersion in the precondition (1323) does not match the ResourceVersion in record (1330). The object might have been modified"
+  ]
+ ]
+}
+coverage:
+  create networkpolicies sa:e39-responder                      n=3     ['RequestResponse'] RO=3 codes=[201, 403]
+  delete networkpolicies sa:e39-reset                          n=3     ['RequestResponse'] RO=3 codes=[200, 404]
+  delete pods sa:e39-reset                                     n=3     ['RequestResponse'] RO=3 codes=[200]
+  delete pods sa:e39-responder                                 n=11    ['RequestResponse'] RO=11 codes=[200, 403, 409]
+  patch configmaps kubernetes-admin                            n=10    ['RequestResponse'] RO=10 codes=[200]
+  patch configmaps sa:e39-reset                                n=56    ['RequestResponse'] RO=56 codes=[200]
+  patch configmaps sa:e39-writer                               n=284   ['RequestResponse'] RO=284 codes=[200]
+  patch pods sa:e39-mirror                                     n=12    ['RequestResponse'] RO=12 codes=[200]
+  patch pods sa:e39-writer                                     n=2     ['RequestResponse'] RO=2 codes=[200]
+  patch pods/status system:node:e39-control-plane              n=30    ['RequestResponse'] RO=30 codes=[200, 404]
+PROBE AUDIT FAIL
+No resources found
+2026-09-26T14:18:39.072827963Z

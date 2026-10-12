@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: f1-target
+  namespace: flashir-f1fast
+data:
+  role: "quarantine-target"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: f1-irrelevant
+  namespace: flashir-f1fast
+data:
+  note: "unrelated"

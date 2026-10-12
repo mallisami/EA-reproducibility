@@ -1,0 +1,87 @@
+{
+  "schema": "e38v2.session.v1",
+  "run_id": "e38v2r-20260926t1032z",
+  "stage": 2,
+  "schedule_seed": 154080643,
+  "horizon_s": 30.0,
+  "clock_anchor": {
+    "mono_ns": 42374140174364,
+    "wall_ns": 1790423267718833699
+  },
+  "namespace": "e38v2-e38v2r-20260926t1032z",
+  "context": "kind-e38v2",
+  "certificate": [
+    "a",
+    "c",
+    "e",
+    "scope",
+    "uid"
+  ],
+  "certificate_invariant_horizons": [
+    5.0,
+    10.0,
+    30.0,
+    60.0
+  ],
+  "f5_path": "/home/azureuser/e38v2r_20260926/frozen_ref/source_provenance/E37_F5_PHYS_ORIGINAL.json",
+  "f5_sha256": "c54f4331cf0d73e7cde1b5da564480bb4911d4889b4f06c9670e1da4efd3cb2f",
+  "identities": {
+    "responder": {
+      "username": "system:serviceaccount:e38v2-system:e38v2-responder",
+      "token_file": "responder.token (not exported)",
+      "context": "kind-e38v2"
+    },
+    "reset": {
+      "username": "system:serviceaccount:e38v2-system:e38v2-reset",
+      "token_file": "reset.token (not exported)",
+      "context": "kind-e38v2"
+    },
+    "writer": {
+      "username": "system:serviceaccount:e38v2-system:e38v2-writer",
+      "token_file": "writer.token (not exported)",
+      "context": "kind-e38v2"
+    }
+  },
+  "file_sha256": {
+    "e38_independent_offline_oracle.py": "43a709db2581cffbcf8ca0ccd7c3d6ff4aa46e03bf8c5e77298c604897e2eea8",
+    "e38v2_model.py": "b5af7e66b2c23876b88af92c72afe82e1e0365ed6f2674562d42c5d4fc3ea971",
+    "e38v2_runner.py": "f1c1093f63c30c32be876db105146aad3047218b02ac1a26027d95b351dfbfb3",
+    "fake_api.py": "53d643f97f12a8123260ec1a371acc430dac2491497f0ac5ca2b1a89377d74f2",
+    "pod_watch.py": "6170bf24e9b4dad19cc8ddeabeb624197dd2300815963bf7a3e325f10089549c",
+    "schema.py": "7d2cb085cd7c0d826f96fd17c4d4f1cfee905bb29438516bee0b7008c8c11c40",
+    "test_e38v2.py": "bfb206e4a8f0bdbffc189fd3fdce3035c810955dccb513f0dc0c49da2de359fe",
+    "test_pod_watch.py": "440649565ac56d08ee6a87d7c7b72271628c73a1bd72bd1dcc2eb5305dcf28b5",
+    "writer.py": "5d336c9d2b34b2b5da90a1201212a185b2947fb68e9a2107f6a39f2c984e232e",
+    "flashir_core/__init__.py": "4b5ae5eaf5a4abb7261b679c773c843c2c1907204347c65b7eee62391c1e5550",
+    "flashir_core/dcji.py": "adec97f6e46cbe006510f8fbabeed3dbfe94422f8226dfa3ae48dc68a788eb77",
+    "flashir_core/defenses.py": "7d02941bdcc830cda3883ef4a546e75910383741d6baa9882c2ce88ab246838b",
+    "flashir_core/engine.py": "a7227732ab7d30a1cecd61b622c6ec51d5c3c7768293c63d29bdafd34b9a943d",
+    "flashir_core/expr.py": "f3e0aabf853755e7e2be6c77391022977c81220185b30bbbfe20d2a73c856a25",
+    "flashir_core/io.py": "229fdc6186185a7318c535f3d5fee1a4379054bcf2751dc052b4cf7f44ab4fcd",
+    "flashir_core/refresh.py": "444bc1c10e95bdcb07ea5204cbf8c82d57f113413e82bb72addb30a13330cc05"
+  },
+  "python": "3.12.3",
+  "switchinterval_s": 4.9999999999999996e-05,
+  "created_wall": "2026-09-26T11:47:47Z",
+  "api_server": "https://127.0.0.1:42851",
+  "ca_sha256": "f598d264efeb703a00daec5c4c90814a6bb087eb7f2fe90c54b21ca9bccb47bf",
+  "apiserver_version": "v1.37.0",
+  "schedule_file": "/home/azureuser/e38v2r_20260926/results/e38v2r-20260926t1032z/SCHEDULE_STAGE2.json",
+  "schedule_sha256": "3ededba899cb0e94421008d72ad707f5a1be356ba77d2ad529aa7002c91a113b",
+  "n_scheduled": 2916,
+  "lock_file": "/home/azureuser/e38v2r_20260926/protocol/LOCK_E38v2.json",
+  "lock_sha256_field": "7672dddaf2a0dbfe61b96ebf0c01775f69c67070a2891d59d7d5c1e6ec50ae5f",
+  "lock_status": "LOCKED-2026-09-26T10:34:43Z",
+  "unlocked_smoke": false,
+  "writer_impl": "separate process (WriterProcess)",
+  "target_pod": "registry.k8s.io/pause:3.10 (imagePullPolicy Never), Running+Ready before the gate",
+  "delete_options": {
+    "gracePeriodSeconds": 0,
+    "preconditions": "uid"
+  },
+  "runtime_constants": {
+    "sec_per_trial_non_uid": 0.578,
+    "sec_per_trial_uid": 1.204,
+    "writer_overhead_s_estimate": 0.122
+  }
+}

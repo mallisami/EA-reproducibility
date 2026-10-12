@@ -1,0 +1,707 @@
+{
+  "schema": "e39.lock.v1",
+  "experiment": "E39",
+  "design_spec_version": "E39 design spec v1 (2026-09-26) + E39-F addendum (client-go responder)",
+  "created_utc": "2026-09-26T15:22:23Z",
+  "root": "/home/azureuser/e39_20260926",
+  "_note": "Runner-side entries (src/, webhook/, deploy/) are globbed; the runner agent must add explicit entries for any non-.py artifacts it introduces (Go responder sources/binary, mirror controller, load generator, delay proxy, go.mod/go.sum) BEFORE fill (done 2026-09-26 by the runner integration: Go responder sources/go.mod/go.sum/BUILD_INFO/binary, harness tests, E37 F5 planner input; mirror controller, load generator and delay proxy are src/*.py). protocol/*.json is not globbed so the LOCK itself is never inside a glob.",
+  "files": [
+    {
+      "path": "src/action_netpol.py",
+      "role": "runner",
+      "from_glob": "src/*.py",
+      "sha256": "d56a6f2031499ef2e2ddcd86ef0f692b471828db8e184cd83242aa06b3002f31"
+    },
+    {
+      "path": "src/arms_commit.py",
+      "role": "runner",
+      "from_glob": "src/*.py",
+      "sha256": "b29d2379d7fa5061502e9a4fb487dbde3832f492b1bae65e65148f0c79b05692"
+    },
+    {
+      "path": "src/conditions_e39.py",
+      "role": "runner",
+      "from_glob": "src/*.py",
+      "sha256": "21401c30fea4922875605f1c49c37cb9201d0020b1c09be007547bad57ff927d"
+    },
+    {
+      "path": "src/e38_independent_offline_oracle.py",
+      "role": "runner",
+      "from_glob": "src/*.py",
+      "sha256": "43a709db2581cffbcf8ca0ccd7c3d6ff4aa46e03bf8c5e77298c604897e2eea8"
+    },
+    {
+      "path": "src/e38v2_model.py",
+      "role": "runner",
+      "from_glob": "src/*.py",
+      "sha256": "0b1c37f50869d3f3bc2fb2cd898f9ded0c273ef85434ddddbf08e6399d430859"
+    },
+    {
+      "path": "src/e38v2_runner.py",
+      "role": "runner",
+      "from_glob": "src/*.py",
+      "sha256": "6642740fa57703187df0918da31ede8e0e8ad22a9c7256c6da5af1a52c7e3da9"
+    },
+    {
+      "path": "src/e39_fragments.py",
+      "role": "runner",
+      "from_glob": "src/*.py",
+      "sha256": "7290a9581609c24c67998dce04e55cd64aadc80ae89564a9a382a655e6895514"
+    },
+    {
+      "path": "src/e39_kube.py",
+      "role": "runner",
+      "from_glob": "src/*.py",
+      "sha256": "a7696f01200ec586af481e7d82c17717b591b251e1ecf5a1152afc419ed947bd"
+    },
+    {
+      "path": "src/e39_runner.py",
+      "role": "runner",
+      "from_glob": "src/*.py",
+      "sha256": "e67346d5058c90830fc9718b0c9f85355a34012952ac2d7eb70b9b780423b527"
+    },
+    {
+      "path": "src/fake_api.py",
+      "role": "runner",
+      "from_glob": "src/*.py",
+      "sha256": "eca2bbf67ceebfd728e38942873e0d551dccaf982cdaa1471b5a83039f9ce5c8"
+    },
+    {
+      "path": "src/goclient_bridge.py",
+      "role": "runner",
+      "from_glob": "src/*.py",
+      "sha256": "9d5c4fda59e7915e33a07737cf9cf06ee90b80d6411be95a4bf9197a4bfb17cf"
+    },
+    {
+      "path": "src/harness_arrivals.py",
+      "role": "runner",
+      "from_glob": "src/*.py",
+      "sha256": "b11c48fe4a12597123ebfc6cb34f5b7096e73b0074b0a34803d80dc6308b3faa"
+    },
+    {
+      "path": "src/harness_delay_proxy.py",
+      "role": "runner",
+      "from_glob": "src/*.py",
+      "sha256": "3ab84efff6364cbb495654743873cc3421edb4a20852fef149a138f37c61aeec"
+    },
+    {
+      "path": "src/harness_load.py",
+      "role": "runner",
+      "from_glob": "src/*.py",
+      "sha256": "08693dfc52b56a274a1a85c2c4669096a5a1964d41c585a0f628a4cd4d1e6723"
+    },
+    {
+      "path": "src/harness_util.py",
+      "role": "runner",
+      "from_glob": "src/*.py",
+      "sha256": "7e9b87cb38339b101129dc0fa518a2577388e4b275961d111b4f31902bf8c20c"
+    },
+    {
+      "path": "src/mirror_controller.py",
+      "role": "runner",
+      "from_glob": "src/*.py",
+      "sha256": "e93564481eeec2252a72b281e0deb7028f826a34972ed9473778f4d68111e60a"
+    },
+    {
+      "path": "src/pod_watch.py",
+      "role": "runner",
+      "from_glob": "src/*.py",
+      "sha256": "5c17cafed35035de9d211882fc459c7b90384ad8f729d0476689c45b19b818df"
+    },
+    {
+      "path": "src/schema.py",
+      "role": "runner",
+      "from_glob": "src/*.py",
+      "sha256": "7d2cb085cd7c0d826f96fd17c4d4f1cfee905bb29438516bee0b7008c8c11c40"
+    },
+    {
+      "path": "src/schema_e39.py",
+      "role": "runner",
+      "from_glob": "src/*.py",
+      "sha256": "8d0604c0fb78064004a4160ff958b7b3dbbd794ca4a71d8e071fb8fb3e2c14ae"
+    },
+    {
+      "path": "src/test_e38v2.py",
+      "role": "runner",
+      "from_glob": "src/*.py",
+      "sha256": "ac01b4fc42b09a2cf8ba80afe10521ae9522f7df8c1d9c77b84c3009a9146ee4"
+    },
+    {
+      "path": "src/test_e39_commit.py",
+      "role": "runner",
+      "from_glob": "src/*.py",
+      "sha256": "1e2a8dac17f673d3d75cd6d07b9d49e113be1b3141c66612da3898326a979727"
+    },
+    {
+      "path": "src/test_e39_mirror.py",
+      "role": "runner",
+      "from_glob": "src/*.py",
+      "sha256": "da41c84536b13c94ce287abd92c4d67d9ec7a33e4eea5d44287c2cdfa3bbecb3"
+    },
+    {
+      "path": "src/test_e39_netpol_conditions.py",
+      "role": "runner",
+      "from_glob": "src/*.py",
+      "sha256": "7873698e40b5253171114939e7e1617ce675b815b870232403dbc5139ff6786a"
+    },
+    {
+      "path": "src/test_e39_runner.py",
+      "role": "runner",
+      "from_glob": "src/*.py",
+      "sha256": "261aa892ca39b8289b577a8ca7729ebc12ec4bf8eb5fa657d0b2e082eea63adb"
+    },
+    {
+      "path": "src/test_goclient_bridge.py",
+      "role": "runner",
+      "from_glob": "src/*.py",
+      "sha256": "3873f4d50cd90f7e6b9b5cb4d5e0c2ba82ae4e282764a3bcb2b95eb48baaaaab"
+    },
+    {
+      "path": "src/test_pod_watch.py",
+      "role": "runner",
+      "from_glob": "src/*.py",
+      "sha256": "3d4dd46397aa05c5abcf84061601cc28bcabcc576046222baa703f3eeb5cf8f6"
+    },
+    {
+      "path": "src/writer.py",
+      "role": "runner",
+      "from_glob": "src/*.py",
+      "sha256": "b0d1abb59247a55543213e66512c7984c3c5641fdb1c74799af10d47094310f6"
+    },
+    {
+      "path": "src/flashir_core/__init__.py",
+      "role": "planner_core",
+      "from_glob": "src/flashir_core/*.py",
+      "sha256": "4b5ae5eaf5a4abb7261b679c773c843c2c1907204347c65b7eee62391c1e5550"
+    },
+    {
+      "path": "src/flashir_core/dcji.py",
+      "role": "planner_core",
+      "from_glob": "src/flashir_core/*.py",
+      "sha256": "adec97f6e46cbe006510f8fbabeed3dbfe94422f8226dfa3ae48dc68a788eb77"
+    },
+    {
+      "path": "src/flashir_core/defenses.py",
+      "role": "planner_core",
+      "from_glob": "src/flashir_core/*.py",
+      "sha256": "7d02941bdcc830cda3883ef4a546e75910383741d6baa9882c2ce88ab246838b"
+    },
+    {
+      "path": "src/flashir_core/engine.py",
+      "role": "planner_core",
+      "from_glob": "src/flashir_core/*.py",
+      "sha256": "a7227732ab7d30a1cecd61b622c6ec51d5c3c7768293c63d29bdafd34b9a943d"
+    },
+    {
+      "path": "src/flashir_core/expr.py",
+      "role": "planner_core",
+      "from_glob": "src/flashir_core/*.py",
+      "sha256": "f3e0aabf853755e7e2be6c77391022977c81220185b30bbbfe20d2a73c856a25"
+    },
+    {
+      "path": "src/flashir_core/io.py",
+      "role": "planner_core",
+      "from_glob": "src/flashir_core/*.py",
+      "sha256": "229fdc6186185a7318c535f3d5fee1a4379054bcf2751dc052b4cf7f44ab4fcd"
+    },
+    {
+      "path": "src/flashir_core/refresh.py",
+      "role": "planner_core",
+      "from_glob": "src/flashir_core/*.py",
+      "sha256": "444bc1c10e95bdcb07ea5204cbf8c82d57f113413e82bb72addb30a13330cc05"
+    },
+    {
+      "path": "src/tests_harness/conftest.py",
+      "role": "runner_harness_tests",
+      "from_glob": "src/tests_harness/*.py",
+      "sha256": "8b012ec298d3ec4f066cae3eb54a264040f83cad41ef2e7fce1dc481b427528f"
+    },
+    {
+      "path": "src/tests_harness/harness_fakes.py",
+      "role": "runner_harness_tests",
+      "from_glob": "src/tests_harness/*.py",
+      "sha256": "38219ae53f7494d8dc5f4d1aad88f746018c41d862b5b28e64f7e5a658f3cdfe"
+    },
+    {
+      "path": "src/tests_harness/test_arrivals.py",
+      "role": "runner_harness_tests",
+      "from_glob": "src/tests_harness/*.py",
+      "sha256": "8eeec5362dac71dee11c407541d1a9752a5b14aeafb44c7a816dfa3655b1c895"
+    },
+    {
+      "path": "src/tests_harness/test_delay_proxy.py",
+      "role": "runner_harness_tests",
+      "from_glob": "src/tests_harness/*.py",
+      "sha256": "b1f657dbb0e325d2ed3161aee9416d0c25631be30085c98e29950e127dbea9ca"
+    },
+    {
+      "path": "src/tests_harness/test_load.py",
+      "role": "runner_harness_tests",
+      "from_glob": "src/tests_harness/*.py",
+      "sha256": "e3a8e246c8eb07a8ee3b66df20d3447aec39277e4598d7039667cd31d77a4472"
+    },
+    {
+      "path": "src/goclient/client.go",
+      "role": "go_responder_source",
+      "from_glob": "src/goclient/*.go",
+      "sha256": "bcecc5c0dfcb8949c7da4ab90e2026d6083f94de5dcde6c8af2445e27e0d9543"
+    },
+    {
+      "path": "src/goclient/main.go",
+      "role": "go_responder_source",
+      "from_glob": "src/goclient/*.go",
+      "sha256": "21564799773116a53e433a8b4f3ee911a6facc5b8c93b7cc97964a296a5dd718"
+    },
+    {
+      "path": "src/goclient/main_test.go",
+      "role": "go_responder_source",
+      "from_glob": "src/goclient/*.go",
+      "sha256": "cc54740ae1d45b2a23464f28162d76ec30c4439557e8527ec5d374f93627e4f2"
+    },
+    {
+      "path": "src/goclient/go.mod",
+      "role": "go_responder_module",
+      "sha256": "d6f8530173a339bb36c776f38c08066af8e4bedd4eefeb9982c5fb1fe37cd79a"
+    },
+    {
+      "path": "src/goclient/go.sum",
+      "role": "go_responder_module_sums",
+      "sha256": "b71d045a9d9a5015db223bc978276e37f0050ab062ba64324ae52780c6cd4cfc"
+    },
+    {
+      "path": "src/goclient/BUILD_INFO.txt",
+      "role": "go_responder_build_info",
+      "sha256": "a478b4d7c8ab9f905d30e1fea525d7b6abdf1b9a2b3f05e286fce215da426877"
+    },
+    {
+      "path": "src/goclient/bin/e39-goclient",
+      "role": "go_responder_binary",
+      "sha256": "6c7a68fc972d0d9a60123a2d2e3d987d874df11ed07a23470e96d8afac7398b7"
+    },
+    {
+      "path": "frozen_ref/source_provenance/E37_F5_PHYS_ORIGINAL.json",
+      "role": "planner_model_input",
+      "sha256": "c54f4331cf0d73e7cde1b5da564480bb4911d4889b4f06c9670e1da4efd3cb2f"
+    },
+    {
+      "path": "webhook/policy.py",
+      "role": "webhook_server",
+      "from_glob": "webhook/*.py",
+      "sha256": "b4f4905ab3f15197bb4ab4655eb85bbd1ef9736c8c8eff66e51c9861f4bd3ba6"
+    },
+    {
+      "path": "webhook/server.py",
+      "role": "webhook_server",
+      "from_glob": "webhook/*.py",
+      "sha256": "31b88bd2871cc98c4bc1cb7f8f275bb505c21f6970fb4abf5409f9651d055ae7"
+    },
+    {
+      "path": "deploy/audit-policy.yaml",
+      "role": "deploy",
+      "from_glob": "deploy/*.yaml",
+      "sha256": "815c2e2a222f963761f2f5dabde9e45962264a37c9331eb83d16de5aafff7009"
+    },
+    {
+      "path": "deploy/kind-config.yaml",
+      "role": "deploy",
+      "from_glob": "deploy/*.yaml",
+      "sha256": "1753e0fc3030db1b39ed39b4caf73d929404c79e762f64b81ee60b80965ea32a"
+    },
+    {
+      "path": "deploy/namespace.yaml",
+      "role": "deploy",
+      "from_glob": "deploy/*.yaml",
+      "sha256": "41f5de0f20d798f3856ef7ce63980ae219830b01a6fae84d2ffe0a7e96df8b87"
+    },
+    {
+      "path": "deploy/rbac.yaml",
+      "role": "deploy",
+      "from_glob": "deploy/*.yaml",
+      "sha256": "04103ebeafdb89fc689bb7d9e1d8ac6f63ff843469a6f6326b79c6c483415744"
+    },
+    {
+      "path": "deploy/webhook-config.yaml",
+      "role": "deploy",
+      "from_glob": "deploy/*.yaml",
+      "sha256": "daeacb1c5e9b1f0f2c98bbfec45a6a6c3f79566b6e7c7c34a860b7a28d9f14b8"
+    },
+    {
+      "path": "deploy/webhook.yaml",
+      "role": "deploy",
+      "from_glob": "deploy/*.yaml",
+      "sha256": "aabaf84cc0153cad75760757373a898f2e4102f6d75e40266f2f4e84bc432b02"
+    },
+    {
+      "path": "deploy/gen_certs.sh",
+      "role": "deploy_tool",
+      "from_glob": "deploy/*.sh",
+      "sha256": "23799b2c6b8fe97b59d6050ff6fe5c5f8ad5b178a2236bde9c0c5407e5fae876"
+    },
+    {
+      "path": "deploy/render.sh",
+      "role": "deploy_tool",
+      "from_glob": "deploy/*.sh",
+      "sha256": "2ef11cc2905bed322e2b6b1b2854b1d580bc49f6d8d39c5d5a081d8c6ab96547"
+    },
+    {
+      "path": "analysis/e39_common.py",
+      "role": "analysis_common",
+      "sha256": "2be0741c2849fdc4706f107fddf6d1e9a603b249a050dcea3b62605b1a5b8f37"
+    },
+    {
+      "path": "analysis/oracle_e39.py",
+      "role": "analysis_oracle",
+      "sha256": "011ae3c866db4c2836830801b98fa6f556fb1f0a8548600c904b10fae2171999"
+    },
+    {
+      "path": "analysis/analyze_e39.py",
+      "role": "analysis",
+      "sha256": "9fe4f5959645779828dc4eaac2829bfaf8e49a77d1f9bad468709ffe70b581a0"
+    },
+    {
+      "path": "analysis/stage2_topup_e39.py",
+      "role": "analysis_stage2",
+      "sha256": "b7b727fccfcee063152018a2d6c5764f0a298e44432492d030b43b39fe6f22f5"
+    },
+    {
+      "path": "analysis/recompute_independent_e39.py",
+      "role": "analysis_independent",
+      "sha256": "fed641aeecf0b573dd31ef1d0abebdfec3ce594bd5c3d7261f3f616b09236fef"
+    },
+    {
+      "path": "analysis/fixtures/compare_truth.py",
+      "role": "analysis_test_simulator",
+      "from_glob": "analysis/fixtures/*.py",
+      "sha256": "0cce3aa523a1d7eb319341d08bdbe4a31c569c518741402c5ce24a4ca90f268c"
+    },
+    {
+      "path": "analysis/fixtures/dryrun_full.py",
+      "role": "analysis_test_simulator",
+      "from_glob": "analysis/fixtures/*.py",
+      "sha256": "c9b47a97cf671ca1895123445e89562c5079955efb328da954d4056916888019"
+    },
+    {
+      "path": "analysis/fixtures/e39_testkit.py",
+      "role": "analysis_test_simulator",
+      "from_glob": "analysis/fixtures/*.py",
+      "sha256": "c93998394dddeab197b4fe42719e9ace1eb885db9fde532410a9246972616a54"
+    },
+    {
+      "path": "analysis/fixtures/synth_e39.py",
+      "role": "analysis_test_simulator",
+      "from_glob": "analysis/fixtures/*.py",
+      "sha256": "3d2c419cd84d6d1bf8e5667757b9269eef2121439e021b6d6d1c2950b6c4ae6d"
+    },
+    {
+      "path": "analysis/tests/conftest.py",
+      "role": "analysis_tests",
+      "from_glob": "analysis/tests/*.py",
+      "sha256": "f4f759699bff6529cd0f6ea1839e31f0bde5daaf7a63d0fe3580a0f14b5d73dc"
+    },
+    {
+      "path": "analysis/tests/test_analysis_e39.py",
+      "role": "analysis_tests",
+      "from_glob": "analysis/tests/*.py",
+      "sha256": "b50807a2d4459636ac544a9138c180fe160a04b4b9a54cafde9cc5a0caf409ba"
+    },
+    {
+      "path": "analysis/tests/test_independent_e39.py",
+      "role": "analysis_tests",
+      "from_glob": "analysis/tests/*.py",
+      "sha256": "47b9665f7ed04ea092481c299af48dfcc14cab89020ceea6633b34291bf4a602"
+    },
+    {
+      "path": "analysis/tests/test_oracle_e39.py",
+      "role": "analysis_tests",
+      "from_glob": "analysis/tests/*.py",
+      "sha256": "32ddee1ffb3fa8c4d164a5105544ca227680379726474e32972a2751238d78c6"
+    },
+    {
+      "path": "analysis/tests/test_precondition_v137.py",
+      "role": "analysis_tests",
+      "from_glob": "analysis/tests/*.py",
+      "sha256": "b8c864167cf9f44d8534899f160c7c33a017e7fd43ae7ca74563ba9c75d7d282"
+    },
+    {
+      "path": "analysis/tests/test_stats_e39.py",
+      "role": "analysis_tests",
+      "from_glob": "analysis/tests/*.py",
+      "sha256": "8cd72abb70d9a10164d846529d6fc60b05a6611174864013e88e17cc4bc7a5d0"
+    },
+    {
+      "path": "analysis/tests/test_terminating_pod_write.py",
+      "role": "analysis_tests",
+      "from_glob": "analysis/tests/*.py",
+      "sha256": "791a11e07b51f176123103e502662990fed6e7071d5a3173dcbbc89b14d38a1d"
+    },
+    {
+      "path": "protocol/E39_DESIGN_SPEC.txt",
+      "role": "protocol_design",
+      "sha256": "323ef9912c981793bbca03432f5b1520d85812d04e3d7f6c36c4d38fa242bb40"
+    },
+    {
+      "path": "protocol/E39_RECORD_SCHEMA.json",
+      "role": "protocol_record_schema",
+      "sha256": "c04a145d1533926bbc63886a39cf18c8f6cc3432ca03151753c5eaff93b378df"
+    },
+    {
+      "path": "protocol/ANALYSIS_PLAN_E39.txt",
+      "role": "protocol_analysis_plan",
+      "sha256": "3c8115c37bcbc57f0de3de74e79cdc004a7fd2459afe90295eb8df447e52ca6c"
+    },
+    {
+      "path": "protocol/E39_RUNBOOK.txt",
+      "role": "protocol_runbook",
+      "sha256": "a3521f1d683210e711d4f2cf70eb43adecd954d22e565523b220fe63741defc8"
+    },
+    {
+      "path": "protocol/LOCK_TEMPLATE_E39.json",
+      "role": "lock_template",
+      "sha256": "3b8722dc7be5b75fcab03f2c25d540ac0d4a52cf7561d67c2afee24873aeacd2"
+    },
+    {
+      "path": "protocol/lock_hash_e39.py",
+      "role": "lock_tool",
+      "sha256": "7ba6ece3222952ed723ab909a4c80a1433847373217ef94424b66899066cf148"
+    },
+    {
+      "path": "protocol/tests/test_lock_hash_e39.py",
+      "role": "lock_tool_tests",
+      "from_glob": "protocol/tests/*.py",
+      "sha256": "639bb2bb60acde44c1b7373c206117604dd20c38be88364481ab8bedce299b6c"
+    }
+  ],
+  "pinned": [],
+  "design": {
+    "subexperiments": {
+      "A": {
+        "arms": [
+          "A1_dcji",
+          "A3_dcji_webhook",
+          "A4d_commit_direct",
+          "A4m_commit_mirror"
+        ],
+        "conditions": [
+          "async_scope",
+          "async_app_policy",
+          "async_evidence_last_literal"
+        ],
+        "delta_grid_ms": [
+          0,
+          0.5,
+          1,
+          2,
+          3,
+          5,
+          10,
+          20,
+          50,
+          100,
+          200
+        ],
+        "n_stage1_per_cell": 39,
+        "controls": {
+          "no_write": 39,
+          "uid_rebind_control": 10
+        },
+        "stage2_target": 93,
+        "trials_stage1": 5344
+      },
+      "B": {
+        "arms": [
+          "A1_dcji",
+          "A2_fullrefresh",
+          "A3_dcji_webhook",
+          "A4d_commit_direct"
+        ],
+        "condition": "poisson_scope",
+        "lambda_per_s": [
+          1,
+          10,
+          100
+        ],
+        "n_per_cell": 400,
+        "arrival_window": "gate start -> DELETE response + 50 ms",
+        "trials": 4800
+      },
+      "C": {
+        "arms": [
+          "A1_dcji",
+          "A2_fullrefresh"
+        ],
+        "injected_latency_ms": [
+          0,
+          50,
+          200,
+          1000
+        ],
+        "acquisition_mode": [
+          "sequential",
+          "parallel"
+        ],
+        "conditions": [
+          "stable",
+          "ea_attack"
+        ],
+        "planning_mode": [
+          "precomputed",
+          "per_incident"
+        ],
+        "n_pairs_per_cell": 60,
+        "trials": 3840
+      },
+      "D": {
+        "arms": [
+          "A1_dcji",
+          "A3_dcji_webhook"
+        ],
+        "load_level": [
+          "idle",
+          "moderate",
+          "high"
+        ],
+        "condition": "async_scope",
+        "delta_grid_ms": [
+          0,
+          2,
+          5,
+          10,
+          20,
+          50,
+          100,
+          200
+        ],
+        "n_per_cell": 39,
+        "trials": 1872,
+        "load_guard": "host CPU > 85% for > 60 s or free RAM < 2 GB -> drop to moderate and log (host.load_throttled)"
+      },
+      "E": {
+        "arms": [
+          "A1_dcji",
+          "A3_dcji_webhook"
+        ],
+        "action": "netpol_create",
+        "conditions": [
+          "async_scope",
+          "async_evidence_last_literal"
+        ],
+        "delta_grid_ms": [
+          0,
+          2,
+          5,
+          10,
+          20,
+          50,
+          100,
+          200
+        ],
+        "n_per_cell": 39,
+        "trials": 1248
+      },
+      "F": {
+        "arms": [
+          "A1_dcji (python)",
+          "A1_dcji_go (client-go)",
+          "A4d_commit_direct_go (client-go)"
+        ],
+        "condition": "async_scope",
+        "delta_grid_ms": [
+          0,
+          2,
+          5,
+          10,
+          20,
+          50,
+          100,
+          200
+        ],
+        "n_per_cell": 39,
+        "trials": 936
+      },
+      "G": {
+        "arms": [
+          "A1_dcji",
+          "A2_fullrefresh"
+        ],
+        "conditions": [
+          "out_of_model_bdf",
+          "in_model_ace"
+        ],
+        "n_per_cell": 39,
+        "trials": 156
+      }
+    },
+    "validity_policy": "J = (a AND b) OR (c AND d) OR (e AND f); V_core = J AND scope_allowed AND app_policy_allowed",
+    "stage2_rule": "E39-A only: after stage 1, top up to n = 93 every (arm x async condition x delta) cell with 0.05 < p_hat(INVALID_EXECUTED, primary) < 0.95, computed by analysis/stage2_topup_e39.py. No other adding or stopping.",
+    "randomization": "randomize within sub-experiment blocks using schedule_seed; C pairs: guard order randomized per pair",
+    "a4_retry_policy": "no automatic retry on HTTP 409 in E39-A",
+    "schedule_seed": 972231175,
+    "forbidden_schedule_seeds": [
+      20260912,
+      154080643,
+      1772720255
+    ],
+    "e38v2r_seed_recorded": true,
+    "bootstrap": {
+      "reps": 2000,
+      "seed": 3902026
+    },
+    "e38v2r_lock_sha256": "5c85756dcf63130290884b2052fd2b5e8894325b31d9b48a3ab9f91b1fb8389d"
+  },
+  "environment": {
+    "cluster_name": "e39",
+    "kubeconfig_context": "kind-e39",
+    "kubernetes_version": "v1.37.0",
+    "kind_version": "v0.33.0",
+    "node_image": "kindest/node:v1.37.0",
+    "node_image_id": "sha256:a1ed56cfb0e7b93589bdf97c8cd566405a265939e3620fc4f5de89adff580ae5",
+    "pause_image": "registry.k8s.io/pause:3.10",
+    "pause_image_id": null,
+    "host": "Azure VM, Ubuntu 24.04, Python 3.12.3",
+    "protected_clusters_never_touched": [
+      "mape-cap-confirm",
+      "mcb-k137",
+      "rev-n5",
+      "e38v2",
+      "e38v2r"
+    ]
+  },
+  "signers": [
+    {
+      "name": null,
+      "role": null,
+      "signed_utc": null,
+      "signature": null
+    },
+    {
+      "name": null,
+      "role": null,
+      "signed_utc": null,
+      "signature": null
+    }
+  ],
+  "lock_sha256": "36cec6d770bee0413d6491464cadce8b2f60fde86f3c43a5fc60fb2cb09b0de0",
+  "schedule_seed": 972231175,
+  "run_id": "e39-20260926t1515z",
+  "schedule_path": "results/e39-20260926t1515z/SCHEDULE.json",
+  "schedule_sha256": "295219f3f1c1dfcde657b0f17563fd11fd36b7865c5a5818b80832c4eaddc6c5",
+  "analysis_plan_path": "protocol/ANALYSIS_PLAN_E39.txt",
+  "analysis_plan_sha256": "3c8115c37bcbc57f0de3de74e79cdc004a7fd2459afe90295eb8df447e52ca6c",
+  "schedule_experiments": [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E",
+    "F",
+    "G"
+  ],
+  "status": "LOCKED-2026-09-26T15:22:23Z",
+  "lock_sha256_stage1": "5dab959095b999e223aeaf28f579b36eaca27eeed183989beac508b578f910ac",
+  "stage2_schedule_path": "results/e39-20260926t1515z/SCHEDULE_STAGE2.json",
+  "stage2_schedule_sha256": "4a9df6835c442dce7fa6c816f82944b571cfeff1a99b114fa16e12eab4887a2f",
+  "stage2_schedule_seed": 972231175,
+  "stage2_topup_path": "results/e39-20260926t1515z/stage2/stage2_cells_E39.json",
+  "stage2_topup_sha256": "eedd0d8937231617295ead1975ca63ca984d2edc6710af27c980a405c51d1625",
+  "stage2_added_utc": "2026-09-26T19:45:24Z"
+}

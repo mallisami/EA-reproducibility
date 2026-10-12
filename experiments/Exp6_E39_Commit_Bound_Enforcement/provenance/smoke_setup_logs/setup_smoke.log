@@ -1,0 +1,123 @@
+2026-09-26T14:13:28.340538602Z
+rendered namespace.yaml rbac.yaml webhook.yaml webhook-config.yaml for e39-smoke-e39-20260926a into /home/azureuser/e39_20260926/results/_render_smoke-e39-20260926a
+certs in /home/azureuser/e39_20260926/results/_render_smoke-e39-20260926a/certs (SAN e39-webhook,e39-webhook.e39-system,e39-webhook.e39-system.svc,e39-webhook.e39-system.svc.cluster.local; 30d); caBundle written to /home/azureuser/e39_20260926/results/_render_smoke-e39-20260926a/webhook-config.yaml (not applied)
+run_id=smoke-e39-20260926a
+namespace=e39-smoke-e39-20260926a
+rendered_utc=2026-09-26T14:13:28Z
+template_sha256 41f5de0f20d798f3856ef7ce63980ae219830b01a6fae84d2ffe0a7e96df8b87 namespace.yaml
+rendered_sha256 c2c691ba6d6c71cd8f6cab83606b494743a626925a896d79bc24b075085bc2ba namespace.yaml
+template_sha256 04103ebeafdb89fc689bb7d9e1d8ac6f63ff843469a6f6326b79c6c483415744 rbac.yaml
+rendered_sha256 30d5ad53e76a5bdf2cd5fb2eab762d2e3dca9fdc7c0e99b72fe8dc62b29cf88b rbac.yaml
+template_sha256 aabaf84cc0153cad75760757373a898f2e4102f6d75e40266f2f4e84bc432b02 webhook.yaml
+rendered_sha256 bfdca8ebe7bd6e143b71808c938abf10586325f36df703f76a7088ec3f8168a6 webhook.yaml
+template_sha256 daeacb1c5e9b1f0f2c98bbfec45a6a6c3f79566b6e7c7c34a860b7a28d9f14b8 webhook-config.yaml
+rendered_sha256 4812aba00f995a53bba8f39e89eb507399a3dacd917d77035185e2f1b5cf6f7b webhook-config.yaml
+namespace/e39-system created
+namespace/e39-smoke-e39-20260926a created
+namespace/e39-load created
+serviceaccount/e39-responder created
+serviceaccount/e39-writer created
+serviceaccount/e39-reset created
+serviceaccount/e39-mirror created
+serviceaccount/e39-load created
+serviceaccount/e39-webhook created
+role.rbac.authorization.k8s.io/e39-responder created
+rolebinding.rbac.authorization.k8s.io/e39-responder created
+clusterrole.rbac.authorization.k8s.io/e39-ssar created
+clusterrolebinding.rbac.authorization.k8s.io/e39-ssar created
+role.rbac.authorization.k8s.io/e39-writer created
+rolebinding.rbac.authorization.k8s.io/e39-writer created
+role.rbac.authorization.k8s.io/e39-reset created
+rolebinding.rbac.authorization.k8s.io/e39-reset created
+role.rbac.authorization.k8s.io/e39-mirror created
+rolebinding.rbac.authorization.k8s.io/e39-mirror created
+role.rbac.authorization.k8s.io/e39-webhook-reader created
+rolebinding.rbac.authorization.k8s.io/e39-webhook-reader created
+role.rbac.authorization.k8s.io/e39-load created
+rolebinding.rbac.authorization.k8s.io/e39-load created
+configmap/e39-webhook-code created
+secret/e39-webhook-tls created
+deployment.apps/e39-webhook created
+service/e39-webhook created
+Waiting for deployment "e39-webhook" rollout to finish: 0 of 1 updated replicas are available...
+deployment "e39-webhook" successfully rolled out
+e38v2-webhook serving namespace=e39-smoke-e39-20260926a on 0.0.0.0:8443 exempt=['system:serviceaccount:e39-system:e39-reset', 'system:serviceaccount:kube-system:generic-garbage-collector', 'system:serviceaccount:kube-system:namespace-controller']
+10.244.0.1 "GET /healthz HTTP/1.1" 200 -
+server.py identical
+policy.py identical
+validatingwebhookconfiguration.admissionregistration.k8s.io/e39-action-revalidation created
+8:        {"apiVersion":"admissionregistration.k8s.io/v1","kind":"ValidatingWebhookConfiguration","metadata":{"annotations":{},"labels":{"e39-managed":"true","e39-run-id":"smoke-e39-20260926a"},"name":"e39-action-revalidation"},"webhooks":[{"admissionReviewVersions":["v1"],"clientConfig":{"caBundle":"LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURJekNDQWd1Z0F3SUJBZ0lVWEpSR1pKQVdIMG5ZRlRNRlBzTndESjhqNG5jd0RRWUpLb1pJaHZjTkFRRUwKQlFBd0dURVhNQlVHQTFVRUF3d09aVE01TFhkbFltaHZiMnN0WTJFd0hoY05Nall3T1RJMk1UUXhNekk0V2hjTgpNall4TURJMk1UUXhNekk0V2pBWk1SY3dGUVlEVlFRRERBNWxNemt0ZDJWaWFHOXZheTFqWVRDQ0FTSXdEUVlKCktvWklodmNOQVFFQkJRQURnZ0VQQURDQ0FRb0NnZ0VCQUo5K3o0M3VsQmpBQnFVcUk0ckdYQUJGR3cwdndnd2UKNXBYMUFJQTVrM0FqY2dLWW5DUCs0M055c2taVFoyYjc5cldJTG5CVEVYOXNYUnF0bzBrQkJXNERwelI1cWQ3TgpGTkwvZGZGVXJUZVpOb2Y0S2c4Snk0QXRsVjQ2RXRxRXRwaFpmTW8wck5WVlcwUnpSSkRoMWxQbVpYclhlbFN1CjQrbjVkblhDbUdoNElXMUVBaVlRREVQbTVZQnBqMHc5MjBnZFhMNEcveXgxempWcE5FUWNnMU5OQ1R2UFlERzgKbURQYUpEdnZRclpEY2M5K2Z0dzA1T2ZvZURwcHpMU0J6NmN2NVpDNGFhbzZ1Wnhhd2d2cUYzaG4rTUhDOGpGeQpXZFgvZ2puMGxGZ3dXNTFpenNGU0RydkIwMUM4cmQ1OWtXWW5GN0V5enhURWlQNTBMS21rT0YwQ0F3RUFBYU5qCk1HRXdIUVlEVlIwT0JCWUVGSk1HenoxWDVsbTg2UjFaYjF0MERwM1cxbkEzTUI4R0ExVWRJd1FZTUJhQUZKTUcKenoxWDVsbTg2UjFaYjF0MERwM1cxbkEzTUE4R0ExVWRFd0VCL3dRRk1BTUJBZjh3RGdZRFZSMFBBUUgvQkFRRApBZ0VHTUEwR0NTcUdTSWIzRFFFQkN3VUFBNElCQVFCNmw4clBvQWxJRmxTVkcxQ3FQRUFYMVpGZjdOKytjbG9mClVwdGhXL1NqQzQ2WnFiZ0c2YWdnOTdJYWlSa3hJNWdiZ3VxZkw5SzZ2c1MzWHhuaDV3MzBySUV0d1ZXdjJmT08KK3pTWi8vcTdOU3ZNRG9DRlJoaFFObm5xTVdlY0pBWHcyTzRoajAzUXgyNytZbThmRTNrVFJBS3ZiVW1tZFVYeQprVUxhNHVMTElKdkRGVWhkTno4S2Nzd0ErNElHOU1qRHFKZndrVVRQTWRqVnU2bTg0Y2FyOWw4K2U4SE5NQVkvCnVPZERJb1VuZDRnTUVjNzl5d0xrR1JiWTE2WnhRcm9oTEFERWVRbEpFUzRVUWVkRTNET1JwY0xEcXRmdWFvdmIKNDg0Z1huQ1ZuL1ZTQ3VwT0VlOWdwMy9NSjlXT05XTTZPOFRITFNvQ0crOUlabFpYSElBVAotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==","service":{"name":"e39-webhook","namespace":"e39-system","path":"/validate","port":443}},"failurePolicy":"Fail","matchConditions":[{"expression":"request.userInfo.username != 'system:serviceaccount:e39-system:e39-reset'","name":"exempt-reset-identity"},{"expression":"!request.userInfo.username.startsWith('system:node:')","name":"exempt-kubelets"},{"expression":"!(request.userInfo.username in ['system:serviceaccount:kube-system:namespace-controller', 'system:serviceaccount:kube-system:generic-garbage-collector'])","name":"exempt-namespace-and-gc-controllers"}],"matchPolicy":"Exact","name":"action-revalidation.e39.e39-managed.local","namespaceSelector":{"matchLabels":{"kubernetes.io/metadata.name":"e39-smoke-e39-20260926a"}},"objectSelector":{"matchLabels":{"e39-webhook":"enforce"}},"rules":[{"apiGroups":[""],"apiVersions":["v1"],"operations":["DELETE"],"resources":["pods"],"scope":"Namespaced"},{"apiGroups":["networking.k8s.io"],"apiVersions":["v1"],"operations":["CREATE"],"resources":["networkpolicies"],"scope":"Namespaced"}],"sideEffects":"None","timeoutSeconds":5}]}
+27:    failurePolicy: Fail
+40:        kubernetes.io/metadata.name: e39-smoke-e39-20260926a
+43:        e39-webhook: enforce
+49:      operations:
+50:      - DELETE
+51:      resources:
+52:      - pods
+58:      operations:
+59:      - CREATE
+60:      resources:
+61:      - networkpolicies
+64:    timeoutSeconds: 5
+--- RBAC checks (runbook 3; expected: yes yes no yes no yes no no yes)
+yes
+yes
+no
+yes
+no
+yes
+no
+no
+yes
+--- extra: reset may delete pods in kube-system? (expect no)
+no
+--- fixture ConfigMaps
+configmap/evidence-a created
+configmap/evidence-b created
+configmap/evidence-c created
+configmap/evidence-d created
+configmap/evidence-e created
+configmap/evidence-f created
+configmap/response-scope created
+configmap/application-policy created
+configmap/e38-epoch created
+configmap/application-policy labeled
+configmap/e38-epoch labeled
+configmap/evidence-a labeled
+configmap/evidence-b labeled
+configmap/evidence-c labeled
+configmap/evidence-d labeled
+configmap/evidence-e labeled
+configmap/evidence-f labeled
+configmap/kube-root-ca.crt labeled
+configmap/response-scope labeled
+NAME                 DATA   AGE
+application-policy   1      0s
+e38-epoch            1      0s
+evidence-a           1      0s
+evidence-b           1      0s
+evidence-c           1      0s
+evidence-d           1      0s
+evidence-e           1      0s
+evidence-f           1      0s
+kube-root-ca.crt     1      7s
+response-scope       1      0s
+--- tokens + CA
+server https://127.0.0.1:46551
+--- whoami per identity
+responder: system:serviceaccount:e39-system:e39-responder
+writer: system:serviceaccount:e39-system:e39-writer
+reset: system:serviceaccount:e39-system:e39-reset
+mirror: system:serviceaccount:e39-system:e39-mirror
+load: system:serviceaccount:e39-system:e39-load
+total 36
+drwx------  2 azureuser azureuser 4096 Sep 26 14:13 .
+drwxrwxr-x 14 azureuser azureuser 4096 Sep 26 14:13 ..
+-rw-------  1 azureuser azureuser 1107 Sep 26 14:13 ca.crt
+-rw-------  1 azureuser azureuser  941 Sep 26 14:13 load.token
+-rw-------  1 azureuser azureuser  946 Sep 26 14:13 mirror.token
+-rw-------  1 azureuser azureuser  944 Sep 26 14:13 reset.token
+-rw-------  1 azureuser azureuser  954 Sep 26 14:13 responder.token
+-rw-rw-r--  1 azureuser azureuser   24 Sep 26 14:13 server.txt
+-rw-------  1 azureuser azureuser  946 Sep 26 14:13 writer.token
+2026-09-26T14:13:36.386372389Z

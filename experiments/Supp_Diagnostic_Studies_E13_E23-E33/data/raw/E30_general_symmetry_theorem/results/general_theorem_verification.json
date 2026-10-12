@@ -1,0 +1,208 @@
+{
+  "theorem": "certificate_size = sum(1 for asymmetric clauses) + sum(clause_size for symmetric clauses)",
+  "generalizes": "E27 Proposition 3 (uniform size-2 clauses) to arbitrary, mixed clause sizes",
+  "all_predictions_confirmed": true,
+  "results": [
+    {
+      "label": "uniform size-2, all asymmetric (E27 m=0 special case)",
+      "clause_sizes": [
+        2,
+        2,
+        2
+      ],
+      "symmetric_flags": [
+        false,
+        false,
+        false
+      ],
+      "predicted_certificate_size": 3,
+      "actual_certificate_size": 3,
+      "prediction_matches": true,
+      "planner_certificate": [
+        "flag_a",
+        "flag_c",
+        "flag_e"
+      ],
+      "planner_cost_units": 3.0,
+      "goal_count": 1
+    },
+    {
+      "label": "uniform size-2, all symmetric (E27 m=3 special case)",
+      "clause_sizes": [
+        2,
+        2,
+        2
+      ],
+      "symmetric_flags": [
+        true,
+        true,
+        true
+      ],
+      "predicted_certificate_size": 6,
+      "actual_certificate_size": 6,
+      "prediction_matches": true,
+      "planner_certificate": [
+        "flag_a",
+        "flag_b",
+        "flag_c",
+        "flag_d",
+        "flag_e",
+        "flag_f"
+      ],
+      "planner_cost_units": 6.0,
+      "goal_count": 27
+    },
+    {
+      "label": "mixed sizes 2/3/2, all asymmetric",
+      "clause_sizes": [
+        2,
+        3,
+        2
+      ],
+      "symmetric_flags": [
+        false,
+        false,
+        false
+      ],
+      "predicted_certificate_size": 3,
+      "actual_certificate_size": 3,
+      "prediction_matches": true,
+      "planner_certificate": [
+        "flag_a",
+        "flag_c",
+        "flag_f"
+      ],
+      "planner_cost_units": 3.0,
+      "goal_count": 1
+    },
+    {
+      "label": "mixed sizes, ONLY the size-3 clause symmetric",
+      "clause_sizes": [
+        2,
+        3,
+        2
+      ],
+      "symmetric_flags": [
+        false,
+        true,
+        false
+      ],
+      "predicted_certificate_size": 5,
+      "actual_certificate_size": 5,
+      "prediction_matches": true,
+      "planner_certificate": [
+        "flag_a",
+        "flag_c",
+        "flag_d",
+        "flag_e",
+        "flag_f"
+      ],
+      "planner_cost_units": 5.0,
+      "goal_count": 7
+    },
+    {
+      "label": "mixed sizes, the two size-2 clauses symmetric, size-3 asymmetric",
+      "clause_sizes": [
+        2,
+        3,
+        2
+      ],
+      "symmetric_flags": [
+        true,
+        false,
+        true
+      ],
+      "predicted_certificate_size": 5,
+      "actual_certificate_size": 5,
+      "prediction_matches": true,
+      "planner_certificate": [
+        "flag_a",
+        "flag_b",
+        "flag_c",
+        "flag_f",
+        "flag_g"
+      ],
+      "planner_cost_units": 5.0,
+      "goal_count": 9
+    },
+    {
+      "label": "mixed sizes, all symmetric",
+      "clause_sizes": [
+        2,
+        3,
+        2
+      ],
+      "symmetric_flags": [
+        true,
+        true,
+        true
+      ],
+      "predicted_certificate_size": 7,
+      "actual_certificate_size": 7,
+      "prediction_matches": true,
+      "planner_certificate": [
+        "flag_a",
+        "flag_b",
+        "flag_c",
+        "flag_d",
+        "flag_e",
+        "flag_f",
+        "flag_g"
+      ],
+      "planner_cost_units": 7.0,
+      "goal_count": 63
+    },
+    {
+      "label": "uniform size-3, middle clause symmetric only",
+      "clause_sizes": [
+        3,
+        3,
+        3
+      ],
+      "symmetric_flags": [
+        false,
+        true,
+        false
+      ],
+      "predicted_certificate_size": 5,
+      "actual_certificate_size": 5,
+      "prediction_matches": true,
+      "planner_certificate": [
+        "flag_a",
+        "flag_d",
+        "flag_e",
+        "flag_f",
+        "flag_g"
+      ],
+      "planner_cost_units": 5.0,
+      "goal_count": 7
+    },
+    {
+      "label": "three DIFFERENT sizes (2,3,4), non-contiguous symmetric set",
+      "clause_sizes": [
+        2,
+        3,
+        4
+      ],
+      "symmetric_flags": [
+        true,
+        false,
+        true
+      ],
+      "predicted_certificate_size": 7,
+      "actual_certificate_size": 7,
+      "prediction_matches": true,
+      "planner_certificate": [
+        "flag_a",
+        "flag_b",
+        "flag_c",
+        "flag_f",
+        "flag_g",
+        "flag_h",
+        "flag_i"
+      ],
+      "planner_cost_units": 7.0,
+      "goal_count": 45
+    }
+  ]
+}

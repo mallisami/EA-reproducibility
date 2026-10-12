@@ -1,0 +1,52 @@
+E38v2 — MORNING SUMMARY (written 2026-09-26 after the run)
+=========================================================
+Run: e38v2-20260926t0813z on dedicated kind cluster "e38v2" (Azure VM mcb-k8s-v137), seed 1772720255.
+LOCK: LOCKED-2026-09-26T08:17:00Z (51 hashes verified at export). Cluster e38v2 deleted after export; other clusters untouched; VM left running.
+Export: e38v2_EXPORT_e38v2-20260926t0813z.tar.gz  sha256 1a3cb076d7e74fbd87442fe8a2d38ab0a8428da5c94d0b312aa2e219bf32f355
+Start with: extracted\e38v2-20260926t0813z\HEADLINE_E38v2.txt, analysis_final\, DEVIATIONS_E38v2.txt, LOG_E38v2_OPERATIONS_final.txt
+
+WHAT RAN
+- Stage 1: 5,812 trials; stage 2 top-up: 1,782 trials (33 cells). 0 INFRA_ERROR, 0 UNKNOWN, 0 fenced.
+- Probes passed: webhook denies invalid / allows valid; unlabelled pods and reset identity bypass webhook;
+  1,087/1,087 Audit-IDs joined; resourceVersion order = audit time order (100% sequential, 99.98% concurrent).
+- Final analysis gate passed (7,594/7,594). Independent recomputation (RAW + audit only): identical in 152/152 cells.
+
+HEADLINE: P(invalid DELETE takes effect | writer released delta ms after client gate), Wilson 95%
+- A0 NativeUID / A1 DCJI / A2 FullRefresh (all three async conditions):
+    delta -5..2 ms: ~1.00 (39/39) | 3 ms: 0.77–0.97 | 5 ms: 0.45–0.68 | 10 ms: <=0.065 | 20 ms: <=0.026 | 50 ms: 0
+  => client gates (selective or full) leave a ~5–10 ms exposure window after the gate (tail to 20 ms),
+     set by DELETE admission/commit latency. DCJI and FullRefresh behave the same after the gate.
+- A3 DCJI + validating admission webhook:
+    scope / app-policy writes: 0/39 at -5..5 ms (closed), but 0.73–0.81 at 10–20 ms, 0 at 50 ms
+    evidence-last-literal:     exposed from 0 ms (0.80–0.97), 39/39 at 5–10 ms, 0.62 at 20 ms, 0 at 50 ms
+  => the webhook closes the early window only for objects it reads late, and its own ~21 ms latency
+     (A3−A1 DELETE round trip +21.3 ms [16.4, 24.8]) SHIFTS the window later (exposure d* = 50 ms grid point vs 10–20 ms).
+- Controls: no_write 0/39 invalid in all arms (0 false aborts, availability cost 0);
+  uid_rebind_control 10/10 blocked with HTTP 409 in all arms.
+
+INTERPRETATION (for the paper)
+- A server-side admission check is itself check-then-act: it reads state at admission start, the DELETE commits
+  ~20 ms later, and a write in between is not seen. Enforcement must bind the invariant to the commit itself
+  (same-object precondition / transactional check), not merely move the check to the server.
+- This turns E38 from a by-construction counterexample into a measured result with a mechanism.
+
+CAVEATS / ITEMS NEEDING YOUR DECISION OR FOLLOW-UP
+1. Multi-evaluation of the webhook: 1,086 target pods had >1 webhook evaluation; in 523 A3 trials evaluations
+   disagreed (pattern allow>deny>allow within ONE DELETE request — verified for one trial via audit: single
+   DELETE auditID, HTTP 200; 3 distinct AdmissionReview request UIDs; 1st allow before the write, 2nd deny seeing
+   the write but on the pre-deletion Pod version, 3rd allow on the terminating Pod which the webhook passes by design).
+   The oracle rule "accepted DELETE governed by earliest allow" was set BEFORE the lock (from smoke).
+   The agent's explanation that the apiserver "discards a stale deny" is NOT verified — do not state it in the paper
+   without apiserver-level logs. Robustness: treating these trials as UNKNOWN still leaves A3 10–20 ms at 0.27–0.63.
+   Optional follow-up (~1 h): small rerun with kube-apiserver -v=4+/tracing to pin the admission call sites.
+2. Pre-registered secondary (timestamp) oracle rule agreed with primary in only 41.3% (kappa 0.009): the rule compared
+   the write against DELETE *receipt*, but DELETE commits 10–40 ms later. Neither rule changed; report honestly.
+   Using DELETE completion instead gives 4,474 vs 4,471 invalid (near-identical to primary).
+3. Target Pod was scheduling-gated (never started): "effect" = API object deletion/terminating state, not container
+   termination. Acceptable because the race is at API admission/commit, but disclose. Optional: rerun a subset with a
+   running pause-image Pod (image already in kind node; no pulls).
+4. Negative deltas (-5/-2/-1 ms) all release at the start of the fence read -> not distinct conditions; collapse in reporting.
+5. Analysis plan is v1.1 (changes documented, all made before the lock) — needs author sign-off.
+6. 9 integration bugs were fixed before the lock (2 would have made whole conditions UNKNOWN); all listed in the log.
+
+NEXT STEP PROPOSED: phase-2 manuscript rewrite around this story (see 04_REVISION_WORKING\PHASE2_REWRITE_TODO.txt).

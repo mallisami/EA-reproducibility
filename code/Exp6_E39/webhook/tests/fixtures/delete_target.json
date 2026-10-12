@@ -1,0 +1,38 @@
+{
+  "apiVersion": "admission.k8s.io/v1",
+  "kind": "AdmissionReview",
+  "request": {
+    "uid": "705ab4f5-6393-11e8-b7cc-42010a800002",
+    "kind": {"group": "", "version": "v1", "kind": "Pod"},
+    "resource": {"group": "", "version": "v1", "resource": "pods"},
+    "requestKind": {"group": "", "version": "v1", "kind": "Pod"},
+    "requestResource": {"group": "", "version": "v1", "resource": "pods"},
+    "name": "e38v2-target",
+    "namespace": "e38v2-testrun",
+    "operation": "DELETE",
+    "userInfo": {
+      "username": "system:serviceaccount:e38v2-system:e38v2-responder",
+      "uid": "0b1c2d3e-0000-4000-8000-000000000001",
+      "groups": ["system:serviceaccounts", "system:serviceaccounts:e38v2-system", "system:authenticated"]
+    },
+    "object": null,
+    "oldObject": {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "name": "e38v2-target",
+        "namespace": "e38v2-testrun",
+        "uid": "9f0e8d7c-1111-4222-8333-444455556666",
+        "resourceVersion": "12345",
+        "labels": {"e38-managed": "true"}
+      },
+      "spec": {"containers": [{"name": "pause", "image": "python:3.12-slim"}]}
+    },
+    "options": {
+      "apiVersion": "meta.k8s.io/v1",
+      "kind": "DeleteOptions",
+      "preconditions": {"uid": "9f0e8d7c-1111-4222-8333-444455556666"}
+    },
+    "dryRun": false
+  }
+}

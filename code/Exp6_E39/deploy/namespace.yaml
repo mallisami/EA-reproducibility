@@ -1,0 +1,30 @@
+# Template: RUNID is substituted by deploy/render.sh (never apply this file directly).
+# e39-system : long-lived control namespace (webhook + the six identities); never audited, never webhooked.
+# e39-RUNID  : per-run test namespace; the ONLY namespace the webhook and the RequestResponse audit rules act on.
+# e39-load   : E39-D background-load namespace (load identity only); audit level None, never webhooked.
+#              Created here so that the load Role in rbac.yaml can be applied; re-applying for a second
+#              RUN_ID is idempotent.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: e39-system
+  labels:
+    e39-managed: "true"
+    e39-role: system
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: e39-RUNID
+  labels:
+    e39-managed: "true"
+    e39-run-id: RUNID
+    e39-role: test
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: e39-load
+  labels:
+    e39-managed: "true"
+    e39-role: load

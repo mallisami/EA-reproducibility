@@ -1,0 +1,794 @@
+{
+ "summary": {
+  "n": 20,
+  "gate_view_running_and_ready": 20,
+  "cri_container_running_before_delete": 20,
+  "delete_http_200": 20,
+  "pod_object_gone": 20,
+  "container_not_running_after_delete": 20,
+  "delete_response_without_rv": 0,
+  "max_container_stop_ms": 1896.48907
+ },
+ "trials": [
+  {
+   "webhook_label": true,
+   "pod_uid": "8b89d679-56de-4a01-b9b6-9f5de7eafec3",
+   "ready_wait_ms": 562.345944,
+   "gate_view": {
+    "phase": "Running",
+    "ready": true,
+    "node": "e38v2-control-plane",
+    "resource_version": "9863",
+    "uid": "8b89d679-56de-4a01-b9b6-9f5de7eafec3",
+    "terminating": false,
+    "container_state": "running"
+   },
+   "cri_before": [
+    {
+     "id": "7f9766afaa422",
+     "state": "CONTAINER_RUNNING",
+     "name": "target"
+    }
+   ],
+   "delete_status": 200,
+   "delete_audit_id": "138f37bd-1762-49f8-acb5-db7745480e15",
+   "delete_rtt_ms": 73.996371,
+   "delete_resp_rv": "9865",
+   "delete_resp_deletionTimestamp": "2026-09-26T10:33:48Z",
+   "pod_gone_after_ms": 76.094337,
+   "container_not_running_after_ms": 1896.48907,
+   "cri_after": [
+    {
+     "id": "7f9766afaa422",
+     "state": "CONTAINER_EXITED",
+     "name": "target"
+    }
+   ],
+   "cri_after_1s": [],
+   "sandboxes_after_1s": [
+    "SANDBOX_NOTREADY"
+   ]
+  },
+  {
+   "webhook_label": true,
+   "pod_uid": "4b1311db-1acd-4bcc-a51e-885c04967aad",
+   "ready_wait_ms": 410.248333,
+   "gate_view": {
+    "phase": "Running",
+    "ready": true,
+    "node": "e38v2-control-plane",
+    "resource_version": "9878",
+    "uid": "4b1311db-1acd-4bcc-a51e-885c04967aad",
+    "terminating": false,
+    "container_state": "running"
+   },
+   "cri_before": [
+    {
+     "id": "2ff082d326856",
+     "state": "CONTAINER_RUNNING",
+     "name": "target"
+    }
+   ],
+   "delete_status": 200,
+   "delete_audit_id": "fc675877-99d3-41e7-924f-4c9d38de43cb",
+   "delete_rtt_ms": 47.177126,
+   "delete_resp_rv": "9880",
+   "delete_resp_deletionTimestamp": "2026-09-26T10:33:51Z",
+   "pod_gone_after_ms": 49.489332,
+   "container_not_running_after_ms": 503.5009,
+   "cri_after": [
+    {
+     "id": "2ff082d326856",
+     "state": "CONTAINER_EXITED",
+     "name": "target"
+    }
+   ],
+   "cri_after_1s": [],
+   "sandboxes_after_1s": [
+    "SANDBOX_NOTREADY"
+   ]
+  },
+  {
+   "webhook_label": true,
+   "pod_uid": "a2223134-b64e-4a71-b19a-a60707972018",
+   "ready_wait_ms": 393.884861,
+   "gate_view": {
+    "phase": "Running",
+    "ready": true,
+    "node": "e38v2-control-plane",
+    "resource_version": "9893",
+    "uid": "a2223134-b64e-4a71-b19a-a60707972018",
+    "terminating": false,
+    "container_state": "running"
+   },
+   "cri_before": [
+    {
+     "id": "c7d24e63b626b",
+     "state": "CONTAINER_RUNNING",
+     "name": "target"
+    }
+   ],
+   "delete_status": 200,
+   "delete_audit_id": "fb2b4bc9-600a-42dd-9843-e177bc172c46",
+   "delete_rtt_ms": 25.778644,
+   "delete_resp_rv": "9896",
+   "delete_resp_deletionTimestamp": "2026-09-26T10:33:54Z",
+   "pod_gone_after_ms": 27.237466,
+   "container_not_running_after_ms": 410.091293,
+   "cri_after": [
+    {
+     "id": "c7d24e63b626b",
+     "state": "CONTAINER_EXITED",
+     "name": "target"
+    }
+   ],
+   "cri_after_1s": [],
+   "sandboxes_after_1s": [
+    "SANDBOX_NOTREADY"
+   ]
+  },
+  {
+   "webhook_label": true,
+   "pod_uid": "2ef08559-bcaf-48e2-979f-55bd76038bbf",
+   "ready_wait_ms": 382.991452,
+   "gate_view": {
+    "phase": "Running",
+    "ready": true,
+    "node": "e38v2-control-plane",
+    "resource_version": "9909",
+    "uid": "2ef08559-bcaf-48e2-979f-55bd76038bbf",
+    "terminating": false,
+    "container_state": "running"
+   },
+   "cri_before": [
+    {
+     "id": "c9dc9e4322cb2",
+     "state": "CONTAINER_RUNNING",
+     "name": "target"
+    }
+   ],
+   "delete_status": 200,
+   "delete_audit_id": "78df12fb-5ca5-4df9-99ac-a40b1987ae5b",
+   "delete_rtt_ms": 44.340002,
+   "delete_resp_rv": "9913",
+   "delete_resp_deletionTimestamp": "2026-09-26T10:33:56Z",
+   "pod_gone_after_ms": 47.030259,
+   "container_not_running_after_ms": 346.165166,
+   "cri_after": [
+    {
+     "id": "c9dc9e4322cb2",
+     "state": "CONTAINER_EXITED",
+     "name": "target"
+    }
+   ],
+   "cri_after_1s": [],
+   "sandboxes_after_1s": [
+    "SANDBOX_NOTREADY"
+   ]
+  },
+  {
+   "webhook_label": true,
+   "pod_uid": "a514db81-2f13-4676-acaf-1a5527221c76",
+   "ready_wait_ms": 417.115104,
+   "gate_view": {
+    "phase": "Running",
+    "ready": true,
+    "node": "e38v2-control-plane",
+    "resource_version": "9923",
+    "uid": "a514db81-2f13-4676-acaf-1a5527221c76",
+    "terminating": false,
+    "container_state": "running"
+   },
+   "cri_before": [
+    {
+     "id": "08eacd0a36aa4",
+     "state": "CONTAINER_RUNNING",
+     "name": "target"
+    }
+   ],
+   "delete_status": 200,
+   "delete_audit_id": "951bff7b-b44f-4e7a-9fc7-1e9fc1786536",
+   "delete_rtt_ms": 49.16977,
+   "delete_resp_rv": "9925",
+   "delete_resp_deletionTimestamp": "2026-09-26T10:33:58Z",
+   "pod_gone_after_ms": 50.612492,
+   "container_not_running_after_ms": 466.770738,
+   "cri_after": [
+    {
+     "id": "08eacd0a36aa4",
+     "state": "CONTAINER_EXITED",
+     "name": "target"
+    }
+   ],
+   "cri_after_1s": [],
+   "sandboxes_after_1s": [
+    "SANDBOX_NOTREADY"
+   ]
+  },
+  {
+   "webhook_label": true,
+   "pod_uid": "6a0fbbb2-dbfe-41eb-94b9-e13c2437585a",
+   "ready_wait_ms": 407.413452,
+   "gate_view": {
+    "phase": "Running",
+    "ready": true,
+    "node": "e38v2-control-plane",
+    "resource_version": "9937",
+    "uid": "6a0fbbb2-dbfe-41eb-94b9-e13c2437585a",
+    "terminating": false,
+    "container_state": "running"
+   },
+   "cri_before": [
+    {
+     "id": "73bab87cf1c64",
+     "state": "CONTAINER_RUNNING",
+     "name": "target"
+    }
+   ],
+   "delete_status": 200,
+   "delete_audit_id": "d37e2ddd-8aa9-4727-a8ee-4655c8a6d056",
+   "delete_rtt_ms": 27.885544,
+   "delete_resp_rv": "9940",
+   "delete_resp_deletionTimestamp": "2026-09-26T10:34:00Z",
+   "pod_gone_after_ms": 29.380013,
+   "container_not_running_after_ms": 322.928213,
+   "cri_after": [
+    {
+     "id": "73bab87cf1c64",
+     "state": "CONTAINER_EXITED",
+     "name": "target"
+    }
+   ],
+   "cri_after_1s": [],
+   "sandboxes_after_1s": [
+    "SANDBOX_NOTREADY"
+   ]
+  },
+  {
+   "webhook_label": true,
+   "pod_uid": "78fee31c-e1c2-446f-99b7-5cc80ca97170",
+   "ready_wait_ms": 367.179526,
+   "gate_view": {
+    "phase": "Running",
+    "ready": true,
+    "node": "e38v2-control-plane",
+    "resource_version": "9952",
+    "uid": "78fee31c-e1c2-446f-99b7-5cc80ca97170",
+    "terminating": false,
+    "container_state": "running"
+   },
+   "cri_before": [
+    {
+     "id": "cc9a2497aaedc",
+     "state": "CONTAINER_RUNNING",
+     "name": "target"
+    }
+   ],
+   "delete_status": 200,
+   "delete_audit_id": "177fd4f0-a05f-4508-819c-d5dd201e6475",
+   "delete_rtt_ms": 40.975597,
+   "delete_resp_rv": "9954",
+   "delete_resp_deletionTimestamp": "2026-09-26T10:34:01Z",
+   "pod_gone_after_ms": 43.077584,
+   "container_not_running_after_ms": 561.330493,
+   "cri_after": [
+    {
+     "id": "cc9a2497aaedc",
+     "state": "CONTAINER_EXITED",
+     "name": "target"
+    }
+   ],
+   "cri_after_1s": [],
+   "sandboxes_after_1s": [
+    "SANDBOX_NOTREADY"
+   ]
+  },
+  {
+   "webhook_label": true,
+   "pod_uid": "5c1c4cf3-300f-4791-abb2-354bff4b22ed",
+   "ready_wait_ms": 399.023923,
+   "gate_view": {
+    "phase": "Running",
+    "ready": true,
+    "node": "e38v2-control-plane",
+    "resource_version": "9967",
+    "uid": "5c1c4cf3-300f-4791-abb2-354bff4b22ed",
+    "terminating": false,
+    "container_state": "running"
+   },
+   "cri_before": [
+    {
+     "id": "ad12af6ef53e6",
+     "state": "CONTAINER_RUNNING",
+     "name": "target"
+    }
+   ],
+   "delete_status": 200,
+   "delete_audit_id": "338bbe83-2057-4f44-8449-7699a04448fb",
+   "delete_rtt_ms": 27.302403,
+   "delete_resp_rv": "9971",
+   "delete_resp_deletionTimestamp": "2026-09-26T10:34:04Z",
+   "pod_gone_after_ms": 28.756777,
+   "container_not_running_after_ms": 418.524508,
+   "cri_after": [
+    {
+     "id": "ad12af6ef53e6",
+     "state": "CONTAINER_EXITED",
+     "name": "target"
+    }
+   ],
+   "cri_after_1s": [],
+   "sandboxes_after_1s": [
+    "SANDBOX_NOTREADY"
+   ]
+  },
+  {
+   "webhook_label": true,
+   "pod_uid": "11e2a24b-1566-4de6-89f5-514e284084cd",
+   "ready_wait_ms": 350.686787,
+   "gate_view": {
+    "phase": "Running",
+    "ready": true,
+    "node": "e38v2-control-plane",
+    "resource_version": "9983",
+    "uid": "11e2a24b-1566-4de6-89f5-514e284084cd",
+    "terminating": false,
+    "container_state": "running"
+   },
+   "cri_before": [
+    {
+     "id": "1e380d499d284",
+     "state": "CONTAINER_RUNNING",
+     "name": "target"
+    }
+   ],
+   "delete_status": 200,
+   "delete_audit_id": "d5ed9f0a-456b-4bf6-8b28-305b1312c4d8",
+   "delete_rtt_ms": 32.257831,
+   "delete_resp_rv": "9987",
+   "delete_resp_deletionTimestamp": "2026-09-26T10:34:06Z",
+   "pod_gone_after_ms": 34.045992,
+   "container_not_running_after_ms": 319.774517,
+   "cri_after": [
+    {
+     "id": "1e380d499d284",
+     "state": "CONTAINER_EXITED",
+     "name": "target"
+    }
+   ],
+   "cri_after_1s": [],
+   "sandboxes_after_1s": [
+    "SANDBOX_NOTREADY"
+   ]
+  },
+  {
+   "webhook_label": true,
+   "pod_uid": "c92a059a-31c0-4d18-b280-9486f2126114",
+   "ready_wait_ms": 472.348126,
+   "gate_view": {
+    "phase": "Running",
+    "ready": true,
+    "node": "e38v2-control-plane",
+    "resource_version": "9997",
+    "uid": "c92a059a-31c0-4d18-b280-9486f2126114",
+    "terminating": false,
+    "container_state": "running"
+   },
+   "cri_before": [
+    {
+     "id": "715a8fb60642d",
+     "state": "CONTAINER_RUNNING",
+     "name": "target"
+    }
+   ],
+   "delete_status": 200,
+   "delete_audit_id": "648716cc-d294-410b-9535-6bd10570c775",
+   "delete_rtt_ms": 40.421592,
+   "delete_resp_rv": "9999",
+   "delete_resp_deletionTimestamp": "2026-09-26T10:34:08Z",
+   "pod_gone_after_ms": 42.037609,
+   "container_not_running_after_ms": 574.706707,
+   "cri_after": [
+    {
+     "id": "715a8fb60642d",
+     "state": "CONTAINER_EXITED",
+     "name": "target"
+    }
+   ],
+   "cri_after_1s": [],
+   "sandboxes_after_1s": [
+    "SANDBOX_NOTREADY"
+   ]
+  },
+  {
+   "webhook_label": false,
+   "pod_uid": "b3e87e25-34a4-496c-bdb3-6d7bb1f2c0c4",
+   "ready_wait_ms": 371.804302,
+   "gate_view": {
+    "phase": "Running",
+    "ready": true,
+    "node": "e38v2-control-plane",
+    "resource_version": "10013",
+    "uid": "b3e87e25-34a4-496c-bdb3-6d7bb1f2c0c4",
+    "terminating": false,
+    "container_state": "running"
+   },
+   "cri_before": [
+    {
+     "id": "6201552390cff",
+     "state": "CONTAINER_RUNNING",
+     "name": "target"
+    }
+   ],
+   "delete_status": 200,
+   "delete_audit_id": "39ca468b-eab2-4ad7-8703-ee3c2ac7ae9a",
+   "delete_rtt_ms": 13.155647,
+   "delete_resp_rv": "10015",
+   "delete_resp_deletionTimestamp": "2026-09-26T10:34:10Z",
+   "pod_gone_after_ms": 14.931294,
+   "container_not_running_after_ms": 226.408855,
+   "cri_after": [
+    {
+     "id": "6201552390cff",
+     "state": "CONTAINER_EXITED",
+     "name": "target"
+    }
+   ],
+   "cri_after_1s": [],
+   "sandboxes_after_1s": [
+    "SANDBOX_NOTREADY"
+   ]
+  },
+  {
+   "webhook_label": false,
+   "pod_uid": "024ea5b5-89f0-41d2-8c90-053b1e2f4f15",
+   "ready_wait_ms": 389.62052,
+   "gate_view": {
+    "phase": "Running",
+    "ready": true,
+    "node": "e38v2-control-plane",
+    "resource_version": "10026",
+    "uid": "024ea5b5-89f0-41d2-8c90-053b1e2f4f15",
+    "terminating": false,
+    "container_state": "running"
+   },
+   "cri_before": [
+    {
+     "id": "39cc5c9acdd5d",
+     "state": "CONTAINER_RUNNING",
+     "name": "target"
+    }
+   ],
+   "delete_status": 200,
+   "delete_audit_id": "8264b9b1-2186-4c9f-a429-bed1bb73a28b",
+   "delete_rtt_ms": 10.915025,
+   "delete_resp_rv": "10028",
+   "delete_resp_deletionTimestamp": "2026-09-26T10:34:12Z",
+   "pod_gone_after_ms": 12.620481,
+   "container_not_running_after_ms": 703.788942,
+   "cri_after": [
+    {
+     "id": "39cc5c9acdd5d",
+     "state": "CONTAINER_EXITED",
+     "name": "target"
+    }
+   ],
+   "cri_after_1s": [],
+   "sandboxes_after_1s": [
+    "SANDBOX_NOTREADY"
+   ]
+  },
+  {
+   "webhook_label": false,
+   "pod_uid": "faabe276-bb7e-48e4-aea3-678189fdc502",
+   "ready_wait_ms": 393.553131,
+   "gate_view": {
+    "phase": "Running",
+    "ready": true,
+    "node": "e38v2-control-plane",
+    "resource_version": "10043",
+    "uid": "faabe276-bb7e-48e4-aea3-678189fdc502",
+    "terminating": false,
+    "container_state": "running"
+   },
+   "cri_before": [
+    {
+     "id": "6b3aea2172c7d",
+     "state": "CONTAINER_RUNNING",
+     "name": "target"
+    }
+   ],
+   "delete_status": 200,
+   "delete_audit_id": "72864ea6-a931-4136-bcb1-d8a19df33d1a",
+   "delete_rtt_ms": 9.389488,
+   "delete_resp_rv": "10045",
+   "delete_resp_deletionTimestamp": "2026-09-26T10:34:14Z",
+   "pod_gone_after_ms": 17.027184,
+   "container_not_running_after_ms": 293.477467,
+   "cri_after": [
+    {
+     "id": "6b3aea2172c7d",
+     "state": "CONTAINER_EXITED",
+     "name": "target"
+    }
+   ],
+   "cri_after_1s": [],
+   "sandboxes_after_1s": [
+    "SANDBOX_NOTREADY"
+   ]
+  },
+  {
+   "webhook_label": false,
+   "pod_uid": "07e252ce-01c2-460d-99fd-55adb3722fd6",
+   "ready_wait_ms": 413.181062,
+   "gate_view": {
+    "phase": "Running",
+    "ready": true,
+    "node": "e38v2-control-plane",
+    "resource_version": "10057",
+    "uid": "07e252ce-01c2-460d-99fd-55adb3722fd6",
+    "terminating": false,
+    "container_state": "running"
+   },
+   "cri_before": [
+    {
+     "id": "96b4af881d556",
+     "state": "CONTAINER_RUNNING",
+     "name": "target"
+    }
+   ],
+   "delete_status": 200,
+   "delete_audit_id": "4481c6fa-78c7-48ae-8854-1e2cc1e04483",
+   "delete_rtt_ms": 17.102366,
+   "delete_resp_rv": "10061",
+   "delete_resp_deletionTimestamp": "2026-09-26T10:34:16Z",
+   "pod_gone_after_ms": 20.937845,
+   "container_not_running_after_ms": 312.406588,
+   "cri_after": [
+    {
+     "id": "96b4af881d556",
+     "state": "CONTAINER_EXITED",
+     "name": "target"
+    }
+   ],
+   "cri_after_1s": [],
+   "sandboxes_after_1s": [
+    "SANDBOX_NOTREADY"
+   ]
+  },
+  {
+   "webhook_label": false,
+   "pod_uid": "27427d95-d7f3-4b82-998f-dbd5d45f135b",
+   "ready_wait_ms": 424.963458,
+   "gate_view": {
+    "phase": "Running",
+    "ready": true,
+    "node": "e38v2-control-plane",
+    "resource_version": "10071",
+    "uid": "27427d95-d7f3-4b82-998f-dbd5d45f135b",
+    "terminating": false,
+    "container_state": "running"
+   },
+   "cri_before": [
+    {
+     "id": "1428c1d1f9439",
+     "state": "CONTAINER_RUNNING",
+     "name": "target"
+    }
+   ],
+   "delete_status": 200,
+   "delete_audit_id": "3f5e496f-836a-452f-8eee-046974efd4e1",
+   "delete_rtt_ms": 14.048605,
+   "delete_resp_rv": "10073",
+   "delete_resp_deletionTimestamp": "2026-09-26T10:34:18Z",
+   "pod_gone_after_ms": 19.29754,
+   "container_not_running_after_ms": 408.950191,
+   "cri_after": [
+    {
+     "id": "1428c1d1f9439",
+     "state": "CONTAINER_EXITED",
+     "name": "target"
+    }
+   ],
+   "cri_after_1s": [],
+   "sandboxes_after_1s": [
+    "SANDBOX_NOTREADY"
+   ]
+  },
+  {
+   "webhook_label": false,
+   "pod_uid": "c9adca59-f197-4869-95ea-138ee2e2e2da",
+   "ready_wait_ms": 391.423155,
+   "gate_view": {
+    "phase": "Running",
+    "ready": true,
+    "node": "e38v2-control-plane",
+    "resource_version": "10085",
+    "uid": "c9adca59-f197-4869-95ea-138ee2e2e2da",
+    "terminating": false,
+    "container_state": "running"
+   },
+   "cri_before": [
+    {
+     "id": "6004c47a6bd7b",
+     "state": "CONTAINER_RUNNING",
+     "name": "target"
+    }
+   ],
+   "delete_status": 200,
+   "delete_audit_id": "ec3979a5-f42a-4422-b1c5-c219f0ffd962",
+   "delete_rtt_ms": 19.962189,
+   "delete_resp_rv": "10087",
+   "delete_resp_deletionTimestamp": "2026-09-26T10:34:20Z",
+   "pod_gone_after_ms": 22.42069,
+   "container_not_running_after_ms": 342.159741,
+   "cri_after": [
+    {
+     "id": "6004c47a6bd7b",
+     "state": "CONTAINER_EXITED",
+     "name": "target"
+    }
+   ],
+   "cri_after_1s": [],
+   "sandboxes_after_1s": [
+    "SANDBOX_NOTREADY"
+   ]
+  },
+  {
+   "webhook_label": false,
+   "pod_uid": "1c1cc8e4-7447-4183-bb1d-b87fe225165d",
+   "ready_wait_ms": 424.424128,
+   "gate_view": {
+    "phase": "Running",
+    "ready": true,
+    "node": "e38v2-control-plane",
+    "resource_version": "10100",
+    "uid": "1c1cc8e4-7447-4183-bb1d-b87fe225165d",
+    "terminating": false,
+    "container_state": "running"
+   },
+   "cri_before": [
+    {
+     "id": "de008567fb9c8",
+     "state": "CONTAINER_RUNNING",
+     "name": "target"
+    }
+   ],
+   "delete_status": 200,
+   "delete_audit_id": "3d108e44-205a-4191-a2ff-2247adfde203",
+   "delete_rtt_ms": 14.859522,
+   "delete_resp_rv": "10102",
+   "delete_resp_deletionTimestamp": "2026-09-26T10:34:22Z",
+   "pod_gone_after_ms": 17.582988,
+   "container_not_running_after_ms": 467.742004,
+   "cri_after": [
+    {
+     "id": "de008567fb9c8",
+     "state": "CONTAINER_EXITED",
+     "name": "target"
+    }
+   ],
+   "cri_after_1s": [],
+   "sandboxes_after_1s": [
+    "SANDBOX_NOTREADY"
+   ]
+  },
+  {
+   "webhook_label": false,
+   "pod_uid": "2b42034e-7fe2-4de2-9406-21579ade5449",
+   "ready_wait_ms": 390.30684,
+   "gate_view": {
+    "phase": "Running",
+    "ready": true,
+    "node": "e38v2-control-plane",
+    "resource_version": "10114",
+    "uid": "2b42034e-7fe2-4de2-9406-21579ade5449",
+    "terminating": false,
+    "container_state": "running"
+   },
+   "cri_before": [
+    {
+     "id": "39f86b2499cbb",
+     "state": "CONTAINER_RUNNING",
+     "name": "target"
+    }
+   ],
+   "delete_status": 200,
+   "delete_audit_id": "f78366a8-591a-4a1a-9baa-c918014ed9a3",
+   "delete_rtt_ms": 11.642842,
+   "delete_resp_rv": "10116",
+   "delete_resp_deletionTimestamp": "2026-09-26T10:34:24Z",
+   "pod_gone_after_ms": 13.277865,
+   "container_not_running_after_ms": 454.83962,
+   "cri_after": [
+    {
+     "id": "39f86b2499cbb",
+     "state": "CONTAINER_EXITED",
+     "name": "target"
+    }
+   ],
+   "cri_after_1s": [],
+   "sandboxes_after_1s": [
+    "SANDBOX_NOTREADY"
+   ]
+  },
+  {
+   "webhook_label": false,
+   "pod_uid": "cb3860e9-45dc-4845-a8da-65e27aea595a",
+   "ready_wait_ms": 405.019138,
+   "gate_view": {
+    "phase": "Running",
+    "ready": true,
+    "node": "e38v2-control-plane",
+    "resource_version": "10131",
+    "uid": "cb3860e9-45dc-4845-a8da-65e27aea595a",
+    "terminating": false,
+    "container_state": "running"
+   },
+   "cri_before": [
+    {
+     "id": "7183c75b63b50",
+     "state": "CONTAINER_RUNNING",
+     "name": "target"
+    }
+   ],
+   "delete_status": 200,
+   "delete_audit_id": "a8f4ef36-3618-452a-8750-1c676a944d74",
+   "delete_rtt_ms": 12.391873,
+   "delete_resp_rv": "10135",
+   "delete_resp_deletionTimestamp": "2026-09-26T10:34:26Z",
+   "pod_gone_after_ms": 14.244556,
+   "container_not_running_after_ms": 297.355048,
+   "cri_after": [
+    {
+     "id": "7183c75b63b50",
+     "state": "CONTAINER_EXITED",
+     "name": "target"
+    }
+   ],
+   "cri_after_1s": [],
+   "sandboxes_after_1s": [
+    "SANDBOX_NOTREADY"
+   ]
+  },
+  {
+   "webhook_label": false,
+   "pod_uid": "b9351c91-fd6d-4f03-84aa-047a000445ac",
+   "ready_wait_ms": 428.284719,
+   "gate_view": {
+    "phase": "Running",
+    "ready": true,
+    "node": "e38v2-control-plane",
+    "resource_version": "10145",
+    "uid": "b9351c91-fd6d-4f03-84aa-047a000445ac",
+    "terminating": false,
+    "container_state": "running"
+   },
+   "cri_before": [
+    {
+     "id": "95963b1b1d2d6",
+     "state": "CONTAINER_RUNNING",
+     "name": "target"
+    }
+   ],
+   "delete_status": 200,
+   "delete_audit_id": "39789752-d70a-464a-b3a4-b6b9b96692a9",
+   "delete_rtt_ms": 14.827107,
+   "delete_resp_rv": "10147",
+   "delete_resp_deletionTimestamp": "2026-09-26T10:34:28Z",
+   "pod_gone_after_ms": 16.595571,
+   "container_not_running_after_ms": 400.866834,
+   "cri_after": [
+    {
+     "id": "95963b1b1d2d6",
+     "state": "CONTAINER_EXITED",
+     "name": "target"
+    }
+   ],
+   "cri_after_1s": [],
+   "sandboxes_after_1s": [
+    "SANDBOX_NOTREADY"
+   ]
+  }
+ ]
+}

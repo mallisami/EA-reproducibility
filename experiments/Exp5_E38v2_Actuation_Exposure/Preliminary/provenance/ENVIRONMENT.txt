@@ -1,0 +1,119 @@
+== kind
+kind v0.33.0 go1.26.7 linux/amd64
+== kubectl
+{
+  "clientVersion": {
+    "major": "1",
+    "minor": "37",
+    "gitVersion": "v1.37.0",
+    "gitCommit": "f54c212e3a2f75d674b717a9b29052b20b60aefc",
+    "gitTreeState": "clean",
+    "buildDate": "2026-08-26T10:48:06Z",
+    "goVersion": "go1.26.6",
+    "compiler": "gc",
+    "platform": "linux/amd64"
+  },
+  "kustomizeVersion": "v5.8.1",
+  "serverVersion": {
+    "major": "1",
+    "minor": "37",
+    "emulationMajor": "1",
+    "emulationMinor": "37",
+    "minCompatibilityMajor": "1",
+    "minCompatibilityMinor": "36",
+    "gitVersion": "v1.37.0",
+    "gitCommit": "f54c212e3a2f75d674b717a9b29052b20b60aefc",
+    "gitTreeState": "clean",
+    "buildDate": "2026-08-26T10:44:25Z",
+    "goVersion": "go1.26.6",
+    "compiler": "gc",
+    "platform": "linux/amd64"
+  }
+}
+== images
+sha256:a1ed56cfb0e7b93589bdf97c8cd566405a265939e3620fc4f5de89adff580ae5 [kindest/node:v1.37.0 kindest/node@sha256:a1ed56cfb0e7b93589bdf97c8cd566405a265939e3620fc4f5de89adff580ae5]
+sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9 [python:3.12-slim]
+== nodes
+NAME                  STATUS   ROLES           AGE   VERSION   INTERNAL-IP   EXTERNAL-IP   OS-IMAGE                       KERNEL-VERSION              CONTAINER-RUNTIME
+e38v2-control-plane   Ready    control-plane   55m   v1.37.0   172.18.0.5    <none>        Debian GNU/Linux 13 (trixie)   6.17.0-1022-azure (amd64)   containerd://2.3.4
+== vwc
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"admissionregistration.k8s.io/v1","kind":"ValidatingWebhookConfiguration","metadata":{"annotations":{},"labels":{"e38-managed":"true","e38-run-id":"e38v2-20260926t0813z"},"name":"e38v2-delete-revalidation"},"webhooks":[{"admissionReviewVersions":["v1"],"clientConfig":{"caBundle":"LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURKekNDQWcrZ0F3SUJBZ0lVRnJpbWVOK1JFdE5ORlJJYUF6NnBHU3Y1eW9nd0RRWUpLb1pJaHZjTkFRRUwKQlFBd0d6RVpNQmNHQTFVRUF3d1FaVE00ZGpJdGQyVmlhRzl2YXkxallUQWVGdzB5TmpBNU1qWXdPREV6TkRKYQpGdzB5TmpFd01qWXdPREV6TkRKYU1Cc3hHVEFYQmdOVkJBTU1FR1V6T0hZeUxYZGxZbWh2YjJzdFkyRXdnZ0VpCk1BMEdDU3FHU0liM0RRRUJBUVVBQTRJQkR3QXdnZ0VLQW9JQkFRREl5SHFyZHV2M3Q3KzBkUHFVVE9JbUx0RWYKSkdzRGsrQ01hVnZoSTc5Y1oxa25Hdld5LzU5NUpwRXo3U3NDWitwOWdiTml2ODdNZE4yRGJ6OWJLZG9kbkVURQpTQWMyNkJDRVUvSjB2OGs5MjhVZjhldTYvTHYrUk1telh3bnliNUJJbCtkK1JkTTV0b1FTcXlQVlp3d0ZlRGZRCk9MNCtLanJ0cnJWeHZPUjduWllvcG5FWlhZWXZjcktMcmY0NDQ4ZTNQUFFMYjVmVklTOU51d2FSRk8rL0lwSUYKV0p5YzZjdnpXTTVTMnBUYTdiUUhWZ25IM0t0RUU3aHRDMHNKZUcwWmMvc05rSVBnK1k2NzNoZlRuc1NEV0JBYgpzZ1VGR042eldBQmZEc2JxVkF0eHVCYkRvSUJsZTQ5WFY1eU1JVXBOOS9CdDZMdElLTE5yQ3E1eVJjYXhBZ01CCkFBR2pZekJoTUIwR0ExVWREZ1FXQkJUVllJckgwcHRDNlFiN2xkVlROc0kxdnVYUTV6QWZCZ05WSFNNRUdEQVcKZ0JUVllJckgwcHRDNlFiN2xkVlROc0kxdnVYUTV6QVBCZ05WSFJNQkFmOEVCVEFEQVFIL01BNEdBMVVkRHdFQgovd1FFQXdJQkJqQU5CZ2txaGtpRzl3MEJBUXNGQUFPQ0FRRUFaSG0vRlJrSTBHMW5LWlJkM3RaZjJjMEhHWURnCm1Ba25RcXkyUDdydW9JVjJOSWo3a0JKR2ZMUUhsTmlUQVNUMGRmRXkxZGVxMHp6UDFyRGhDbm9QLytPeWgrSjYKNXNsTUpaaW9qTjhhNHo0QVZzK1dzOVh0MVd4b0U2R01XdXFFVXBQNVVMQ0FZWHRWZUZETVE0UTgzbWN3QTFEZgpETlZYQXJJMWxYcU40UlVqY1FiQzZtUW9wTGFkbjB4ZWhIR2tEYy9RNXFKOWsvL0NLNHczaXhzcUZBZGZqUWR1CisrTUs3ZmYyamtVMmh1azg0VElrcEVMRjJiaHgzaEZLMG1SNE11ay9MaDJUR2VCZWxCUEc4UnhZaHpFdzFhRXQKM2JxWmFFRVRubncrd0RHWDhjREZ2ZldxSGpwUXpZMVl5NHRTaTlCemJHeFVrd2ZXc2UyMU9La1R5Zz09Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K","service":{"name":"e38v2-webhook","namespace":"e38v2-system","path":"/validate","port":443}},"failurePolicy":"Fail","matchConditions":[{"expression":"request.userInfo.username != 'system:serviceaccount:e38v2-system:e38v2-reset'","name":"exempt-reset-identity"},{"expression":"!request.userInfo.username.startsWith('system:node:')","name":"exempt-kubelets"},{"expression":"!(request.userInfo.username in ['system:serviceaccount:kube-system:namespace-controller', 'system:serviceaccount:kube-system:generic-garbage-collector'])","name":"exempt-namespace-and-gc-controllers"}],"matchPolicy":"Exact","name":"delete-revalidation.e38v2.e38-managed.local","namespaceSelector":{"matchLabels":{"kubernetes.io/metadata.name":"e38v2-e38v2-20260926t0813z"}},"objectSelector":{"matchLabels":{"e38v2-webhook":"enforce"}},"rules":[{"apiGroups":[""],"apiVersions":["v1"],"operations":["DELETE"],"resources":["pods"],"scope":"Namespaced"}],"sideEffects":"None","timeoutSeconds":5}]}
+  creationTimestamp: "2026-09-26T07:38:33Z"
+  generation: 3
+  labels:
+    e38-managed: "true"
+    e38-run-id: e38v2-20260926t0813z
+  name: e38v2-delete-revalidation
+  resourceVersion: "7754"
+  uid: 37cc8a23-e82d-4c9b-a853-9338b178e3a5
+webhooks:
+- admissionReviewVersions:
+  - v1
+  clientConfig:
+    caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURKekNDQWcrZ0F3SUJBZ0lVRnJpbWVOK1JFdE5ORlJJYUF6NnBHU3Y1eW9nd0RRWUpLb1pJaHZjTkFRRUwKQlFBd0d6RVpNQmNHQTFVRUF3d1FaVE00ZGpJdGQyVmlhRzl2YXkxallUQWVGdzB5TmpBNU1qWXdPREV6TkRKYQpGdzB5TmpFd01qWXdPREV6TkRKYU1Cc3hHVEFYQmdOVkJBTU1FR1V6T0hZeUxYZGxZbWh2YjJzdFkyRXdnZ0VpCk1BMEdDU3FHU0liM0RRRUJBUVVBQTRJQkR3QXdnZ0VLQW9JQkFRREl5SHFyZHV2M3Q3KzBkUHFVVE9JbUx0RWYKSkdzRGsrQ01hVnZoSTc5Y1oxa25Hdld5LzU5NUpwRXo3U3NDWitwOWdiTml2ODdNZE4yRGJ6OWJLZG9kbkVURQpTQWMyNkJDRVUvSjB2OGs5MjhVZjhldTYvTHYrUk1telh3bnliNUJJbCtkK1JkTTV0b1FTcXlQVlp3d0ZlRGZRCk9MNCtLanJ0cnJWeHZPUjduWllvcG5FWlhZWXZjcktMcmY0NDQ4ZTNQUFFMYjVmVklTOU51d2FSRk8rL0lwSUYKV0p5YzZjdnpXTTVTMnBUYTdiUUhWZ25IM0t0RUU3aHRDMHNKZUcwWmMvc05rSVBnK1k2NzNoZlRuc1NEV0JBYgpzZ1VGR042eldBQmZEc2JxVkF0eHVCYkRvSUJsZTQ5WFY1eU1JVXBOOS9CdDZMdElLTE5yQ3E1eVJjYXhBZ01CCkFBR2pZekJoTUIwR0ExVWREZ1FXQkJUVllJckgwcHRDNlFiN2xkVlROc0kxdnVYUTV6QWZCZ05WSFNNRUdEQVcKZ0JUVllJckgwcHRDNlFiN2xkVlROc0kxdnVYUTV6QVBCZ05WSFJNQkFmOEVCVEFEQVFIL01BNEdBMVVkRHdFQgovd1FFQXdJQkJqQU5CZ2txaGtpRzl3MEJBUXNGQUFPQ0FRRUFaSG0vRlJrSTBHMW5LWlJkM3RaZjJjMEhHWURnCm1Ba25RcXkyUDdydW9JVjJOSWo3a0JKR2ZMUUhsTmlUQVNUMGRmRXkxZGVxMHp6UDFyRGhDbm9QLytPeWgrSjYKNXNsTUpaaW9qTjhhNHo0QVZzK1dzOVh0MVd4b0U2R01XdXFFVXBQNVVMQ0FZWHRWZUZETVE0UTgzbWN3QTFEZgpETlZYQXJJMWxYcU40UlVqY1FiQzZtUW9wTGFkbjB4ZWhIR2tEYy9RNXFKOWsvL0NLNHczaXhzcUZBZGZqUWR1CisrTUs3ZmYyamtVMmh1azg0VElrcEVMRjJiaHgzaEZLMG1SNE11ay9MaDJUR2VCZWxCUEc4UnhZaHpFdzFhRXQKM2JxWmFFRVRubncrd0RHWDhjREZ2ZldxSGpwUXpZMVl5NHRTaTlCemJHeFVrd2ZXc2UyMU9La1R5Zz09Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+    service:
+      name: e38v2-webhook
+      namespace: e38v2-system
+      path: /validate
+      port: 443
+  failurePolicy: Fail
+  matchConditions:
+  - expression: request.userInfo.username != 'system:serviceaccount:e38v2-system:e38v2-reset'
+    name: exempt-reset-identity
+  - expression: '!request.userInfo.username.startsWith(''system:node:'')'
+    name: exempt-kubelets
+  - expression: '!(request.userInfo.username in [''system:serviceaccount:kube-system:namespace-controller'',
+      ''system:serviceaccount:kube-system:generic-garbage-collector''])'
+    name: exempt-namespace-and-gc-controllers
+  matchPolicy: Exact
+  name: delete-revalidation.e38v2.e38-managed.local
+  namespaceSelector:
+    matchLabels:
+      kubernetes.io/metadata.name: e38v2-e38v2-20260926t0813z
+  objectSelector:
+    matchLabels:
+      e38v2-webhook: enforce
+  rules:
+  - apiGroups:
+    - ""
+    apiVersions:
+    - v1
+    operations:
+    - DELETE
+    resources:
+    - pods
+    scope: Namespaced
+  sideEffects: None
+  timeoutSeconds: 5
+== webhook deployment
+NAME            READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES             SELECTOR
+e38v2-webhook   1/1     1            1           53m   webhook      python:3.12-slim   app=e38v2-webhook
+NAME                             READY   STATUS    RESTARTS   AGE   IP            NODE                  NOMINATED NODE   READINESS GATES
+e38v2-webhook-864dcb8db4-9srg5   1/1     Running   0          17m   10.244.0.19   e38v2-control-plane   <none>           <none>
+== apiserver audit flags
+    - --audit-policy-file=/etc/kubernetes/e38v2/audit-policy.yaml
+    - --audit-log-path=/var/log/kubernetes/e38v2-audit/audit.log
+    - --audit-log-format=json
+    - --audit-log-maxsize=200
+    - --audit-log-maxbackup=30
+    - --audit-log-maxage=30
+    - --audit-log-compress=false
+    - --audit-log-mode=blocking
+      name: e38v2-audit-log
+    - mountPath: /etc/kubernetes/e38v2/audit-policy.yaml
+      name: e38v2-audit-policy
+    name: e38v2-audit-log
+      path: /etc/kubernetes/e38v2/audit-policy.yaml
+    name: e38v2-audit-policy
+== host
+Linux mcb-k8s-v137 6.17.0-1022-azure #22-Ubuntu SMP Mon Jul 27 17:24:03 UTC 2026 x86_64 x86_64 x86_64 GNU/Linux
+4
+               total        used        free      shared  buff/cache   available
+Mem:           15939        6041        1931         186        8498        9897
+Swap:              0           0           0
+Python 3.12.3

@@ -1,0 +1,14 @@
+{
+  "n_total": 300,
+  "discordant": 0,
+  "mismatched_expected": 0,
+  "mean_dcji_request_count": 3.0,
+  "mean_full_request_count": 6.0,
+  "mean_paired_refresh_diff_ms": -66.323354,
+  "bootstrap_ci95_refresh_diff_ms": [
+    -134.28903166666666,
+    -30.743216999999998
+  ],
+  "median_dcji_gate_ms": 28.2346,
+  "median_full_gate_ms": 59.7884
+}

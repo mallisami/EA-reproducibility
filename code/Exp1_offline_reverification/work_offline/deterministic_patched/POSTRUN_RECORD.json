@@ -1,0 +1,17 @@
+{
+  "results_version": "4.0.0-e1-e5",
+  "freeze_id": "FLASHIR-DET-HELDOUT-FREEZE-20260905",
+  "protocol_deviations": [],
+  "e1_rows": 384,
+  "e5_rows": 1856,
+  "positive_primary_W2_rows": 92,
+  "negative_control_W2_rows": 4,
+  "validation_status": "PASS",
+  "analysis_files": [
+    "analysis/e1_summary.json",
+    "analysis/e5_summary.json",
+    "analysis/confirmatory_comparisons.json",
+    "analysis/additional_descriptives.json",
+    "analysis/E1_E5_HELDOUT_RESULTS.md"
+  ]
+}

@@ -1,0 +1,104 @@
+E40 PROTOCOL - replication of the E38v2/E39-A core measurement on a managed Kubernetes control plane (Azure AKS)
+version 1.0, 2026-09-26, written BEFORE the cluster exists and before any E40 data exist
+=====================================================================================================================
+Purpose. Address the "single-host kind testbed" limitation of E38v2/E39: replicate the exposure-window measurement
+(P(INVALID_EXECUTED) versus writer delay delta) for the client gate (A1), client gate + validating admission webhook (A3)
+and commit-bound enforcement (A4d) on a real managed control plane (AKS, remote etcd/apiserver, real kubelet on a VM).
+Defensive systems-security research by the paper's authors, on their own disposable cluster, in their own subscription.
+
+1. CLUSTER (cost-controlled, approved by the subscription owner)
+   az aks create -g mcb-experiments -n e40-aks -l southeastasia --tier free --node-count 1 --node-vm-size Standard_B2s
+     --kubernetes-version <latest 1.36.x offered in southeastasia: 1.36.3> --network-plugin azure
+     --network-plugin-mode overlay --no-ssh-key --tags purpose=e40 expires=2026-09-27
+     (no network policy engine: E40 has no NetworkPolicy action; kubenet avoided because it is being retired on AKS)
+   Credentials only in ~/e40_20260926/kubeconfig (az aks get-credentials --file ...); ~/.kube/config never touched.
+   Cost control: create/delete timestamps logged; HARD STOP: cluster deleted if its age exceeds 3 h; ALWAYS deleted at the
+   end (az aks delete ... --yes) and the MC_ node resource group verified gone. Budget < USD 2.
+   The kind clusters and docker on the control VM are never touched (E39 runs there); VM work is run with nice.
+
+2. CODE (from the E39 LOCKED tree; the E39 tree itself is never edited)
+   Wait for ~/e39_20260926/protocol/LOCK_E39.json; copy the locked runner/webhook/analysis/deploy files into
+   ~/e40_20260926/code; record their sha256 (COPY_SHA256_E39.txt, must equal the E39 LOCK). Adaptations (DEVIATIONS_E40.txt),
+   applied to the COPY only and hashed in LOCK_E40.json:
+   (a) mechanical prefix rename "e39-" -> "e40-" in runner/webhook/deploy text (namespaces e40-system, e40-<run_id>,
+       ServiceAccounts e40-*, labels e40-managed / e40-webhook, Pod name e40-target); diff archived.
+   (b) API endpoint: the runner runs INSIDE the cluster; the E39 loopback-only URL rail is replaced (by a wrapper,
+       e40_main.py, monkeypatching e39_kube.check_loopback_url) with an exact-match rail: only
+       https://$KUBERNETES_SERVICE_HOST:$KUBERNETES_SERVICE_PORT of the runner Pod, CA = the Pod's service-account ca.crt.
+   (c) identities: separate ServiceAccount tokens (responder, writer, reset, mirror) created with TokenRequest
+       (kubectl create token, 6 h) and mounted as a Secret; SelfSubjectReview must return
+       system:serviceaccount:e40-system:e40-<identity>. The runner Pod's own SA has no RBAC.
+   (d) images: python:3.12-slim (runner, webhook) and registry.k8s.io/pause:3.10 (target) are pulled by AKS from their
+       public registries through a pre-pull Pod; the E39 manifests/code keep imagePullPolicy Never (images present on node).
+   (e) webhook log volume hostPath -> emptyDir (collected with kubectl cp); control-plane toleration irrelevant.
+   (f) design subset via wrapper constants: arms, conditions, delta grid (section 3); apiserver version check v1.36.*.
+   (g) jsonschema and its dependencies (same versions as the E39 venv_runner) shipped as a ConfigMap tarball.
+   (h) pod_watch.py run by a wrapper (e40_podwatch.py) with the same in-cluster endpoint rail.
+   No change to trial logic, gate, writer, DELETE, record schema, oracle or statistics code.
+
+3. DESIGN (single stage, no top-up)
+   Arms: A1_dcji (DCJI client gate + UID precondition), A3_dcji_webhook (A1 + validating admission webhook, in-cluster,
+   objectSelector label), A4d_commit_direct (Pod-annotation state; DELETE with {uid, resourceVersion} preconditions).
+   Conditions: async_scope, async_evidence_last_literal (A4d stores the state as Pod annotations).
+   Delta grid (ms): {0, 2, 5, 10, 20, 50, 100, 200}; n = 39 per arm x condition x delta cell (1872 trials).
+   Controls: no_write n = 39 per arm (117), uid_rebind_control n = 10 per arm (30). Total 2019 trials.
+   Target: Running-and-Ready Pod (registry.k8s.io/pause:3.10). Randomisation: E39 build_stage1 (39 blocks, every cell once
+   per block, uid controls in blocks 0-9, shuffled within block with random.Random("<seed>|E39-A|stage1")).
+   Schedule seed: 40926017 (fresh; not 20260912, 1772720255, 154080643, 424242, nor the E39 seed in LOCK_E39.json).
+   Run id: a20260926 (namespace e40-a20260926); smoke run id smoke1 (namespace e40-smoke1).
+   TIME BOX (pre-registered, because the cluster must be deleted within 3 h): the full run executes whole blocks in
+   schedule order; before starting a block, the wrapper stops if (cluster age + projected block duration from the
+   running mean) would exceed 2 h 40 min. If that happens, the analysis uses the completed blocks only (analysis
+   schedule = the executed blocks, hashed and reported as a deviation); n per cell is then equal across cells.
+
+4. ORACLE (pre-registered deviation from E38v2/E39: AKS exposes no kube-apiserver audit log file; paid Log Analytics
+   diagnostic export is NOT enabled)
+   PRIMARY: the unchanged E39 oracle (analysis/oracle_e39.py) with an EMPTY audit log, i.e. its pre-registered
+   fallbacks: write revision = writer PATCH response resourceVersion (trial.writer.resulting_resource_version); action
+   revision = DELETE response resourceVersion, else the pod-watch DELETED-event resourceVersion (pod_events.jsonl, as the
+   E38v2 rerun plan v1.2 (i)); denials: gate read RVs (client), 409 precondition message from the DELETE response body;
+   webhook decisions from webhook_log.jsonl (joined on pod uid).
+   SECONDARY (E40-specific, client-side timestamps, all on one node clock): accepted DELETE -> write "before" iff the
+   writer's response was received before the DELETE response (response-receipt order, the client analogue of the E39
+   ResponseComplete rule); gate denial -> write seen iff writer response received before the gate read of that object was
+   sent; rv_precondition 409 -> writer response before DELETE response; webhook deny -> writer response (wall = mono + the
+   runner's wall-mono offset) before the webhook read send wall time. Overlap fraction (writer [send, recv] intersects
+   DELETE [send, recv]) reported. Agreement primary vs secondary (% and kappa) reported.
+   RV-ORDER VALIDATION (probe, before trials): 50 sequential PATCHes on one ConfigMap and 50 on one Pod: response RVs
+   must be strictly increasing integers; a PATCH followed by a DELETE of the same Pod: DELETE RV > PATCH RV.
+   Limitations stated: resourceVersion treated as a numeric etcd revision (true for AKS etcd3 storage; opaque by API
+   contract); no server-side stageTimestamps; 409 attribution (kubelet vs writer) only via pod-watch events.
+
+5. PROBES (inside the runner Pod, before any trial; results in PROBES_E40.json)
+   P1 identities (SelfSubjectReview for responder/writer/reset/mirror = e40-system SAs), /version v1.36.x, endpoint used.
+   P2 webhook deny/allow on a labelled target Pod (scope false -> 4xx deny with webhook log entry; valid -> 200 allow).
+   P3 A4d: DELETE with stale RV -> 409 whose message names the resourceVersion precondition; with current RV -> 200.
+   P4 target Pod Running and Ready at the gate (pod_ready record, Ready latency).
+   P5 kubelet status-update rate on a Running target Pod over 60 s after Ready (pod watch MODIFIED events not caused by
+      the experiment) = expected source of false 409s for A4d.
+   P6 RV-order probe (section 4).
+
+6. SMOKE AND QUALITY GATES (smoke = 1 replicate per cell: 48 async + 3 no_write + 3 uid_rebind = 54 trials, unlocked)
+   Gates to pass before LOCK: INFRA_ERROR < 2%; primary oracle classifies >= 98% of non-INFRA trials (UNKNOWN other than
+   fail-closed counts as unclassified); controls correct (no_write: no INVALID_EXECUTED, A1/A3 VALID_EXECUTED;
+   uid_rebind_control: UID_BLOCKED); pipeline (oracle + analysis + supplement) runs end-to-end on smoke data.
+   Smoke per-trial time also gives the runtime projection used by the time box.
+
+7. LOCK: LOCK_E40.json = sha256 of every code file shipped to the cluster, the wrapper scripts, manifests, this protocol,
+   the analysis wrapper and the full schedule; status LOCKED; verified by the wrapper before the first trial and by the
+   analysis.
+
+8. ANALYSIS (offline, on the VM)
+   analysis/analyze_e39.py via e40_analyze.py (sets the E40 design constants - arms, conditions, delta grid - before import;
+   --design-check off because the E40 design is not the E39 design; experiment label "A"); endpoints as E39 plan 5.A:
+   P(INVALID_EXECUTED) per arm x condition x delta with Wilson 95% CIs; d* (smallest grid delta with p_hat <= 0.05 there
+   and at all larger deltas; "not closed" if p_hat(200) > 0.05) with bootstrap; A4d availability cost (FALSE_ABORT and
+   409 rates in no_write and async cells); controls. Plus analysis/recompute_independent_e39.py (independent k/n).
+   Supplement (e40_supplement.py): secondary client-time rule and agreement; webhook latency cost = DELETE round trip A3
+   minus A1 (accepted DELETEs, median and HL with bootstrap CI) and webhook-log evaluation latency; comparison with the
+   E38v2 confirmatory rerun and (if available at analysis time) E39-A for the same arm x condition x delta cells:
+   per-cell difference AKS - kind with the Newcombe hybrid-score 95% CI. Cells absent from a reference run are listed.
+
+9. EXPORT: D:\Papers\JCP_COMPLETE_RESEARCH_AND_SUBMISSION_PACKAGE\08_E40_AKS_RESULTS\ (tarball + sha256 verified,
+   HEADLINE_E40.txt, DEVIATIONS_E40.txt, LOG_E40_OPERATIONS.txt). Never fabricate; on a blocking failure: stop, delete
+   the cluster, report.

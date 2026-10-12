@@ -1,0 +1,10 @@
+{
+ "locked_utc": "2026-10-03T06:54:51.619820+00:00",
+ "n_trials": 30,
+ "sha256": {
+  "plan.json": "2c14aa44c66a50ef6e9296bfd1fa1060e21a348fd79005859698538167bb0d8f",
+  "schedule.jsonl": "7de8e2f2d1f8754f5704fdae8886a40600386fd6f18ce249783446bf77135845",
+  "ea_exp.py": "1cc110f6b2c3b9fb7ba458fb933a39b3a857cf6ddc0aa12d8fcb6640654acd79",
+  "PROTOCOL.md": "12cb3417da5729040046d90bd0dfa53e8c589621f03e56443b9ff70f870bc129"
+ }
+}

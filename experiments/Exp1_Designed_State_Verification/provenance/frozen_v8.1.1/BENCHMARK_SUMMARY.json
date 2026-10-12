@@ -1,0 +1,22 @@
+{
+  "version": "3.0.0-benchmark",
+  "templates_total": 30,
+  "development": 6,
+  "heldout": 24,
+  "family_counts": {
+    "F1": 6,
+    "F2": 6,
+    "F3": 6,
+    "F4": 6,
+    "F5": 6
+  },
+  "scenario_role_counts": {
+    "positive_ea_toctou": 29,
+    "negative_exploitability_control": 1
+  },
+  "parameterizations_per_template": 4,
+  "planned_base_incidents": 120,
+  "heldout_results_generated": true,
+  "results_lock": "deterministic/CONTROLLED_RESULTS_LOCK.sha256.json",
+  "note": "Metadata corrected in v8.1 pre-run hardening; controlled result bytes were not regenerated."
+}

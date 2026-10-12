@@ -1,0 +1,73 @@
+{
+  "experiment": "E37",
+  "title": "Independent-Host Full-Matrix E21 Physical Benchmark Replication",
+  "primary_scenario": "F5_PHYS",
+  "warmup_pairs_per_condition": 20,
+  "measured_pairs_per_block": 100,
+  "blocks": 3,
+  "conditions": [
+    "stable",
+    "ea_attack",
+    "irrelevant_mutation"
+  ],
+  "acquisition_modes": [
+    "sequential",
+    "parallel"
+  ],
+  "load_levels": [
+    "idle",
+    "moderate"
+  ],
+  "guard_order_randomized": true,
+  "random_seed": 20260912,
+  "background_load_rate_rps": 22,
+  "primary_endpoint": "paired_refresh_latency_ms",
+  "primary_resource_endpoint": "paired_api_request_count",
+  "secondary_endpoints": [
+    "api_request_count",
+    "response_payload_bytes",
+    "gate_latency_ms",
+    "p50_ms",
+    "p95_ms",
+    "p99_ms",
+    "deadline_miss_rate",
+    "decision_discordance"
+  ],
+  "deadline_thresholds_ms": [
+    25,
+    50,
+    100,
+    250,
+    500
+  ],
+  "bootstrap_replicates": 10000,
+  "expected_dcji_request_count": 3,
+  "expected_fullrefresh_request_count": 6,
+  "resources": [
+    "obs-a",
+    "obs-b",
+    "obs-c",
+    "obs-d",
+    "obs-e",
+    "obs-f"
+  ],
+  "planner_derived_dcji_predicates": [
+    "flag_a",
+    "flag_c",
+    "flag_e"
+  ],
+  "attack_invalidated_predicates": [
+    "flag_a",
+    "flag_c",
+    "flag_e"
+  ],
+  "namespace": "flashir-e37",
+  "proxy_port": 18010,
+  "notes": "Full 12-cell independent-host replication of the original E21 design: 20 warm-up pairs per cell and 3 blocks x 100 measured pairs per cell = 3,600 measured pairs. Runs on the external physical host. No LANL data or independent human validation are used.",
+  "cluster_name": "ea-toctou-v26-single",
+  "runtime_locks": {
+    "kind_version": "v0.32.0",
+    "kubectl_version": "v1.36.1",
+    "kind_node_image": "kindest/node:v1.36.1@sha256:3489c7674813ba5d8b1a9977baea8a6e553784dab7b84759d1014dbd78f7ebd5"
+  }
+}

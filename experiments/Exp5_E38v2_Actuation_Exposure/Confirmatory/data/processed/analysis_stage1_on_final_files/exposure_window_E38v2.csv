@@ -1,0 +1,13 @@
+arm,condition,threshold,d_star_ms,last_exposed_delta_ms,wilson_hi_at_d_star,max_wilson_hi_at_or_above_d_star,d_star_secondary_ms,d_star_tertiary_ms,boot_ci95_lo_ms,boot_ci95_hi_ms,boot_frac_not_closed,boot_reps
+A0_native_uid,async_scope,0.05,not_closed,50,,,not_closed,-1,50,not_closed,0.8125,2000
+A0_native_uid,async_app_policy,0.05,not_closed,50,,,not_closed,0,20,not_closed,0.5995,2000
+A0_native_uid,async_evidence_last_literal,0.05,not_closed,50,,,not_closed,0,50,not_closed,0.922,2000
+A1_dcji,async_scope,0.05,not_closed,50,,,not_closed,0,50,not_closed,0.6,2000
+A1_dcji,async_app_policy,0.05,not_closed,50,,,not_closed,-1,50,not_closed,0.7995,2000
+A1_dcji,async_evidence_last_literal,0.05,50,20,0.13181,0.13181,50,-1,50,not_closed,0.2695,2000
+A2_fullrefresh,async_scope,0.05,not_closed,50,,,not_closed,0,50,not_closed,0.8235,2000
+A2_fullrefresh,async_app_policy,0.05,not_closed,50,,,not_closed,0,20,not_closed,0.609,2000
+A2_fullrefresh,async_evidence_last_literal,0.05,50,20,0.13181,0.13181,not_closed,0,20,not_closed,0.2585,2000
+A3_dcji_webhook,async_scope,0.05,not_closed,50,,,not_closed,-5,not_closed,not_closed,0.9995,2000
+A3_dcji_webhook,async_app_policy,0.05,not_closed,50,,,not_closed,-5,not_closed,not_closed,1,2000
+A3_dcji_webhook,async_evidence_last_literal,0.05,not_closed,50,,,not_closed,-5,not_closed,not_closed,1,2000

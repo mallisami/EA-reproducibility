@@ -1,0 +1,48 @@
+{
+  "schema": "a4d.preflight.audit.v2",
+  "run_id": "a4dcr-r2-20261001",
+  "checks": {
+    "api_preflight_pass": true,
+    "audit_stream_json_valid": true,
+    "pod_watch_stream_valid": true,
+    "writer_patch": true,
+    "delete_stale_rv": true,
+    "writer_restore": true,
+    "delete_current_rv": true
+  },
+  "details": [
+    {
+      "op": "writer_patch",
+      "audit_id": "58918d7a-6c75-40cd-886a-e951b60fac3e",
+      "matches": 1,
+      "rv_source": "audit",
+      "PASS": true,
+      "detail": "audit_rv=1349 runner_rv=1349"
+    },
+    {
+      "op": "delete_stale_rv",
+      "audit_id": "964c60ba-446a-4c95-b9e0-3508862e918c",
+      "matches": 1,
+      "rv_source": "audit",
+      "PASS": true,
+      "detail": "Operation cannot be fulfilled on Pod \"probe-a4d-audit-safe\": the ResourceVersion in the precondition (1348) does not match the ResourceVersion in record (1349). The object might have been modified"
+    },
+    {
+      "op": "writer_restore",
+      "audit_id": "31bdb52c-d2ed-4d81-99ae-91cfc953b586",
+      "matches": 1,
+      "rv_source": "audit",
+      "PASS": true,
+      "detail": "audit_rv=1350 runner_rv=1350"
+    },
+    {
+      "op": "delete_current_rv",
+      "audit_id": "b38ecaab-71df-4439-823b-2b9bb2d799e2",
+      "matches": 1,
+      "rv_source": "audit",
+      "PASS": true,
+      "detail": "delete_response_rv=1352"
+    }
+  ],
+  "PASS": true
+}

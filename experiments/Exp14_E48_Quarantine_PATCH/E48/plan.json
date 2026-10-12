@@ -1,0 +1,40 @@
+{
+ "experiment": "E48 second action type: quarantine label PATCH, version-bound (A6b) or not (A6u)",
+ "seed": 48600341,
+ "blocks": [
+  {
+   "name": "label",
+   "arms": [
+    "A6b",
+    "A6u"
+   ],
+   "delays_ms": [
+    0,
+    0.5,
+    1,
+    2,
+    3,
+    5,
+    10
+   ],
+   "n": 60,
+   "n_control": 39
+  },
+  {
+   "name": "label-hold20",
+   "arms": [
+    "A6b",
+    "A6u"
+   ],
+   "hold_ms": 20,
+   "delays_ms": [
+    0,
+    5,
+    10,
+    40
+   ],
+   "n": 100,
+   "n_control": 39
+  }
+ ]
+}

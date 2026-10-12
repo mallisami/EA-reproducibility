@@ -1,0 +1,5 @@
+{"experiment": "E47 retry policy after a resourceVersion conflict", "seed": 47500227,
+ "blocks": [
+  {"name": "liveness", "arms": ["A4d"], "policies": ["none", "blind", "revalidate"], "churn_hz": [20, 100, 300], "delays_ms": [], "n": 60, "n_control": 60},
+  {"name": "safety",   "arms": ["A4d"], "policies": ["none", "blind", "revalidate"], "churn_hz": [100], "hold_ms": 20, "delays_ms": [0, 5, 10], "n": 60, "n_control": 20}
+ ]}

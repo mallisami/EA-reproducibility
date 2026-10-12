@@ -1,0 +1,541 @@
+2026-09-26T15:22:37Z START run_id=e39-20260926t1515z stage=1 experiments=A trials=5344 identities={'responder': 'system:serviceaccount:e39-system:e39-responder', 'reset': 'system:serviceaccount:e39-system:e39-reset', 'writer': 'system:serviceaccount:e39-system:e39-writer', 'mirror': 'system:serviceaccount:e39-system:e39-mirror'} lock=LOCKED-2026-09-26T15:22:23Z session=SESSION_STAGE1_A.json
+2026-09-26T15:23:14Z PROGRESS 50/5344 (total recorded 50) infra=0 elapsed=37s rate=0.744s/trial mem_kb=9806640
+2026-09-26T15:23:50Z PROGRESS 100/5344 (total recorded 100) infra=0 elapsed=73s rate=0.731s/trial mem_kb=9798836
+2026-09-26T15:24:32Z PROGRESS 150/5344 (total recorded 150) infra=0 elapsed=115s rate=0.765s/trial mem_kb=9794200
+2026-09-26T15:25:11Z PROGRESS 200/5344 (total recorded 200) infra=0 elapsed=154s rate=0.771s/trial mem_kb=9702372
+2026-09-26T15:25:56Z PROGRESS 250/5344 (total recorded 250) infra=0 elapsed=199s rate=0.796s/trial mem_kb=8449616
+2026-09-26T15:26:42Z PROGRESS 300/5344 (total recorded 300) infra=0 elapsed=245s rate=0.817s/trial mem_kb=8296016
+2026-09-26T15:27:21Z PROGRESS 350/5344 (total recorded 350) infra=0 elapsed=284s rate=0.811s/trial mem_kb=9812312
+2026-09-26T15:28:06Z PROGRESS 400/5344 (total recorded 400) infra=0 elapsed=329s rate=0.821s/trial mem_kb=8498748
+2026-09-26T15:28:49Z PROGRESS 450/5344 (total recorded 450) infra=0 elapsed=372s rate=0.826s/trial mem_kb=8251812
+2026-09-26T15:29:32Z PROGRESS 500/5344 (total recorded 500) infra=0 elapsed=415s rate=0.830s/trial mem_kb=9784036
+2026-09-26T15:30:14Z PROGRESS 550/5344 (total recorded 550) infra=0 elapsed=457s rate=0.831s/trial mem_kb=8532472
+2026-09-26T15:30:54Z PROGRESS 600/5344 (total recorded 600) infra=0 elapsed=497s rate=0.828s/trial mem_kb=8218368
+2026-09-26T15:31:39Z PROGRESS 650/5344 (total recorded 650) infra=0 elapsed=542s rate=0.834s/trial mem_kb=9709168
+2026-09-26T15:32:15Z PROGRESS 700/5344 (total recorded 700) infra=0 elapsed=578s rate=0.825s/trial mem_kb=9757320
+2026-09-26T15:33:02Z PROGRESS 750/5344 (total recorded 750) infra=0 elapsed=625s rate=0.833s/trial mem_kb=8303180
+2026-09-26T15:33:42Z PROGRESS 800/5344 (total recorded 800) infra=0 elapsed=664s rate=0.831s/trial mem_kb=8206940
+2026-09-26T15:34:23Z PROGRESS 850/5344 (total recorded 850) infra=0 elapsed=706s rate=0.830s/trial mem_kb=9754140
+2026-09-26T15:35:08Z PROGRESS 900/5344 (total recorded 900) infra=0 elapsed=750s rate=0.834s/trial mem_kb=8322932
+2026-09-26T15:35:48Z PROGRESS 950/5344 (total recorded 950) infra=0 elapsed=791s rate=0.833s/trial mem_kb=8232224
+2026-09-26T15:36:33Z PROGRESS 1000/5344 (total recorded 1000) infra=0 elapsed=836s rate=0.836s/trial mem_kb=9800620
+2026-09-26T15:37:09Z PROGRESS 1050/5344 (total recorded 1050) infra=0 elapsed=872s rate=0.830s/trial mem_kb=9799500
+2026-09-26T15:37:52Z PROGRESS 1100/5344 (total recorded 1100) infra=0 elapsed=914s rate=0.831s/trial mem_kb=9736244
+2026-09-26T15:38:31Z PROGRESS 1150/5344 (total recorded 1150) infra=0 elapsed=954s rate=0.830s/trial mem_kb=8558172
+2026-09-26T15:39:16Z PROGRESS 1200/5344 (total recorded 1200) infra=0 elapsed=999s rate=0.832s/trial mem_kb=8278380
+2026-09-26T15:40:02Z PROGRESS 1250/5344 (total recorded 1250) infra=0 elapsed=1045s rate=0.836s/trial mem_kb=9802244
+2026-09-26T15:40:40Z PROGRESS 1300/5344 (total recorded 1300) infra=0 elapsed=1083s rate=0.833s/trial mem_kb=8590324
+2026-09-26T15:41:26Z PROGRESS 1350/5344 (total recorded 1350) infra=0 elapsed=1128s rate=0.836s/trial mem_kb=8274364
+2026-09-26T15:42:05Z PROGRESS 1400/5344 (total recorded 1400) infra=0 elapsed=1167s rate=0.834s/trial mem_kb=8285580
+2026-09-26T15:42:47Z PROGRESS 1450/5344 (total recorded 1450) infra=0 elapsed=1210s rate=0.834s/trial mem_kb=8667444
+2026-09-26T15:43:26Z PROGRESS 1500/5344 (total recorded 1500) infra=0 elapsed=1249s rate=0.832s/trial mem_kb=8233232
+2026-09-26T15:44:10Z PROGRESS 1550/5344 (total recorded 1550) infra=0 elapsed=1293s rate=0.834s/trial mem_kb=8296820
+2026-09-26T15:44:53Z PROGRESS 1600/5344 (total recorded 1600) infra=0 elapsed=1336s rate=0.835s/trial mem_kb=8730872
+2026-09-26T15:45:32Z PROGRESS 1650/5344 (total recorded 1650) infra=0 elapsed=1375s rate=0.833s/trial mem_kb=8332448
+2026-09-26T15:46:15Z PROGRESS 1700/5344 (total recorded 1700) infra=0 elapsed=1418s rate=0.834s/trial mem_kb=8284048
+2026-09-26T15:46:53Z PROGRESS 1750/5344 (total recorded 1750) infra=0 elapsed=1456s rate=0.832s/trial mem_kb=9877360
+2026-09-26T15:48:00Z PROGRESS 1800/5344 (total recorded 1800) infra=0 elapsed=1523s rate=0.846s/trial mem_kb=9878404
+2026-09-26T15:48:38Z PROGRESS 1850/5344 (total recorded 1850) infra=0 elapsed=1561s rate=0.844s/trial mem_kb=9895692
+2026-09-26T15:49:13Z PROGRESS 1900/5344 (total recorded 1900) infra=0 elapsed=1596s rate=0.840s/trial mem_kb=9861192
+2026-09-26T15:49:53Z PROGRESS 1950/5344 (total recorded 1950) infra=0 elapsed=1635s rate=0.839s/trial mem_kb=9864756
+2026-09-26T15:50:29Z PROGRESS 2000/5344 (total recorded 2000) infra=0 elapsed=1671s rate=0.836s/trial mem_kb=9863532
+2026-09-26T15:51:09Z PROGRESS 2050/5344 (total recorded 2050) infra=0 elapsed=1712s rate=0.835s/trial mem_kb=9863132
+2026-09-26T15:51:44Z PROGRESS 2100/5344 (total recorded 2100) infra=0 elapsed=1746s rate=0.832s/trial mem_kb=9852972
+2026-09-26T15:52:25Z PROGRESS 2150/5344 (total recorded 2150) infra=0 elapsed=1788s rate=0.832s/trial mem_kb=9839888
+2026-09-26T15:53:00Z PROGRESS 2200/5344 (total recorded 2200) infra=0 elapsed=1823s rate=0.828s/trial mem_kb=9841108
+2026-09-26T15:53:41Z PROGRESS 2250/5344 (total recorded 2250) infra=0 elapsed=1863s rate=0.828s/trial mem_kb=9855244
+2026-09-26T15:54:15Z PROGRESS 2300/5344 (total recorded 2300) infra=0 elapsed=1898s rate=0.825s/trial mem_kb=9838300
+2026-09-26T15:54:55Z PROGRESS 2350/5344 (total recorded 2350) infra=0 elapsed=1938s rate=0.825s/trial mem_kb=9861864
+2026-09-26T15:55:31Z PROGRESS 2400/5344 (total recorded 2400) infra=0 elapsed=1974s rate=0.822s/trial mem_kb=9821640
+2026-09-26T15:56:12Z PROGRESS 2450/5344 (total recorded 2450) infra=0 elapsed=2015s rate=0.822s/trial mem_kb=9825904
+2026-09-26T15:56:50Z PROGRESS 2500/5344 (total recorded 2500) infra=0 elapsed=2053s rate=0.821s/trial mem_kb=9833236
+2026-09-26T15:57:29Z PROGRESS 2550/5344 (total recorded 2550) infra=0 elapsed=2091s rate=0.820s/trial mem_kb=9821908
+2026-09-26T15:58:07Z PROGRESS 2600/5344 (total recorded 2600) infra=0 elapsed=2130s rate=0.819s/trial mem_kb=9830904
+2026-09-26T15:58:43Z PROGRESS 2650/5344 (total recorded 2650) infra=0 elapsed=2166s rate=0.817s/trial mem_kb=9825412
+2026-09-26T15:59:22Z PROGRESS 2700/5344 (total recorded 2700) infra=0 elapsed=2205s rate=0.817s/trial mem_kb=9799728
+2026-09-26T15:59:58Z PROGRESS 2750/5344 (total recorded 2750) infra=0 elapsed=2241s rate=0.815s/trial mem_kb=9812864
+2026-09-26T16:00:40Z PROGRESS 2800/5344 (total recorded 2800) infra=0 elapsed=2283s rate=0.815s/trial mem_kb=9808504
+2026-09-26T16:01:15Z PROGRESS 2850/5344 (total recorded 2850) infra=0 elapsed=2318s rate=0.813s/trial mem_kb=9799320
+2026-09-26T16:01:56Z PROGRESS 2900/5344 (total recorded 2900) infra=0 elapsed=2359s rate=0.813s/trial mem_kb=9796284
+2026-09-26T16:02:31Z PROGRESS 2950/5344 (total recorded 2950) infra=0 elapsed=2394s rate=0.811s/trial mem_kb=9792948
+2026-09-26T16:03:11Z PROGRESS 3000/5344 (total recorded 3000) infra=0 elapsed=2434s rate=0.811s/trial mem_kb=9772048
+2026-09-26T16:03:46Z PROGRESS 3050/5344 (total recorded 3050) infra=0 elapsed=2469s rate=0.810s/trial mem_kb=9795012
+2026-09-26T16:04:26Z PROGRESS 3100/5344 (total recorded 3100) infra=0 elapsed=2509s rate=0.809s/trial mem_kb=9793100
+2026-09-26T16:05:01Z PROGRESS 3150/5344 (total recorded 3150) infra=0 elapsed=2543s rate=0.807s/trial mem_kb=9785556
+2026-09-26T16:05:43Z PROGRESS 3200/5344 (total recorded 3200) infra=0 elapsed=2586s rate=0.808s/trial mem_kb=9788180
+2026-09-26T16:06:18Z PROGRESS 3250/5344 (total recorded 3250) infra=0 elapsed=2621s rate=0.807s/trial mem_kb=9784648
+2026-09-26T16:06:59Z PROGRESS 3300/5344 (total recorded 3300) infra=0 elapsed=2662s rate=0.807s/trial mem_kb=9782220
+2026-09-26T16:07:34Z PROGRESS 3350/5344 (total recorded 3350) infra=0 elapsed=2697s rate=0.805s/trial mem_kb=9768104
+2026-09-26T16:08:14Z PROGRESS 3400/5344 (total recorded 3400) infra=0 elapsed=2737s rate=0.805s/trial mem_kb=9777840
+2026-09-26T16:08:50Z PROGRESS 3450/5344 (total recorded 3450) infra=0 elapsed=2772s rate=0.804s/trial mem_kb=9758284
+2026-09-26T16:09:30Z PROGRESS 3500/5344 (total recorded 3500) infra=0 elapsed=2813s rate=0.804s/trial mem_kb=9765456
+2026-09-26T16:10:07Z PROGRESS 3550/5344 (total recorded 3550) infra=0 elapsed=2850s rate=0.803s/trial mem_kb=9200140
+2026-09-26T16:10:52Z PROGRESS 3600/5344 (total recorded 3600) infra=0 elapsed=2895s rate=0.804s/trial mem_kb=9664028
+2026-09-26T16:11:32Z PROGRESS 3650/5344 (total recorded 3650) infra=0 elapsed=2935s rate=0.804s/trial mem_kb=9665696
+2026-09-26T16:12:13Z PROGRESS 3700/5344 (total recorded 3700) infra=0 elapsed=2975s rate=0.804s/trial mem_kb=9759488
+2026-09-26T16:12:46Z PROGRESS 3750/5344 (total recorded 3750) infra=0 elapsed=3009s rate=0.802s/trial mem_kb=9749016
+2026-09-26T16:13:28Z PROGRESS 3800/5344 (total recorded 3800) infra=0 elapsed=3051s rate=0.803s/trial mem_kb=9772108
+2026-09-26T16:14:04Z PROGRESS 3850/5344 (total recorded 3850) infra=0 elapsed=3086s rate=0.802s/trial mem_kb=9755096
+2026-09-26T16:14:44Z PROGRESS 3900/5344 (total recorded 3900) infra=0 elapsed=3126s rate=0.802s/trial mem_kb=9744924
+2026-09-26T16:15:24Z PROGRESS 3950/5344 (total recorded 3950) infra=0 elapsed=3167s rate=0.802s/trial mem_kb=9751740
+2026-09-26T16:16:00Z PROGRESS 4000/5344 (total recorded 4000) infra=0 elapsed=3203s rate=0.801s/trial mem_kb=9713228
+2026-09-26T16:16:38Z PROGRESS 4050/5344 (total recorded 4050) infra=0 elapsed=3241s rate=0.800s/trial mem_kb=9707284
+2026-09-26T16:17:15Z PROGRESS 4100/5344 (total recorded 4100) infra=0 elapsed=3277s rate=0.799s/trial mem_kb=9727804
+2026-09-26T16:17:55Z PROGRESS 4150/5344 (total recorded 4150) infra=0 elapsed=3318s rate=0.799s/trial mem_kb=9694348
+2026-09-26T16:18:30Z PROGRESS 4200/5344 (total recorded 4200) infra=0 elapsed=3353s rate=0.798s/trial mem_kb=9729284
+2026-09-26T16:19:11Z PROGRESS 4250/5344 (total recorded 4250) infra=0 elapsed=3394s rate=0.799s/trial mem_kb=9748808
+2026-09-26T16:19:46Z PROGRESS 4300/5344 (total recorded 4300) infra=0 elapsed=3429s rate=0.797s/trial mem_kb=9724752
+2026-09-26T16:20:28Z PROGRESS 4350/5344 (total recorded 4350) infra=0 elapsed=3471s rate=0.798s/trial mem_kb=9704960
+2026-09-26T16:21:03Z PROGRESS 4400/5344 (total recorded 4400) infra=0 elapsed=3506s rate=0.797s/trial mem_kb=9713436
+2026-09-26T16:21:44Z PROGRESS 4450/5344 (total recorded 4450) infra=0 elapsed=3547s rate=0.797s/trial mem_kb=9721604
+2026-09-26T16:22:19Z PROGRESS 4500/5344 (total recorded 4500) infra=0 elapsed=3581s rate=0.796s/trial mem_kb=9701952
+2026-09-26T16:22:58Z PROGRESS 4550/5344 (total recorded 4550) infra=0 elapsed=3621s rate=0.796s/trial mem_kb=9700968
+2026-09-26T16:23:34Z PROGRESS 4600/5344 (total recorded 4600) infra=0 elapsed=3656s rate=0.795s/trial mem_kb=9702556
+2026-09-26T16:24:13Z PROGRESS 4650/5344 (total recorded 4650) infra=0 elapsed=3696s rate=0.795s/trial mem_kb=9705580
+2026-09-26T16:24:48Z PROGRESS 4700/5344 (total recorded 4700) infra=0 elapsed=3731s rate=0.794s/trial mem_kb=9697108
+2026-09-26T16:25:29Z PROGRESS 4750/5344 (total recorded 4750) infra=0 elapsed=3771s rate=0.794s/trial mem_kb=9686324
+2026-09-26T16:26:04Z PROGRESS 4800/5344 (total recorded 4800) infra=0 elapsed=3807s rate=0.793s/trial mem_kb=9699684
+2026-09-26T16:26:45Z PROGRESS 4850/5344 (total recorded 4850) infra=0 elapsed=3848s rate=0.793s/trial mem_kb=9690956
+2026-09-26T16:27:20Z PROGRESS 4900/5344 (total recorded 4900) infra=0 elapsed=3883s rate=0.792s/trial mem_kb=9671740
+2026-09-26T16:28:00Z PROGRESS 4950/5344 (total recorded 4950) infra=0 elapsed=3923s rate=0.792s/trial mem_kb=9673388
+2026-09-26T16:28:34Z PROGRESS 5000/5344 (total recorded 5000) infra=0 elapsed=3957s rate=0.791s/trial mem_kb=9677836
+2026-09-26T16:29:15Z PROGRESS 5050/5344 (total recorded 5050) infra=0 elapsed=3997s rate=0.792s/trial mem_kb=9675984
+2026-09-26T16:29:50Z PROGRESS 5100/5344 (total recorded 5100) infra=0 elapsed=4033s rate=0.791s/trial mem_kb=9656424
+2026-09-26T16:30:34Z PROGRESS 5150/5344 (total recorded 5150) infra=0 elapsed=4077s rate=0.792s/trial mem_kb=9664012
+2026-09-26T16:31:09Z PROGRESS 5200/5344 (total recorded 5200) infra=0 elapsed=4111s rate=0.791s/trial mem_kb=9650120
+2026-09-26T16:31:50Z PROGRESS 5250/5344 (total recorded 5250) infra=0 elapsed=4153s rate=0.791s/trial mem_kb=9664872
+2026-09-26T16:32:28Z PROGRESS 5300/5344 (total recorded 5300) infra=0 elapsed=4190s rate=0.791s/trial mem_kb=9656844
+2026-09-26T16:33:04Z PROGRESS 5344/5344 (total recorded 5344) infra=0 elapsed=4227s rate=0.791s/trial mem_kb=9650304
+2026-09-26T16:33:04Z END {"written": 5344, "infra": 0, "aborted": null, "skipped_recorded": 0, "elapsed_s": 4226.9}
+2026-09-26T16:33:05Z START run_id=e39-20260926t1515z stage=1 experiments=G trials=156 identities={'responder': 'system:serviceaccount:e39-system:e39-responder', 'reset': 'system:serviceaccount:e39-system:e39-reset', 'writer': 'system:serviceaccount:e39-system:e39-writer'} lock=LOCKED-2026-09-26T15:22:23Z session=SESSION_STAGE1_G.json
+2026-09-26T16:33:05Z RESUME: 5344 trials already recorded, 156 to run
+2026-09-26T16:33:40Z PROGRESS 50/156 (total recorded 5394) infra=0 elapsed=35s rate=0.705s/trial mem_kb=9645872
+2026-09-26T16:34:21Z PROGRESS 100/156 (total recorded 5444) infra=0 elapsed=76s rate=0.758s/trial mem_kb=9664752
+2026-09-26T16:34:56Z PROGRESS 150/156 (total recorded 5494) infra=0 elapsed=111s rate=0.740s/trial mem_kb=9617492
+2026-09-26T16:35:04Z PROGRESS 156/156 (total recorded 5500) infra=0 elapsed=118s rate=0.760s/trial mem_kb=9633160
+2026-09-26T16:35:04Z END {"written": 156, "infra": 0, "aborted": null, "skipped_recorded": 0, "elapsed_s": 118.5}
+2026-09-26T16:35:04Z START run_id=e39-20260926t1515z stage=1 experiments=E trials=1248 identities={'responder': 'system:serviceaccount:e39-system:e39-responder', 'reset': 'system:serviceaccount:e39-system:e39-reset', 'writer': 'system:serviceaccount:e39-system:e39-writer'} lock=LOCKED-2026-09-26T15:22:23Z session=SESSION_STAGE1_E.json
+2026-09-26T16:35:04Z RESUME: 5500 trials already recorded, 1248 to run
+2026-09-26T16:35:44Z PROGRESS 50/1248 (total recorded 5550) infra=0 elapsed=40s rate=0.801s/trial mem_kb=9647100
+2026-09-26T16:36:27Z PROGRESS 100/1248 (total recorded 5600) infra=0 elapsed=83s rate=0.831s/trial mem_kb=9638708
+2026-09-26T16:37:05Z PROGRESS 150/1248 (total recorded 5650) infra=0 elapsed=121s rate=0.804s/trial mem_kb=9632888
+2026-09-26T16:37:47Z PROGRESS 200/1248 (total recorded 5700) infra=0 elapsed=163s rate=0.813s/trial mem_kb=9643668
+2026-09-26T16:38:24Z PROGRESS 250/1248 (total recorded 5750) infra=0 elapsed=200s rate=0.800s/trial mem_kb=9611816
+2026-09-26T16:39:06Z PROGRESS 300/1248 (total recorded 5800) infra=0 elapsed=242s rate=0.807s/trial mem_kb=9627892
+2026-09-26T16:39:42Z PROGRESS 350/1248 (total recorded 5850) infra=0 elapsed=278s rate=0.794s/trial mem_kb=9585772
+2026-09-26T16:40:24Z PROGRESS 400/1248 (total recorded 5900) infra=0 elapsed=320s rate=0.800s/trial mem_kb=9618388
+2026-09-26T16:41:05Z PROGRESS 450/1248 (total recorded 5950) infra=0 elapsed=361s rate=0.802s/trial mem_kb=9615488
+2026-09-26T16:41:43Z PROGRESS 500/1248 (total recorded 6000) infra=0 elapsed=399s rate=0.797s/trial mem_kb=9615172
+2026-09-26T16:42:27Z PROGRESS 550/1248 (total recorded 6050) infra=0 elapsed=442s rate=0.804s/trial mem_kb=9600272
+2026-09-26T16:43:04Z PROGRESS 600/1248 (total recorded 6100) infra=0 elapsed=480s rate=0.800s/trial mem_kb=9608224
+2026-09-26T16:43:47Z PROGRESS 650/1248 (total recorded 6150) infra=0 elapsed=523s rate=0.804s/trial mem_kb=9617960
+2026-09-26T16:44:23Z PROGRESS 700/1248 (total recorded 6200) infra=0 elapsed=559s rate=0.799s/trial mem_kb=9594856
+2026-09-26T16:45:06Z PROGRESS 750/1248 (total recorded 6250) infra=0 elapsed=601s rate=0.802s/trial mem_kb=9607392
+2026-09-26T16:45:43Z PROGRESS 800/1248 (total recorded 6300) infra=0 elapsed=639s rate=0.799s/trial mem_kb=9593800
+2026-09-26T16:46:27Z PROGRESS 850/1248 (total recorded 6350) infra=0 elapsed=683s rate=0.803s/trial mem_kb=9524424
+2026-09-26T16:47:14Z PROGRESS 900/1248 (total recorded 6400) infra=0 elapsed=729s rate=0.810s/trial mem_kb=8190764
+2026-09-26T16:47:55Z PROGRESS 950/1248 (total recorded 6450) infra=0 elapsed=771s rate=0.812s/trial mem_kb=7997344
+2026-09-26T16:48:39Z PROGRESS 1000/1248 (total recorded 6500) infra=0 elapsed=815s rate=0.815s/trial mem_kb=9521476
+2026-09-26T16:49:20Z PROGRESS 1050/1248 (total recorded 6550) infra=0 elapsed=855s rate=0.815s/trial mem_kb=8167920
+2026-09-26T16:50:05Z PROGRESS 1100/1248 (total recorded 6600) infra=0 elapsed=901s rate=0.819s/trial mem_kb=7997768
+2026-09-26T16:50:52Z PROGRESS 1150/1248 (total recorded 6650) infra=0 elapsed=948s rate=0.824s/trial mem_kb=9510776
+2026-09-26T16:51:31Z PROGRESS 1200/1248 (total recorded 6700) infra=0 elapsed=987s rate=0.822s/trial mem_kb=8307968
+2026-09-26T16:52:17Z PROGRESS 1248/1248 (total recorded 6748) infra=0 elapsed=1032s rate=0.827s/trial mem_kb=7989856
+2026-09-26T16:52:17Z END {"written": 1248, "infra": 0, "aborted": null, "skipped_recorded": 0, "elapsed_s": 1032.4}
+2026-09-26T16:52:17Z START run_id=e39-20260926t1515z stage=1 experiments=F trials=936 identities={'responder': 'system:serviceaccount:e39-system:e39-responder', 'reset': 'system:serviceaccount:e39-system:e39-reset', 'writer': 'system:serviceaccount:e39-system:e39-writer'} lock=LOCKED-2026-09-26T15:22:23Z session=SESSION_STAGE1_F.json
+2026-09-26T16:52:18Z RESUME: 6748 trials already recorded, 936 to run
+2026-09-26T16:52:58Z PROGRESS 50/936 (total recorded 6798) infra=0 elapsed=41s rate=0.811s/trial mem_kb=9496592
+2026-09-26T16:53:39Z PROGRESS 100/936 (total recorded 6848) infra=0 elapsed=81s rate=0.811s/trial mem_kb=8283980
+2026-09-26T16:54:23Z PROGRESS 150/936 (total recorded 6898) infra=0 elapsed=125s rate=0.836s/trial mem_kb=7794680
+2026-09-26T16:55:01Z PROGRESS 200/936 (total recorded 6948) infra=0 elapsed=163s rate=0.815s/trial mem_kb=7953852
+2026-09-26T16:55:44Z PROGRESS 250/936 (total recorded 6998) infra=0 elapsed=207s rate=0.827s/trial mem_kb=9551872
+2026-09-26T16:56:19Z PROGRESS 300/936 (total recorded 7048) infra=0 elapsed=242s rate=0.806s/trial mem_kb=9472700
+2026-09-26T16:56:59Z PROGRESS 350/936 (total recorded 7098) infra=0 elapsed=281s rate=0.803s/trial mem_kb=9487520
+2026-09-26T16:57:33Z PROGRESS 400/936 (total recorded 7148) infra=0 elapsed=316s rate=0.789s/trial mem_kb=9480116
+2026-09-26T16:58:13Z PROGRESS 450/936 (total recorded 7198) infra=0 elapsed=356s rate=0.791s/trial mem_kb=9492136
+2026-09-26T16:58:49Z PROGRESS 500/936 (total recorded 7248) infra=0 elapsed=391s rate=0.782s/trial mem_kb=9499828
+2026-09-26T16:59:28Z PROGRESS 550/936 (total recorded 7298) infra=0 elapsed=431s rate=0.783s/trial mem_kb=9458328
+2026-09-26T17:00:04Z PROGRESS 600/936 (total recorded 7348) infra=0 elapsed=467s rate=0.778s/trial mem_kb=9460900
+2026-09-26T17:00:46Z PROGRESS 650/936 (total recorded 7398) infra=0 elapsed=508s rate=0.782s/trial mem_kb=9471672
+2026-09-26T17:01:22Z PROGRESS 700/936 (total recorded 7448) infra=0 elapsed=544s rate=0.777s/trial mem_kb=9509140
+2026-09-26T17:02:03Z PROGRESS 750/936 (total recorded 7498) infra=0 elapsed=585s rate=0.780s/trial mem_kb=9523024
+2026-09-26T17:02:39Z PROGRESS 800/936 (total recorded 7548) infra=0 elapsed=621s rate=0.777s/trial mem_kb=9504060
+2026-09-26T17:03:18Z PROGRESS 850/936 (total recorded 7598) infra=0 elapsed=661s rate=0.777s/trial mem_kb=9519088
+2026-09-26T17:03:54Z PROGRESS 900/936 (total recorded 7648) infra=0 elapsed=696s rate=0.774s/trial mem_kb=9487528
+2026-09-26T17:04:23Z PROGRESS 936/936 (total recorded 7684) infra=0 elapsed=725s rate=0.774s/trial mem_kb=9502580
+2026-09-26T17:04:23Z END {"written": 936, "infra": 0, "aborted": null, "skipped_recorded": 0, "elapsed_s": 724.9}
+2026-09-26T17:04:23Z START run_id=e39-20260926t1515z stage=1 experiments=B trials=4800 identities={'responder': 'system:serviceaccount:e39-system:e39-responder', 'reset': 'system:serviceaccount:e39-system:e39-reset', 'writer': 'system:serviceaccount:e39-system:e39-writer'} lock=LOCKED-2026-09-26T15:22:23Z session=SESSION_STAGE1_B.json
+2026-09-26T17:04:23Z RESUME: 7684 trials already recorded, 4800 to run
+2026-09-26T17:04:58Z PROGRESS 50/4800 (total recorded 7734) infra=0 elapsed=35s rate=0.698s/trial mem_kb=9504708
+2026-09-26T17:05:39Z PROGRESS 100/4800 (total recorded 7784) infra=0 elapsed=75s rate=0.753s/trial mem_kb=9516076
+2026-09-26T17:06:13Z PROGRESS 150/4800 (total recorded 7834) infra=0 elapsed=110s rate=0.731s/trial mem_kb=9495808
+2026-09-26T17:06:53Z PROGRESS 200/4800 (total recorded 7884) infra=0 elapsed=150s rate=0.750s/trial mem_kb=9498984
+2026-09-26T17:07:29Z PROGRESS 250/4800 (total recorded 7934) infra=0 elapsed=185s rate=0.741s/trial mem_kb=9482900
+2026-09-26T17:08:09Z PROGRESS 300/4800 (total recorded 7984) infra=0 elapsed=226s rate=0.753s/trial mem_kb=9488440
+2026-09-26T17:08:47Z PROGRESS 350/4800 (total recorded 8034) infra=0 elapsed=263s rate=0.753s/trial mem_kb=9498012
+2026-09-26T17:09:33Z PROGRESS 400/4800 (total recorded 8084) infra=0 elapsed=309s rate=0.774s/trial mem_kb=9355560
+2026-09-26T17:10:17Z PROGRESS 450/4800 (total recorded 8134) infra=0 elapsed=354s rate=0.787s/trial mem_kb=9358576
+2026-09-26T17:10:59Z PROGRESS 500/4800 (total recorded 8184) infra=0 elapsed=396s rate=0.792s/trial mem_kb=9357232
+2026-09-26T17:11:45Z PROGRESS 550/4800 (total recorded 8234) infra=0 elapsed=442s rate=0.803s/trial mem_kb=9282232
+2026-09-26T17:12:33Z PROGRESS 600/4800 (total recorded 8284) infra=0 elapsed=490s rate=0.817s/trial mem_kb=9298244
+2026-09-26T17:13:15Z PROGRESS 650/4800 (total recorded 8334) infra=0 elapsed=532s rate=0.818s/trial mem_kb=9284468
+2026-09-26T17:14:00Z PROGRESS 700/4800 (total recorded 8384) infra=0 elapsed=576s rate=0.823s/trial mem_kb=9250236
+2026-09-26T17:14:39Z PROGRESS 750/4800 (total recorded 8434) infra=0 elapsed=616s rate=0.821s/trial mem_kb=9261716
+2026-09-26T17:15:25Z PROGRESS 800/4800 (total recorded 8484) infra=0 elapsed=662s rate=0.827s/trial mem_kb=9275508
+2026-09-26T17:16:06Z PROGRESS 850/4800 (total recorded 8534) infra=0 elapsed=703s rate=0.827s/trial mem_kb=9422412
+2026-09-26T17:16:44Z PROGRESS 900/4800 (total recorded 8584) infra=0 elapsed=741s rate=0.823s/trial mem_kb=9372028
+2026-09-26T17:17:25Z PROGRESS 950/4800 (total recorded 8634) infra=0 elapsed=782s rate=0.823s/trial mem_kb=9354376
+2026-09-26T17:18:00Z PROGRESS 1000/4800 (total recorded 8684) infra=0 elapsed=817s rate=0.817s/trial mem_kb=9435308
+2026-09-26T17:18:40Z PROGRESS 1050/4800 (total recorded 8734) infra=0 elapsed=857s rate=0.816s/trial mem_kb=9450248
+2026-09-26T17:19:15Z PROGRESS 1100/4800 (total recorded 8784) infra=0 elapsed=891s rate=0.810s/trial mem_kb=9451736
+2026-09-26T17:19:56Z PROGRESS 1150/4800 (total recorded 8834) infra=0 elapsed=933s rate=0.811s/trial mem_kb=9452136
+2026-09-26T17:20:33Z PROGRESS 1200/4800 (total recorded 8884) infra=0 elapsed=970s rate=0.808s/trial mem_kb=9419464
+2026-09-26T17:21:13Z PROGRESS 1250/4800 (total recorded 8934) infra=0 elapsed=1010s rate=0.808s/trial mem_kb=9357104
+2026-09-26T17:21:48Z PROGRESS 1300/4800 (total recorded 8984) infra=0 elapsed=1045s rate=0.804s/trial mem_kb=9429624
+2026-09-26T17:22:30Z PROGRESS 1350/4800 (total recorded 9034) infra=0 elapsed=1086s rate=0.805s/trial mem_kb=9435332
+2026-09-26T17:23:07Z PROGRESS 1400/4800 (total recorded 9084) infra=0 elapsed=1123s rate=0.802s/trial mem_kb=9389892
+2026-09-26T17:23:47Z PROGRESS 1450/4800 (total recorded 9134) infra=0 elapsed=1164s rate=0.803s/trial mem_kb=9389800
+2026-09-26T17:24:23Z PROGRESS 1500/4800 (total recorded 9184) infra=0 elapsed=1199s rate=0.800s/trial mem_kb=9410924
+2026-09-26T17:25:05Z PROGRESS 1550/4800 (total recorded 9234) infra=0 elapsed=1241s rate=0.801s/trial mem_kb=9407260
+2026-09-26T17:25:42Z PROGRESS 1600/4800 (total recorded 9284) infra=0 elapsed=1278s rate=0.799s/trial mem_kb=9333684
+2026-09-26T17:26:22Z PROGRESS 1650/4800 (total recorded 9334) infra=0 elapsed=1319s rate=0.799s/trial mem_kb=9399844
+2026-09-26T17:26:58Z PROGRESS 1700/4800 (total recorded 9384) infra=0 elapsed=1354s rate=0.797s/trial mem_kb=9384748
+2026-09-26T17:27:38Z PROGRESS 1750/4800 (total recorded 9434) infra=0 elapsed=1395s rate=0.797s/trial mem_kb=9402008
+2026-09-26T17:28:15Z PROGRESS 1800/4800 (total recorded 9484) infra=0 elapsed=1432s rate=0.795s/trial mem_kb=9378472
+2026-09-26T17:28:54Z PROGRESS 1850/4800 (total recorded 9534) infra=0 elapsed=1471s rate=0.795s/trial mem_kb=9331044
+2026-09-26T17:29:31Z PROGRESS 1900/4800 (total recorded 9584) infra=0 elapsed=1507s rate=0.793s/trial mem_kb=9334640
+2026-09-26T17:30:09Z PROGRESS 1950/4800 (total recorded 9634) infra=0 elapsed=1545s rate=0.793s/trial mem_kb=9333148
+2026-09-26T17:30:52Z PROGRESS 2000/4800 (total recorded 9684) infra=0 elapsed=1588s rate=0.794s/trial mem_kb=9339272
+2026-09-26T17:31:26Z PROGRESS 2050/4800 (total recorded 9734) infra=0 elapsed=1623s rate=0.792s/trial mem_kb=9331344
+2026-09-26T17:32:07Z PROGRESS 2100/4800 (total recorded 9784) infra=0 elapsed=1663s rate=0.792s/trial mem_kb=9346392
+2026-09-26T17:32:41Z PROGRESS 2150/4800 (total recorded 9834) infra=0 elapsed=1698s rate=0.790s/trial mem_kb=9328396
+2026-09-26T17:33:21Z PROGRESS 2200/4800 (total recorded 9884) infra=0 elapsed=1737s rate=0.790s/trial mem_kb=9328660
+2026-09-26T17:33:57Z PROGRESS 2250/4800 (total recorded 9934) infra=0 elapsed=1773s rate=0.788s/trial mem_kb=9332080
+2026-09-26T17:34:37Z PROGRESS 2300/4800 (total recorded 9984) infra=0 elapsed=1814s rate=0.789s/trial mem_kb=9358100
+2026-09-26T17:35:13Z PROGRESS 2350/4800 (total recorded 10034) infra=0 elapsed=1849s rate=0.787s/trial mem_kb=9371444
+2026-09-26T17:35:54Z PROGRESS 2400/4800 (total recorded 10084) infra=0 elapsed=1891s rate=0.788s/trial mem_kb=9386932
+2026-09-26T17:36:29Z PROGRESS 2450/4800 (total recorded 10134) infra=0 elapsed=1926s rate=0.786s/trial mem_kb=9367376
+2026-09-26T17:37:09Z PROGRESS 2500/4800 (total recorded 10184) infra=0 elapsed=1966s rate=0.786s/trial mem_kb=9374928
+2026-09-26T17:37:44Z PROGRESS 2550/4800 (total recorded 10234) infra=0 elapsed=2001s rate=0.785s/trial mem_kb=9371464
+2026-09-26T17:38:25Z PROGRESS 2600/4800 (total recorded 10284) infra=0 elapsed=2042s rate=0.785s/trial mem_kb=9384656
+2026-09-26T17:39:00Z PROGRESS 2650/4800 (total recorded 10334) infra=0 elapsed=2076s rate=0.783s/trial mem_kb=9343368
+2026-09-26T17:39:41Z PROGRESS 2700/4800 (total recorded 10384) infra=0 elapsed=2117s rate=0.784s/trial mem_kb=9354612
+2026-09-26T17:40:16Z PROGRESS 2750/4800 (total recorded 10434) infra=0 elapsed=2153s rate=0.783s/trial mem_kb=9328648
+2026-09-26T17:40:57Z PROGRESS 2800/4800 (total recorded 10484) infra=0 elapsed=2194s rate=0.783s/trial mem_kb=9352532
+2026-09-26T17:41:32Z PROGRESS 2850/4800 (total recorded 10534) infra=0 elapsed=2228s rate=0.782s/trial mem_kb=9342156
+2026-09-26T17:42:12Z PROGRESS 2900/4800 (total recorded 10584) infra=0 elapsed=2269s rate=0.782s/trial mem_kb=9350156
+2026-09-26T17:42:47Z PROGRESS 2950/4800 (total recorded 10634) infra=0 elapsed=2303s rate=0.781s/trial mem_kb=9330724
+2026-09-26T17:43:27Z PROGRESS 3000/4800 (total recorded 10684) infra=0 elapsed=2344s rate=0.781s/trial mem_kb=9342112
+2026-09-26T17:44:02Z PROGRESS 3050/4800 (total recorded 10734) infra=0 elapsed=2379s rate=0.780s/trial mem_kb=9312336
+2026-09-26T17:44:43Z PROGRESS 3100/4800 (total recorded 10784) infra=0 elapsed=2420s rate=0.781s/trial mem_kb=9295812
+2026-09-26T17:45:19Z PROGRESS 3150/4800 (total recorded 10834) infra=0 elapsed=2455s rate=0.779s/trial mem_kb=9327724
+2026-09-26T17:46:00Z PROGRESS 3200/4800 (total recorded 10884) infra=0 elapsed=2497s rate=0.780s/trial mem_kb=9323420
+2026-09-26T17:46:35Z PROGRESS 3250/4800 (total recorded 10934) infra=0 elapsed=2532s rate=0.779s/trial mem_kb=9328016
+2026-09-26T17:47:15Z PROGRESS 3300/4800 (total recorded 10984) infra=0 elapsed=2572s rate=0.779s/trial mem_kb=9330168
+2026-09-26T17:47:50Z PROGRESS 3350/4800 (total recorded 11034) infra=0 elapsed=2606s rate=0.778s/trial mem_kb=9318640
+2026-09-26T17:48:29Z PROGRESS 3400/4800 (total recorded 11084) infra=0 elapsed=2645s rate=0.778s/trial mem_kb=9308464
+2026-09-26T17:49:02Z PROGRESS 3450/4800 (total recorded 11134) infra=0 elapsed=2679s rate=0.776s/trial mem_kb=9278424
+2026-09-26T17:49:42Z PROGRESS 3500/4800 (total recorded 11184) infra=0 elapsed=2719s rate=0.777s/trial mem_kb=9308540
+2026-09-26T17:50:17Z PROGRESS 3550/4800 (total recorded 11234) infra=0 elapsed=2754s rate=0.776s/trial mem_kb=9311036
+2026-09-26T17:50:59Z PROGRESS 3600/4800 (total recorded 11284) infra=0 elapsed=2795s rate=0.776s/trial mem_kb=9290508
+2026-09-26T17:51:34Z PROGRESS 3650/4800 (total recorded 11334) infra=0 elapsed=2831s rate=0.776s/trial mem_kb=9297916
+2026-09-26T17:52:14Z PROGRESS 3700/4800 (total recorded 11384) infra=0 elapsed=2871s rate=0.776s/trial mem_kb=9299820
+2026-09-26T17:52:49Z PROGRESS 3750/4800 (total recorded 11434) infra=0 elapsed=2905s rate=0.775s/trial mem_kb=9298380
+2026-09-26T17:53:27Z PROGRESS 3800/4800 (total recorded 11484) infra=0 elapsed=2944s rate=0.775s/trial mem_kb=9288108
+2026-09-26T17:54:03Z PROGRESS 3850/4800 (total recorded 11534) infra=0 elapsed=2979s rate=0.774s/trial mem_kb=9271064
+2026-09-26T17:54:43Z PROGRESS 3900/4800 (total recorded 11584) infra=0 elapsed=3019s rate=0.774s/trial mem_kb=9288800
+2026-09-26T17:55:21Z PROGRESS 3950/4800 (total recorded 11634) infra=0 elapsed=3057s rate=0.774s/trial mem_kb=9275924
+2026-09-26T17:56:00Z PROGRESS 4000/4800 (total recorded 11684) infra=0 elapsed=3096s rate=0.774s/trial mem_kb=9280292
+2026-09-26T17:56:39Z PROGRESS 4050/4800 (total recorded 11734) infra=0 elapsed=3135s rate=0.774s/trial mem_kb=9288784
+2026-09-26T17:57:14Z PROGRESS 4100/4800 (total recorded 11784) infra=0 elapsed=3171s rate=0.773s/trial mem_kb=9277996
+2026-09-26T17:57:54Z PROGRESS 4150/4800 (total recorded 11834) infra=0 elapsed=3211s rate=0.774s/trial mem_kb=9267372
+2026-09-26T17:58:29Z PROGRESS 4200/4800 (total recorded 11884) infra=0 elapsed=3245s rate=0.773s/trial mem_kb=9270400
+2026-09-26T17:59:09Z PROGRESS 4250/4800 (total recorded 11934) infra=0 elapsed=3285s rate=0.773s/trial mem_kb=9247760
+2026-09-26T17:59:44Z PROGRESS 4300/4800 (total recorded 11984) infra=0 elapsed=3320s rate=0.772s/trial mem_kb=9237488
+2026-09-26T18:00:25Z PROGRESS 4350/4800 (total recorded 12034) infra=0 elapsed=3361s rate=0.773s/trial mem_kb=9275844
+2026-09-26T18:00:59Z PROGRESS 4400/4800 (total recorded 12084) infra=0 elapsed=3396s rate=0.772s/trial mem_kb=9241656
+2026-09-26T18:01:38Z PROGRESS 4450/4800 (total recorded 12134) infra=0 elapsed=3435s rate=0.772s/trial mem_kb=9242128
+2026-09-26T18:02:13Z PROGRESS 4500/4800 (total recorded 12184) infra=0 elapsed=3470s rate=0.771s/trial mem_kb=9242276
+2026-09-26T18:02:55Z PROGRESS 4550/4800 (total recorded 12234) infra=0 elapsed=3511s rate=0.772s/trial mem_kb=9258108
+2026-09-26T18:03:30Z PROGRESS 4600/4800 (total recorded 12284) infra=0 elapsed=3547s rate=0.771s/trial mem_kb=9240200
+2026-09-26T18:04:10Z PROGRESS 4650/4800 (total recorded 12334) infra=0 elapsed=3587s rate=0.771s/trial mem_kb=9238300
+2026-09-26T18:04:45Z PROGRESS 4700/4800 (total recorded 12384) infra=0 elapsed=3622s rate=0.771s/trial mem_kb=9236888
+2026-09-26T18:05:27Z PROGRESS 4750/4800 (total recorded 12434) infra=0 elapsed=3664s rate=0.771s/trial mem_kb=9225848
+2026-09-26T18:06:04Z PROGRESS 4800/4800 (total recorded 12484) infra=0 elapsed=3700s rate=0.771s/trial mem_kb=9223008
+2026-09-26T18:06:04Z END {"written": 4800, "infra": 0, "aborted": null, "skipped_recorded": 0, "elapsed_s": 3700.3}
+2026-09-26T18:06:04Z START run_id=e39-20260926t1515z stage=1 experiments=D trials=1872 identities={'responder': 'system:serviceaccount:e39-system:e39-responder', 'reset': 'system:serviceaccount:e39-system:e39-reset', 'writer': 'system:serviceaccount:e39-system:e39-writer'} lock=LOCKED-2026-09-26T15:22:23Z session=SESSION_STAGE1_D.json
+2026-09-26T18:06:05Z RESUME: 12484 trials already recorded, 1872 to run
+2026-09-26T18:06:05Z LOAD level -> idle (settle 10.0 s)
+2026-09-26T18:06:28Z LOAD level -> high (settle 10.0 s)
+2026-09-26T18:06:51Z LOAD level -> moderate (settle 10.0 s)
+2026-09-26T18:07:13Z PROGRESS 50/1872 (total recorded 12534) infra=0 elapsed=68s rate=1.364s/trial mem_kb=9220696
+2026-09-26T18:07:24Z LOAD level -> idle (settle 10.0 s)
+2026-09-26T18:07:46Z LOAD level -> high (settle 10.0 s)
+2026-09-26T18:08:09Z LOAD level -> moderate (settle 10.0 s)
+2026-09-26T18:08:21Z PROGRESS 100/1872 (total recorded 12584) infra=0 elapsed=137s rate=1.365s/trial mem_kb=9202460
+2026-09-26T18:08:33Z LOAD level -> idle (settle 10.0 s)
+2026-09-26T18:08:55Z LOAD level -> high (settle 10.0 s)
+2026-09-26T18:09:18Z LOAD level -> idle (settle 10.0 s)
+2026-09-26T18:09:32Z PROGRESS 150/1872 (total recorded 12634) infra=0 elapsed=207s rate=1.382s/trial mem_kb=9217884
+2026-09-26T18:09:42Z LOAD level -> high (settle 10.0 s)
+2026-09-26T18:10:05Z LOAD level -> moderate (settle 10.0 s)
+2026-09-26T18:10:34Z PROGRESS 200/1872 (total recorded 12684) infra=0 elapsed=269s rate=1.347s/trial mem_kb=9203596
+2026-09-26T18:10:41Z LOAD level -> high (settle 10.0 s)
+2026-09-26T18:11:05Z LOAD level -> idle (settle 10.0 s)
+2026-09-26T18:11:26Z LOAD level -> high (settle 10.0 s)
+2026-09-26T18:11:44Z PROGRESS 250/1872 (total recorded 12734) infra=0 elapsed=339s rate=1.358s/trial mem_kb=9209812
+2026-09-26T18:11:51Z LOAD level -> moderate (settle 10.0 s)
+2026-09-26T18:12:14Z LOAD level -> idle (settle 10.0 s)
+2026-09-26T18:12:35Z LOAD level -> moderate (settle 10.0 s)
+2026-09-26T18:12:56Z PROGRESS 300/1872 (total recorded 12784) infra=0 elapsed=412s rate=1.372s/trial mem_kb=9193656
+2026-09-26T18:13:00Z LOAD level -> high (settle 10.0 s)
+2026-09-26T18:13:23Z LOAD level -> idle (settle 10.0 s)
+2026-09-26T18:13:46Z LOAD level -> high (settle 10.0 s)
+2026-09-26T18:14:10Z PROGRESS 350/1872 (total recorded 12834) infra=0 elapsed=485s rate=1.387s/trial mem_kb=9175796
+2026-09-26T18:14:12Z LOAD level -> idle (settle 10.0 s)
+2026-09-26T18:14:34Z LOAD level -> moderate (settle 10.0 s)
+2026-09-26T18:15:10Z PROGRESS 400/1872 (total recorded 12884) infra=0 elapsed=545s rate=1.363s/trial mem_kb=9170148
+2026-09-26T18:15:10Z LOAD level -> idle (settle 10.0 s)
+2026-09-26T18:15:32Z LOAD level -> high (settle 10.0 s)
+2026-09-26T18:15:55Z LOAD level -> idle (settle 10.0 s)
+2026-09-26T18:16:19Z LOAD level -> moderate (settle 10.0 s)
+2026-09-26T18:16:30Z PROGRESS 450/1872 (total recorded 12934) infra=0 elapsed=625s rate=1.388s/trial mem_kb=9148944
+2026-09-26T18:16:40Z LOAD level -> high (settle 10.0 s)
+2026-09-26T18:17:03Z LOAD level -> moderate (settle 10.0 s)
+2026-09-26T18:17:27Z LOAD level -> high (settle 10.0 s)
+2026-09-26T18:17:40Z PROGRESS 500/1872 (total recorded 12984) infra=0 elapsed=695s rate=1.390s/trial mem_kb=9130676
+2026-09-26T18:17:49Z LOAD level -> idle (settle 10.0 s)
+2026-09-26T18:18:11Z LOAD level -> moderate (settle 10.0 s)
+2026-09-26T18:18:35Z LOAD level -> high (settle 10.0 s)
+2026-09-26T18:18:50Z PROGRESS 550/1872 (total recorded 13034) infra=0 elapsed=765s rate=1.391s/trial mem_kb=9163348
+2026-09-26T18:18:58Z LOAD level -> idle (settle 10.0 s)
+2026-09-26T18:19:19Z LOAD level -> moderate (settle 10.0 s)
+2026-09-26T18:19:43Z LOAD level -> idle (settle 10.0 s)
+2026-09-26T18:19:58Z PROGRESS 600/1872 (total recorded 13084) infra=0 elapsed=833s rate=1.389s/trial mem_kb=9126032
+2026-09-26T18:20:04Z LOAD level -> high (settle 10.0 s)
+2026-09-26T18:20:44Z LOAD level -> idle (settle 10.0 s)
+2026-09-26T18:21:01Z PROGRESS 650/1872 (total recorded 13134) infra=0 elapsed=897s rate=1.379s/trial mem_kb=9200376
+2026-09-26T18:21:06Z LOAD level -> moderate (settle 10.0 s)
+2026-09-26T18:21:28Z LOAD level -> idle (settle 10.0 s)
+2026-09-26T18:21:52Z LOAD level -> moderate (settle 10.0 s)
+2026-09-26T18:22:12Z PROGRESS 700/1872 (total recorded 13184) infra=0 elapsed=967s rate=1.381s/trial mem_kb=9193388
+2026-09-26T18:22:15Z LOAD level -> high (settle 10.0 s)
+2026-09-26T18:22:38Z LOAD level -> idle (settle 10.0 s)
+2026-09-26T18:23:02Z LOAD level -> high (settle 10.0 s)
+2026-09-26T18:23:23Z PROGRESS 750/1872 (total recorded 13234) infra=0 elapsed=1038s rate=1.384s/trial mem_kb=9175696
+2026-09-26T18:23:25Z LOAD level -> moderate (settle 10.0 s)
+2026-09-26T18:23:46Z LOAD level -> idle (settle 10.0 s)
+2026-09-26T18:24:09Z LOAD level -> moderate (settle 10.0 s)
+2026-09-26T18:24:31Z PROGRESS 800/1872 (total recorded 13284) infra=0 elapsed=1106s rate=1.383s/trial mem_kb=9166296
+2026-09-26T18:24:31Z LOAD level -> high (settle 10.0 s)
+2026-09-26T18:25:09Z LOAD level -> moderate (settle 10.0 s)
+2026-09-26T18:25:32Z LOAD level -> idle (settle 10.0 s)
+2026-09-26T18:25:44Z PROGRESS 850/1872 (total recorded 13334) infra=0 elapsed=1179s rate=1.387s/trial mem_kb=9185424
+2026-09-26T18:25:54Z LOAD level -> high (settle 10.0 s)
+2026-09-26T18:26:19Z LOAD level -> moderate (settle 10.0 s)
+2026-09-26T18:26:41Z LOAD level -> idle (settle 10.0 s)
+2026-09-26T18:26:54Z PROGRESS 900/1872 (total recorded 13384) infra=0 elapsed=1249s rate=1.388s/trial mem_kb=9184092
+2026-09-26T18:27:14Z LOAD level -> moderate (settle 10.0 s)
+2026-09-26T18:27:36Z LOAD level -> high (settle 10.0 s)
+2026-09-26T18:27:51Z PROGRESS 950/1872 (total recorded 13434) infra=0 elapsed=1306s rate=1.375s/trial mem_kb=9176880
+2026-09-26T18:27:59Z LOAD level -> idle (settle 10.0 s)
+2026-09-26T18:28:21Z LOAD level -> moderate (settle 10.0 s)
+2026-09-26T18:28:43Z LOAD level -> high (settle 10.0 s)
+2026-09-26T18:28:59Z PROGRESS 1000/1872 (total recorded 13484) infra=0 elapsed=1374s rate=1.374s/trial mem_kb=9176036
+2026-09-26T18:29:05Z LOAD level -> moderate (settle 10.0 s)
+2026-09-26T18:29:29Z LOAD level -> idle (settle 10.0 s)
+2026-09-26T18:29:50Z LOAD level -> high (settle 10.0 s)
+2026-09-26T18:30:08Z PROGRESS 1050/1872 (total recorded 13534) infra=0 elapsed=1443s rate=1.374s/trial mem_kb=9159740
+2026-09-26T18:30:13Z LOAD level -> moderate (settle 10.0 s)
+2026-09-26T18:30:37Z LOAD level -> idle (settle 10.0 s)
+2026-09-26T18:30:59Z LOAD level -> high (settle 10.0 s)
+2026-09-26T18:31:18Z PROGRESS 1100/1872 (total recorded 13584) infra=0 elapsed=1513s rate=1.376s/trial mem_kb=9149812
+2026-09-26T18:31:34Z LOAD level -> moderate (settle 10.0 s)
+2026-09-26T18:31:56Z LOAD level -> idle (settle 10.0 s)
+2026-09-26T18:32:16Z PROGRESS 1150/1872 (total recorded 13634) infra=0 elapsed=1571s rate=1.366s/trial mem_kb=9166136
+2026-09-26T18:32:29Z LOAD level -> moderate (settle 10.0 s)
+2026-09-26T18:32:53Z LOAD level -> high (settle 10.0 s)
+2026-09-26T18:33:17Z PROGRESS 1200/1872 (total recorded 13684) infra=0 elapsed=1632s rate=1.360s/trial mem_kb=9148808
+2026-09-26T18:33:17Z LOAD level -> idle (settle 10.0 s)
+2026-09-26T18:33:38Z LOAD level -> moderate (settle 10.0 s)
+2026-09-26T18:34:00Z LOAD level -> high (settle 10.0 s)
+2026-09-26T18:34:24Z PROGRESS 1250/1872 (total recorded 13734) infra=0 elapsed=1699s rate=1.359s/trial mem_kb=9151148
+2026-09-26T18:34:35Z LOAD level -> moderate (settle 10.0 s)
+2026-09-26T18:34:59Z LOAD level -> idle (settle 10.0 s)
+2026-09-26T18:35:24Z PROGRESS 1300/1872 (total recorded 13784) infra=0 elapsed=1759s rate=1.353s/trial mem_kb=9147108
+2026-09-26T18:35:33Z LOAD level -> high (settle 10.0 s)
+2026-09-26T18:35:57Z LOAD level -> moderate (settle 10.0 s)
+2026-09-26T18:36:19Z LOAD level -> idle (settle 10.0 s)
+2026-09-26T18:36:33Z PROGRESS 1350/1872 (total recorded 13834) infra=0 elapsed=1828s rate=1.354s/trial mem_kb=9133392
+2026-09-26T18:36:40Z LOAD level -> high (settle 10.0 s)
+2026-09-26T18:37:05Z LOAD level -> moderate (settle 10.0 s)
+2026-09-26T18:37:32Z PROGRESS 1400/1872 (total recorded 13884) infra=0 elapsed=1887s rate=1.348s/trial mem_kb=9124484
+2026-09-26T18:37:38Z LOAD level -> idle (settle 10.0 s)
+2026-09-26T18:38:00Z LOAD level -> high (settle 10.0 s)
+2026-09-26T18:38:22Z LOAD level -> idle (settle 10.0 s)
+2026-09-26T18:38:39Z PROGRESS 1450/1872 (total recorded 13934) infra=0 elapsed=1954s rate=1.348s/trial mem_kb=9144220
+2026-09-26T18:38:43Z LOAD level -> moderate (settle 10.0 s)
+2026-09-26T18:39:05Z LOAD level -> high (settle 10.0 s)
+2026-09-26T18:39:36Z PROGRESS 1500/1872 (total recorded 13984) infra=0 elapsed=2011s rate=1.341s/trial mem_kb=9129916
+2026-09-26T18:39:39Z LOAD level -> moderate (settle 10.0 s)
+2026-09-26T18:40:00Z LOAD level -> idle (settle 10.0 s)
+2026-09-26T18:40:35Z PROGRESS 1550/1872 (total recorded 14034) infra=0 elapsed=2070s rate=1.335s/trial mem_kb=9119880
+2026-09-26T18:40:36Z LOAD level -> high (settle 10.0 s)
+2026-09-26T18:41:01Z LOAD level -> moderate (settle 10.0 s)
+2026-09-26T18:41:37Z PROGRESS 1600/1872 (total recorded 14084) infra=0 elapsed=2132s rate=1.332s/trial mem_kb=13760132
+2026-09-26T18:41:37Z LOAD level -> high (settle 10.0 s)
+2026-09-26T18:41:57Z LOAD level -> idle (settle 10.0 s)
+2026-09-26T18:42:27Z LOAD level -> moderate (settle 10.0 s)
+2026-09-26T18:42:38Z PROGRESS 1650/1872 (total recorded 14134) infra=0 elapsed=2193s rate=1.329s/trial mem_kb=13759660
+2026-09-26T18:42:47Z LOAD level -> high (settle 10.0 s)
+2026-09-26T18:43:08Z LOAD level -> moderate (settle 10.0 s)
+2026-09-26T18:43:28Z LOAD level -> idle (settle 10.0 s)
+2026-09-26T18:43:40Z PROGRESS 1700/1872 (total recorded 14184) infra=0 elapsed=2255s rate=1.326s/trial mem_kb=13762812
+2026-09-26T18:43:47Z LOAD level -> high (settle 10.0 s)
+2026-09-26T18:44:07Z LOAD level -> moderate (settle 10.0 s)
+2026-09-26T18:44:26Z LOAD level -> idle (settle 10.0 s)
+2026-09-26T18:44:40Z PROGRESS 1750/1872 (total recorded 14234) infra=0 elapsed=2315s rate=1.323s/trial mem_kb=13755316
+2026-09-26T18:44:45Z LOAD level -> high (settle 10.0 s)
+2026-09-26T18:45:06Z LOAD level -> idle (settle 10.0 s)
+2026-09-26T18:45:27Z LOAD level -> moderate (settle 10.0 s)
+2026-09-26T18:45:43Z PROGRESS 1800/1872 (total recorded 14284) infra=0 elapsed=2378s rate=1.321s/trial mem_kb=13733808
+2026-09-26T18:45:48Z LOAD level -> high (settle 10.0 s)
+2026-09-26T18:46:19Z LOAD level -> moderate (settle 10.0 s)
+2026-09-26T18:46:35Z PROGRESS 1850/1872 (total recorded 14334) infra=0 elapsed=2431s rate=1.314s/trial mem_kb=13740320
+2026-09-26T18:46:39Z LOAD level -> idle (settle 10.0 s)
+2026-09-26T18:47:00Z PROGRESS 1872/1872 (total recorded 14356) infra=0 elapsed=2455s rate=1.311s/trial mem_kb=13623048
+2026-09-26T18:47:00Z END {"written": 1872, "infra": 0, "aborted": null, "skipped_recorded": 0, "elapsed_s": 2455.0}
+2026-09-26T18:47:01Z START run_id=e39-20260926t1515z stage=1 experiments=C trials=3840 identities={'responder': 'system:serviceaccount:e39-system:e39-responder', 'reset': 'system:serviceaccount:e39-system:e39-reset', 'writer': 'system:serviceaccount:e39-system:e39-writer'} lock=LOCKED-2026-09-26T15:22:23Z session=SESSION_STAGE1_C.json
+2026-09-26T18:47:01Z RESUME: 14356 trials already recorded, 3840 to run
+2026-09-26T18:47:47Z PROGRESS 50/3840 (total recorded 14406) infra=0 elapsed=46s rate=0.916s/trial mem_kb=13741288
+2026-09-26T18:48:22Z PROGRESS 100/3840 (total recorded 14456) infra=0 elapsed=81s rate=0.807s/trial mem_kb=13738140
+2026-09-26T18:49:12Z PROGRESS 150/3840 (total recorded 14506) infra=0 elapsed=131s rate=0.874s/trial mem_kb=13735764
+2026-09-26T18:50:09Z PROGRESS 200/3840 (total recorded 14556) infra=0 elapsed=188s rate=0.939s/trial mem_kb=13736744
+2026-09-26T18:50:51Z PROGRESS 250/3840 (total recorded 14606) infra=0 elapsed=230s rate=0.918s/trial mem_kb=13740892
+2026-09-26T18:51:35Z PROGRESS 300/3840 (total recorded 14656) infra=0 elapsed=274s rate=0.912s/trial mem_kb=13735900
+2026-09-26T18:52:24Z PROGRESS 350/3840 (total recorded 14706) infra=0 elapsed=323s rate=0.922s/trial mem_kb=13719824
+2026-09-26T18:53:15Z PROGRESS 400/3840 (total recorded 14756) infra=0 elapsed=374s rate=0.935s/trial mem_kb=13741876
+2026-09-26T18:53:57Z PROGRESS 450/3840 (total recorded 14806) infra=0 elapsed=415s rate=0.923s/trial mem_kb=13742908
+2026-09-26T18:54:44Z PROGRESS 500/3840 (total recorded 14856) infra=0 elapsed=463s rate=0.925s/trial mem_kb=13744608
+2026-09-26T18:55:16Z PROGRESS 550/3840 (total recorded 14906) infra=0 elapsed=495s rate=0.901s/trial mem_kb=13749560
+2026-09-26T18:55:48Z PROGRESS 600/3840 (total recorded 14956) infra=0 elapsed=527s rate=0.879s/trial mem_kb=13748140
+2026-09-26T18:56:52Z PROGRESS 650/3840 (total recorded 15006) infra=0 elapsed=591s rate=0.909s/trial mem_kb=13750900
+2026-09-26T18:57:37Z PROGRESS 700/3840 (total recorded 15056) infra=0 elapsed=636s rate=0.909s/trial mem_kb=13742328
+2026-09-26T18:58:25Z PROGRESS 750/3840 (total recorded 15106) infra=0 elapsed=684s rate=0.912s/trial mem_kb=13742484
+2026-09-26T18:59:07Z PROGRESS 800/3840 (total recorded 15156) infra=0 elapsed=726s rate=0.907s/trial mem_kb=13740804
+2026-09-26T18:59:45Z PROGRESS 850/3840 (total recorded 15206) infra=0 elapsed=763s rate=0.898s/trial mem_kb=13750456
+2026-09-26T19:00:34Z PROGRESS 900/3840 (total recorded 15256) infra=0 elapsed=813s rate=0.903s/trial mem_kb=13748384
+2026-09-26T19:01:11Z PROGRESS 950/3840 (total recorded 15306) infra=0 elapsed=850s rate=0.894s/trial mem_kb=13746464
+2026-09-26T19:02:07Z PROGRESS 1000/3840 (total recorded 15356) infra=0 elapsed=905s rate=0.905s/trial mem_kb=13744848
+2026-09-26T19:03:04Z PROGRESS 1050/3840 (total recorded 15406) infra=0 elapsed=962s rate=0.916s/trial mem_kb=13746112
+2026-09-26T19:03:35Z PROGRESS 1100/3840 (total recorded 15456) infra=0 elapsed=994s rate=0.904s/trial mem_kb=13747180
+2026-09-26T19:04:25Z PROGRESS 1150/3840 (total recorded 15506) infra=0 elapsed=1044s rate=0.908s/trial mem_kb=13747424
+2026-09-26T19:05:11Z PROGRESS 1200/3840 (total recorded 15556) infra=0 elapsed=1090s rate=0.908s/trial mem_kb=13748260
+2026-09-26T19:06:03Z PROGRESS 1250/3840 (total recorded 15606) infra=0 elapsed=1141s rate=0.913s/trial mem_kb=13748568
+2026-09-26T19:06:47Z PROGRESS 1300/3840 (total recorded 15656) infra=0 elapsed=1186s rate=0.912s/trial mem_kb=13747308
+2026-09-26T19:07:31Z PROGRESS 1350/3840 (total recorded 15706) infra=0 elapsed=1229s rate=0.911s/trial mem_kb=13745060
+2026-09-26T19:08:16Z PROGRESS 1400/3840 (total recorded 15756) infra=0 elapsed=1275s rate=0.911s/trial mem_kb=13745536
+2026-09-26T19:08:51Z PROGRESS 1450/3840 (total recorded 15806) infra=0 elapsed=1310s rate=0.904s/trial mem_kb=13746128
+2026-09-26T19:09:42Z PROGRESS 1500/3840 (total recorded 15856) infra=0 elapsed=1361s rate=0.907s/trial mem_kb=13734832
+2026-09-26T19:10:35Z PROGRESS 1550/3840 (total recorded 15906) infra=0 elapsed=1414s rate=0.912s/trial mem_kb=13739608
+2026-09-26T19:11:11Z PROGRESS 1600/3840 (total recorded 15956) infra=0 elapsed=1450s rate=0.906s/trial mem_kb=13740648
+2026-09-26T19:11:59Z PROGRESS 1650/3840 (total recorded 16006) infra=0 elapsed=1497s rate=0.908s/trial mem_kb=13746988
+2026-09-26T19:12:39Z PROGRESS 1700/3840 (total recorded 16056) infra=0 elapsed=1538s rate=0.904s/trial mem_kb=13747980
+2026-09-26T19:13:33Z PROGRESS 1750/3840 (total recorded 16106) infra=0 elapsed=1592s rate=0.910s/trial mem_kb=13749068
+2026-09-26T19:14:15Z PROGRESS 1800/3840 (total recorded 16156) infra=0 elapsed=1634s rate=0.908s/trial mem_kb=13750076
+2026-09-26T19:14:53Z PROGRESS 1850/3840 (total recorded 16206) infra=0 elapsed=1672s rate=0.904s/trial mem_kb=13750384
+2026-09-26T19:15:54Z PROGRESS 1900/3840 (total recorded 16256) infra=0 elapsed=1733s rate=0.912s/trial mem_kb=13748232
+2026-09-26T19:16:31Z PROGRESS 1950/3840 (total recorded 16306) infra=0 elapsed=1770s rate=0.908s/trial mem_kb=13747992
+2026-09-26T19:17:11Z PROGRESS 2000/3840 (total recorded 16356) infra=0 elapsed=1810s rate=0.905s/trial mem_kb=13747484
+2026-09-26T19:17:59Z PROGRESS 2050/3840 (total recorded 16406) infra=0 elapsed=1858s rate=0.906s/trial mem_kb=13748300
+2026-09-26T19:18:43Z PROGRESS 2100/3840 (total recorded 16456) infra=0 elapsed=1902s rate=0.906s/trial mem_kb=13748048
+2026-09-26T19:19:29Z PROGRESS 2150/3840 (total recorded 16506) infra=0 elapsed=1948s rate=0.906s/trial mem_kb=13748648
+2026-09-26T19:20:04Z PROGRESS 2200/3840 (total recorded 16556) infra=0 elapsed=1983s rate=0.901s/trial mem_kb=13737320
+2026-09-26T19:20:53Z PROGRESS 2250/3840 (total recorded 16606) infra=0 elapsed=2031s rate=0.903s/trial mem_kb=13741608
+2026-09-26T19:21:38Z PROGRESS 2300/3840 (total recorded 16656) infra=0 elapsed=2077s rate=0.903s/trial mem_kb=13742216
+2026-09-26T19:22:34Z PROGRESS 2350/3840 (total recorded 16706) infra=0 elapsed=2133s rate=0.907s/trial mem_kb=13738704
+2026-09-26T19:23:19Z PROGRESS 2400/3840 (total recorded 16756) infra=0 elapsed=2178s rate=0.908s/trial mem_kb=13740024
+2026-09-26T19:23:52Z PROGRESS 2450/3840 (total recorded 16806) infra=0 elapsed=2211s rate=0.903s/trial mem_kb=13741248
+2026-09-26T19:24:54Z PROGRESS 2500/3840 (total recorded 16856) infra=0 elapsed=2273s rate=0.909s/trial mem_kb=13741604
+2026-09-26T19:25:29Z PROGRESS 2550/3840 (total recorded 16906) infra=0 elapsed=2308s rate=0.905s/trial mem_kb=13740072
+2026-09-26T19:26:07Z PROGRESS 2600/3840 (total recorded 16956) infra=0 elapsed=2345s rate=0.902s/trial mem_kb=13739836
+2026-09-26T19:27:08Z PROGRESS 2650/3840 (total recorded 17006) infra=0 elapsed=2407s rate=0.908s/trial mem_kb=13738620
+2026-09-26T19:27:50Z PROGRESS 2700/3840 (total recorded 17056) infra=0 elapsed=2449s rate=0.907s/trial mem_kb=13737496
+2026-09-26T19:28:35Z PROGRESS 2750/3840 (total recorded 17106) infra=0 elapsed=2494s rate=0.907s/trial mem_kb=13739420
+2026-09-26T19:29:20Z PROGRESS 2800/3840 (total recorded 17156) infra=0 elapsed=2539s rate=0.907s/trial mem_kb=13736504
+2026-09-26T19:30:04Z PROGRESS 2850/3840 (total recorded 17206) infra=0 elapsed=2582s rate=0.906s/trial mem_kb=13722864
+2026-09-26T19:30:46Z PROGRESS 2900/3840 (total recorded 17256) infra=0 elapsed=2625s rate=0.905s/trial mem_kb=13724552
+2026-09-26T19:31:32Z PROGRESS 2950/3840 (total recorded 17306) infra=0 elapsed=2671s rate=0.905s/trial mem_kb=13726024
+2026-09-26T19:32:25Z PROGRESS 3000/3840 (total recorded 17356) infra=0 elapsed=2723s rate=0.908s/trial mem_kb=13729052
+2026-09-26T19:33:07Z PROGRESS 3050/3840 (total recorded 17406) infra=0 elapsed=2766s rate=0.907s/trial mem_kb=13730280
+2026-09-26T19:33:52Z PROGRESS 3100/3840 (total recorded 17456) infra=0 elapsed=2811s rate=0.907s/trial mem_kb=13731560
+2026-09-26T19:34:35Z PROGRESS 3150/3840 (total recorded 17506) infra=0 elapsed=2854s rate=0.906s/trial mem_kb=13732612
+2026-09-26T19:35:21Z PROGRESS 3200/3840 (total recorded 17556) infra=0 elapsed=2900s rate=0.906s/trial mem_kb=13733144
+2026-09-26T19:36:05Z PROGRESS 3250/3840 (total recorded 17606) infra=0 elapsed=2944s rate=0.906s/trial mem_kb=13735424
+2026-09-26T19:36:49Z PROGRESS 3300/3840 (total recorded 17656) infra=0 elapsed=2988s rate=0.905s/trial mem_kb=13726828
+2026-09-26T19:37:33Z PROGRESS 3350/3840 (total recorded 17706) infra=0 elapsed=3032s rate=0.905s/trial mem_kb=13728180
+2026-09-26T19:38:19Z PROGRESS 3400/3840 (total recorded 17756) infra=0 elapsed=3078s rate=0.905s/trial mem_kb=13729220
+2026-09-26T19:39:12Z PROGRESS 3450/3840 (total recorded 17806) infra=0 elapsed=3131s rate=0.908s/trial mem_kb=13730488
+2026-09-26T19:39:47Z PROGRESS 3500/3840 (total recorded 17856) infra=0 elapsed=3166s rate=0.905s/trial mem_kb=13726568
+2026-09-26T19:40:37Z PROGRESS 3550/3840 (total recorded 17906) infra=0 elapsed=3216s rate=0.906s/trial mem_kb=13731032
+2026-09-26T19:41:23Z PROGRESS 3600/3840 (total recorded 17956) infra=0 elapsed=3262s rate=0.906s/trial mem_kb=13732116
+2026-09-26T19:42:07Z PROGRESS 3650/3840 (total recorded 18006) infra=0 elapsed=3306s rate=0.906s/trial mem_kb=13733416
+2026-09-26T19:42:59Z PROGRESS 3700/3840 (total recorded 18056) infra=0 elapsed=3358s rate=0.908s/trial mem_kb=13733924
+2026-09-26T19:43:44Z PROGRESS 3750/3840 (total recorded 18106) infra=0 elapsed=3403s rate=0.907s/trial mem_kb=13735256
+2026-09-26T19:44:11Z PROGRESS 3800/3840 (total recorded 18156) infra=0 elapsed=3430s rate=0.903s/trial mem_kb=13726036
+2026-09-26T19:45:01Z PROGRESS 3840/3840 (total recorded 18196) infra=0 elapsed=3479s rate=0.906s/trial mem_kb=13728216
+2026-09-26T19:45:01Z END {"written": 3840, "infra": 0, "aborted": null, "skipped_recorded": 0, "elapsed_s": 3479.5}
+2026-09-26T19:45:25Z START run_id=e39-20260926t1515z stage=2 experiments=A trials=2538 identities={'responder': 'system:serviceaccount:e39-system:e39-responder', 'reset': 'system:serviceaccount:e39-system:e39-reset', 'writer': 'system:serviceaccount:e39-system:e39-writer', 'mirror': 'system:serviceaccount:e39-system:e39-mirror'} lock=LOCKED-2026-09-26T15:22:23Z session=SESSION_STAGE2_A.json
+2026-09-26T19:45:25Z RESUME: 18196 trials already recorded, 2538 to run
+2026-09-26T19:46:04Z PROGRESS 50/2538 (total recorded 18246) infra=0 elapsed=39s rate=0.776s/trial mem_kb=13734368
+2026-09-26T19:46:34Z PROGRESS 100/2538 (total recorded 18296) infra=0 elapsed=69s rate=0.690s/trial mem_kb=13732952
+2026-09-26T19:47:09Z PROGRESS 150/2538 (total recorded 18346) infra=0 elapsed=104s rate=0.692s/trial mem_kb=13723876
+2026-09-26T19:47:39Z PROGRESS 200/2538 (total recorded 18396) infra=0 elapsed=134s rate=0.668s/trial mem_kb=13721796
+2026-09-26T19:48:15Z PROGRESS 250/2538 (total recorded 18446) infra=0 elapsed=170s rate=0.679s/trial mem_kb=13718468
+2026-09-26T19:48:45Z PROGRESS 300/2538 (total recorded 18496) infra=0 elapsed=200s rate=0.666s/trial mem_kb=13710836
+2026-09-26T19:49:17Z PROGRESS 350/2538 (total recorded 18546) infra=0 elapsed=232s rate=0.663s/trial mem_kb=13713484
+2026-09-26T19:49:51Z PROGRESS 400/2538 (total recorded 18596) infra=0 elapsed=265s rate=0.663s/trial mem_kb=13698444
+2026-09-26T19:50:21Z PROGRESS 450/2538 (total recorded 18646) infra=0 elapsed=296s rate=0.658s/trial mem_kb=13692080
+2026-09-26T19:50:57Z PROGRESS 500/2538 (total recorded 18696) infra=0 elapsed=332s rate=0.664s/trial mem_kb=13697156
+2026-09-26T19:51:27Z PROGRESS 550/2538 (total recorded 18746) infra=0 elapsed=362s rate=0.658s/trial mem_kb=13712392
+2026-09-26T19:52:04Z PROGRESS 600/2538 (total recorded 18796) infra=0 elapsed=398s rate=0.664s/trial mem_kb=13715188
+2026-09-26T19:52:33Z PROGRESS 650/2538 (total recorded 18846) infra=0 elapsed=427s rate=0.658s/trial mem_kb=13693468
+2026-09-26T19:53:08Z PROGRESS 700/2538 (total recorded 18896) infra=0 elapsed=463s rate=0.662s/trial mem_kb=13703280
+2026-09-26T19:53:38Z PROGRESS 750/2538 (total recorded 18946) infra=0 elapsed=493s rate=0.657s/trial mem_kb=13680580
+2026-09-26T19:54:08Z PROGRESS 800/2538 (total recorded 18996) infra=0 elapsed=523s rate=0.654s/trial mem_kb=13673912
+2026-09-26T19:54:44Z PROGRESS 850/2538 (total recorded 19046) infra=0 elapsed=559s rate=0.657s/trial mem_kb=13690080
+2026-09-26T19:55:14Z PROGRESS 900/2538 (total recorded 19096) infra=0 elapsed=589s rate=0.654s/trial mem_kb=13687648
+2026-09-26T19:55:51Z PROGRESS 950/2538 (total recorded 19146) infra=0 elapsed=626s rate=0.659s/trial mem_kb=13669308
+2026-09-26T19:56:22Z PROGRESS 1000/2538 (total recorded 19196) infra=0 elapsed=656s rate=0.656s/trial mem_kb=13671632
+2026-09-26T19:56:57Z PROGRESS 1050/2538 (total recorded 19246) infra=0 elapsed=692s rate=0.659s/trial mem_kb=13670528
+2026-09-26T19:57:27Z PROGRESS 1100/2538 (total recorded 19296) infra=0 elapsed=722s rate=0.656s/trial mem_kb=13675516
+2026-09-26T19:58:02Z PROGRESS 1150/2538 (total recorded 19346) infra=0 elapsed=757s rate=0.658s/trial mem_kb=13677456
+2026-09-26T19:58:33Z PROGRESS 1200/2538 (total recorded 19396) infra=0 elapsed=788s rate=0.656s/trial mem_kb=13668784
+2026-09-26T19:59:03Z PROGRESS 1250/2538 (total recorded 19446) infra=0 elapsed=818s rate=0.654s/trial mem_kb=13673844
+2026-09-26T19:59:39Z PROGRESS 1300/2538 (total recorded 19496) infra=0 elapsed=854s rate=0.657s/trial mem_kb=13677780
+2026-09-26T20:00:09Z PROGRESS 1350/2538 (total recorded 19546) infra=0 elapsed=884s rate=0.655s/trial mem_kb=13661384
+2026-09-26T20:00:47Z PROGRESS 1400/2538 (total recorded 19596) infra=0 elapsed=921s rate=0.658s/trial mem_kb=13691108
+2026-09-26T20:01:17Z PROGRESS 1450/2538 (total recorded 19646) infra=0 elapsed=952s rate=0.656s/trial mem_kb=13671588
+2026-09-26T20:01:54Z PROGRESS 1500/2538 (total recorded 19696) infra=0 elapsed=989s rate=0.659s/trial mem_kb=13671616
+2026-09-26T20:02:24Z PROGRESS 1550/2538 (total recorded 19746) infra=0 elapsed=1019s rate=0.657s/trial mem_kb=13648564
+2026-09-26T20:02:58Z PROGRESS 1600/2538 (total recorded 19796) infra=0 elapsed=1053s rate=0.658s/trial mem_kb=13651844
+2026-09-26T20:03:31Z PROGRESS 1650/2538 (total recorded 19846) infra=0 elapsed=1086s rate=0.658s/trial mem_kb=13657976
+2026-09-26T20:04:01Z PROGRESS 1700/2538 (total recorded 19896) infra=0 elapsed=1116s rate=0.656s/trial mem_kb=13647904
+2026-09-26T20:04:37Z PROGRESS 1750/2538 (total recorded 19946) infra=0 elapsed=1151s rate=0.658s/trial mem_kb=13665084
+2026-09-26T20:05:07Z PROGRESS 1800/2538 (total recorded 19996) infra=0 elapsed=1182s rate=0.656s/trial mem_kb=13642888
+2026-09-26T20:05:44Z PROGRESS 1850/2538 (total recorded 20046) infra=0 elapsed=1219s rate=0.659s/trial mem_kb=13664696
+2026-09-26T20:06:14Z PROGRESS 1900/2538 (total recorded 20096) infra=0 elapsed=1249s rate=0.657s/trial mem_kb=13658824
+2026-09-26T20:06:50Z PROGRESS 1950/2538 (total recorded 20146) infra=0 elapsed=1285s rate=0.659s/trial mem_kb=13650752
+2026-09-26T20:07:20Z PROGRESS 2000/2538 (total recorded 20196) infra=0 elapsed=1315s rate=0.657s/trial mem_kb=13656112
+2026-09-26T20:07:50Z PROGRESS 2050/2538 (total recorded 20246) infra=0 elapsed=1345s rate=0.656s/trial mem_kb=13638292
+2026-09-26T20:08:26Z PROGRESS 2100/2538 (total recorded 20296) infra=0 elapsed=1380s rate=0.657s/trial mem_kb=13658344
+2026-09-26T20:08:56Z PROGRESS 2150/2538 (total recorded 20346) infra=0 elapsed=1410s rate=0.656s/trial mem_kb=13636696
+2026-09-26T20:09:30Z PROGRESS 2200/2538 (total recorded 20396) infra=0 elapsed=1445s rate=0.657s/trial mem_kb=13649240
+2026-09-26T20:10:00Z PROGRESS 2250/2538 (total recorded 20446) infra=0 elapsed=1475s rate=0.656s/trial mem_kb=13629348
+2026-09-26T20:10:38Z PROGRESS 2300/2538 (total recorded 20496) infra=0 elapsed=1513s rate=0.658s/trial mem_kb=13641124
+2026-09-26T20:11:08Z PROGRESS 2350/2538 (total recorded 20546) infra=0 elapsed=1543s rate=0.656s/trial mem_kb=13635236
+2026-09-26T20:11:44Z PROGRESS 2400/2538 (total recorded 20596) infra=0 elapsed=1579s rate=0.658s/trial mem_kb=13638276
+2026-09-26T20:12:15Z PROGRESS 2450/2538 (total recorded 20646) infra=0 elapsed=1610s rate=0.657s/trial mem_kb=13615212
+2026-09-26T20:12:45Z PROGRESS 2500/2538 (total recorded 20696) infra=0 elapsed=1639s rate=0.656s/trial mem_kb=13624760
+2026-09-26T20:13:14Z PROGRESS 2538/2538 (total recorded 20734) infra=0 elapsed=1669s rate=0.657s/trial mem_kb=13621436
+2026-09-26T20:13:14Z END {"written": 2538, "infra": 0, "aborted": null, "skipped_recorded": 0, "elapsed_s": 1668.7}

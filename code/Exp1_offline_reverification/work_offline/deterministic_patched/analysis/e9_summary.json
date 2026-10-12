@@ -1,0 +1,75 @@
+{
+  "controls": 5,
+  "all_oracle_valid": true,
+  "all_oracle_attack_goal_false": true,
+  "defense_summary": {
+    "B0": {
+      "n": 5,
+      "unsafe": 0,
+      "false_abort": 0
+    },
+    "B2": {
+      "n": 5,
+      "unsafe": 0,
+      "false_abort": 0
+    },
+    "B4": {
+      "n": 5,
+      "unsafe": 0,
+      "false_abort": 0
+    },
+    "B6": {
+      "n": 5,
+      "unsafe": 0,
+      "false_abort": 0
+    },
+    "B3": {
+      "n": 1,
+      "unsafe": 0,
+      "false_abort": 0
+    },
+    "B5": {
+      "n": 1,
+      "unsafe": 0,
+      "false_abort": 0
+    }
+  },
+  "specific_invariants": {
+    "historical fact persists": {
+      "p_history_initial": true,
+      "p_history_commit": true
+    },
+    "non-attacker transition": {
+      "actors": [
+        "environment"
+      ],
+      "attack_goal": false
+    },
+    "immutable target": {
+      "queued_target_uid_initial": "U1",
+      "queued_target_uid_commit": "U1",
+      "binding_initial": true,
+      "binding_commit": true
+    },
+    "one basis breaks while another remains": {
+      "minimal_bases": [
+        [
+          "p_c2",
+          "p_malproc"
+        ],
+        [
+          "p_cred",
+          "p_session"
+        ]
+      ],
+      "basis_truth_at_commit": [
+        false,
+        true
+      ]
+    },
+    "F5.6 uncuttable historical basis": {
+      "current_basis_commit": false,
+      "historical_basis_commit": true
+    }
+  }
+}

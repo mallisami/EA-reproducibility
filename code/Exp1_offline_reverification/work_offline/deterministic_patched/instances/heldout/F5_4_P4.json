@@ -1,0 +1,458 @@
+{
+  "instance_id": "F5.4-P4",
+  "template_id": "F5.4",
+  "parameterization_id": "P4",
+  "split": "heldout",
+  "materialization_version": "3.1.0",
+  "causal_core_hash": "de83998f341a9d06da70019d8ae17914b659710f6a898f3e628c55a9d67ca5a8",
+  "template_hash": "034cb297bece5c94965028ab321cd80f209f5c6280c27d750a9e2ec8b6c05e9f",
+  "scenario": {
+    "scenario_id": "F5.4",
+    "title": "Shared Predicate Across Justification Bases",
+    "family": "F5",
+    "realism_tier": "R3",
+    "scenario_role": "positive_ea_toctou",
+    "development": false,
+    "action": {
+      "action_type": "quarantine_workload",
+      "target_reference": "workload/U1",
+      "target_snapshot": {
+        "uid": "U1"
+      },
+      "queue_semantics": "single_exactly_once_attempt",
+      "execution_precondition": true,
+      "authorization": {
+        "predicate": "p_authorized",
+        "must_remain_valid": true
+      }
+    },
+    "attacker_capability_tier": "C1",
+    "initial_state": {
+      "timestamp_s": 0,
+      "facts": {
+        "A": true,
+        "B": true,
+        "C": true,
+        "X": true,
+        "Y": true,
+        "irrelevant_alert": false,
+        "action_authorized": true,
+        "materialization_benign_resource_count": 6,
+        "materialization_high_impact": true,
+        "materialization_irrelevant_1": true,
+        "materialization_irrelevant_2": true
+      },
+      "resources": [
+        {
+          "kind": "SyntheticBenignResource",
+          "name": "benign-1",
+          "uid": "BENIGN-F5.4-1",
+          "active": true,
+          "security_state": "clean",
+          "criticality": "low"
+        },
+        {
+          "kind": "SyntheticBenignResource",
+          "name": "benign-2",
+          "uid": "BENIGN-F5.4-2",
+          "active": true,
+          "security_state": "clean",
+          "criticality": "low"
+        },
+        {
+          "kind": "SyntheticBenignResource",
+          "name": "benign-3",
+          "uid": "BENIGN-F5.4-3",
+          "active": true,
+          "security_state": "clean",
+          "criticality": "low"
+        },
+        {
+          "kind": "SyntheticBenignResource",
+          "name": "benign-4",
+          "uid": "BENIGN-F5.4-4",
+          "active": true,
+          "security_state": "clean",
+          "criticality": "low"
+        },
+        {
+          "kind": "SyntheticBenignResource",
+          "name": "benign-5",
+          "uid": "BENIGN-F5.4-5",
+          "active": true,
+          "security_state": "clean",
+          "criticality": "low"
+        },
+        {
+          "kind": "SyntheticBenignResource",
+          "name": "benign-6",
+          "uid": "BENIGN-F5.4-6",
+          "active": true,
+          "security_state": "clean",
+          "criticality": "low"
+        },
+        {
+          "kind": "SyntheticBenignResource",
+          "name": "critical-benign-1",
+          "uid": "CRIT-F5.4-1",
+          "active": true,
+          "security_state": "clean",
+          "criticality": "high"
+        },
+        {
+          "kind": "SyntheticBenignResource",
+          "name": "critical-benign-2",
+          "uid": "CRIT-F5.4-2",
+          "active": true,
+          "security_state": "clean",
+          "criticality": "high"
+        },
+        {
+          "kind": "SyntheticBenignResource",
+          "name": "critical-benign-3",
+          "uid": "CRIT-F5.4-3",
+          "active": true,
+          "security_state": "clean",
+          "criticality": "medium"
+        },
+        {
+          "kind": "SyntheticBenignResource",
+          "name": "critical-benign-4",
+          "uid": "CRIT-F5.4-4",
+          "active": true,
+          "security_state": "clean",
+          "criticality": "medium"
+        },
+        {
+          "kind": "SyntheticBenignResource",
+          "name": "critical-benign-5",
+          "uid": "CRIT-F5.4-5",
+          "active": true,
+          "security_state": "clean",
+          "criticality": "medium"
+        },
+        {
+          "kind": "SyntheticBenignResource",
+          "name": "critical-benign-6",
+          "uid": "CRIT-F5.4-6",
+          "active": true,
+          "security_state": "clean",
+          "criticality": "medium"
+        }
+      ],
+      "processes": [],
+      "network_bindings": [],
+      "sessions": [],
+      "context": {
+        "materialization": {
+          "parameterization_id": "P4",
+          "template_id": "F5.4",
+          "description": "High-impact background topology."
+        },
+        "business_impact": {
+          "service_tier": "tier-1",
+          "benign_dependency_count": 6,
+          "recovery_priority": "high"
+        }
+      },
+      "evidence": [
+        {
+          "evidence_id": "MAT-IRR-1",
+          "predicate": "materialization_irrelevant_1",
+          "evidence_class": "S",
+          "source": "synthetic-background",
+          "observed_at_s": 0,
+          "subject_uid": null,
+          "truth_value": true,
+          "supersedes": null
+        },
+        {
+          "evidence_id": "MAT-IRR-2",
+          "predicate": "materialization_irrelevant_2",
+          "evidence_class": "S",
+          "source": "synthetic-background",
+          "observed_at_s": 0,
+          "subject_uid": null,
+          "truth_value": true,
+          "supersedes": null
+        }
+      ],
+      "queue": []
+    },
+    "predicates": {
+      "A": {
+        "path": "/facts/A",
+        "op": "eq",
+        "value": true,
+        "evidence_class": "L",
+        "description": "Current predicate A."
+      },
+      "B": {
+        "path": "/facts/B",
+        "op": "eq",
+        "value": true,
+        "evidence_class": "L",
+        "description": "Current predicate B."
+      },
+      "C": {
+        "path": "/facts/C",
+        "op": "eq",
+        "value": true,
+        "evidence_class": "L",
+        "description": "Current predicate C."
+      },
+      "X": {
+        "path": "/facts/X",
+        "op": "eq",
+        "value": true,
+        "evidence_class": "L",
+        "description": "Current predicate X."
+      },
+      "Y": {
+        "path": "/facts/Y",
+        "op": "eq",
+        "value": true,
+        "evidence_class": "L",
+        "description": "Current predicate Y."
+      },
+      "p_authorized": {
+        "path": "/facts/action_authorized",
+        "op": "eq",
+        "value": true,
+        "evidence_class": "DERIVED",
+        "description": "Response executor remains technically authorized."
+      }
+    },
+    "policy_profiles": {
+      "balanced": {
+        "justification": {
+          "any": [
+            {
+              "all": [
+                {
+                  "predicate": "A"
+                },
+                {
+                  "predicate": "X"
+                }
+              ]
+            },
+            {
+              "all": [
+                {
+                  "predicate": "B"
+                },
+                {
+                  "predicate": "X"
+                }
+              ]
+            },
+            {
+              "all": [
+                {
+                  "predicate": "C"
+                },
+                {
+                  "predicate": "Y"
+                }
+              ]
+            }
+          ]
+        },
+        "binding": true,
+        "scope": true
+      }
+    },
+    "transitions": [
+      {
+        "transition_id": "irrelevant_change",
+        "title": "Irrelevant alert",
+        "actor": "environment",
+        "capability_tier": "NONE",
+        "duration_s": 0.1,
+        "cost_ops": 0,
+        "preconditions": true,
+        "effects": [
+          {
+            "op": "set",
+            "path": "/facts/irrelevant_alert",
+            "value": true
+          }
+        ],
+        "notes": "",
+        "adversarially_induced": false,
+        "causal_parent_ids": []
+      },
+      {
+        "transition_id": "cut_shared_x",
+        "title": "Cut shared predicate X",
+        "actor": "attacker",
+        "capability_tier": "C1",
+        "duration_s": 0.6,
+        "cost_ops": 1,
+        "preconditions": true,
+        "effects": [
+          {
+            "op": "set",
+            "path": "/facts/X",
+            "value": false
+          }
+        ],
+        "notes": "",
+        "adversarially_induced": true,
+        "causal_parent_ids": []
+      },
+      {
+        "transition_id": "cut_y",
+        "title": "Cut remaining basis through Y",
+        "actor": "attacker",
+        "capability_tier": "C1",
+        "duration_s": 0.6,
+        "cost_ops": 1,
+        "preconditions": true,
+        "effects": [
+          {
+            "op": "set",
+            "path": "/facts/Y",
+            "value": false
+          }
+        ],
+        "notes": "",
+        "adversarially_induced": true,
+        "causal_parent_ids": []
+      }
+    ],
+    "worlds": {
+      "W0": {
+        "commit_deadline_s": 5,
+        "transition_path": [],
+        "expected_commit": "EXECUTE",
+        "expected_attack_path_completed": false,
+        "control_semantics": "stable",
+        "expected_commit_by_policy": {
+          "balanced": "EXECUTE"
+        }
+      },
+      "W1": {
+        "commit_deadline_s": 5,
+        "transition_path": [
+          "irrelevant_change"
+        ],
+        "expected_commit": "EXECUTE",
+        "expected_attack_path_completed": false,
+        "control_semantics": "irrelevant_change",
+        "expected_commit_by_policy": {
+          "balanced": "EXECUTE"
+        }
+      },
+      "W2": {
+        "commit_deadline_s": 5,
+        "transition_path": [
+          "cut_shared_x",
+          "cut_y"
+        ],
+        "expected_commit": "ABORT_REPLAN",
+        "expected_attack_path_completed": true,
+        "control_semantics": "ea_toctou",
+        "expected_commit_by_policy": {
+          "balanced": "ABORT_REPLAN"
+        }
+      },
+      "W3": {
+        "commit_deadline_s": 0.4,
+        "transition_path": [
+          "cut_shared_x",
+          "cut_y"
+        ],
+        "expected_commit": "EXECUTE",
+        "expected_attack_path_completed": false,
+        "control_semantics": "deadline_miss",
+        "expected_commit_by_policy": {
+          "balanced": "EXECUTE"
+        }
+      }
+    },
+    "provenance": {
+      "platform_basis": "Controlled synthetic policy structure used to isolate justification semantics.",
+      "incident_basis": "Multiple independent active or historical evidence bases support a pending response.",
+      "policy_basis": "Commit validity follows the explicit Boolean response policy.",
+      "limitations": "The exact Boolean structure is methodological and is not claimed as a universal SOC policy."
+    },
+    "severity": "S1",
+    "notes": "Held-out justification-structure template.",
+    "primary_policy": "balanced",
+    "justification_bases_by_policy": {
+      "balanced": [
+        [
+          "A",
+          "X"
+        ],
+        [
+          "B",
+          "X"
+        ],
+        [
+          "C",
+          "Y"
+        ]
+      ]
+    },
+    "justification_bases": [
+      [
+        "A",
+        "X"
+      ],
+      [
+        "B",
+        "X"
+      ],
+      [
+        "C",
+        "Y"
+      ]
+    ],
+    "parameterizations": [
+      {
+        "id": "P1",
+        "description": "Minimal topology with only essential resources and evidence."
+      },
+      {
+        "id": "P2",
+        "description": "Distractor topology with benign resources and irrelevant evidence."
+      },
+      {
+        "id": "P3",
+        "description": "Noisy SOC context with non-material alerts and unrelated transitions."
+      },
+      {
+        "id": "P4",
+        "description": "High-impact variant with larger benign background or higher criticality."
+      }
+    ],
+    "native_controls": [],
+    "refresh_model": {
+      "cost_unit": "normalized_query_unit",
+      "query_costs": {
+        "query:/facts/A": 1.0,
+        "query:/facts/B": 1.0,
+        "query:/facts/C": 1.0,
+        "query:/facts/X": 1.0,
+        "query:/facts/Y": 1.0
+      },
+      "predicate_query_ids": {
+        "A": "query:/facts/A",
+        "B": "query:/facts/B",
+        "C": "query:/facts/C",
+        "X": "query:/facts/X",
+        "Y": "query:/facts/Y"
+      },
+      "query_observed_at_s": {
+        "query:/facts/A": 0.0,
+        "query:/facts/B": 0.0,
+        "query:/facts/C": 0.0,
+        "query:/facts/X": 0.0,
+        "query:/facts/Y": 0.0
+      }
+    }
+  }
+}

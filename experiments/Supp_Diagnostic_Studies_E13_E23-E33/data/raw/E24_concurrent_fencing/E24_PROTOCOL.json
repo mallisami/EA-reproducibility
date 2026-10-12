@@ -1,0 +1,21 @@
+{
+  "experiment": "E24",
+  "title": "Concurrent Multi-Query Acquisition Coherence: Naive vs Version-Fenced Double-Collect",
+  "motivation": "Proposition 1's coherence assumption (A4) requires commit-time observations to correspond to one coherent acquisition state, or equivalently that relevant state remains stable during acquisition. The manuscript discloses that the prototype does not implement a general cross-resource snapshot protocol. This experiment implements and empirically tests one concrete mechanism -- version-fenced double-collect with bounded retry -- against genuine concurrent mutation of the same three physical resources DCJI selects in the F5 multi-basis scenario (obs-a, obs-c, obs-e), and measures whether it actually prevents delivering an incoherent (torn) multi-query view, compared to a naive sequential multi-query acquisition with no coherence check.",
+  "namespace": "flashir-e24",
+  "resources": ["obs-a", "obs-c", "obs-e"],
+  "proxy_port": 8001,
+  "mutator": {
+    "description": "A background thread continuously toggles a uniformly-random one of the three resources' valid field between true/false, as fast as HTTP PATCH round-trips allow, for the duration of each trial window. Every toggle is logged with wall-clock timestamp, resource, new value, and new resourceVersion, providing ground truth against which acquired views are checked for coherence.",
+    "trial_window_s": 2.0
+  },
+  "acquisition_methods": ["naive_sequential", "fenced_double_collect"],
+  "fenced_max_retries": 10,
+  "attempts_per_method_per_trial": 10,
+  "trials_per_method": 20,
+  "random_seed": 20260913,
+  "primary_endpoint": "incoherent_view_rate",
+  "secondary_endpoints": ["fenced_retry_count", "fenced_unknown_coherence_count", "acquisition_latency_ms"],
+  "coherence_definition": "An acquired combination of (resource, value) pairs is COHERENT if and only if there exists at least one instant t during the trial at which every queried resource's ground-truth value (reconstructed from the mutator's timestamped toggle log plus the trial's known initial state) equals the value returned to that acquisition for that resource. It is INCOHERENT otherwise -- i.e., the returned combination never existed as a single real simultaneous state.",
+  "notes": "Preregistered post-hoc extension (E24), run outside the locked v8.1.1 package and outside all other v9/E21/E23 evidence. Uses a dedicated namespace/ConfigMaps, not E21's, to avoid touching already-finalized E21 evidence."
+}

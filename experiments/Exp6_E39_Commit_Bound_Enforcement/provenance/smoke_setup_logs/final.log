@@ -1,0 +1,28 @@
+2026-09-26T20:16:11Z
+podwatch stopped
+{"rv":"329851","schema":"e38v2.podevent.v1","seq":119607,"t_recv_mono_ns":72906853662475,"t_recv_wall_ns":1790453800432320278,"type":"STOP"}
+OK: 84 hashes verified, 0 problem(s), lock_sha256=36cec6d770bee0413d6491464cadce8b2f60fde86f3c43a5fc60fb2cb09b0de0
+46c98298f7910b5cc66e30200d0eea2c8ec19e907f3776a9824bbf00ca76be9d  /home/azureuser/e39_20260926/results/e39-20260926t1515z/webhook_log.jsonl
+078e74f4c4bcb4243c91dcd2677d30b37b09c33190a1295727599daa68f32a89  /home/azureuser/e39_20260926/results/e39-20260926t1515z/audit.log
+b79e06d7f50c88f9bf7a04b4394053de7a46f41b3d769658ee74c91af5d6e139  /home/azureuser/e39_20260926/results/e39-20260926t1515z/apiserver.log
+      8890 /home/azureuser/e39_20260926/results/e39-20260926t1515z/webhook_log.jsonl
+    294319 /home/azureuser/e39_20260926/results/e39-20260926t1515z/audit.log
+     20734 /home/azureuser/e39_20260926/results/e39-20260926t1515z/RAW_TRIALS.jsonl
+    119607 /home/azureuser/e39_20260926/results/e39-20260926t1515z/pod_events.jsonl
+     12827 /home/azureuser/e39_20260926/results/e39-20260926t1515z/mirror_log.jsonl
+   1471641 /home/azureuser/e39_20260926/results/e39-20260926t1515z/apiserver.log
+   1928018 total
+drwxrwxr-x 2 azureuser azureuser      4096 Sep 26 18:01 .
+drwxrwxr-x 8 azureuser azureuser      4096 Sep 26 18:40 ..
+-rw------- 1 root      root      209711812 Sep 26 16:43 audit-2026-09-26T16-43-03.244.log
+-rw------- 1 root      root      209714621 Sep 26 18:01 audit-2026-09-26T18-01-17.532.log
+-rw------- 1 root      root      202376802 Sep 26 20:13 audit.log
+E39 analysis written to /home/azureuser/e39_20260926/results/e39-20260926t1515z/analysis_final (stage 2, experiments A,B,C,D,E,F,G, 20734 trials, confirmatory=True)
+final analysis rc=0
+independent rc=3
+G/A1/out_of_model_cut_bdf                                    k=  39 n=  39
+G/A2/in_model_cut_ace                                        k=   0 n=  39
+G/A2/out_of_model_cut_bdf                                    k=   0 n=  39
+headline rc=0
+d_split rc=0
+2026-09-26T20:23:42Z

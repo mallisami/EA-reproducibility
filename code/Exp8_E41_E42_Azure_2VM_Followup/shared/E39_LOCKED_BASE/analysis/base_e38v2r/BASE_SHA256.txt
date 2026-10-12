@@ -1,0 +1,7 @@
+3ea47ec2393840a937d27b6d2b7caab46fa0b0704c814e68a671e554052e1958  ANALYSIS_PLAN_E38v2.txt.orig
+95c94374b906076537acdeea9a86943372b1973339375cf3e206a1b87a4d156b  analyze_e38v2.py.orig
+f7b08302c1f3ff353dda7a2e57c6889487e844e1ca32d4a4ae5944ace342efb2  e38v2_common.py.orig
+bdaafaad8b9b0881906bb1c59b11352a43da4beb20f4affe92d9d3e1b27fa359  lock_hash.py.orig
+f78e659b58373e7ac28134ff1e510154710bdb44d7d19e5cd627d2e26a830579  oracle.py.orig
+6a4fa91614b8314c6a42b00d3a362cae31ad72eae59aa0ed6a75868f12b4a068  stage2_topup.py.orig
+source: ~/e38v2r_20260926 (E38v2 confirmatory rerun, plan v1.2, oracle e38v2.oracle.v1.2); copied 2026-09-26T10:50:55Z; read-only reference, renamed *.orig so it is never imported or collected by pytest

@@ -1,0 +1,58 @@
+{
+  "freeze_id": "FLASHIR-E15-CONCURRENCY-FREEZE-20260905",
+  "created_before_e15_results": true,
+  "representative_subset_source": "Prespecified 12-template representative subset frozen before E15 execution",
+  "templates": [
+    "F1.2",
+    "F1.3",
+    "F2.4",
+    "F2.6",
+    "F3.3",
+    "F3.6",
+    "F4.3",
+    "F4.5",
+    "F5.2",
+    "F5.4",
+    "F5.6",
+    "F1.5"
+  ],
+  "parameterization": "P1 only",
+  "conditions": [
+    {
+      "id": "C0_BENIGN_NOISE_ONLY",
+      "description": "Concurrent benign actor changes an irrelevant state marker; action should remain valid.",
+      "expected_role": "false-abort control"
+    },
+    {
+      "id": "C1_BENIGN_MIRROR",
+      "description": "A benign responder/controller/human performs the same state transition sequence as the frozen W2 path, but all copied transitions are benign and cost zero attacker operations.",
+      "expected_role": "policy-relevant benign concurrency"
+    },
+    {
+      "id": "C2_ATTACK_PLUS_BENIGN_NOISE",
+      "description": "Frozen attacker-realizable W2 path proceeds while an independent benign noise event occurs concurrently.",
+      "expected_role": "EA-TOCTOU under benign concurrent interference"
+    }
+  ],
+  "defenses": [
+    "B0",
+    "B4",
+    "B6"
+  ],
+  "benign_actor_mapping": {
+    "F1": "controller",
+    "F2": "controller",
+    "F3": "responder",
+    "F4": "controller",
+    "F5": "human"
+  },
+  "benign_transition_rule": "Copied benign transitions are actor=environment, adversarially_induced=false, cost_ops=0, with benign_actor_class metadata; they are replayable actual-world events but excluded from DCJI attacker candidates.",
+  "metrics": [
+    "unsafe_commit_rate",
+    "false_abort_rate",
+    "replan_rate",
+    "query_cost"
+  ],
+  "claim_boundary": "Only C2 on positive templates is an attacker-positive EA-TOCTOU condition. C1 is benign state invalidation/staleness, not an EA-TOCTOU attack.",
+  "status": "FROZEN_BEFORE_E15_EXECUTION"
+}

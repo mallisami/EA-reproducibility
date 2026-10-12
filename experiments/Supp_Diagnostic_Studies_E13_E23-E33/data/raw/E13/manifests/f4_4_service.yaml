@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: flashir-svc
+  namespace: flashir-e13
+spec:
+  ports:
+  - port: 80
+    protocol: TCP

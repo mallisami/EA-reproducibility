@@ -1,0 +1,35 @@
+{
+  "schema": "a4d.r2.headline.v1",
+  "run_id": "a4dcr-r2-20261001",
+  "planned_main_trials": 985,
+  "completed_main_trials": 985,
+  "infrastructure_errors": 0,
+  "async_trials": 936,
+  "async_invalid_executed": 0,
+  "async_invalid_rate": 0.0,
+  "async_invalid_wilson95_upper": 0.004087347695338274,
+  "no_write_trials": 39,
+  "no_write_false_aborts": 0,
+  "uid_rebind_controls": 10,
+  "uid_rebind_blocked": 10,
+  "primary_secondary_exact_agreement": {
+    "n": 985,
+    "agree": 985,
+    "proportion": 1.0
+  },
+  "audit_evidence": {
+    "required": 1921,
+    "validated": 1921,
+    "errors": 0,
+    "successful_delete_rv_sources": {
+      "audit": 958,
+      "pod_watch_deleted": 17
+    }
+  },
+  "writer_async_status": {
+    "200": 112,
+    "404": 824,
+    "writer_200_with_deletionTimestamp": 112
+  },
+  "interpretation": "No invalid execution was observed in the 936 asynchronous A4d trials over the frozen three-condition, eight-delay grid. This is an empirical zero-event result, not a universal proof of zero risk."
+}

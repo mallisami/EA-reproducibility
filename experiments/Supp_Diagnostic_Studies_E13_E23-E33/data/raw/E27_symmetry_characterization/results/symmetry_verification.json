@@ -1,0 +1,77 @@
+{
+  "theorem": "certificate_size = k + m, reduction_fraction = (k-m)/(2k)",
+  "k": 3,
+  "all_predictions_confirmed": true,
+  "results": [
+    {
+      "m_symmetric_clauses": 0,
+      "k_total_clauses": 3,
+      "predicted_certificate_size": 3,
+      "actual_certificate_size": 3,
+      "prediction_matches": true,
+      "predicted_reduction_fraction": 0.5,
+      "actual_reduction_fraction": 0.5,
+      "planner_certificate": [
+        "flag_a",
+        "flag_c",
+        "flag_e"
+      ],
+      "planner_cost_units": 3.0,
+      "goal_count": 1
+    },
+    {
+      "m_symmetric_clauses": 1,
+      "k_total_clauses": 3,
+      "predicted_certificate_size": 4,
+      "actual_certificate_size": 4,
+      "prediction_matches": true,
+      "predicted_reduction_fraction": 0.3333333333333333,
+      "actual_reduction_fraction": 0.3333333333333333,
+      "planner_certificate": [
+        "flag_a",
+        "flag_b",
+        "flag_c",
+        "flag_e"
+      ],
+      "planner_cost_units": 4.0,
+      "goal_count": 3
+    },
+    {
+      "m_symmetric_clauses": 2,
+      "k_total_clauses": 3,
+      "predicted_certificate_size": 5,
+      "actual_certificate_size": 5,
+      "prediction_matches": true,
+      "predicted_reduction_fraction": 0.16666666666666666,
+      "actual_reduction_fraction": 0.16666666666666666,
+      "planner_certificate": [
+        "flag_a",
+        "flag_b",
+        "flag_c",
+        "flag_d",
+        "flag_e"
+      ],
+      "planner_cost_units": 5.0,
+      "goal_count": 9
+    },
+    {
+      "m_symmetric_clauses": 3,
+      "k_total_clauses": 3,
+      "predicted_certificate_size": 6,
+      "actual_certificate_size": 6,
+      "prediction_matches": true,
+      "predicted_reduction_fraction": 0.0,
+      "actual_reduction_fraction": 0.0,
+      "planner_certificate": [
+        "flag_a",
+        "flag_b",
+        "flag_c",
+        "flag_d",
+        "flag_e",
+        "flag_f"
+      ],
+      "planner_cost_units": 6.0,
+      "goal_count": 27
+    }
+  ]
+}

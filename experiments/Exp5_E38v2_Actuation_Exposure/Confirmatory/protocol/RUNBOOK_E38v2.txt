@@ -1,0 +1,246 @@
+RERUN NOTE (2026-09-26): the confirmatory rerun uses the tree ~/e38v2r_20260926 (copy of the first
+run's final code + the v1.2 changes listed in protocol/ANALYSIS_PLAN_E38v2.txt and the RERUN ADDENDUM of
+INTERFACE_SPEC_E38v2.txt) and the operator scripts in ~/e38v2r_ops (dedicated kubeconfig
+~/e38v2r_20260926/.kubeconfig_e38v2, --context kind-e38v2). Additional per-run steps: start
+src/pod_watch.py before the runner and stop it after; export the kube-apiserver container log.
+The first run's tree ~/e38v2_20260926 and its results are never modified.
+E38v2 RUNBOOK -- server-side DELETE revalidation webhook experiment
+====================================================================
+Version 1, 2026-09-26. Every command below is to be approved and run by the OPERATOR (the paper's
+authors) on their own Azure VM (azureuser@<PUBLIC_IP_REDACTED>). Nothing here has been executed yet.
+
+GOLDEN RULES
+  R1  The VM hosts three OTHER clusters that must never be touched:  mape-cap-confirm, mcb-k137, rev-n5.
+      Never run `kind delete cluster` without `--name e38v2`. Never run kubectl without
+      `--context kind-e38v2`. Never `kind load` into, `docker exec` into, or stop containers of any
+      other cluster. Never run `kind delete clusters --all` or `docker system prune`.
+  R2  Every kubectl call goes through the function k (defined in step 0), which pins the context.
+  R3  No image pulls: images kindest/node:v1.37.0 and python:3.12-slim are already local.
+  R4  If any verification step fails: STOP, do not start trials, keep the cluster for diagnosis.
+  R5  Schedule seed must NOT be 20260912. The lock (protocol/LOCK_E38v2.json) is filled and
+      verified before stage 1; any code/config edit after that invalidates it.
+
+Flags marked <<VERIFY>> belong to pieces 1/3 (runner, analysis); check them against
+`--help` of the hashed scripts before approving.
+
+--------------------------------------------------------------------------------------------------
+0. SHELL SETUP (every new shell)
+--------------------------------------------------------------------------------------------------
+  cd ~/e38v2_20260926
+  export E=~/e38v2_20260926
+  export RUN_ID=<run id, [a-z0-9-], e.g. s1-20260927a>      # smoke uses its own id, e.g. smoke-20260927a
+  export NS=e38v2-$RUN_ID
+  export R=$E/results/$RUN_ID
+  k() { kubectl --context kind-e38v2 "$@"; }
+  set -o pipefail
+
+--------------------------------------------------------------------------------------------------
+1. PREFLIGHT (read-only)
+--------------------------------------------------------------------------------------------------
+  kind get clusters | tee /tmp/e38v2_clusters_before.txt
+      # EXPECT: mape-cap-confirm, mcb-k137, rev-n5 present; e38v2 ABSENT.
+  docker ps --format '{{.Names}} {{.Status}}' | sort | tee /tmp/e38v2_docker_before.txt
+  df -h ~ | tail -1            # EXPECT >= 20 GB free (audit log cap 200 MB x 31 files ~ 6.2 GB worst case)
+  free -g | head -2            # EXPECT available >= 4 GB
+  nproc
+  docker image inspect --format '{{.Id}}' kindest/node:v1.37.0 python:3.12-slim   # both present, no pull
+  kind version; kubectl version --client        # EXPECT kind v0.33.0, kubectl v1.37.0
+  sha256sum frozen_ref/source_provenance/E37_F5_PHYS_ORIGINAL.json
+      # EXPECT c54f4331cf0d73e7cde1b5da564480bb4911d4889b4f06c9670e1da4efd3cb2f
+
+  Offline tests (no cluster):
+  (cd webhook && python3 -m unittest discover -s tests -v)
+  venv_deploy/bin/python deploy/tests/validate_deploy.py
+  <<VERIFY>> offline tests of runner and analysis (pieces 1, 3), e.g.
+  (cd analysis && python3 -m unittest discover -s tests)
+
+  Lock (once, before any trial that counts; seed chosen by the authors, never 20260912):
+  python3 protocol/lock_hash.py fill protocol/LOCK_TEMPLATE_E38v2.json protocol/LOCK_E38v2.json \
+      --seed <NEW_SEED> --probe-tools
+  python3 protocol/lock_hash.py verify protocol/LOCK_E38v2.json
+  sha256sum protocol/LOCK_E38v2.json          # record; signers fill "signers" (does not change lock_sha256)
+
+  Host log directories (MUST exist and be owned by azureuser BEFORE cluster creation):
+  mkdir -p $E/results/_audit_host $E/results/_webhook_host
+  ls -ld $E/results/_audit_host $E/results/_webhook_host   # owner azureuser
+
+--------------------------------------------------------------------------------------------------
+2. CREATE THE DEDICATED CLUSTER
+--------------------------------------------------------------------------------------------------
+  kind create cluster --name e38v2 --config deploy/kind-config.yaml --wait 180s
+  kind get clusters            # EXPECT the three protected clusters + e38v2
+  k get nodes -o wide          # EXPECT e38v2-control-plane Ready, v1.37.0
+  kind load docker-image python:3.12-slim --name e38v2
+  docker exec e38v2-control-plane crictl images | grep -E 'python.*3.12-slim'
+  # audit wiring
+  docker exec e38v2-control-plane grep -E 'audit-(policy-file|log-path|log-maxsize|log-maxbackup)' \
+      /etc/kubernetes/manifests/kube-apiserver.yaml
+  sudo ls -l $E/results/_audit_host/           # audit.log appears after first audited request
+
+--------------------------------------------------------------------------------------------------
+3. PER-RUN SETUP (repeat for each RUN_ID: smoke, then the main run used by stage 1 AND stage 2)
+--------------------------------------------------------------------------------------------------
+  mkdir -p $R
+  deploy/render.sh $RUN_ID $E/results/_render_$RUN_ID
+  deploy/gen_certs.sh $E/results/_render_$RUN_ID
+  cat $E/results/_render_$RUN_ID/RENDER_MANIFEST.txt
+
+  k apply -f $E/results/_render_$RUN_ID/namespace.yaml
+  k apply -f $E/results/_render_$RUN_ID/rbac.yaml
+  # webhook code + TLS (exactly the locked files). If they already exist from a previous RUN_ID:
+  #   k -n e38v2-system delete configmap e38v2-webhook-code; k -n e38v2-system delete secret e38v2-webhook-tls
+  k -n e38v2-system create configmap e38v2-webhook-code --from-file=webhook/server.py --from-file=webhook/policy.py
+  k -n e38v2-system create secret tls e38v2-webhook-tls \
+      --cert=$E/results/_render_$RUN_ID/certs/tls.crt --key=$E/results/_render_$RUN_ID/certs/tls.key
+  k apply -f $E/results/_render_$RUN_ID/webhook.yaml
+  k -n e38v2-system rollout restart deployment/e38v2-webhook   # only if it already existed
+  k -n e38v2-system rollout status deployment/e38v2-webhook --timeout=120s
+  k -n e38v2-system logs deploy/e38v2-webhook | head -3        # "serving namespace=e38v2-$RUN_ID"
+  # code in cluster == locked code
+  for f in server.py policy.py; do
+    diff <(k -n e38v2-system get cm e38v2-webhook-code -o jsonpath="{.data.${f/./\\.}}") webhook/$f \
+      && echo "$f identical"; done
+  k apply -f $E/results/_render_$RUN_ID/webhook-config.yaml
+  k get validatingwebhookconfiguration e38v2-delete-revalidation -o yaml | grep -E 'failurePolicy|timeoutSeconds|metadata.name'
+
+  RBAC checks (impersonation by cluster admin; expected answer after ->):
+  k auth can-i delete pods     -n $NS --as=system:serviceaccount:e38v2-system:e38v2-responder   # yes
+  k auth can-i patch configmap/response-scope -n $NS --as=system:serviceaccount:e38v2-system:e38v2-responder  # no
+  k auth can-i patch configmap/response-scope -n $NS --as=system:serviceaccount:e38v2-system:e38v2-writer     # yes
+  k auth can-i delete pods     -n $NS --as=system:serviceaccount:e38v2-system:e38v2-writer      # no
+  k auth can-i get configmap/evidence-a -n $NS --as=system:serviceaccount:e38v2-system:e38v2-webhook          # yes
+  k auth can-i get configmap/e38-epoch  -n $NS --as=system:serviceaccount:e38v2-system:e38v2-webhook          # no
+  k auth can-i delete pods     -n kube-system --as=system:serviceaccount:e38v2-system:e38v2-reset # no
+
+--------------------------------------------------------------------------------------------------
+4. VERIFICATION PROBES (in $NS; logged in audit + webhook logs, unmatched to any trial)
+--------------------------------------------------------------------------------------------------
+  date -u +%FT%T.%NZ | tee $R/PROBES_START.txt
+  # 4.1 valid fixture ConfigMaps (the runner's reset later patches these same objects)
+  for x in a b c d e f; do k -n $NS create configmap evidence-$x --from-literal=value=true; done
+  k -n $NS create configmap response-scope --from-literal=allowed=true
+  k -n $NS create configmap application-policy --from-literal=allowed=true
+  k -n $NS create configmap e38-epoch --from-literal=sequence=0
+  k -n $NS label configmap --all e38-managed=true
+  # 4.2 dummy pods: two with the webhook arm label, one without
+  for p in probe-deny probe-allow probe-reset; do
+    k -n $NS run $p --image=python:3.12-slim --image-pull-policy=Never --restart=Never \
+      --labels=e38-managed=true,e38v2-webhook=enforce -- sleep 3600; done
+  k -n $NS run probe-nolabel --image=python:3.12-slim --image-pull-policy=Never --restart=Never \
+      --labels=e38-managed=true -- sleep 3600
+  k -n $NS wait --for=condition=Ready pod --all --timeout=120s
+  # 4.3 INVALID state -> webhook must DENY the admin's DELETE
+  k -n $NS patch configmap application-policy --type=merge -p '{"data":{"allowed":"false"}}'
+  k -n $NS delete pod probe-deny --wait=false ; echo "exit=$?"
+      # EXPECT non-zero exit, message: admission webhook "delete-revalidation..." denied ... app_policy_not_allowed
+  k -n $NS get pod probe-deny                 # EXPECT still Running, no deletionTimestamp
+  # 4.4 INVALID state, pod WITHOUT arm label -> not intercepted (A0-A2 behaviour)
+  k -n $NS delete pod probe-nolabel --wait=false ; echo "exit=$?"      # EXPECT 0
+  # 4.5 INVALID state, reset identity -> exempt by matchConditions
+  k -n $NS delete pod probe-reset --wait=false \
+      --as=system:serviceaccount:e38v2-system:e38v2-reset ; echo "exit=$?"   # EXPECT 0
+  # 4.6 VALID state -> ALLOW
+  k -n $NS patch configmap application-policy --type=merge -p '{"data":{"allowed":"true"}}'
+  k -n $NS delete pod probe-allow --wait=true ; echo "exit=$?"         # EXPECT 0, pod gone (kubelet final delete exempt)
+  k -n $NS delete pod probe-deny  --wait=true ; echo "exit=$?"         # EXPECT 0
+  # 4.7 each other invalid predicate denies (optional but recommended)
+  for spec in 'response-scope allowed' 'evidence-a value'; do set -- $spec
+    k -n $NS run probe-x --image=python:3.12-slim --image-pull-policy=Never --restart=Never \
+      --labels=e38-managed=true,e38v2-webhook=enforce -- sleep 3600
+    k -n $NS wait --for=condition=Ready pod/probe-x --timeout=60s
+    k -n $NS patch configmap $1 --type=merge -p "{\"data\":{\"$2\":\"false\"}}"
+    [ $1 = evidence-a ] && k -n $NS patch configmap evidence-c --type=merge -p '{"data":{"value":"false"}}' \
+                        && k -n $NS patch configmap evidence-e --type=merge -p '{"data":{"value":"false"}}'
+    k -n $NS delete pod probe-x --wait=false; echo "EXPECT DENY exit=$?"
+    for c in evidence-a evidence-c evidence-e; do k -n $NS patch configmap $c --type=merge -p '{"data":{"value":"true"}}'; done
+    k -n $NS patch configmap response-scope --type=merge -p '{"data":{"allowed":"true"}}'
+    k -n $NS delete pod probe-x --wait=true; echo "EXPECT ALLOW exit=$?"
+  done
+  # 4.8 logs
+  tail -n 20 $E/results/_webhook_host/$RUN_ID/webhook_log.jsonl
+      # EXPECT: schema e38v2.webhook.v1; deny lines for probe-deny/probe-x; allow lines; 8 reads each
+      #         with numeric resource_version; NO lines for probe-nolabel / probe-reset
+  sudo python3 - "$E/results/_audit_host/audit.log" "$NS" <<'PY'
+import json,sys
+ev=[json.loads(l) for l in open(sys.argv[1])]
+mine=[e for e in ev if e.get("objectRef",{}).get("namespace")==sys.argv[2]]
+print("events",len(ev),"in test ns",len(mine))
+for e in mine[-12:]:
+    ro=e.get("responseObject") or {}
+    print(e["stage"],e["verb"],e["objectRef"].get("resource"),e["objectRef"].get("name"),
+          e["responseStatus"].get("code"),e["auditID"],(ro.get("metadata") or {}).get("resourceVersion"),
+          e["requestReceivedTimestamp"],e["stageTimestamp"])
+assert all(e["stage"]!="RequestReceived" for e in ev)
+assert any(e["verb"]=="patch" and e["objectRef"]["resource"]=="configmaps" and e.get("responseObject") for e in mine)
+assert any(e["verb"]=="delete" and e["objectRef"]["resource"]=="pods" for e in mine)
+print("AUDIT OK")
+PY
+  # the denied DELETE must appear in audit with code 403 and the webhook message in responseStatus.
+  k -n $NS delete pod --all --as=system:serviceaccount:e38v2-system:e38v2-reset --wait=true
+  date -u +%FT%T.%NZ | tee $R/PROBES_END.txt
+
+--------------------------------------------------------------------------------------------------
+5. RUNNER IDENTITY TOKENS (short-lived; never exported, never hashed)
+--------------------------------------------------------------------------------------------------
+  install -d -m 700 $E/.tokens_$RUN_ID
+  for id in responder writer reset; do
+    k -n e38v2-system create token e38v2-$id --duration=24h > $E/.tokens_$RUN_ID/$id.token; done
+  chmod 600 $E/.tokens_$RUN_ID/*.token
+  k config view --minify --context kind-e38v2 --raw -o jsonpath='{.clusters[0].cluster.server}'; echo
+  <<VERIFY>> how src/e38v2_runner.py consumes API URL / CA / tokens (flags or env).
+
+--------------------------------------------------------------------------------------------------
+6. RUNNER DRY-RUN, SMOKE, STAGE 1, STAGE 2   (<<VERIFY>> all runner/analysis flags)
+--------------------------------------------------------------------------------------------------
+  6.1 dry-run (no API writes):
+  python3 src/e38v2_runner.py --dry-run --run-id $RUN_ID --namespace $NS --lock protocol/LOCK_E38v2.json \
+      --out $R                                                     <<VERIFY>>
+  6.2 smoke (RUN_ID=smoke-...; 1 rep per arm x condition x delta cell; not analysed as data):
+  python3 src/e38v2_runner.py --phase smoke --reps 1 --run-id $RUN_ID --namespace $NS \
+      --lock protocol/LOCK_E38v2.json --out $R                     <<VERIFY>>
+      # acceptance: 0 INFRA_ERROR; A3 trials have webhook_log lines joined by pod_uid;
+      #             A0-A2 trials have none; every accepted DELETE and every writer PATCH has an audit
+      #             ResponseComplete event joined by auditID; no_write A3 trials all allowed.
+  python3 analysis/analyze_e38v2.py --run $R --smoke-check          <<VERIFY>>
+  6.3 stage 1 (main RUN_ID; repeat section 3 + 4 + 5 for it first):
+  python3 src/e38v2_runner.py --phase stage1 --run-id $RUN_ID --namespace $NS \
+      --lock protocol/LOCK_E38v2.json --out $R                     <<VERIFY>>
+  6.4 stage-2 top-up (pre-registered rule, same RUN_ID and namespace):
+  python3 analysis/stage2_topup.py --stage1 $R/RAW_TRIALS.jsonl --lock protocol/LOCK_E38v2.json \
+      --out $R/SCHEDULE_STAGE2.json                                <<VERIFY>>
+  python3 src/e38v2_runner.py --phase stage2 --schedule $R/SCHEDULE_STAGE2.json --run-id $RUN_ID \
+      --namespace $NS --lock protocol/LOCK_E38v2.json --out $R      <<VERIFY>>
+  During long runs, monitor (read-only):
+  du -sh $E/results/_audit_host; df -h ~ | tail -1
+  k -n e38v2-system get pods; k -n e38v2-system logs deploy/e38v2-webhook --since=5m | grep -c WEBHOOK_LOG
+
+--------------------------------------------------------------------------------------------------
+7. EXPORT + HASHING (before teardown)
+--------------------------------------------------------------------------------------------------
+  python3 protocol/lock_hash.py verify protocol/LOCK_E38v2.json | tee $R/LOCK_VERIFY_AT_EXPORT.txt
+  cp $E/results/_webhook_host/$RUN_ID/webhook_log.jsonl $R/webhook_log.jsonl
+  k -n e38v2-system logs deploy/e38v2-webhook > $R/webhook_stdout.log     # backup copy of every log line
+  sudo sh -c "cat \$(ls -tr $E/results/_audit_host/audit-*.log 2>/dev/null) $E/results/_audit_host/audit.log" > $R/audit.log
+      # rotated backups (audit-<ts>.log) first, oldest->newest, then the live file
+  sudo chown azureuser: $R/audit.log
+  mkdir -p $R/deploy_rendered
+  cp $E/results/_render_$RUN_ID/*.yaml $E/results/_render_$RUN_ID/RENDER_MANIFEST.txt $R/deploy_rendered/
+  cp protocol/LOCK_E38v2.json $R/
+  { kind version; kubectl version --context kind-e38v2 -o json; \
+    docker image inspect --format '{{.Id}} {{.RepoTags}}' kindest/node:v1.37.0 python:3.12-slim; \
+    k get nodes -o wide; k get validatingwebhookconfiguration e38v2-delete-revalidation -o yaml; } > $R/ENVIRONMENT.txt
+  (cd $R && find . -type f ! -name SHA256SUMS -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS)
+  sha256sum $R/SHA256SUMS
+  tar -C $E/results -czf $E/results/e38v2_$RUN_ID.tar.gz $RUN_ID && sha256sum $E/results/e38v2_$RUN_ID.tar.gz
+  (never export $E/.tokens_* or $E/results/_render_*/certs)
+
+--------------------------------------------------------------------------------------------------
+8. TEARDOWN (only the e38v2 cluster)
+--------------------------------------------------------------------------------------------------
+  kind delete cluster --name e38v2
+  kind get clusters | tee /tmp/e38v2_clusters_after.txt
+  diff <(grep -v '^e38v2$' /tmp/e38v2_clusters_before.txt) /tmp/e38v2_clusters_after.txt && echo "others untouched"
+  docker ps --format '{{.Names}} {{.Status}}' | sort | grep -v e38v2 > /tmp/e38v2_docker_after.txt
+  diff <(cut -d' ' -f1 /tmp/e38v2_docker_before.txt) <(cut -d' ' -f1 /tmp/e38v2_docker_after.txt) && echo "containers unchanged"
+  rm -rf $E/.tokens_* $E/results/_render_*/certs
+  sudo chown -R azureuser: $E/results/_audit_host     # root-owned audit files (after export only)

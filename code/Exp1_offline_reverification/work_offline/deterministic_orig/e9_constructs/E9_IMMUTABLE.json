@@ -1,0 +1,275 @@
+{
+  "scenario_id": "E9.IMMUTABLE",
+  "title": "E9 Immutable Target Control",
+  "family": "F1",
+  "realism_tier": "R1",
+  "development": true,
+  "action": {
+    "action_type": "quarantine_workload",
+    "target_reference": "uid/U1",
+    "target_snapshot": {
+      "uid": "U1",
+      "namespace": "prod"
+    },
+    "queue_semantics": "single_exactly_once_attempt",
+    "authorization": {
+      "predicate": "p_authorized",
+      "must_remain_valid": true
+    },
+    "execution_precondition": true
+  },
+  "attacker_capability_tier": "C2",
+  "initial_state": {
+    "timestamp_s": 0,
+    "facts": {
+      "u1_compromised": true,
+      "api0_current_uid": "U1",
+      "irrelevant_annotation": "v1",
+      "action_authorized": true,
+      "queued_target_uid": "U1"
+    },
+    "resources": [
+      {
+        "kind": "Pod",
+        "namespace": "prod",
+        "name": "api-0",
+        "uid": "U1",
+        "resource_version": "101",
+        "active": true,
+        "security_state": "compromised"
+      },
+      {
+        "kind": "Pod",
+        "namespace": "prod",
+        "name": "api-0",
+        "uid": "U2",
+        "resource_version": "202",
+        "active": false,
+        "security_state": "clean"
+      }
+    ],
+    "processes": [],
+    "network_bindings": [],
+    "sessions": [],
+    "context": {},
+    "evidence": [
+      {
+        "evidence_id": "H1",
+        "predicate": "u1_compromised",
+        "evidence_class": "H",
+        "source": "EDR",
+        "observed_at_s": 0,
+        "subject_uid": "U1",
+        "truth_value": true,
+        "supersedes": null
+      }
+    ],
+    "queue": []
+  },
+  "predicates": {
+    "p_compromised_u1": {
+      "path": "/facts/u1_compromised",
+      "op": "eq",
+      "value": true,
+      "evidence_class": "H",
+      "description": "Confirmed compromise of original Pod U1."
+    },
+    "p_binding_u1": {
+      "path": "/facts/api0_current_uid",
+      "op": "eq",
+      "value": "U1",
+      "evidence_class": "B",
+      "description": "Reusable name still resolves to original UID U1."
+    },
+    "p_authorized": {
+      "path": "/facts/action_authorized",
+      "op": "eq",
+      "value": true,
+      "evidence_class": "DERIVED",
+      "description": "Response executor remains technically authorized."
+    },
+    "p_target_resolves": {
+      "path": "/facts/api0_current_uid",
+      "op": "ne",
+      "value": null,
+      "evidence_class": "B",
+      "description": "Queued Pod name resolves to a concrete resource at actuation."
+    },
+    "p_immutable_target": {
+      "path": "/facts/queued_target_uid",
+      "op": "eq",
+      "value": "U1",
+      "evidence_class": "H",
+      "description": "Queued action is bound to immutable UID U1."
+    }
+  },
+  "policy_profiles": {
+    "balanced": {
+      "justification": {
+        "predicate": "p_compromised_u1"
+      },
+      "binding": {
+        "predicate": "p_immutable_target"
+      },
+      "scope": true
+    }
+  },
+  "primary_policy": "balanced",
+  "justification_bases": [
+    [
+      "p_compromised_u1"
+    ]
+  ],
+  "transitions": [
+    {
+      "transition_id": "attacker_unrelated_change",
+      "title": "Attacker changes unrelated mutable state",
+      "actor": "attacker",
+      "capability_tier": "C2",
+      "duration_s": 0.4,
+      "cost_ops": 1,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/irrelevant_annotation",
+          "value": "attacker-v2"
+        }
+      ],
+      "notes": "Does not alter immutable target UID or historical compromise.",
+      "adversarially_induced": true,
+      "causal_parent_ids": []
+    }
+  ],
+  "worlds": {
+    "W0": {
+      "commit_deadline_s": 5,
+      "transition_path": [],
+      "expected_commit": "EXECUTE",
+      "expected_attack_path_completed": false,
+      "control_semantics": "stable",
+      "expected_commit_by_policy": {
+        "balanced": "EXECUTE",
+        "conservative": "EXECUTE",
+        "aggressive": "EXECUTE"
+      }
+    },
+    "W1": {
+      "commit_deadline_s": 5,
+      "transition_path": [
+        "irrelevant_annotation_change"
+      ],
+      "expected_commit": "EXECUTE",
+      "expected_attack_path_completed": false,
+      "control_semantics": "irrelevant_change",
+      "expected_commit_by_policy": {
+        "balanced": "EXECUTE",
+        "conservative": "EXECUTE",
+        "aggressive": "EXECUTE"
+      }
+    },
+    "W2": {
+      "commit_deadline_s": 1,
+      "transition_path": [
+        "attacker_unrelated_change"
+      ],
+      "expected_commit": "EXECUTE",
+      "expected_attack_path_completed": true,
+      "control_semantics": "immutable_target",
+      "expected_commit_by_policy": {
+        "balanced": "EXECUTE"
+      }
+    },
+    "W3": {
+      "commit_deadline_s": 0.5,
+      "transition_path": [
+        "delete_u1",
+        "recreate_u2"
+      ],
+      "expected_commit": "EXECUTE",
+      "expected_attack_path_completed": false,
+      "notes": "Neither deletion nor successor recreation completes before the commit boundary.",
+      "control_semantics": "deadline_miss",
+      "expected_commit_by_policy": {
+        "balanced": "EXECUTE",
+        "conservative": "EXECUTE",
+        "aggressive": "EXECUTE"
+      }
+    }
+  },
+  "parameterizations": [
+    {
+      "id": "P1",
+      "description": "Minimal topology with only essential resources and evidence."
+    },
+    {
+      "id": "P2",
+      "description": "Distractor topology with benign resources and irrelevant evidence."
+    },
+    {
+      "id": "P3",
+      "description": "Noisy SOC context with non-material alerts and unrelated transitions."
+    },
+    {
+      "id": "P4",
+      "description": "High-impact variant with larger benign background or higher criticality."
+    }
+  ],
+  "provenance": {
+    "platform_basis": "Kubernetes Pods have immutable UIDs; replacement objects can reuse names with a new UID.",
+    "incident_basis": "Autonomous response queues quarantine after confirmed compromise.",
+    "policy_basis": "Historical compromise still applies to U1, but response must remain bound to U1.",
+    "limitations": "Simulated timing; live timing depends on controller and cluster configuration."
+  },
+  "severity": "S2",
+  "notes": "Development control for reusable name versus immutable identity.",
+  "justification_bases_by_policy": {
+    "balanced": [
+      [
+        "p_compromised_u1"
+      ]
+    ],
+    "conservative": [
+      [
+        "p_compromised_u1"
+      ]
+    ],
+    "aggressive": [
+      [
+        "p_compromised_u1"
+      ]
+    ]
+  },
+  "refresh_model": {
+    "cost_unit": "normalized_query_unit",
+    "query_costs": {
+      "query:/facts/api0_current_uid": 1.0,
+      "immutable:p_compromised_u1": 0.0,
+      "immutable:p_immutable_target": 0.0
+    },
+    "predicate_query_ids": {
+      "p_binding_u1": "query:/facts/api0_current_uid",
+      "p_compromised_u1": "immutable:p_compromised_u1",
+      "p_target_resolves": "query:/facts/api0_current_uid",
+      "p_immutable_target": "immutable:p_immutable_target"
+    },
+    "query_observed_at_s": {
+      "query:/facts/api0_current_uid": 0.0,
+      "immutable:p_compromised_u1": 0.0,
+      "immutable:p_immutable_target": 0.0
+    }
+  },
+  "native_controls": [
+    {
+      "control_id": "k8s_uid_precondition",
+      "control_type": "uid_precondition",
+      "predicate_ids": [
+        "p_binding_u1"
+      ],
+      "normalized_cost_units": 0.0,
+      "applicable": true,
+      "notes": "Atomic server-side commit precondition; modeled as zero additional query round-trips. Live API behavior is deferred to E13."
+    }
+  ],
+  "scenario_role": "negative_control"
+}

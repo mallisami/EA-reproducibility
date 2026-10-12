@@ -1,0 +1,15 @@
+# Pre-pull: makes AKS pull python:3.12-slim (Docker Hub) and registry.k8s.io/pause:3.10 onto the node, so the E39
+# manifests/code (imagePullPolicy Never) find both images present.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: e40-prepull
+  namespace: e40-system
+  labels: {e40-managed: "true"}
+spec:
+  restartPolicy: Never
+  automountServiceAccountToken: false
+  enableServiceLinks: false
+  containers:
+  - {name: pause, image: "registry.k8s.io/pause:3.10", imagePullPolicy: IfNotPresent}
+  - {name: py, image: "python:3.12-slim", imagePullPolicy: IfNotPresent, command: ["python", "-c", "print('ok')"]}

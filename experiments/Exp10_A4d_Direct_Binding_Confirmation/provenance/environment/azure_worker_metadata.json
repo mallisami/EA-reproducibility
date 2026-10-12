@@ -1,0 +1,12 @@
+{
+  "imageReference": {
+    "offer": "0001-com-ubuntu-server-jammy",
+    "publisher": "Canonical",
+    "sku": "22_04-lts-gen2",
+    "version": "latest"
+  },
+  "location": "eastasia",
+  "osType": "Linux",
+  "vmSize": "Standard_D2as_v4",
+  "zone": ""
+}

@@ -1,0 +1,36 @@
+{
+  "analysis_version": "e38v2.analysis.v1",
+  "inputs": {
+    "/home/azureuser/e38v2_20260926/results/smoke-20260926b/LOCK_SMOKE.json": "dfd7eb5af1abea583356dffc28861820d42b1422335b7eddcbd7e2aeaa6bddaf",
+    "/home/azureuser/e38v2_20260926/results/smoke-20260926b/RAW_TRIALS.jsonl": "d7fff62ec3c0812c18bb26c3685ca486040705af599f9d173a9a2bbe730b1f66",
+    "/home/azureuser/e38v2_20260926/results/smoke-20260926b/SCHEDULE.json": "226304d078a1fb36575166f93b3e8db0d2bcd2bd271573e2ce4d88bc2a4af887",
+    "/home/azureuser/e38v2_20260926/results/smoke-20260926b/audit.log": "44ed13ae4a465e67c08cc234f045283c2abef6c4f4bd156cc2cd4beda5917faf",
+    "/home/azureuser/e38v2_20260926/results/smoke-20260926b/webhook_log.jsonl": "c1f5749f4de8fc289027b4be884f68107d40ec2974d3207262de935b5c797317"
+  },
+  "reasons": [
+    "stage-1 design mismatch in cell ('A0_native_uid', 'no_write', 'NA'): planned 1, pre-registered 39",
+    "stage-1 design mismatch in cell ('A0_native_uid', 'async_scope', '-5'): planned 1, pre-registered 39",
+    "stage-1 design mismatch in cell ('A0_native_uid', 'async_scope', '-2'): planned 1, pre-registered 39",
+    "stage-1 design mismatch in cell ('A0_native_uid', 'async_scope', '-1'): planned 1, pre-registered 39",
+    "stage-1 design mismatch in cell ('A0_native_uid', 'async_scope', '0'): planned 1, pre-registered 39",
+    "stage-1 design mismatch in cell ('A0_native_uid', 'async_scope', '0.5'): planned 1, pre-registered 39",
+    "stage-1 design mismatch in cell ('A0_native_uid', 'async_scope', '1'): planned 1, pre-registered 39",
+    "stage-1 design mismatch in cell ('A0_native_uid', 'async_scope', '2'): planned 1, pre-registered 39",
+    "stage-1 design mismatch in cell ('A0_native_uid', 'async_scope', '3'): planned 1, pre-registered 39",
+    "stage-1 design mismatch in cell ('A0_native_uid', 'async_scope', '5'): planned 1, pre-registered 39",
+    "stage-1 design mismatch in cell ('A0_native_uid', 'async_scope', '10'): planned 1, pre-registered 39",
+    "stage-1 design mismatch in cell ('A0_native_uid', 'async_scope', '20'): planned 1, pre-registered 39",
+    "stage-1 design mismatch in cell ('A0_native_uid', 'async_scope', '50'): planned 1, pre-registered 39",
+    "stage-1 design mismatch in cell ('A0_native_uid', 'async_app_policy', '-5'): planned 1, pre-registered 39",
+    "stage-1 design mismatch in cell ('A0_native_uid', 'async_app_policy', '-2'): planned 1, pre-registered 39",
+    "stage-1 design mismatch in cell ('A0_native_uid', 'async_app_policy', '-1'): planned 1, pre-registered 39",
+    "stage-1 design mismatch in cell ('A0_native_uid', 'async_app_policy', '0'): planned 1, pre-registered 39",
+    "stage-1 design mismatch in cell ('A0_native_uid', 'async_app_policy', '0.5'): planned 1, pre-registered 39",
+    "stage-1 design mismatch in cell ('A0_native_uid', 'async_app_policy', '1'): planned 1, pre-registered 39",
+    "stage-1 design mismatch in cell ('A0_native_uid', 'async_app_policy', '2'): planned 1, pre-registered 39",
+    "stage-1 design mismatch in cell ('A0_native_uid', 'async_app_policy', '3'): planned 1, pre-registered 39"
+  ],
+  "refused": true,
+  "schema": "e38v2.refusal.v1",
+  "stage_analyzed": 1
+}

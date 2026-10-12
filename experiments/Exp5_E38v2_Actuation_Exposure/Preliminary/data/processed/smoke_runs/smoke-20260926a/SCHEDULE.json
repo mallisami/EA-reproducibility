@@ -1,0 +1,1530 @@
+{
+ "schema": "e38v2.schedule.v1",
+ "run_id": "smoke-20260926a",
+ "schedule_seed": 777001,
+ "stage": 1,
+ "n_trials": 152,
+ "trials": [
+  {
+   "trial_id": 1,
+   "stage": 1,
+   "block": 0,
+   "arm": "A2_fullrefresh",
+   "condition": "async_app_policy",
+   "delta_ms": -2.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 2,
+   "stage": 1,
+   "block": 0,
+   "arm": "A3_dcji_webhook",
+   "condition": "async_app_policy",
+   "delta_ms": 0.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 3,
+   "stage": 1,
+   "block": 0,
+   "arm": "A3_dcji_webhook",
+   "condition": "no_write",
+   "delta_ms": null,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 4,
+   "stage": 1,
+   "block": 0,
+   "arm": "A1_dcji",
+   "condition": "no_write",
+   "delta_ms": null,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 5,
+   "stage": 1,
+   "block": 0,
+   "arm": "A0_native_uid",
+   "condition": "async_app_policy",
+   "delta_ms": 10.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 6,
+   "stage": 1,
+   "block": 0,
+   "arm": "A0_native_uid",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 5.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 7,
+   "stage": 1,
+   "block": 0,
+   "arm": "A1_dcji",
+   "condition": "async_scope",
+   "delta_ms": 2.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 8,
+   "stage": 1,
+   "block": 0,
+   "arm": "A3_dcji_webhook",
+   "condition": "async_app_policy",
+   "delta_ms": 5.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 9,
+   "stage": 1,
+   "block": 0,
+   "arm": "A3_dcji_webhook",
+   "condition": "async_scope",
+   "delta_ms": 5.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 10,
+   "stage": 1,
+   "block": 0,
+   "arm": "A2_fullrefresh",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 2.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 11,
+   "stage": 1,
+   "block": 0,
+   "arm": "A2_fullrefresh",
+   "condition": "async_scope",
+   "delta_ms": 2.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 12,
+   "stage": 1,
+   "block": 0,
+   "arm": "A0_native_uid",
+   "condition": "async_app_policy",
+   "delta_ms": 5.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 13,
+   "stage": 1,
+   "block": 0,
+   "arm": "A3_dcji_webhook",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 10.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 14,
+   "stage": 1,
+   "block": 0,
+   "arm": "A1_dcji",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 2.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 15,
+   "stage": 1,
+   "block": 0,
+   "arm": "A2_fullrefresh",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": -1.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 16,
+   "stage": 1,
+   "block": 0,
+   "arm": "A2_fullrefresh",
+   "condition": "async_app_policy",
+   "delta_ms": 0.5,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 17,
+   "stage": 1,
+   "block": 0,
+   "arm": "A0_native_uid",
+   "condition": "async_app_policy",
+   "delta_ms": -5.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 18,
+   "stage": 1,
+   "block": 0,
+   "arm": "A2_fullrefresh",
+   "condition": "async_scope",
+   "delta_ms": -5.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 19,
+   "stage": 1,
+   "block": 0,
+   "arm": "A0_native_uid",
+   "condition": "async_scope",
+   "delta_ms": -2.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 20,
+   "stage": 1,
+   "block": 0,
+   "arm": "A3_dcji_webhook",
+   "condition": "async_scope",
+   "delta_ms": -5.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 21,
+   "stage": 1,
+   "block": 0,
+   "arm": "A3_dcji_webhook",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 3.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 22,
+   "stage": 1,
+   "block": 0,
+   "arm": "A1_dcji",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 1.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 23,
+   "stage": 1,
+   "block": 0,
+   "arm": "A1_dcji",
+   "condition": "async_scope",
+   "delta_ms": 1.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 24,
+   "stage": 1,
+   "block": 0,
+   "arm": "A0_native_uid",
+   "condition": "async_app_policy",
+   "delta_ms": 50.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 25,
+   "stage": 1,
+   "block": 0,
+   "arm": "A0_native_uid",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": -2.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 26,
+   "stage": 1,
+   "block": 0,
+   "arm": "A3_dcji_webhook",
+   "condition": "uid_rebind_control",
+   "delta_ms": null,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 27,
+   "stage": 1,
+   "block": 0,
+   "arm": "A2_fullrefresh",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 0.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 28,
+   "stage": 1,
+   "block": 0,
+   "arm": "A1_dcji",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": -1.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 29,
+   "stage": 1,
+   "block": 0,
+   "arm": "A2_fullrefresh",
+   "condition": "async_scope",
+   "delta_ms": 1.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 30,
+   "stage": 1,
+   "block": 0,
+   "arm": "A1_dcji",
+   "condition": "async_app_policy",
+   "delta_ms": 2.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 31,
+   "stage": 1,
+   "block": 0,
+   "arm": "A3_dcji_webhook",
+   "condition": "async_scope",
+   "delta_ms": 20.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 32,
+   "stage": 1,
+   "block": 0,
+   "arm": "A0_native_uid",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 20.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 33,
+   "stage": 1,
+   "block": 0,
+   "arm": "A0_native_uid",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": -1.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 34,
+   "stage": 1,
+   "block": 0,
+   "arm": "A1_dcji",
+   "condition": "async_app_policy",
+   "delta_ms": 0.5,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 35,
+   "stage": 1,
+   "block": 0,
+   "arm": "A1_dcji",
+   "condition": "async_app_policy",
+   "delta_ms": 5.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 36,
+   "stage": 1,
+   "block": 0,
+   "arm": "A1_dcji",
+   "condition": "async_scope",
+   "delta_ms": 0.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 37,
+   "stage": 1,
+   "block": 0,
+   "arm": "A2_fullrefresh",
+   "condition": "async_scope",
+   "delta_ms": 20.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 38,
+   "stage": 1,
+   "block": 0,
+   "arm": "A0_native_uid",
+   "condition": "async_app_policy",
+   "delta_ms": 1.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 39,
+   "stage": 1,
+   "block": 0,
+   "arm": "A2_fullrefresh",
+   "condition": "no_write",
+   "delta_ms": null,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 40,
+   "stage": 1,
+   "block": 0,
+   "arm": "A1_dcji",
+   "condition": "async_scope",
+   "delta_ms": -2.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 41,
+   "stage": 1,
+   "block": 0,
+   "arm": "A1_dcji",
+   "condition": "async_scope",
+   "delta_ms": 5.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 42,
+   "stage": 1,
+   "block": 0,
+   "arm": "A0_native_uid",
+   "condition": "async_scope",
+   "delta_ms": -5.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 43,
+   "stage": 1,
+   "block": 0,
+   "arm": "A2_fullrefresh",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 20.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 44,
+   "stage": 1,
+   "block": 0,
+   "arm": "A0_native_uid",
+   "condition": "async_app_policy",
+   "delta_ms": -2.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 45,
+   "stage": 1,
+   "block": 0,
+   "arm": "A2_fullrefresh",
+   "condition": "async_scope",
+   "delta_ms": -1.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 46,
+   "stage": 1,
+   "block": 0,
+   "arm": "A0_native_uid",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 10.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 47,
+   "stage": 1,
+   "block": 0,
+   "arm": "A3_dcji_webhook",
+   "condition": "async_app_policy",
+   "delta_ms": 10.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 48,
+   "stage": 1,
+   "block": 0,
+   "arm": "A1_dcji",
+   "condition": "async_scope",
+   "delta_ms": 0.5,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 49,
+   "stage": 1,
+   "block": 0,
+   "arm": "A1_dcji",
+   "condition": "uid_rebind_control",
+   "delta_ms": null,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 50,
+   "stage": 1,
+   "block": 0,
+   "arm": "A0_native_uid",
+   "condition": "async_app_policy",
+   "delta_ms": 0.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 51,
+   "stage": 1,
+   "block": 0,
+   "arm": "A1_dcji",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 50.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 52,
+   "stage": 1,
+   "block": 0,
+   "arm": "A2_fullrefresh",
+   "condition": "async_app_policy",
+   "delta_ms": 2.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 53,
+   "stage": 1,
+   "block": 0,
+   "arm": "A1_dcji",
+   "condition": "async_app_policy",
+   "delta_ms": 50.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 54,
+   "stage": 1,
+   "block": 0,
+   "arm": "A0_native_uid",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 1.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 55,
+   "stage": 1,
+   "block": 0,
+   "arm": "A1_dcji",
+   "condition": "async_scope",
+   "delta_ms": 20.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 56,
+   "stage": 1,
+   "block": 0,
+   "arm": "A0_native_uid",
+   "condition": "uid_rebind_control",
+   "delta_ms": null,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 57,
+   "stage": 1,
+   "block": 0,
+   "arm": "A3_dcji_webhook",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 0.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 58,
+   "stage": 1,
+   "block": 0,
+   "arm": "A0_native_uid",
+   "condition": "async_app_policy",
+   "delta_ms": 20.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 59,
+   "stage": 1,
+   "block": 0,
+   "arm": "A0_native_uid",
+   "condition": "async_scope",
+   "delta_ms": 20.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 60,
+   "stage": 1,
+   "block": 0,
+   "arm": "A3_dcji_webhook",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": -1.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 61,
+   "stage": 1,
+   "block": 0,
+   "arm": "A2_fullrefresh",
+   "condition": "async_scope",
+   "delta_ms": 50.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 62,
+   "stage": 1,
+   "block": 0,
+   "arm": "A2_fullrefresh",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 3.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 63,
+   "stage": 1,
+   "block": 0,
+   "arm": "A1_dcji",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": -5.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 64,
+   "stage": 1,
+   "block": 0,
+   "arm": "A2_fullrefresh",
+   "condition": "async_app_policy",
+   "delta_ms": 50.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 65,
+   "stage": 1,
+   "block": 0,
+   "arm": "A2_fullrefresh",
+   "condition": "async_app_policy",
+   "delta_ms": -1.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 66,
+   "stage": 1,
+   "block": 0,
+   "arm": "A2_fullrefresh",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 0.5,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 67,
+   "stage": 1,
+   "block": 0,
+   "arm": "A0_native_uid",
+   "condition": "async_app_policy",
+   "delta_ms": 2.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 68,
+   "stage": 1,
+   "block": 0,
+   "arm": "A2_fullrefresh",
+   "condition": "async_app_policy",
+   "delta_ms": -5.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 69,
+   "stage": 1,
+   "block": 0,
+   "arm": "A3_dcji_webhook",
+   "condition": "async_app_policy",
+   "delta_ms": 0.5,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 70,
+   "stage": 1,
+   "block": 0,
+   "arm": "A2_fullrefresh",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 10.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 71,
+   "stage": 1,
+   "block": 0,
+   "arm": "A2_fullrefresh",
+   "condition": "async_app_policy",
+   "delta_ms": 5.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 72,
+   "stage": 1,
+   "block": 0,
+   "arm": "A1_dcji",
+   "condition": "async_scope",
+   "delta_ms": -5.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 73,
+   "stage": 1,
+   "block": 0,
+   "arm": "A1_dcji",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 3.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 74,
+   "stage": 1,
+   "block": 0,
+   "arm": "A0_native_uid",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 2.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 75,
+   "stage": 1,
+   "block": 0,
+   "arm": "A0_native_uid",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 0.5,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 76,
+   "stage": 1,
+   "block": 0,
+   "arm": "A2_fullrefresh",
+   "condition": "async_scope",
+   "delta_ms": 5.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 77,
+   "stage": 1,
+   "block": 0,
+   "arm": "A0_native_uid",
+   "condition": "async_app_policy",
+   "delta_ms": 3.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 78,
+   "stage": 1,
+   "block": 0,
+   "arm": "A0_native_uid",
+   "condition": "async_app_policy",
+   "delta_ms": -1.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 79,
+   "stage": 1,
+   "block": 0,
+   "arm": "A2_fullrefresh",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": -5.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 80,
+   "stage": 1,
+   "block": 0,
+   "arm": "A3_dcji_webhook",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 5.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 81,
+   "stage": 1,
+   "block": 0,
+   "arm": "A0_native_uid",
+   "condition": "async_app_policy",
+   "delta_ms": 0.5,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 82,
+   "stage": 1,
+   "block": 0,
+   "arm": "A3_dcji_webhook",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": -5.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 83,
+   "stage": 1,
+   "block": 0,
+   "arm": "A1_dcji",
+   "condition": "async_app_policy",
+   "delta_ms": 10.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 84,
+   "stage": 1,
+   "block": 0,
+   "arm": "A1_dcji",
+   "condition": "async_app_policy",
+   "delta_ms": -5.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 85,
+   "stage": 1,
+   "block": 0,
+   "arm": "A1_dcji",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": -2.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 86,
+   "stage": 1,
+   "block": 0,
+   "arm": "A3_dcji_webhook",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 20.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 87,
+   "stage": 1,
+   "block": 0,
+   "arm": "A2_fullrefresh",
+   "condition": "uid_rebind_control",
+   "delta_ms": null,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 88,
+   "stage": 1,
+   "block": 0,
+   "arm": "A2_fullrefresh",
+   "condition": "async_app_policy",
+   "delta_ms": 10.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 89,
+   "stage": 1,
+   "block": 0,
+   "arm": "A3_dcji_webhook",
+   "condition": "async_app_policy",
+   "delta_ms": -5.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 90,
+   "stage": 1,
+   "block": 0,
+   "arm": "A2_fullrefresh",
+   "condition": "async_app_policy",
+   "delta_ms": 1.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 91,
+   "stage": 1,
+   "block": 0,
+   "arm": "A3_dcji_webhook",
+   "condition": "async_scope",
+   "delta_ms": -2.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 92,
+   "stage": 1,
+   "block": 0,
+   "arm": "A1_dcji",
+   "condition": "async_app_policy",
+   "delta_ms": 0.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 93,
+   "stage": 1,
+   "block": 0,
+   "arm": "A2_fullrefresh",
+   "condition": "async_app_policy",
+   "delta_ms": 3.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 94,
+   "stage": 1,
+   "block": 0,
+   "arm": "A3_dcji_webhook",
+   "condition": "async_scope",
+   "delta_ms": 0.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 95,
+   "stage": 1,
+   "block": 0,
+   "arm": "A0_native_uid",
+   "condition": "async_scope",
+   "delta_ms": 3.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 96,
+   "stage": 1,
+   "block": 0,
+   "arm": "A3_dcji_webhook",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 0.5,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 97,
+   "stage": 1,
+   "block": 0,
+   "arm": "A3_dcji_webhook",
+   "condition": "async_scope",
+   "delta_ms": -1.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 98,
+   "stage": 1,
+   "block": 0,
+   "arm": "A3_dcji_webhook",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 2.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 99,
+   "stage": 1,
+   "block": 0,
+   "arm": "A2_fullrefresh",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": -2.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 100,
+   "stage": 1,
+   "block": 0,
+   "arm": "A1_dcji",
+   "condition": "async_app_policy",
+   "delta_ms": -1.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 101,
+   "stage": 1,
+   "block": 0,
+   "arm": "A1_dcji",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 20.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 102,
+   "stage": 1,
+   "block": 0,
+   "arm": "A2_fullrefresh",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 5.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 103,
+   "stage": 1,
+   "block": 0,
+   "arm": "A1_dcji",
+   "condition": "async_scope",
+   "delta_ms": 10.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 104,
+   "stage": 1,
+   "block": 0,
+   "arm": "A0_native_uid",
+   "condition": "async_scope",
+   "delta_ms": 10.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 105,
+   "stage": 1,
+   "block": 0,
+   "arm": "A3_dcji_webhook",
+   "condition": "async_app_policy",
+   "delta_ms": 3.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 106,
+   "stage": 1,
+   "block": 0,
+   "arm": "A0_native_uid",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 0.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 107,
+   "stage": 1,
+   "block": 0,
+   "arm": "A0_native_uid",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 50.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 108,
+   "stage": 1,
+   "block": 0,
+   "arm": "A3_dcji_webhook",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": -2.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 109,
+   "stage": 1,
+   "block": 0,
+   "arm": "A3_dcji_webhook",
+   "condition": "async_scope",
+   "delta_ms": 10.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 110,
+   "stage": 1,
+   "block": 0,
+   "arm": "A2_fullrefresh",
+   "condition": "async_scope",
+   "delta_ms": 0.5,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 111,
+   "stage": 1,
+   "block": 0,
+   "arm": "A3_dcji_webhook",
+   "condition": "async_scope",
+   "delta_ms": 3.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 112,
+   "stage": 1,
+   "block": 0,
+   "arm": "A1_dcji",
+   "condition": "async_app_policy",
+   "delta_ms": 20.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 113,
+   "stage": 1,
+   "block": 0,
+   "arm": "A1_dcji",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 5.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 114,
+   "stage": 1,
+   "block": 0,
+   "arm": "A3_dcji_webhook",
+   "condition": "async_scope",
+   "delta_ms": 0.5,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 115,
+   "stage": 1,
+   "block": 0,
+   "arm": "A0_native_uid",
+   "condition": "async_scope",
+   "delta_ms": 5.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 116,
+   "stage": 1,
+   "block": 0,
+   "arm": "A0_native_uid",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 3.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 117,
+   "stage": 1,
+   "block": 0,
+   "arm": "A1_dcji",
+   "condition": "async_app_policy",
+   "delta_ms": -2.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 118,
+   "stage": 1,
+   "block": 0,
+   "arm": "A0_native_uid",
+   "condition": "no_write",
+   "delta_ms": null,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 119,
+   "stage": 1,
+   "block": 0,
+   "arm": "A1_dcji",
+   "condition": "async_app_policy",
+   "delta_ms": 1.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 120,
+   "stage": 1,
+   "block": 0,
+   "arm": "A2_fullrefresh",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 1.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 121,
+   "stage": 1,
+   "block": 0,
+   "arm": "A3_dcji_webhook",
+   "condition": "async_scope",
+   "delta_ms": 50.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 122,
+   "stage": 1,
+   "block": 0,
+   "arm": "A3_dcji_webhook",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 1.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 123,
+   "stage": 1,
+   "block": 0,
+   "arm": "A0_native_uid",
+   "condition": "async_scope",
+   "delta_ms": -1.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 124,
+   "stage": 1,
+   "block": 0,
+   "arm": "A0_native_uid",
+   "condition": "async_scope",
+   "delta_ms": 2.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 125,
+   "stage": 1,
+   "block": 0,
+   "arm": "A3_dcji_webhook",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 50.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 126,
+   "stage": 1,
+   "block": 0,
+   "arm": "A3_dcji_webhook",
+   "condition": "async_scope",
+   "delta_ms": 1.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 127,
+   "stage": 1,
+   "block": 0,
+   "arm": "A3_dcji_webhook",
+   "condition": "async_app_policy",
+   "delta_ms": 2.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 128,
+   "stage": 1,
+   "block": 0,
+   "arm": "A1_dcji",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 0.5,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 129,
+   "stage": 1,
+   "block": 0,
+   "arm": "A1_dcji",
+   "condition": "async_scope",
+   "delta_ms": 3.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 130,
+   "stage": 1,
+   "block": 0,
+   "arm": "A2_fullrefresh",
+   "condition": "async_scope",
+   "delta_ms": 3.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 131,
+   "stage": 1,
+   "block": 0,
+   "arm": "A2_fullrefresh",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 50.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 132,
+   "stage": 1,
+   "block": 0,
+   "arm": "A0_native_uid",
+   "condition": "async_scope",
+   "delta_ms": 0.5,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 133,
+   "stage": 1,
+   "block": 0,
+   "arm": "A2_fullrefresh",
+   "condition": "async_app_policy",
+   "delta_ms": 0.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 134,
+   "stage": 1,
+   "block": 0,
+   "arm": "A3_dcji_webhook",
+   "condition": "async_app_policy",
+   "delta_ms": 50.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 135,
+   "stage": 1,
+   "block": 0,
+   "arm": "A2_fullrefresh",
+   "condition": "async_scope",
+   "delta_ms": 0.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 136,
+   "stage": 1,
+   "block": 0,
+   "arm": "A0_native_uid",
+   "condition": "async_scope",
+   "delta_ms": 0.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 137,
+   "stage": 1,
+   "block": 0,
+   "arm": "A1_dcji",
+   "condition": "async_app_policy",
+   "delta_ms": 3.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 138,
+   "stage": 1,
+   "block": 0,
+   "arm": "A0_native_uid",
+   "condition": "async_scope",
+   "delta_ms": 1.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 139,
+   "stage": 1,
+   "block": 0,
+   "arm": "A1_dcji",
+   "condition": "async_scope",
+   "delta_ms": 50.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 140,
+   "stage": 1,
+   "block": 0,
+   "arm": "A2_fullrefresh",
+   "condition": "async_scope",
+   "delta_ms": 10.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 141,
+   "stage": 1,
+   "block": 0,
+   "arm": "A1_dcji",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 10.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 142,
+   "stage": 1,
+   "block": 0,
+   "arm": "A3_dcji_webhook",
+   "condition": "async_app_policy",
+   "delta_ms": -1.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 143,
+   "stage": 1,
+   "block": 0,
+   "arm": "A0_native_uid",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": -5.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 144,
+   "stage": 1,
+   "block": 0,
+   "arm": "A1_dcji",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 0.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 145,
+   "stage": 1,
+   "block": 0,
+   "arm": "A3_dcji_webhook",
+   "condition": "async_app_policy",
+   "delta_ms": -2.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 146,
+   "stage": 1,
+   "block": 0,
+   "arm": "A3_dcji_webhook",
+   "condition": "async_app_policy",
+   "delta_ms": 20.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 147,
+   "stage": 1,
+   "block": 0,
+   "arm": "A2_fullrefresh",
+   "condition": "async_scope",
+   "delta_ms": -2.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 148,
+   "stage": 1,
+   "block": 0,
+   "arm": "A1_dcji",
+   "condition": "async_scope",
+   "delta_ms": -1.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 149,
+   "stage": 1,
+   "block": 0,
+   "arm": "A2_fullrefresh",
+   "condition": "async_app_policy",
+   "delta_ms": 20.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 150,
+   "stage": 1,
+   "block": 0,
+   "arm": "A3_dcji_webhook",
+   "condition": "async_scope",
+   "delta_ms": 2.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 151,
+   "stage": 1,
+   "block": 0,
+   "arm": "A3_dcji_webhook",
+   "condition": "async_app_policy",
+   "delta_ms": 1.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  },
+  {
+   "trial_id": 152,
+   "stage": 1,
+   "block": 0,
+   "arm": "A0_native_uid",
+   "condition": "async_scope",
+   "delta_ms": 50.0,
+   "rep": 0,
+   "schedule_seed": 777001
+  }
+ ],
+ "note": "reps=1 (smoke/pilot)"
+}

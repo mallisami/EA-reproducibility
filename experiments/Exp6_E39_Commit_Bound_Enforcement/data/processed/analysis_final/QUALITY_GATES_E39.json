@@ -1,0 +1,200 @@
+{
+ "n_trials": 20734,
+ "infra_error": 0,
+ "infra_rate": 0.0,
+ "infra_examples": [],
+ "primary_classes": {
+  "INVALID_EXECUTED": 4560,
+  "VALID_EXECUTED": 9906,
+  "CORRECT_ABORT": 2378,
+  "UID_BLOCKED": 40,
+  "UNKNOWN": 3850
+ },
+ "primary_by_exp": {
+  "A": {
+   "INVALID_EXECUTED": 2877,
+   "VALID_EXECUTED": 4304,
+   "CORRECT_ABORT": 651,
+   "UID_BLOCKED": 40,
+   "UNKNOWN": 10
+  },
+  "B": {
+   "INVALID_EXECUTED": 631,
+   "VALID_EXECUTED": 3164,
+   "CORRECT_ABORT": 1005
+  },
+  "C": {
+   "UNKNOWN": 3840
+  },
+  "D": {
+   "VALID_EXECUTED": 884,
+   "INVALID_EXECUTED": 556,
+   "CORRECT_ABORT": 432
+  },
+  "E": {
+   "INVALID_EXECUTED": 201,
+   "VALID_EXECUTED": 895,
+   "CORRECT_ABORT": 152
+  },
+  "F": {
+   "VALID_EXECUTED": 659,
+   "INVALID_EXECUTED": 256,
+   "CORRECT_ABORT": 21
+  },
+  "G": {
+   "CORRECT_ABORT": 117,
+   "INVALID_EXECUTED": 39
+  }
+ },
+ "unknown_reasons": {
+  "A|mirror_rv_not_after_source": 10,
+  "C|not_dispatched_without_abort(EXECUTE)": 1920,
+  "C|fixture_prewrite_vcore_false": 1920
+ },
+ "audit_ids_joined": "45141/45141",
+ "join_rate": 1.0,
+ "join_misses": [],
+ "agreement_primary_secondary": 0.9857345803243756,
+ "disagreements": [
+  [
+   "204",
+   "A",
+   "A3_dcji_webhook",
+   "100.0",
+   "VALID_EXECUTED",
+   "INVALID_EXECUTED"
+  ],
+  [
+   "205",
+   "A",
+   "A3_dcji_webhook",
+   "1.0",
+   "CORRECT_ABORT",
+   "FALSE_ABORT"
+  ],
+  [
+   "208",
+   "A",
+   "A3_dcji_webhook",
+   "0.5",
+   "CORRECT_ABORT",
+   "FALSE_ABORT"
+  ],
+  [
+   "278",
+   "A",
+   "A4m_commit_mirror",
+   "2.0",
+   "INVALID_EXECUTED",
+   "VALID_EXECUTED"
+  ],
+  [
+   "318",
+   "A",
+   "A4m_commit_mirror",
+   "10.0",
+   "VALID_EXECUTED",
+   "INVALID_EXECUTED"
+  ],
+  [
+   "436",
+   "A",
+   "A1_dcji",
+   "10.0",
+   "VALID_EXECUTED",
+   "INVALID_EXECUTED"
+  ],
+  [
+   "438",
+   "A",
+   "A3_dcji_webhook",
+   "1.0",
+   "CORRECT_ABORT",
+   "FALSE_ABORT"
+  ],
+  [
+   "467",
+   "A",
+   "A3_dcji_webhook",
+   "2.0",
+   "CORRECT_ABORT",
+   "FALSE_ABORT"
+  ],
+  [
+   "514",
+   "A",
+   "A4m_commit_mirror",
+   "100.0",
+   "VALID_EXECUTED",
+   "INVALID_EXECUTED"
+  ],
+  [
+   "648",
+   "A",
+   "A3_dcji_webhook",
+   "0.0",
+   "CORRECT_ABORT",
+   "FALSE_ABORT"
+  ],
+  [
+   "825",
+   "A",
+   "A3_dcji_webhook",
+   "0.5",
+   "CORRECT_ABORT",
+   "FALSE_ABORT"
+  ],
+  [
+   "858",
+   "A",
+   "A1_dcji",
+   "50.0",
+   "VALID_EXECUTED",
+   "INVALID_EXECUTED"
+  ]
+ ],
+ "controls": {
+  "G_in_model_ace|A1_dcji|CORRECT_ABORT": 39,
+  "G_in_model_ace|A2_fullrefresh|CORRECT_ABORT": 39,
+  "G_out_of_model_bdf|A1_dcji|INVALID_EXECUTED": 39,
+  "G_out_of_model_bdf|A2_fullrefresh|CORRECT_ABORT": 39,
+  "no_write|A1_dcji|VALID_EXECUTED": 39,
+  "no_write|A3_dcji_webhook|VALID_EXECUTED": 39,
+  "no_write|A4d_commit_direct|VALID_EXECUTED": 39,
+  "no_write|A4m_commit_mirror|VALID_EXECUTED": 39,
+  "uid_rebind|A1_dcji|UID_BLOCKED": 10,
+  "uid_rebind|A3_dcji_webhook|UID_BLOCKED": 10,
+  "uid_rebind|A4d_commit_direct|UID_BLOCKED": 10,
+  "uid_rebind|A4m_commit_mirror|UID_BLOCKED": 10
+ },
+ "controls_ok": true,
+ "conflict_kinds": {
+  "uid": 40,
+  "resourceVersion": 115
+ },
+ "flag_unparsed": 0,
+ "c_fields_ok": true,
+ "d_fields_ok": true,
+ "schema_invalid": [],
+ "n_schema_invalid": 0,
+ "n_by_exp": {
+  "A": 7882,
+  "G": 156,
+  "E": 1248,
+  "F": 936,
+  "B": 4800,
+  "D": 1872,
+  "C": 3840
+ },
+ "GATES": {
+  "infra_lt_2pct": true,
+  "join_ge_98pct": true,
+  "agreement_ge_95pct": true,
+  "controls_ok": true,
+  "schema_valid": true,
+  "no_unparsed_409": true,
+  "c_fields": true,
+  "d_fields": true
+ },
+ "ALL_GATES_PASS": true
+}

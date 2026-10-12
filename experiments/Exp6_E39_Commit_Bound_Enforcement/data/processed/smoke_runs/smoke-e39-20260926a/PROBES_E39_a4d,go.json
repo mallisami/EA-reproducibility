@@ -1,0 +1,349 @@
+{
+ "run_id": "smoke-e39-20260926a",
+ "namespace": "e39-smoke-e39-20260926a",
+ "server": "https://127.0.0.1:46551",
+ "t_start_wall_ns": 1790432938880661269,
+ "parts": {
+  "a4d": {
+   "stale": {
+    "rv0": "2523",
+    "annotate_commit_rv": "2524",
+    "delete": {
+     "op": "delete_rv_stale",
+     "identity": "responder",
+     "audit_id": "362c7a4d-1fd9-4702-8246-64ae478486a0",
+     "status": 409,
+     "rv": null,
+     "t_wall_ns": 1790432939325609340,
+     "message": "Operation cannot be fulfilled on Pod \"probe-a4\": the ResourceVersion in the precondition (2523) does not match the ResourceVersion in record (2524). The object might have been modified",
+     "pod": "probe-a4",
+     "precondition_rv": "2523",
+     "expect": 409
+    },
+    "msg_precondition_rv": "2523",
+    "msg_object_rv": "2524"
+   },
+   "wrong_uid": {
+    "op": "delete_uid_wrong",
+    "identity": "responder",
+    "audit_id": "e0bdb26c-fa06-4ccb-8ede-d6662d78192f",
+    "status": 409,
+    "rv": null,
+    "t_wall_ns": 1790432939327473108,
+    "message": "Operation cannot be fulfilled on Pod \"probe-a4\": the UID in the precondition (00000000-0000-0000-0000-000000000000) does not match the UID in record (8769b9aa-ad37-4cce-bbc8-2e8f7064697c). The object might have been deleted and then recreated",
+    "pod": "probe-a4",
+    "expect": 409
+   },
+   "current": {
+    "op": "delete_rv_current",
+    "identity": "responder",
+    "audit_id": "2e33373d-b1f2-4865-831b-afcc9b5cbc7f",
+    "status": 200,
+    "rv": "2526",
+    "t_wall_ns": 1790432939342096001,
+    "pod": "probe-a4",
+    "precondition_rv": "2524",
+    "expect": 200,
+    "attempt": 0
+   },
+   "current_attempts": 1,
+   "PASS": true,
+   "object_rv_equals_annotate_rv": true,
+   "t_start_wall_ns": 1790432938880880962,
+   "t_end_wall_ns": 1790432939342123292
+  },
+  "go": {
+   "ping": {
+    "op": "ping",
+    "ok": true,
+    "valid": false,
+    "deleted": false
+   },
+   "a1_gate": {
+    "op": "gate_uid",
+    "ok": true,
+    "reads": {
+     "application-policy": {
+      "resourceVersion": "1278",
+      "value": "true",
+      "allowed": true,
+      "t_send": 52046945673760,
+      "t_recv": 52046947432932,
+      "audit_id": "4886c377-ba60-4b49-9d6f-3f58bb5a7fb8"
+     },
+     "evidence-a": {
+      "resourceVersion": "1643",
+      "value": "true",
+      "allowed": true,
+      "t_send": 52046931259998,
+      "t_recv": 52046938330886,
+      "audit_id": "d5dfc501-42ca-422a-8659-a33e9341beee"
+     },
+     "evidence-c": {
+      "resourceVersion": "813",
+      "value": "true",
+      "allowed": true,
+      "t_send": 52046938359240,
+      "t_recv": 52046940396394,
+      "audit_id": "f429d69c-e302-4085-988f-afe472500ab4"
+     },
+     "evidence-e": {
+      "resourceVersion": "815",
+      "value": "true",
+      "allowed": true,
+      "t_send": 52046940398148,
+      "t_recv": 52046942004238,
+      "audit_id": "80761932-8018-47b4-b0d3-3bdaba69cce2"
+     },
+     "probe-go1": {
+      "resourceVersion": "2536",
+      "t_send": 52046947435557,
+      "t_recv": 52046952036283,
+      "audit_id": "0244f53d-82a6-4a5a-bb7f-ccc7f0106fab"
+     },
+     "response-scope": {
+      "resourceVersion": "1377",
+      "value": "true",
+      "allowed": true,
+      "t_send": 52046942034385,
+      "t_recv": 52046945671927,
+      "audit_id": "0528cce3-8a89-4920-bb1b-fb09412d2f96"
+     }
+    },
+    "pod_uid": "756c3bca-b2d7-4cb2-9543-3cc33a91b1b3",
+    "pod_resource_version": "2536",
+    "valid": true,
+    "gate_decision": "delete",
+    "gate_reason": "allow: J via a&b|c&d|e&f; scope_allowed; app_policy_allowed",
+    "t_gate_end_mono_ns": 52046952039890,
+    "deleted": false
+   },
+   "a1_delete": {
+    "op": "delete_uid",
+    "ok": true,
+    "valid": false,
+    "deleted": true,
+    "delete_status": 200,
+    "delete_audit_id": "9eb62e1f-142a-4bc6-a5a2-eb1bd6d0b572",
+    "deleted_resource_version": "2557",
+    "t_send_mono_ns": 52046952280533,
+    "t_resp_mono_ns": 52046965467090
+   },
+   "a1_gate_end_within_call": true,
+   "a4d_combined": {
+    "op": "gate_delete_rv",
+    "ok": true,
+    "reads": {
+     "probe-go2": {
+      "resourceVersion": "2546",
+      "t_send": 52046965863666,
+      "t_recv": 52046968190151,
+      "audit_id": "da6a4d1d-ad02-4231-a4ae-78beef3d4fcd"
+     }
+    },
+    "pod_uid": "78456a54-2c12-4541-acf9-f8b9cacf0eb4",
+    "pod_resource_version": "2546",
+    "valid": true,
+    "gate_decision": "delete",
+    "gate_reason": "allow: J via a&b|c&d|e&f; scope_allowed; app_policy_allowed",
+    "t_gate_end_mono_ns": 52046968201503,
+    "deleted": true,
+    "delete_status": 200,
+    "delete_audit_id": "0691677a-a66c-43e1-baee-b99253b27388",
+    "deleted_resource_version": "2560",
+    "t_send_mono_ns": 52046968203106,
+    "t_resp_mono_ns": 52046983360143
+   },
+   "stale_rv_delete": {
+    "op": "delete_rv",
+    "ok": true,
+    "valid": false,
+    "deleted": false,
+    "delete_status": 409,
+    "delete_reason": "Conflict",
+    "delete_message": "Operation cannot be fulfilled on Pod \"probe-go3\": the ResourceVersion in the precondition (2555) does not match the ResourceVersion in record (2561). The object might have been modified",
+    "delete_audit_id": "55acfe35-1a25-418e-bed1-7f9deee43d68",
+    "t_send_mono_ns": 52047416314098,
+    "t_resp_mono_ns": 52047460675552
+   },
+   "stale_annotate_rv": "2561",
+   "PASS": true,
+   "t_start_wall_ns": 1790432939342171142,
+   "t_end_wall_ns": 1790432941169961627
+  }
+ },
+ "ops": [
+  {
+   "op": "create_pod",
+   "identity": "reset",
+   "audit_id": "34b4220d-2415-4f5b-9241-0fd01aafc959",
+   "status": 201,
+   "rv": "2514",
+   "t_wall_ns": 1790432938903808814,
+   "pod": "probe-a4"
+  },
+  {
+   "op": "annotate",
+   "identity": "writer",
+   "audit_id": "d235c97e-488d-4e70-bb03-de07af482c57",
+   "status": 200,
+   "rv": "2524",
+   "t_wall_ns": 1790432939323993340,
+   "pod": "probe-a4",
+   "object": "e38.scope",
+   "value": "false"
+  },
+  {
+   "op": "delete_rv_stale",
+   "identity": "responder",
+   "audit_id": "362c7a4d-1fd9-4702-8246-64ae478486a0",
+   "status": 409,
+   "rv": null,
+   "t_wall_ns": 1790432939325609340,
+   "message": "Operation cannot be fulfilled on Pod \"probe-a4\": the ResourceVersion in the precondition (2523) does not match the ResourceVersion in record (2524). The object might have been modified",
+   "pod": "probe-a4",
+   "precondition_rv": "2523",
+   "expect": 409
+  },
+  {
+   "op": "delete_uid_wrong",
+   "identity": "responder",
+   "audit_id": "e0bdb26c-fa06-4ccb-8ede-d6662d78192f",
+   "status": 409,
+   "rv": null,
+   "t_wall_ns": 1790432939327473108,
+   "message": "Operation cannot be fulfilled on Pod \"probe-a4\": the UID in the precondition (00000000-0000-0000-0000-000000000000) does not match the UID in record (8769b9aa-ad37-4cce-bbc8-2e8f7064697c). The object might have been deleted and then recreated",
+   "pod": "probe-a4",
+   "expect": 409
+  },
+  {
+   "op": "delete_rv_current",
+   "identity": "responder",
+   "audit_id": "2e33373d-b1f2-4865-831b-afcc9b5cbc7f",
+   "status": 200,
+   "rv": "2526",
+   "t_wall_ns": 1790432939342096001,
+   "pod": "probe-a4",
+   "precondition_rv": "2524",
+   "expect": 200,
+   "attempt": 0
+  },
+  {
+   "op": "create_pod",
+   "identity": "reset",
+   "audit_id": "a768f87b-b756-4476-afc2-d139e7469c14",
+   "status": 201,
+   "rv": "2527",
+   "t_wall_ns": 1790432939374402989,
+   "pod": "probe-go1"
+  },
+  {
+   "op": "create_pod",
+   "identity": "reset",
+   "audit_id": "c0f8a007-9c60-4aef-843b-f0dc8b8842da",
+   "status": 201,
+   "rv": "2537",
+   "t_wall_ns": 1790432939775858771,
+   "pod": "probe-go2"
+  },
+  {
+   "op": "create_pod",
+   "identity": "reset",
+   "audit_id": "88bda7da-b0d5-4c30-ad91-845d1bb6d901",
+   "status": 201,
+   "rv": "2547",
+   "t_wall_ns": 1790432940140732390,
+   "pod": "probe-go3"
+  },
+  {
+   "op": "go_get",
+   "identity": "responder",
+   "audit_id": "4886c377-ba60-4b49-9d6f-3f58bb5a7fb8",
+   "status": 200,
+   "rv": "1278",
+   "object": "application-policy"
+  },
+  {
+   "op": "go_get",
+   "identity": "responder",
+   "audit_id": "d5dfc501-42ca-422a-8659-a33e9341beee",
+   "status": 200,
+   "rv": "1643",
+   "object": "evidence-a"
+  },
+  {
+   "op": "go_get",
+   "identity": "responder",
+   "audit_id": "f429d69c-e302-4085-988f-afe472500ab4",
+   "status": 200,
+   "rv": "813",
+   "object": "evidence-c"
+  },
+  {
+   "op": "go_get",
+   "identity": "responder",
+   "audit_id": "80761932-8018-47b4-b0d3-3bdaba69cce2",
+   "status": 200,
+   "rv": "815",
+   "object": "evidence-e"
+  },
+  {
+   "op": "go_get",
+   "identity": "responder",
+   "audit_id": "0244f53d-82a6-4a5a-bb7f-ccc7f0106fab",
+   "status": 200,
+   "rv": "2536",
+   "object": "probe-go1"
+  },
+  {
+   "op": "go_get",
+   "identity": "responder",
+   "audit_id": "0528cce3-8a89-4920-bb1b-fb09412d2f96",
+   "status": 200,
+   "rv": "1377",
+   "object": "response-scope"
+  },
+  {
+   "op": "go_delete_uid",
+   "identity": "responder",
+   "audit_id": "9eb62e1f-142a-4bc6-a5a2-eb1bd6d0b572",
+   "status": 200,
+   "rv": "2557"
+  },
+  {
+   "op": "go_gate_delete_rv",
+   "identity": "responder",
+   "audit_id": "0691677a-a66c-43e1-baee-b99253b27388",
+   "status": 200,
+   "rv": "2560"
+  },
+  {
+   "op": "annotate",
+   "identity": "writer",
+   "audit_id": "b193b18d-628f-4cf9-b540-f69b7dcafc88",
+   "status": 200,
+   "rv": "2561",
+   "t_wall_ns": 1790432940994869741,
+   "pod": "probe-go3"
+  },
+  {
+   "op": "go_delete_rv_stale",
+   "identity": "responder",
+   "audit_id": "55acfe35-1a25-418e-bed1-7f9deee43d68",
+   "status": 409,
+   "rv": null,
+   "message": "Operation cannot be fulfilled on Pod \"probe-go3\": the ResourceVersion in the precondition (2555) does not match the ResourceVersion in record (2561). The object might have been modified"
+  },
+  {
+   "op": "reset_delete",
+   "identity": "reset",
+   "audit_id": "19ea167c-1483-4400-aa89-0755769f5554",
+   "status": 200,
+   "rv": "2565",
+   "t_wall_ns": 1790432941169890614,
+   "pod": "probe-go3"
+  }
+ ],
+ "t_end_wall_ns": 1790432941207357554,
+ "ALL_PASS": true
+}

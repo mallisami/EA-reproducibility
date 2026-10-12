@@ -1,0 +1,19 @@
+{
+  "authoritative_confirmatory": "analysis/confirmatory_comparisons_cluster_corrected.json",
+  "authoritative_E1_E5_report": "analysis/E1_E5_HELDOUT_RESULTS_CORRECTED.md",
+  "master_audit": "analysis/MASTER_DETERMINISTIC_AUDIT.json",
+  "strict_audits": [
+    "analysis/V4_STRICT_AUDIT.json",
+    "analysis/E3_E4_STRICT_AUDIT.json",
+    "analysis/E6_STRICT_AUDIT.json",
+    "analysis/E7_STRICT_AUDIT.json",
+    "analysis/E8_STRICT_AUDIT.json",
+    "analysis/E9_STRICT_AUDIT.json",
+    "analysis/E10_STRICT_AUDIT.json",
+    "analysis/E11_STRICT_AUDIT.json",
+    "analysis/E12_STRICT_AUDIT.json",
+    "analysis/E12BC_STRICT_AUDIT.json",
+    "analysis/E15_STRICT_AUDIT.json",
+    "analysis/E16_STRICT_AUDIT.json"
+  ]
+}

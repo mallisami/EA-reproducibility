@@ -1,0 +1,34 @@
+{
+  "schema": "a4d.r2.writer_outcome_summary.v1",
+  "run_id": "a4dcr-r2-20261001",
+  "async_trials": 936,
+  "writer_http_status": {
+    "200": 112,
+    "404": 824
+  },
+  "writer_200_response_with_deletionTimestamp": 112,
+  "writer_200_response_without_deletionTimestamp": 0,
+  "by_condition": {
+    "async_scope": {
+      "n": 312,
+      "writer_http_status": {
+        "200": 37,
+        "404": 275
+      }
+    },
+    "async_app_policy": {
+      "n": 312,
+      "writer_http_status": {
+        "200": 37,
+        "404": 275
+      }
+    },
+    "async_evidence_last_literal": {
+      "n": 312,
+      "writer_http_status": {
+        "200": 38,
+        "404": 274
+      }
+    }
+  }
+}

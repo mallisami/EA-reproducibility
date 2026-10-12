@@ -1,0 +1,66 @@
+E40 DEVIATIONS (dated 2026-09-26; relative to the user's E40 brief and to E38v2/E39)
+=====================================================================================
+
+D1 REGION / VM SIZE. The approved cluster (southeastasia, Standard_B2s) was rejected by AKS at 15:23Z (BadRequest:
+   "The VM size of Standard_B2s is not allowed in your subscription in location 'southeastasia'"); nothing was created.
+   With user approval (relayed by the lead) the ordered retry list koreasouth/southindia x D2as_v5/D2s_v5 was used;
+   the first entry, koreasouth Standard_D2as_v5 (2 vCPU AMD, 8 GiB, non-burstable), succeeded (1 node, free tier,
+   Kubernetes 1.36.3, tags purpose=e40 expires=2026-09-27, Azure CNI overlay).
+   Cross-region note: the runner, writer, webhook and target Pod all run INSIDE the cluster (same node), and the managed
+   control plane is in the same region, so the Azure region does not enter the measured client->apiserver latencies;
+   the control VM (eastasia) only issues setup/collection commands. D2as_v5 differs from B2s by not being CPU-credit
+   throttled (fewer timing artefacts), and by 8 GiB instead of 4 GiB RAM.
+
+D2 CANCEL / RECREATE. A first koreasouth cluster (created 16:56-17:01Z) was set up through "runner job ready" (17:09Z)
+   and then stopped and deleted by the lead (delete issued 17:11Z) before any probe or trial ran. No data from it exist
+   or are used. After `az aks list` was empty the cluster was recreated with identical parameters (create start
+   17:28:42Z); the 3 h hard stop and the time box are counted from this recreate. Artefacts of attempt 1 in ops/attempt1/.
+
+D3 MC_ NODE RESOURCE GROUP VERIFICATION. The VM's managed identity (Contributor on mcb-experiments only) is not allowed to
+   read resource groups outside mcb-experiments (Forbidden on MC_mcb-experiments_e40-aks_koreasouth). "MC_ gone" is
+   therefore evidenced by the completed `az aks delete` (which deletes the node resource group as part of the operation)
+   and `az aks list` / `az aks show` (NotFound); a direct read of the MC_ group was not possible from the VM
+   (the log line "MC_ group exists=false" of the recreate wait means "not readable / not reported as existing").
+
+D4 AUDIT LOG. AKS exposes no kube-apiserver audit log file; paid diagnostic export was not enabled. Primary oracle =
+   unchanged E39 oracle with an empty audit log (client-recorded response resourceVersions; pod-watch DELETED-event RV
+   fallback). E39 secondary (ResponseComplete) and tertiary rules are therefore UNKNOWN for every trial by construction;
+   replaced by the pre-registered client-timestamp secondary (e40_supplement.py). 409 attribution uses pod-watch events.
+
+D5 CODE ADAPTATIONS (copy of the E39 LOCKED tree, hashes in COPY_SHA256_E39.txt; nothing in ~/e39_20260926 edited):
+   (a) prefix rename e39- -> e40- (and the webhook namespace regex "|e39)-") in src/, webhook/, deploy/
+       (RENAME_E39_TO_E40.diff); label value app=e39 and comments unchanged (REMAINING_E39_TOKENS.txt);
+   (b) API rail: wrapper e40_main.py replaces e39_kube.check_loopback_url by an exact match on
+       https://$KUBERNETES_SERVICE_HOST:$KUBERNETES_SERVICE_PORT; pod_watch via e40_podwatch.py (same rail);
+   (c) design subset via runner module constants (ARMS_A, ASYNC, DELTAS_A); apiserver version check v1.36.*;
+   (d) memory guards 512 MiB pause / 256 MiB abort (E39: 2 GiB / 1.5 GiB on the 16 GiB shared VM);
+   (e) webhook log hostPath -> emptyDir; images pre-pulled by an AKS pre-pull Pod (manifests keep imagePullPolicy Never);
+   (f) code ConfigMaps applied with server-side apply (client-side apply's last-applied annotation exceeded 256 KiB);
+   (g) jsonschema + dependencies from the E39 runner venv as a ConfigMap tarball (pylib.tgz);
+   (h) runner block loop with the pre-registered time box; cumulative INFRA guard across blocks (E39 guard is per call).
+   (i) tokens: TokenRequest (6 h) for e40-{responder,writer,reset,mirror}; the mirror identity exists only because the
+       unchanged Env starts the mirror host process when experiment A is run (no A4m trials in E40).
+
+D7 AKS ADMISSION ENFORCER. AKS added matchExpressions (control-plane NotIn true; kubernetes.azure.com/managedby NotIn aks)
+   to the webhook namespaceSelector (ops/vwc_live.yaml); no effect on the e40-<run> namespace (matchLabels unchanged).
+D8 PROBE P3 string check. The v1.36 409 text is "the ResourceVersion in the precondition (X) does not match the
+   ResourceVersion in record (Y)"; the probe's own substring check ("ResourceVersion in precondition") reported false,
+   but the LOCKED E39 parser (e39_common._PRECOND_RV_V137) parses exactly this format (all 6 A4d 409s parsed, attributed
+   to the writer). No change made.
+D9 SECONDARY COLUMNS. The E39 analysis output's sec_* / d_star_secondary / tertiary columns are UNKNOWN / "not_closed"
+   by construction (no audit timestamps, D4); the pre-registered E40 secondary is supplement/client_secondary_*.csv.
+D10 INDEPENDENT RECOMPUTATION (recompute_independent_e39.py, standard library, no pod-event input) differs from the main
+   analysis in 10 cells (9 A3 cells, 1 A4d cell), always by a SMALLER denominator (e.g. A3/async_scope/50: 30/34 vs 35/39):
+   accepted DELETEs whose response carried no resourceVersion are UNKNOWN for the independent code but resolved by the
+   pre-registered pod-watch DELETED-event fallback in the main oracle. Reported, not used to change results.
+D11 EXPLORATORY (not pre-registered) mechanism table supplement/A4D_MECHANISM_EXPLORATORY.json: position of each
+   INVALID_EXECUTED write relative to the deletion-accepted revision (first pod-watch MODIFIED event with
+   deletionTimestamp). Reported descriptively only.
+D12 E39-A comparison: no E39-A analysis output (cells_E39.csv) existed in ~/e39_20260926 at E40 analysis time
+   (E39 still running); only the E38v2 confirmatory rerun (kind, deltas 0-50 ms) is used as the kind reference.
+D13 SMOKE podwatch (namespace e40-smoke1) kept running in the runner Pod during the main run (the container has no pkill);
+   read-only watch on another namespace, negligible load.
+
+D6 ANALYSIS. analysis/analyze_e39.py unchanged, run with --design-check off (E40 design is not the E39 design) and
+   --experiments A; E39 d* / window-area code uses only the deltas present (E40 grid). LOCK_E40.json is a plain
+   {files: {path: sha256}} lock (format accepted by analyze_e39.verify_lock).

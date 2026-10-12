@@ -1,0 +1,44 @@
+{
+ "F1.1": {
+  "current_sha_matches": false,
+  "matches_if_keys_removed": [
+   "scenario_role"
+  ],
+  "policy_and_transition_hashes_match": true
+ },
+ "F2.1": {
+  "current_sha_matches": false,
+  "matches_if_keys_removed": [
+   "scenario_role"
+  ],
+  "policy_and_transition_hashes_match": true
+ },
+ "F3.1": {
+  "current_sha_matches": false,
+  "matches_if_keys_removed": [
+   "scenario_role"
+  ],
+  "policy_and_transition_hashes_match": true
+ },
+ "F4.1": {
+  "current_sha_matches": false,
+  "matches_if_keys_removed": [
+   "scenario_role"
+  ],
+  "policy_and_transition_hashes_match": true
+ },
+ "F5.1": {
+  "current_sha_matches": false,
+  "matches_if_keys_removed": [
+   "scenario_role"
+  ],
+  "policy_and_transition_hashes_match": true
+ },
+ "F5.5": {
+  "current_sha_matches": false,
+  "matches_if_keys_removed": [
+   "scenario_role"
+  ],
+  "policy_and_transition_hashes_match": true
+ }
+}

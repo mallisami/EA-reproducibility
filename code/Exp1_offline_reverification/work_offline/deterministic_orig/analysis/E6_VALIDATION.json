@@ -1,0 +1,26 @@
+{
+  "heldout_primary_templates": 5,
+  "heldout_primary_template_ids": [
+    "F1.2",
+    "F1.3",
+    "F1.4",
+    "F1.5",
+    "F1.6"
+  ],
+  "worlds_per_template": 4,
+  "comparison": [
+    "B0",
+    "B3",
+    "B4",
+    "B5",
+    "B6"
+  ],
+  "raw_rows": 100,
+  "B0_W2_unsafe": 5,
+  "B5_W2_unsafe": 0,
+  "B5_control_false_abort": 0,
+  "B5_mean_W2_query_cost": 0.0,
+  "native_coverage_positive_heldout": "5/23",
+  "frozen_input_hash_mismatches": [],
+  "status": "PASS"
+}

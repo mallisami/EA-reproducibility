@@ -1,0 +1,27 @@
+{
+  "experiment": "E25",
+  "title": "Physical All-Predicate Multi-Cut Benchmark (Symmetric Threat Model)",
+  "motivation": "The E22 theoretical audit (08_revision_v15/audits/e22_threat_model_breadth_sensitivity.json) established, via the deterministic planner alone, that when the attacker may invalidate either member of each F5 pair (A/B, C/D, E/F) rather than the fixed A/C/E of E21's restricted threat model, the minimum certificate becomes all six predicates and DCJI predicts no strict reduction over FullRefresh. This experiment re-derives that result physically: six independent Kubernetes ConfigMaps (as in E21), a symmetric-threat scenario (F5_PHYS_SYM) whose transitions allow any of the six predicates to be individually cut, and live trials across all 8 minimal invalidating cuts plus a stable control, measuring real physical request counts and latency for both guards.",
+  "scenario": "F5_PHYS_SYM",
+  "namespace": "flashir-e25",
+  "resources": ["obs-a", "obs-b", "obs-c", "obs-d", "obs-e", "obs-f"],
+  "proxy_port": 8001,
+  "conditions": [
+    {"id": "stable", "cut": [], "expected_decision": "EXECUTE"},
+    {"id": "cut_ACE", "cut": ["obs-a", "obs-c", "obs-e"], "expected_decision": "ABORT_REPLAN"},
+    {"id": "cut_ACF", "cut": ["obs-a", "obs-c", "obs-f"], "expected_decision": "ABORT_REPLAN"},
+    {"id": "cut_ADE", "cut": ["obs-a", "obs-d", "obs-e"], "expected_decision": "ABORT_REPLAN"},
+    {"id": "cut_ADF", "cut": ["obs-a", "obs-d", "obs-f"], "expected_decision": "ABORT_REPLAN"},
+    {"id": "cut_BCE", "cut": ["obs-b", "obs-c", "obs-e"], "expected_decision": "ABORT_REPLAN"},
+    {"id": "cut_BCF", "cut": ["obs-b", "obs-c", "obs-f"], "expected_decision": "ABORT_REPLAN"},
+    {"id": "cut_BDE", "cut": ["obs-b", "obs-d", "obs-e"], "expected_decision": "ABORT_REPLAN"},
+    {"id": "cut_BDF", "cut": ["obs-b", "obs-d", "obs-f"], "expected_decision": "ABORT_REPLAN"}
+  ],
+  "repetitions_per_condition": 10,
+  "expected_dcji_query_count": 6,
+  "expected_fullrefresh_query_count": 6,
+  "expected_cost_reduction_fraction": 0.0,
+  "primary_endpoint": "dcji_vs_fullrefresh_request_count_difference",
+  "secondary_endpoints": ["gate_latency_ms", "decision_correctness", "decision_discordance"],
+  "notes": "Preregistered post-hoc extension (E25), run outside the locked v8.1.1 package and outside all other v9/E21/E22/E23/E24 evidence. Uses a dedicated namespace/ConfigMaps, not E21's. This experiment's expected/confirmatory finding is a NULL result for cost reduction (DCJI == FullRefresh == 6 queries in every condition), which is itself the physical confirmation of E22's theoretical claim -- a null result here is the predicted, correct outcome, not a failure of the experiment."
+}

@@ -1,0 +1,1 @@
+cd ~/e38v2_20260926; for v in venv_runner venv_analysis venv_deploy; do echo == $v; $v/bin/python -m pip list 2>/dev/null | grep -iE 'jsonschema|numpy|pytest|yaml'; done; cat analysis/run_tests.sh; python3 -c 'import jsonschema' 2>&1; id

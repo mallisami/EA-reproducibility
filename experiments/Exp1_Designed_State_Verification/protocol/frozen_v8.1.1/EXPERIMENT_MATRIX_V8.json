@@ -1,0 +1,53 @@
+{
+  "version": "8.1.1-final-methodology-lock",
+  "paper_framing": "Automated cyber incident response systems security",
+  "evidence_layers": {
+    "A_controlled_mechanism_validation": [
+      "Core vulnerability",
+      "Delay sensitivity",
+      "Attacker capability",
+      "Defense comparison",
+      "Native preconditions",
+      "Justification redundancy",
+      "Ablations",
+      "Negative controls",
+      "Transition-model incompleteness",
+      "Telemetry lag",
+      "Scalability",
+      "Branching scalability",
+      "Query-certificate scalability",
+      "Benign concurrency",
+      "Consequence/recovery"
+    ],
+    "B_live_system_validation": [
+      "Real Kubernetes attack-and-commit experiments"
+    ],
+    "C_external_trace_validation": [
+      "Transition census",
+      "Conditional exposure-vs-delay",
+      "Commit-guard replay",
+      "Cross-domain and temporal-block replication"
+    ]
+  },
+  "remaining_primary_runs": [
+    "E14 mechanistic add-on",
+    "live Kubernetes E13",
+    "public Kubernetes audit trace E17-E20",
+    "LANL Unified HostEvents (90 days streamed) E17-E20"
+  ],
+  "no_learned_predictor": true,
+  "ordinary_kfold_cross_validation_applicable": false,
+  "controlled_results_lock": "deterministic/CONTROLLED_RESULTS_LOCK.sha256.json",
+  "v81_addons": {
+    "E14": "Deadline-discriminating certificate stress test using locked development scenario F5.5; mechanistic/descriptive, not confirmatory.",
+    "E13_controls": [
+      "NC-L1 stable state",
+      "NC-L2 irrelevant mutation"
+    ],
+    "E13_dcji_binding": "Actual locked DCJI planner derives the live critical query set before each induced transition.",
+    "E13_timing": "Decision/transition/gate timestamps plus deadline feasibility and residual budget.",
+    "solver_fail_safe": "Existing B6 behavior falls back to FullRefresh when selective planning is unknown/timeout/no certificate; locked core unchanged.",
+    "atomicity_boundary": "Client-side DCJI/FullRefresh certificates are observation-relative; native atomic platform preconditions dominate when the exact invariant is exposed.",
+    "E13_residual_window_metric": "Safe execute controls record gate-to-first-actuation latency descriptively; no new efficacy hypothesis is introduced."
+  }
+}

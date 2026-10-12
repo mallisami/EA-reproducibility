@@ -1,0 +1,348 @@
+{
+  "scenario_id": "F5.LIVE",
+  "title": "Live Multi-Basis Justification (Kubernetes Pod Labels)",
+  "family": "F5",
+  "realism_tier": "R2",
+  "scenario_role": "positive_ea_toctou",
+  "development": false,
+  "action": {
+    "action_type": "quarantine_workload",
+    "target_reference": "pod/flashir-multi",
+    "target_snapshot": {
+      "uid": "LIVE"
+    },
+    "queue_semantics": "single_exactly_once_attempt",
+    "execution_precondition": true,
+    "authorization": {
+      "predicate": "p_authorized",
+      "must_remain_valid": true
+    }
+  },
+  "attacker_capability_tier": "C2",
+  "initial_state": {
+    "timestamp_s": 0,
+    "facts": {
+      "flag_a": true,
+      "flag_b": true,
+      "flag_c": true,
+      "flag_d": true,
+      "flag_e": true,
+      "flag_f": true,
+      "irrelevant_alert": false,
+      "action_authorized": true
+    },
+    "resources": [],
+    "processes": [],
+    "network_bindings": [],
+    "sessions": [],
+    "context": {},
+    "evidence": [],
+    "queue": []
+  },
+  "predicates": {
+    "flag_a": {
+      "path": "/facts/flag_a",
+      "op": "eq",
+      "value": true,
+      "evidence_class": "L",
+      "description": "Live label flag-a=true."
+    },
+    "flag_b": {
+      "path": "/facts/flag_b",
+      "op": "eq",
+      "value": true,
+      "evidence_class": "L",
+      "description": "Live label flag-b=true."
+    },
+    "flag_c": {
+      "path": "/facts/flag_c",
+      "op": "eq",
+      "value": true,
+      "evidence_class": "L",
+      "description": "Live label flag-c=true."
+    },
+    "flag_d": {
+      "path": "/facts/flag_d",
+      "op": "eq",
+      "value": true,
+      "evidence_class": "L",
+      "description": "Live label flag-d=true."
+    },
+    "flag_e": {
+      "path": "/facts/flag_e",
+      "op": "eq",
+      "value": true,
+      "evidence_class": "L",
+      "description": "Live label flag-e=true."
+    },
+    "flag_f": {
+      "path": "/facts/flag_f",
+      "op": "eq",
+      "value": true,
+      "evidence_class": "L",
+      "description": "Live label flag-f=true."
+    },
+    "p_authorized": {
+      "path": "/facts/action_authorized",
+      "op": "eq",
+      "value": true,
+      "evidence_class": "DERIVED",
+      "description": "Response executor remains technically authorized."
+    }
+  },
+  "policy_profiles": {
+    "balanced": {
+      "justification": {
+        "any": [
+          {
+            "all": [
+              {
+                "predicate": "flag_a"
+              },
+              {
+                "predicate": "flag_b"
+              }
+            ]
+          },
+          {
+            "all": [
+              {
+                "predicate": "flag_c"
+              },
+              {
+                "predicate": "flag_d"
+              }
+            ]
+          },
+          {
+            "all": [
+              {
+                "predicate": "flag_e"
+              },
+              {
+                "predicate": "flag_f"
+              }
+            ]
+          }
+        ]
+      },
+      "binding": true,
+      "scope": true
+    }
+  },
+  "transitions": [
+    {
+      "transition_id": "irrelevant_change",
+      "title": "Irrelevant annotation change",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.1,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/irrelevant_alert",
+          "value": true
+        }
+      ],
+      "notes": "",
+      "adversarially_induced": false,
+      "causal_parent_ids": []
+    },
+    {
+      "transition_id": "cut_b1",
+      "title": "Attacker removes flag-a live label",
+      "actor": "attacker",
+      "capability_tier": "C2",
+      "duration_s": 0.6,
+      "cost_ops": 1,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/flag_a",
+          "value": false
+        }
+      ],
+      "notes": "",
+      "adversarially_induced": true,
+      "causal_parent_ids": []
+    },
+    {
+      "transition_id": "cut_b2",
+      "title": "Attacker removes flag-c live label",
+      "actor": "attacker",
+      "capability_tier": "C2",
+      "duration_s": 0.6,
+      "cost_ops": 1,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/flag_c",
+          "value": false
+        }
+      ],
+      "notes": "",
+      "adversarially_induced": true,
+      "causal_parent_ids": []
+    },
+    {
+      "transition_id": "cut_b3",
+      "title": "Attacker removes flag-e live label",
+      "actor": "attacker",
+      "capability_tier": "C2",
+      "duration_s": 0.6,
+      "cost_ops": 1,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/flag_e",
+          "value": false
+        }
+      ],
+      "notes": "",
+      "adversarially_induced": true,
+      "causal_parent_ids": []
+    }
+  ],
+  "worlds": {
+    "W0": {
+      "commit_deadline_s": 5,
+      "transition_path": [],
+      "control_semantics": "stable",
+      "expected_commit_by_policy": {
+        "balanced": "EXECUTE"
+      },
+      "expected_commit": "EXECUTE",
+      "expected_attack_path_completed": true
+    },
+    "W1": {
+      "commit_deadline_s": 5,
+      "transition_path": [
+        "irrelevant_change"
+      ],
+      "control_semantics": "irrelevant_change",
+      "expected_commit_by_policy": {
+        "balanced": "EXECUTE"
+      },
+      "expected_commit": "EXECUTE",
+      "expected_attack_path_completed": true
+    },
+    "W2": {
+      "commit_deadline_s": 5,
+      "transition_path": [
+        "cut_b1",
+        "cut_b2",
+        "cut_b3"
+      ],
+      "control_semantics": "ea_toctou",
+      "expected_commit_by_policy": {
+        "balanced": "ABORT_REPLAN"
+      },
+      "expected_commit": "ABORT_REPLAN",
+      "expected_attack_path_completed": true
+    },
+    "W3": {
+      "commit_deadline_s": 0.4,
+      "transition_path": [
+        "cut_b1",
+        "cut_b2",
+        "cut_b3"
+      ],
+      "control_semantics": "deadline_miss",
+      "expected_commit_by_policy": {
+        "balanced": "EXECUTE"
+      },
+      "expected_commit": "EXECUTE",
+      "expected_attack_path_completed": false
+    }
+  },
+  "provenance": {
+    "platform_basis": "Live Kubernetes Pod labels used as independently queryable evidence facts.",
+    "incident_basis": "Multiple independent active evidence bases (paired labels) support a pending quarantine response.",
+    "policy_basis": "Commit validity follows the explicit Boolean response policy over live labels.",
+    "limitations": "This is a live-infrastructure analog of the controlled F5 multi-basis design, built specifically to obtain genuine live DCJI-vs-FullRefresh cost/safety comparison data (E13's original 4 locked cases each have only one dynamic query and cannot show this distinction)."
+  },
+  "severity": "S2",
+  "notes": "v9 E13 live extension: multi-basis case for genuine live cost/safety comparison.",
+  "primary_policy": "balanced",
+  "justification_bases_by_policy": {
+    "balanced": [
+      [
+        "flag_a",
+        "flag_b"
+      ],
+      [
+        "flag_c",
+        "flag_d"
+      ],
+      [
+        "flag_e",
+        "flag_f"
+      ]
+    ]
+  },
+  "justification_bases": [
+    [
+      "flag_a",
+      "flag_b"
+    ],
+    [
+      "flag_c",
+      "flag_d"
+    ],
+    [
+      "flag_e",
+      "flag_f"
+    ]
+  ],
+  "parameterizations": [
+    {
+      "id": "P1",
+      "description": "Minimal topology with only essential resources and evidence."
+    },
+    {
+      "id": "P2",
+      "description": "Distractor topology with benign resources and irrelevant evidence."
+    },
+    {
+      "id": "P3",
+      "description": "Noisy SOC context with non-material alerts and unrelated transitions."
+    },
+    {
+      "id": "P4",
+      "description": "High-impact variant with larger benign background or higher criticality."
+    }
+  ],
+  "native_controls": [],
+  "refresh_model": {
+    "cost_unit": "normalized_query_unit",
+    "query_costs": {
+      "query:/facts/flag_a": 1.0,
+      "query:/facts/flag_b": 1.0,
+      "query:/facts/flag_c": 1.0,
+      "query:/facts/flag_d": 1.0,
+      "query:/facts/flag_e": 1.0,
+      "query:/facts/flag_f": 1.0
+    },
+    "predicate_query_ids": {
+      "flag_a": "query:/facts/flag_a",
+      "flag_b": "query:/facts/flag_b",
+      "flag_c": "query:/facts/flag_c",
+      "flag_d": "query:/facts/flag_d",
+      "flag_e": "query:/facts/flag_e",
+      "flag_f": "query:/facts/flag_f"
+    },
+    "query_observed_at_s": {
+      "query:/facts/flag_a": 0.0,
+      "query:/facts/flag_b": 0.0,
+      "query:/facts/flag_c": 0.0,
+      "query:/facts/flag_d": 0.0,
+      "query:/facts/flag_e": 0.0,
+      "query:/facts/flag_f": 0.0
+    }
+  }
+}

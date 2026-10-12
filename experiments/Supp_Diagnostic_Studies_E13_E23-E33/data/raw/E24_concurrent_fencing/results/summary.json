@@ -1,0 +1,22 @@
+{
+  "naive_sequential": {
+    "n_attempts": 200,
+    "n_delivered": 200,
+    "n_incoherent_delivered": 17,
+    "incoherent_rate_of_delivered": 0.085,
+    "n_unknown_coherence": 0,
+    "mean_retries": 0.0,
+    "max_retries": 0,
+    "mean_latency_ms": 75.45770406723022
+  },
+  "fenced_double_collect": {
+    "n_attempts": 35,
+    "n_delivered": 0,
+    "n_incoherent_delivered": 0,
+    "incoherent_rate_of_delivered": null,
+    "n_unknown_coherence": 35,
+    "mean_retries": 10.0,
+    "max_retries": 10,
+    "mean_latency_ms": 0.0
+  }
+}

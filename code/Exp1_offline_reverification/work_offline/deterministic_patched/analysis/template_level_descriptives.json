@@ -1,0 +1,67 @@
+{
+  "E1": {
+    "templates": 23,
+    "templates_with_any_unsafe": 23,
+    "mean_template_UCR": 1.0,
+    "template_level_wilson_95_any_unsafe": [
+      0.8568833815495731,
+      1
+    ]
+  },
+  "E5": {
+    "B0": {
+      "templates": 23,
+      "templates_with_any_unsafe_commit": 23,
+      "mean_template_UCR": 1.0,
+      "template_level_wilson_95_any_unsafe": [
+        0.8568833815495731,
+        1
+      ]
+    },
+    "B2": {
+      "templates": 23,
+      "templates_with_any_unsafe_commit": 0,
+      "mean_template_UCR": 0.0,
+      "template_level_wilson_95_any_unsafe": [
+        0,
+        0.14311661845042686
+      ]
+    },
+    "B3": {
+      "templates": 15,
+      "templates_with_any_unsafe_commit": 0,
+      "mean_template_UCR": 0.0,
+      "template_level_wilson_95_any_unsafe": [
+        0,
+        0.20388330103584862
+      ]
+    },
+    "B4": {
+      "templates": 23,
+      "templates_with_any_unsafe_commit": 0,
+      "mean_template_UCR": 0.0,
+      "template_level_wilson_95_any_unsafe": [
+        0,
+        0.14311661845042686
+      ]
+    },
+    "B5": {
+      "templates": 5,
+      "templates_with_any_unsafe_commit": 0,
+      "mean_template_UCR": 0.0,
+      "template_level_wilson_95_any_unsafe": [
+        0,
+        0.43448246478317476
+      ]
+    },
+    "B6": {
+      "templates": 23,
+      "templates_with_any_unsafe_commit": 0,
+      "mean_template_UCR": 0.0,
+      "template_level_wilson_95_any_unsafe": [
+        0,
+        0.14311661845042686
+      ]
+    }
+  }
+}

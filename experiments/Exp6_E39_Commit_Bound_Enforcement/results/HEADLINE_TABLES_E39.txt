@@ -1,0 +1,444 @@
+E39 HEADLINE TABLES (generated from analysis_final/results_E39.json; analysis e39.analysis.v1; confirmatory=True)
+completeness gate passed=True design_check=strict n_planned=20734 n_observed=20734 lock_seed=972231175
+
+== E39-A  P(INVALID_EXECUTED) primary, Wilson 95% (k/n) per arm x condition x delta
+  A/A1/python/no_write/NA                                 0/39   0.000 [0.000, 0.090]  2nd 0.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A1/python/async_scope/0                              39/39   1.000 [0.910, 1.000]  2nd 1.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A1/python/async_scope/0.5                            39/39   1.000 [0.910, 1.000]  2nd 1.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A1/python/async_scope/1                              39/39   1.000 [0.910, 1.000]  2nd 1.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A1/python/async_scope/2                              39/39   1.000 [0.910, 1.000]  2nd 1.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A1/python/async_scope/3                              38/39   0.974 [0.868, 0.995]  2nd 0.974  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A1/python/async_scope/5                              68/93   0.731 [0.633, 0.811]  2nd 0.731  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A1/python/async_scope/10                             26/93   0.280 [0.199, 0.378]  2nd 0.312  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A1/python/async_scope/20                             12/93   0.129 [0.075, 0.212]  2nd 0.129  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A1/python/async_scope/50                              4/93   0.043 [0.017, 0.105]  2nd 0.054  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A1/python/async_scope/100                             3/93   0.032 [0.011, 0.091]  2nd 0.032  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A1/python/async_scope/200                             0/39   0.000 [0.000, 0.090]  2nd 0.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A1/python/async_app_policy/0                         39/39   1.000 [0.910, 1.000]  2nd 1.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A1/python/async_app_policy/0.5                       39/39   1.000 [0.910, 1.000]  2nd 1.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A1/python/async_app_policy/1                         38/39   0.974 [0.868, 0.995]  2nd 0.974  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A1/python/async_app_policy/2                         39/39   1.000 [0.910, 1.000]  2nd 1.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A1/python/async_app_policy/3                         83/93   0.892 [0.813, 0.941]  2nd 0.892  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A1/python/async_app_policy/5                         70/93   0.753 [0.656, 0.829]  2nd 0.763  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A1/python/async_app_policy/10                        23/93   0.247 [0.171, 0.344]  2nd 0.280  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A1/python/async_app_policy/20                        14/93   0.151 [0.092, 0.237]  2nd 0.183  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A1/python/async_app_policy/50                         0/39   0.000 [0.000, 0.090]  2nd 0.026  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A1/python/async_app_policy/100                        1/39   0.026 [0.005, 0.132]  2nd 0.026  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A1/python/async_app_policy/200                        0/39   0.000 [0.000, 0.090]  2nd 0.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A1/python/async_evidence_last_literal/0              39/39   1.000 [0.910, 1.000]  2nd 1.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A1/python/async_evidence_last_literal/0.5            39/39   1.000 [0.910, 1.000]  2nd 0.974  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A1/python/async_evidence_last_literal/1              39/39   1.000 [0.910, 1.000]  2nd 1.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A1/python/async_evidence_last_literal/2              39/39   1.000 [0.910, 1.000]  2nd 0.974  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A1/python/async_evidence_last_literal/3              84/93   0.903 [0.826, 0.948]  2nd 0.892  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A1/python/async_evidence_last_literal/5              71/93   0.763 [0.668, 0.838]  2nd 0.774  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A1/python/async_evidence_last_literal/10             15/93   0.161 [0.100, 0.249]  2nd 0.161  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A1/python/async_evidence_last_literal/20             18/93   0.194 [0.126, 0.285]  2nd 0.204  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A1/python/async_evidence_last_literal/50              5/93   0.054 [0.023, 0.120]  2nd 0.086  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A1/python/async_evidence_last_literal/100             6/93   0.065 [0.030, 0.134]  2nd 0.086  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A1/python/async_evidence_last_literal/200             0/39   0.000 [0.000, 0.090]  2nd 0.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A1/python/uid_rebind_control/NA                       0/10   0.000 [0.000, 0.278]  2nd 0.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A3/python/no_write/NA                                 0/39   0.000 [0.000, 0.090]  2nd 0.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A3/python/async_scope/0                               0/39   0.000 [0.000, 0.090]  2nd 0.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A3/python/async_scope/0.5                             0/39   0.000 [0.000, 0.090]  2nd 0.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A3/python/async_scope/1                               0/39   0.000 [0.000, 0.090]  2nd 0.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A3/python/async_scope/2                               0/39   0.000 [0.000, 0.090]  2nd 0.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A3/python/async_scope/3                               0/39   0.000 [0.000, 0.090]  2nd 0.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A3/python/async_scope/5                               0/39   0.000 [0.000, 0.090]  2nd 0.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A3/python/async_scope/10                             69/93   0.742 [0.645, 0.820]  2nd 0.742  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A3/python/async_scope/20                             64/93   0.688 [0.588, 0.773]  2nd 0.688  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A3/python/async_scope/50                             13/93   0.140 [0.084, 0.225]  2nd 0.172  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A3/python/async_scope/100                             6/93   0.065 [0.030, 0.134]  2nd 0.075  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A3/python/async_scope/200                             3/93   0.032 [0.011, 0.091]  2nd 0.043  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A3/python/async_app_policy/0                          0/39   0.000 [0.000, 0.090]  2nd 0.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A3/python/async_app_policy/0.5                        0/39   0.000 [0.000, 0.090]  2nd 0.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A3/python/async_app_policy/1                          0/39   0.000 [0.000, 0.090]  2nd 0.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A3/python/async_app_policy/2                          1/39   0.026 [0.005, 0.132]  2nd 0.026  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A3/python/async_app_policy/3                          0/39   0.000 [0.000, 0.090]  2nd 0.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A3/python/async_app_policy/5                          0/39   0.000 [0.000, 0.090]  2nd 0.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A3/python/async_app_policy/10                        54/93   0.581 [0.479, 0.676]  2nd 0.581  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A3/python/async_app_policy/20                        66/93   0.710 [0.611, 0.792]  2nd 0.720  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A3/python/async_app_policy/50                         6/93   0.065 [0.030, 0.134]  2nd 0.108  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A3/python/async_app_policy/100                       10/93   0.108 [0.059, 0.187]  2nd 0.108  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A3/python/async_app_policy/200                        1/39   0.026 [0.005, 0.132]  2nd 0.026  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A3/python/async_evidence_last_literal/0              70/93   0.753 [0.656, 0.829]  2nd 0.753  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A3/python/async_evidence_last_literal/0.5            70/93   0.753 [0.656, 0.829]  2nd 0.753  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A3/python/async_evidence_last_literal/1              80/93   0.860 [0.775, 0.916]  2nd 0.860  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A3/python/async_evidence_last_literal/2              88/93   0.946 [0.880, 0.977]  2nd 0.946  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A3/python/async_evidence_last_literal/3              91/93   0.978 [0.925, 0.994]  2nd 0.978  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A3/python/async_evidence_last_literal/5              38/39   0.974 [0.868, 0.995]  2nd 0.974  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A3/python/async_evidence_last_literal/10             38/39   0.974 [0.868, 0.995]  2nd 0.974  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A3/python/async_evidence_last_literal/20             75/93   0.806 [0.715, 0.874]  2nd 0.806  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A3/python/async_evidence_last_literal/50             13/93   0.140 [0.084, 0.225]  2nd 0.161  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A3/python/async_evidence_last_literal/100             4/93   0.043 [0.017, 0.105]  2nd 0.065  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A3/python/async_evidence_last_literal/200             0/39   0.000 [0.000, 0.090]  2nd 0.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A3/python/uid_rebind_control/NA                       0/10   0.000 [0.000, 0.278]  2nd 0.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A4d/python/no_write/NA                                0/39   0.000 [0.000, 0.090]  2nd 0.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A4d/python/async_scope/0                              0/39   0.000 [0.000, 0.090]  2nd 0.000  FA=0 409rv=5 UNK=0 INFRA=0
+  A/A4d/python/async_scope/0.5                            0/39   0.000 [0.000, 0.090]  2nd 0.000  FA=0 409rv=3 UNK=0 INFRA=0
+  A/A4d/python/async_scope/1                              0/39   0.000 [0.000, 0.090]  2nd 0.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A4d/python/async_scope/2                              0/39   0.000 [0.000, 0.090]  2nd 0.000  FA=0 409rv=1 UNK=0 INFRA=0
+  A/A4d/python/async_scope/3                              0/39   0.000 [0.000, 0.090]  2nd 0.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A4d/python/async_scope/5                              0/39   0.000 [0.000, 0.090]  2nd 0.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A4d/python/async_scope/10                             0/39   0.000 [0.000, 0.090]  2nd 0.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A4d/python/async_scope/20                             0/39   0.000 [0.000, 0.090]  2nd 0.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A4d/python/async_scope/50                             0/39   0.000 [0.000, 0.090]  2nd 0.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A4d/python/async_scope/100                            0/39   0.000 [0.000, 0.090]  2nd 0.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A4d/python/async_scope/200                            0/39   0.000 [0.000, 0.090]  2nd 0.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A4d/python/async_app_policy/0                         0/39   0.000 [0.000, 0.090]  2nd 0.000  FA=0 409rv=5 UNK=0 INFRA=0
+  A/A4d/python/async_app_policy/0.5                       0/39   0.000 [0.000, 0.090]  2nd 0.000  FA=0 409rv=6 UNK=0 INFRA=0
+  A/A4d/python/async_app_policy/1                         0/39   0.000 [0.000, 0.090]  2nd 0.000  FA=0 409rv=5 UNK=0 INFRA=0
+  A/A4d/python/async_app_policy/2                         0/39   0.000 [0.000, 0.090]  2nd 0.000  FA=0 409rv=3 UNK=0 INFRA=0
+  A/A4d/python/async_app_policy/3                         0/39   0.000 [0.000, 0.090]  2nd 0.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A4d/python/async_app_policy/5                         0/39   0.000 [0.000, 0.090]  2nd 0.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A4d/python/async_app_policy/10                        0/39   0.000 [0.000, 0.090]  2nd 0.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A4d/python/async_app_policy/20                        0/39   0.000 [0.000, 0.090]  2nd 0.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A4d/python/async_app_policy/50                        0/39   0.000 [0.000, 0.090]  2nd 0.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A4d/python/async_app_policy/100                       0/39   0.000 [0.000, 0.090]  2nd 0.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A4d/python/async_app_policy/200                       0/39   0.000 [0.000, 0.090]  2nd 0.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A4d/python/async_evidence_last_literal/0              0/39   0.000 [0.000, 0.090]  2nd 0.000  FA=0 409rv=2 UNK=0 INFRA=0
+  A/A4d/python/async_evidence_last_literal/0.5            0/39   0.000 [0.000, 0.090]  2nd 0.000  FA=0 409rv=5 UNK=0 INFRA=0
+  A/A4d/python/async_evidence_last_literal/1              0/39   0.000 [0.000, 0.090]  2nd 0.000  FA=0 409rv=5 UNK=0 INFRA=0
+  A/A4d/python/async_evidence_last_literal/2              0/39   0.000 [0.000, 0.090]  2nd 0.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A4d/python/async_evidence_last_literal/3              0/39   0.000 [0.000, 0.090]  2nd 0.000  FA=0 409rv=2 UNK=0 INFRA=0
+  A/A4d/python/async_evidence_last_literal/5              0/39   0.000 [0.000, 0.090]  2nd 0.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A4d/python/async_evidence_last_literal/10             0/39   0.000 [0.000, 0.090]  2nd 0.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A4d/python/async_evidence_last_literal/20             0/39   0.000 [0.000, 0.090]  2nd 0.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A4d/python/async_evidence_last_literal/50             0/39   0.000 [0.000, 0.090]  2nd 0.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A4d/python/async_evidence_last_literal/100            0/39   0.000 [0.000, 0.090]  2nd 0.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A4d/python/async_evidence_last_literal/200            0/39   0.000 [0.000, 0.090]  2nd 0.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A4d/python/uid_rebind_control/NA                      0/10   0.000 [0.000, 0.278]  2nd 0.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A4m/python/no_write/NA                                0/39   0.000 [0.000, 0.090]  2nd 0.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A4m/python/async_scope/0                             39/39   1.000 [0.910, 1.000]  2nd 1.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A4m/python/async_scope/0.5                           39/39   1.000 [0.910, 1.000]  2nd 1.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A4m/python/async_scope/1                             37/37   1.000 [0.906, 1.000]  2nd 1.000  FA=0 409rv=0 UNK=2 INFRA=0
+  A/A4m/python/async_scope/2                             37/38   0.974 [0.865, 0.995]  2nd 0.947  FA=0 409rv=0 UNK=1 INFRA=0
+  A/A4m/python/async_scope/3                             38/38   1.000 [0.908, 1.000]  2nd 1.000  FA=0 409rv=0 UNK=1 INFRA=0
+  A/A4m/python/async_scope/5                             69/92   0.750 [0.653, 0.827]  2nd 0.761  FA=0 409rv=0 UNK=1 INFRA=0
+  A/A4m/python/async_scope/10                            22/93   0.237 [0.162, 0.332]  2nd 0.237  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A4m/python/async_scope/20                            12/93   0.129 [0.075, 0.212]  2nd 0.140  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A4m/python/async_scope/50                             6/93   0.065 [0.030, 0.134]  2nd 0.065  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A4m/python/async_scope/100                            2/93   0.022 [0.006, 0.075]  2nd 0.032  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A4m/python/async_scope/200                            0/39   0.000 [0.000, 0.090]  2nd 0.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A4m/python/async_app_policy/0                        39/39   1.000 [0.910, 1.000]  2nd 1.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A4m/python/async_app_policy/0.5                      39/39   1.000 [0.910, 1.000]  2nd 1.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A4m/python/async_app_policy/1                        39/39   1.000 [0.910, 1.000]  2nd 1.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A4m/python/async_app_policy/2                        39/39   1.000 [0.910, 1.000]  2nd 0.949  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A4m/python/async_app_policy/3                        87/91   0.956 [0.892, 0.983]  2nd 0.945  FA=0 409rv=0 UNK=2 INFRA=0
+  A/A4m/python/async_app_policy/5                        77/92   0.837 [0.748, 0.899]  2nd 0.826  FA=0 409rv=0 UNK=1 INFRA=0
+  A/A4m/python/async_app_policy/10                       23/93   0.247 [0.171, 0.344]  2nd 0.269  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A4m/python/async_app_policy/20                        8/93   0.086 [0.044, 0.161]  2nd 0.097  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A4m/python/async_app_policy/50                        4/92   0.043 [0.017, 0.107]  2nd 0.065  FA=0 409rv=0 UNK=1 INFRA=0
+  A/A4m/python/async_app_policy/100                       0/39   0.000 [0.000, 0.090]  2nd 0.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A4m/python/async_app_policy/200                       0/39   0.000 [0.000, 0.090]  2nd 0.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A4m/python/async_evidence_last_literal/0             38/39   0.974 [0.868, 0.995]  2nd 0.974  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A4m/python/async_evidence_last_literal/0.5           39/39   1.000 [0.910, 1.000]  2nd 0.974  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A4m/python/async_evidence_last_literal/1             39/39   1.000 [0.910, 1.000]  2nd 1.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A4m/python/async_evidence_last_literal/2             39/39   1.000 [0.910, 1.000]  2nd 1.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A4m/python/async_evidence_last_literal/3             85/93   0.914 [0.839, 0.956]  2nd 0.914  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A4m/python/async_evidence_last_literal/5             72/92   0.783 [0.688, 0.855]  2nd 0.783  FA=0 409rv=0 UNK=1 INFRA=0
+  A/A4m/python/async_evidence_last_literal/10            21/93   0.226 [0.153, 0.321]  2nd 0.226  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A4m/python/async_evidence_last_literal/20            14/93   0.151 [0.092, 0.237]  2nd 0.161  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A4m/python/async_evidence_last_literal/50             5/93   0.054 [0.023, 0.120]  2nd 0.075  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A4m/python/async_evidence_last_literal/100            1/39   0.026 [0.005, 0.132]  2nd 0.026  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A4m/python/async_evidence_last_literal/200            0/39   0.000 [0.000, 0.090]  2nd 0.000  FA=0 409rv=0 UNK=0 INFRA=0
+  A/A4m/python/uid_rebind_control/NA                      0/10   0.000 [0.000, 0.278]  2nd 0.000  FA=0 409rv=0 UNK=0 INFRA=0
+  -- exposure window (d* = smallest grid delta with p<=0.05 there and above; bootstrap CI; W_A = area 0-200 ms)
+  A1/async_scope                           d*=50.0 ms [50.0, 200.0] not-closed-frac=0.000  W_A=15.34 ms  closed=True
+  A1/async_app_policy                      d*=50.0 ms [50.0, 200.0] not-closed-frac=0.000  W_A=13.24 ms  closed=True
+  A1/async_evidence_last_literal           d*=200.0 ms [50.0, 200.0] not-closed-frac=0.000  W_A=18.60 ms  closed=True
+  A3/async_scope                           d*=200.0 ms [100.0, None] not-closed-frac=0.191  W_A=31.37 ms  closed=True
+  A3/async_app_policy                      d*=200.0 ms [200.0, None] not-closed-frac=0.260  W_A=30.50 ms  closed=True
+  A3/async_evidence_last_literal           d*=100.0 ms [100.0, 200.0] not-closed-frac=0.000  W_A=39.29 ms  closed=True
+  A4d/async_scope                          d*=0.0 ms [0.0, 0.0] not-closed-frac=0.000  W_A=0.00 ms  closed=True
+  A4d/async_app_policy                     d*=0.0 ms [0.0, 0.0] not-closed-frac=0.000  W_A=0.00 ms  closed=True
+  A4d/async_evidence_last_literal          d*=0.0 ms [0.0, 0.0] not-closed-frac=0.000  W_A=0.00 ms  closed=True
+  A4m/async_scope                          d*=100.0 ms [50.0, 200.0] not-closed-frac=0.000  W_A=15.15 ms  closed=True
+  A4m/async_app_policy                     d*=50.0 ms [20.0, 100.0] not-closed-frac=0.000  W_A=12.18 ms  closed=True
+  A4m/async_evidence_last_literal          d*=100.0 ms [50.0, 200.0] not-closed-frac=0.000  W_A=15.38 ms  closed=True
+  -- A4 availability cost
+  A1   no_write FALSE_ABORT 0/39 0.000 [0.000, 0.090]; no_write 409 0/39; async FALSE_ABORT 0/2097 (via 409 0); 409 among dispatched 0/2146 0.000 [0.000, 0.002]
+  A3   no_write FALSE_ABORT 0/39 0.000 [0.000, 0.090]; no_write 409 0/39; async FALSE_ABORT 0/2205 (via 409 0); 409 among dispatched 0/2254 0.000 [0.000, 0.002]
+  A4d  no_write FALSE_ABORT 0/39 0.000 [0.000, 0.090]; no_write 409 0/39; async FALSE_ABORT 0/1287 (via 409 0); 409 among dispatched 42/1336 0.031 [0.023, 0.042]
+       409 attribution: [{"changed_by": "writer", "n": 42, "population": "async", "primary_class": "CORRECT_ABORT"}]
+  A4m  no_write FALSE_ABORT 0/39 0.000 [0.000, 0.090]; no_write 409 0/39; async FALSE_ABORT 0/2087 (via 409 0); 409 among dispatched 0/2146 0.000 [0.000, 0.002]
+  -- A4m mirror: n=41 lag_ms {"max": 274.393, "mean": 36.49339024390243, "median": 18.34, "min": 7.647, "n": 41, "p05": 9.77, "p95": 103.493, "sd": 48.128218162985235} | lag_rv {"max": 2.0, "mean": 1.048780487804878, "median": 1.0, "min": 1.0, "n": 41, "p05": 1.0, "p95": 1.0, "sd": 0.21808478995509087}
+     INVALID explained: {"n_invalid_executed": 1009, "n_mirror_after_action": 0, "n_not_mirrored": 968} ; not mirrored trials 2046
+     {"condition": "async_app_policy", "d_star_ms": 50.0, "mirror_lag_median_ms": 18.34, "mirror_lag_p95_ms": 103.493, "window_area_ms": 12.177813012139802}
+     {"condition": "async_evidence_last_literal", "d_star_ms": 100.0, "mirror_lag_median_ms": 18.34, "mirror_lag_p95_ms": 103.493, "window_area_ms": 15.381603553062178}
+     {"condition": "async_scope", "d_star_ms": 100.0, "mirror_lag_median_ms": 18.34, "mirror_lag_p95_ms": 103.493, "window_area_ms": 15.14707130730051}
+  -- uid_rebind_control: [{"arm": "A1", "counts": {"CORRECT_ABORT": 0, "FALSE_ABORT": 0, "INFRA_ERROR": 0, "INVALID_EXECUTED": 0, "UID_BLOCKED": 10, "UNKNOWN": 0, "VALID_EXECUTED": 0}, "n_observed": 10}, {"arm": "A3", "counts": {"CORRECT_ABORT": 0, "FALSE_ABORT": 0, "INFRA_ERROR": 0, "INVALID_EXECUTED": 0, "UID_BLOCKED": 10, "UNKNOWN": 0, "VALID_EXECUTED": 0}, "n_observed": 10}, {"arm": "A4d", "counts": {"CORRECT_ABORT": 0, "FALSE_ABORT": 0, "INFRA_ERROR": 0, "INVALID_EXECUTED": 0, "UID_BLOCKED": 10, "UNKNOWN": 0, "VALID_EXECUTED": 0}, "n_observed": 10}, {"arm": "A4m", "counts": {"CORRECT_ABORT": 0, "FALSE_ABORT": 0, "INFRA_ERROR": 0, "INVALID_EXECUTED": 0, "UID_BLOCKED": 10, "UNKNOWN": 0, "VALID_EXECUTED": 0}, "n_observed": 10}]
+  -- agreement_secondary: 7750/7872 = 0.9845 kappa(INVALID)=0.9806
+  -- agreement_tertiary: 4944/7872 = 0.6280 kappa(INVALID)=0.0000
+  -- writer release error (us): {"max": 16848.567, "mean": 109.96907832422585, "median": 1.034, "min": 0.401, "n": 7686, "p05": 0.624, "p95": 308.5335, "sd": 692.8919201871518}
+
+== E39-B  INVALID_EXECUTED per 1,000 responses (Wilson x 1000); prediction 1-exp(-lambda W_A)
+  A1   lambda=1.0    12/400  30.0 [17.2, 51.7]  pred=15.2 (W=15.34 ms, E39-A async_scope curve area) in_CI=False  gate-adj pred=15.0  FA/1000=0.0 409/1000=0.0
+  A1   lambda=10.0   91/400  227.5 [189.1, 271.1]  pred=142.2 (W=15.34 ms, E39-A async_scope curve area) in_CI=False  gate-adj pred=120.3  FA/1000=0.0 409/1000=0.0
+  A1   lambda=100.0 218/400  545.0 [496.0, 593.1]  pred=784.3 (W=15.34 ms, E39-A async_scope curve area) in_CI=False  gate-adj pred=147.4  FA/1000=0.0 409/1000=0.0
+  A2   lambda=1.0    15/400  37.5 [22.9, 60.9]  pred=12.3 (W=12.39 ms, external (--w-external, e.g. E38v2 rerun curve area)) in_CI=False  gate-adj pred=12.0  FA/1000=0.0 409/1000=0.0
+  A2   lambda=10.0   81/400  202.5 [166.0, 244.6]  pred=116.5 (W=12.39 ms, external (--w-external, e.g. E38v2 rerun curve area)) in_CI=False  gate-adj pred=92.6  FA/1000=0.0 409/1000=0.0
+  A2   lambda=100.0 119/400  297.5 [254.8, 344.1]  pred=710.3 (W=12.39 ms, external (--w-external, e.g. E38v2 rerun curve area)) in_CI=False  gate-adj pred=71.4  FA/1000=0.0 409/1000=0.0
+  A3   lambda=1.0    17/400  42.5 [26.7, 67.0]  pred=30.9 (W=31.37 ms, E39-A async_scope curve area) in_CI=True  gate-adj pred=30.4  FA/1000=0.0 409/1000=0.0
+  A3   lambda=10.0   57/400  142.5 [111.6, 180.2]  pred=269.3 (W=31.37 ms, E39-A async_scope curve area) in_CI=False  gate-adj pred=227.8  FA/1000=0.0 409/1000=0.0
+  A3   lambda=100.0  21/400  52.5 [34.6, 78.9]  pred=956.6 (W=31.37 ms, E39-A async_scope curve area) in_CI=False  gate-adj pred=179.7  FA/1000=0.0 409/1000=0.0
+  A4d  lambda=1.0     0/400  0.0 [0.0, 9.5]  pred=0.0 (W=0.00 ms, E39-A async_scope curve area) in_CI=True  gate-adj pred=0.0  FA/1000=0.0 409/1000=2.5
+  A4d  lambda=10.0    0/400  0.0 [0.0, 9.5]  pred=0.0 (W=0.00 ms, E39-A async_scope curve area) in_CI=True  gate-adj pred=0.0  FA/1000=0.0 409/1000=17.5
+  A4d  lambda=100.0   0/400  0.0 [0.0, 9.5]  pred=0.0 (W=0.00 ms, E39-A async_scope curve area) in_CI=True  gate-adj pred=0.0  FA/1000=0.0 409/1000=110.0
+  fitted W A1   = 10.29 ms [9.18, 11.50] (W_A 15.34 ms from E39-A async_scope curve area; median gate 16.71 ms) 
+  fitted W A2   = 5.74 ms [5.00, 6.55] (W_A 12.39 ms from external (--w-external, e.g. E38v2 rerun curve area); median gate 22.98 ms) 
+  fitted W A3   = 2.21 ms [1.79, 2.68] (W_A 31.37 ms from E39-A async_scope curve area; median gate 16.72 ms) 
+  fitted W A4d  = 0.00 ms [0.00, 0.04] (W_A 0.00 ms from E39-A async_scope curve area; median gate 2.02 ms) zero_events
+  MODEL-BASED EXTRAPOLATION A1   lambda=0.01/s: per 1000 fitted W 0.1029 [0.0918, 0.1150]; from W_A 0.1534
+  MODEL-BASED EXTRAPOLATION A1   lambda=0.1/s: per 1000 fitted W 1.0285 [0.9172, 1.1490]; from W_A 1.5326
+  MODEL-BASED EXTRAPOLATION A2   lambda=0.01/s: per 1000 fitted W 0.0574 [0.0500, 0.0655]; from W_A 0.1239
+  MODEL-BASED EXTRAPOLATION A2   lambda=0.1/s: per 1000 fitted W 0.5737 [0.4999, 0.6545]; from W_A 1.2381
+  MODEL-BASED EXTRAPOLATION A3   lambda=0.01/s: per 1000 fitted W 0.0221 [0.0179, 0.0268]; from W_A 0.3137
+  MODEL-BASED EXTRAPOLATION A3   lambda=0.1/s: per 1000 fitted W 0.2208 [0.1793, 0.2683]; from W_A 3.1322
+  MODEL-BASED EXTRAPOLATION A4d  lambda=0.01/s: per 1000 fitted W 0.0000 [0.0000, 0.0004]; from W_A 0.0000
+  MODEL-BASED EXTRAPOLATION A4d  lambda=0.1/s: per 1000 fitted W 0.0000 [0.0000, 0.0043]; from W_A 0.0000
+
+== E39-C  paired HL shift A2 - A1 (FullRefresh minus DCJI), ms, bootstrap 95%; cost model excess over c=0
+  sequential precomputed  stable    c=0.0    pairs=60  refresh 4.9 [4.8,5.1] | gate 4.9 | e2e 4.9 [4.7,5.0] | excess/c=NA in_bounds=True
+  sequential per_incident stable    c=0.0    pairs=60  refresh 4.7 [4.6,4.7] | gate -12.9 | e2e -12.9 [-13.1,-12.6] | excess/c=NA in_bounds=True
+  sequential precomputed  ea_attack c=0.0    pairs=60  refresh 4.8 [4.7,4.9] | gate 4.8 | e2e 4.8 [4.7,4.9] | excess/c=NA in_bounds=True
+  sequential per_incident ea_attack c=0.0    pairs=60  refresh 4.8 [4.6,4.9] | gate -12.8 | e2e -12.8 [-13.0,-12.5] | excess/c=NA in_bounds=True
+  parallel   precomputed  stable    c=0.0    pairs=60  refresh 2.5 [2.4,2.7] | gate 2.5 | e2e 2.5 [2.4,2.7] | excess/c=NA in_bounds=True
+  parallel   per_incident stable    c=0.0    pairs=60  refresh 2.5 [2.4,2.6] | gate -14.9 | e2e -14.9 [-15.1,-14.7] | excess/c=NA in_bounds=True
+  parallel   precomputed  ea_attack c=0.0    pairs=60  refresh 2.4 [2.3,2.6] | gate 2.4 | e2e 2.4 [2.3,2.6] | excess/c=NA in_bounds=True
+  parallel   per_incident ea_attack c=0.0    pairs=60  refresh 2.4 [2.2,2.5] | gate -15.0 | e2e -15.0 [-15.2,-14.8] | excess/c=NA in_bounds=True
+  sequential precomputed  stable    c=50.0   pairs=60  refresh 155.5 [155.2,155.7] | gate 155.5 | e2e 155.5 [155.2,155.8] | excess/c=3.012 in_bounds=False
+  sequential per_incident stable    c=50.0   pairs=60  refresh 155.3 [155.1,155.5] | gate 137.9 | e2e 137.9 [137.6,138.2] | excess/c=3.013 in_bounds=False
+  sequential precomputed  ea_attack c=50.0   pairs=60  refresh 155.5 [155.3,155.8] | gate 155.5 | e2e 155.5 [155.3,155.8] | excess/c=3.015 in_bounds=False
+  sequential per_incident ea_attack c=50.0   pairs=60  refresh 155.7 [155.4,156.3] | gate 138.4 | e2e 138.4 [137.9,138.8] | excess/c=3.020 in_bounds=False
+  parallel   precomputed  stable    c=50.0   pairs=60  refresh 2.0 [1.9,2.2] | gate 2.0 | e2e 2.0 [1.9,2.2] | excess/c=-0.010 in_bounds=False
+  parallel   per_incident stable    c=50.0   pairs=60  refresh 2.0 [1.8,2.1] | gate -15.5 | e2e -15.5 [-15.7,-15.3] | excess/c=-0.010 in_bounds=False
+  parallel   precomputed  ea_attack c=50.0   pairs=60  refresh 2.3 [2.2,2.4] | gate 2.3 | e2e 2.3 [2.2,2.4] | excess/c=-0.003 in_bounds=False
+  parallel   per_incident ea_attack c=50.0   pairs=60  refresh 2.1 [2.0,2.2] | gate -15.3 | e2e -15.3 [-15.6,-15.1] | excess/c=-0.005 in_bounds=False
+  sequential precomputed  stable    c=200.0  pairs=60  refresh 606.7 [606.5,606.9] | gate 606.7 | e2e 606.7 [606.4,606.9] | excess/c=3.009 in_bounds=False
+  sequential per_incident stable    c=200.0  pairs=60  refresh 606.7 [606.5,606.9] | gate 589.3 | e2e 589.3 [589.0,589.6] | excess/c=3.010 in_bounds=False
+  sequential precomputed  ea_attack c=200.0  pairs=60  refresh 606.7 [606.5,607.0] | gate 606.7 | e2e 606.7 [606.5,606.9] | excess/c=3.010 in_bounds=False
+  sequential per_incident ea_attack c=200.0  pairs=60  refresh 606.6 [606.4,606.8] | gate 589.2 | e2e 589.2 [588.7,589.5] | excess/c=3.009 in_bounds=False
+  parallel   precomputed  stable    c=200.0  pairs=60  refresh 2.0 [1.9,2.2] | gate 2.0 | e2e 2.0 [1.9,2.2] | excess/c=-0.002 in_bounds=False
+  parallel   per_incident stable    c=200.0  pairs=60  refresh 2.1 [2.0,2.2] | gate -15.5 | e2e -15.5 [-15.8,-15.3] | excess/c=-0.002 in_bounds=False
+  parallel   precomputed  ea_attack c=200.0  pairs=60  refresh 2.1 [1.9,2.2] | gate 2.1 | e2e 2.1 [1.9,2.2] | excess/c=-0.002 in_bounds=False
+  parallel   per_incident ea_attack c=200.0  pairs=60  refresh 2.1 [2.0,2.2] | gate -15.4 | e2e -15.4 [-15.5,-15.2] | excess/c=-0.001 in_bounds=False
+  sequential precomputed  stable    c=1000.0 pairs=60  refresh 3007.2 [3007.0,3007.4] | gate 3007.2 | e2e 3007.2 [3007.0,3007.4] | excess/c=3.002 in_bounds=False
+  sequential per_incident stable    c=1000.0 pairs=60  refresh 3007.0 [3006.8,3007.1] | gate 2989.6 | e2e 2989.6 [2989.4,2989.9] | excess/c=3.002 in_bounds=False
+  sequential precomputed  ea_attack c=1000.0 pairs=60  refresh 3007.2 [3007.0,3007.4] | gate 3007.2 | e2e 3007.2 [3007.0,3007.3] | excess/c=3.002 in_bounds=False
+  sequential per_incident ea_attack c=1000.0 pairs=60  refresh 3007.3 [3007.1,3007.6] | gate 2990.0 | e2e 2990.0 [2989.6,2990.3] | excess/c=3.003 in_bounds=False
+  parallel   precomputed  stable    c=1000.0 pairs=60  refresh 2.0 [1.9,2.1] | gate 2.0 | e2e 2.0 [1.9,2.1] | excess/c=-0.001 in_bounds=False
+  parallel   per_incident stable    c=1000.0 pairs=60  refresh 2.0 [1.9,2.1] | gate -15.3 | e2e -15.3 [-15.5,-15.1] | excess/c=-0.001 in_bounds=False
+  parallel   precomputed  ea_attack c=1000.0 pairs=60  refresh 2.0 [1.9,2.2] | gate 2.0 | e2e 2.0 [1.9,2.2] | excess/c=-0.000 in_bounds=False
+  parallel   per_incident ea_attack c=1000.0 pairs=60  refresh 2.0 [1.9,2.1] | gate -15.4 | e2e -15.4 [-15.6,-15.2] | excess/c=-0.000 in_bounds=False
+  break-even sequential precomputed  stable    c*=-2.0 ms (alpha=5.96 ms, beta=3.001); planning A1-A2 NA ms -> model sequential c* = overhead/3 = NA ms
+  break-even sequential per_incident stable    c*=4.0 ms (alpha=-12.15 ms, beta=3.001); planning A1-A2 17.33 ms -> model sequential c* = overhead/3 = 5.78 ms
+  break-even sequential precomputed  ea_attack c*=-1.9 ms (alpha=5.67 ms, beta=3.001); planning A1-A2 NA ms -> model sequential c* = overhead/3 = NA ms
+  break-even sequential per_incident ea_attack c*=4.0 ms (alpha=-11.97 ms, beta=3.002); planning A1-A2 17.38 ms -> model sequential c* = overhead/3 = 5.79 ms
+  break-even parallel   precomputed  stable    c*=11833.9 ms (alpha=2.17 ms, beta=-0.000); planning A1-A2 NA ms -> model sequential c* = overhead/3 = NA ms
+  break-even parallel   per_incident stable    c*=198030.4 ms (alpha=-15.64 ms, beta=0.000); planning A1-A2 17.34 ms -> model sequential c* = overhead/3 = 5.78 ms
+  break-even parallel   precomputed  ea_attack c*=12284.4 ms (alpha=2.27 ms, beta=-0.000); planning A1-A2 NA ms -> model sequential c* = overhead/3 = NA ms
+  break-even parallel   per_incident ea_attack c*=-34465.9 ms (alpha=-15.13 ms, beta=-0.000); planning A1-A2 17.39 ms -> model sequential c* = overhead/3 = 5.80 ms
+  gate decisions (ea_attack etc.) per cell are in results_E39.json E39_C.cells[].gate_decisions
+
+== E39-D  P(INVALID_EXECUTED) by scheduled load level (ITT)
+  D/A1/idle/async_scope/0                           39/39  1.000 [0.910, 1.000]
+  D/A1/idle/async_scope/2                           37/39  0.949 [0.831, 0.986]
+  D/A1/idle/async_scope/5                           31/39  0.795 [0.645, 0.892]
+  D/A1/idle/async_scope/10                           6/39  0.154 [0.072, 0.297]
+  D/A1/idle/async_scope/20                           3/39  0.077 [0.027, 0.203]
+  D/A1/idle/async_scope/50                           2/39  0.051 [0.014, 0.169]
+  D/A1/idle/async_scope/100                          2/39  0.051 [0.014, 0.169]
+  D/A1/idle/async_scope/200                          0/39  0.000 [0.000, 0.090]
+  D/A1/moderate/async_scope/0                       39/39  1.000 [0.910, 1.000]
+  D/A1/moderate/async_scope/2                       39/39  1.000 [0.910, 1.000]
+  D/A1/moderate/async_scope/5                       30/39  0.769 [0.617, 0.874]
+  D/A1/moderate/async_scope/10                      12/39  0.308 [0.186, 0.464]
+  D/A1/moderate/async_scope/20                       6/39  0.154 [0.072, 0.297]
+  D/A1/moderate/async_scope/50                       2/39  0.051 [0.014, 0.169]
+  D/A1/moderate/async_scope/100                      1/39  0.026 [0.005, 0.132]
+  D/A1/moderate/async_scope/200                      0/39  0.000 [0.000, 0.090]
+  D/A1/high/async_scope/0                           39/39  1.000 [0.910, 1.000]
+  D/A1/high/async_scope/2                           39/39  1.000 [0.910, 1.000]
+  D/A1/high/async_scope/5                           35/39  0.897 [0.764, 0.959]
+  D/A1/high/async_scope/10                          14/39  0.359 [0.227, 0.516]
+  D/A1/high/async_scope/20                           3/39  0.077 [0.027, 0.203]
+  D/A1/high/async_scope/50                           1/39  0.026 [0.005, 0.132]
+  D/A1/high/async_scope/100                          0/39  0.000 [0.000, 0.090]
+  D/A1/high/async_scope/200                          0/39  0.000 [0.000, 0.090]
+  D/A3/idle/async_scope/0                            0/39  0.000 [0.000, 0.090]
+  D/A3/idle/async_scope/2                            0/39  0.000 [0.000, 0.090]
+  D/A3/idle/async_scope/5                            0/39  0.000 [0.000, 0.090]
+  D/A3/idle/async_scope/10                          22/39  0.564 [0.410, 0.707]
+  D/A3/idle/async_scope/20                          28/39  0.718 [0.562, 0.835]
+  D/A3/idle/async_scope/50                          10/39  0.256 [0.146, 0.411]
+  D/A3/idle/async_scope/100                          2/39  0.051 [0.014, 0.169]
+  D/A3/idle/async_scope/200                          0/39  0.000 [0.000, 0.090]
+  D/A3/moderate/async_scope/0                        0/39  0.000 [0.000, 0.090]
+  D/A3/moderate/async_scope/2                        0/39  0.000 [0.000, 0.090]
+  D/A3/moderate/async_scope/5                        0/39  0.000 [0.000, 0.090]
+  D/A3/moderate/async_scope/10                      15/39  0.385 [0.249, 0.541]
+  D/A3/moderate/async_scope/20                      32/39  0.821 [0.673, 0.910]
+  D/A3/moderate/async_scope/50                       9/39  0.231 [0.126, 0.383]
+  D/A3/moderate/async_scope/100                      3/39  0.077 [0.027, 0.203]
+  D/A3/moderate/async_scope/200                      0/39  0.000 [0.000, 0.090]
+  D/A3/high/async_scope/0                            0/39  0.000 [0.000, 0.090]
+  D/A3/high/async_scope/2                            0/39  0.000 [0.000, 0.090]
+  D/A3/high/async_scope/5                            0/39  0.000 [0.000, 0.090]
+  D/A3/high/async_scope/10                          12/39  0.308 [0.186, 0.464]
+  D/A3/high/async_scope/20                          34/39  0.872 [0.733, 0.944]
+  D/A3/high/async_scope/50                           8/39  0.205 [0.108, 0.355]
+  D/A3/high/async_scope/100                          1/39  0.026 [0.005, 0.132]
+  D/A3/high/async_scope/200                          0/39  0.000 [0.000, 0.090]
+  A1/idle                              d*=200.0 [20.0,200.0] W=15.14 ms
+  A1/moderate                          d*=100.0 [50.0,200.0] W=15.94 ms
+  A1/high                              d*=50.0 [20.0,100.0] W=12.35 ms
+  A3/idle                              d*=200.0 [100.0,200.0] W=32.69 ms
+  A3/moderate                          d*=200.0 [100.0,200.0] W=34.29 ms
+  A3/high                              d*=100.0 [100.0,200.0] W=29.87 ms
+  host idle     n=624 cpu median 41.9 max 75.5 | free RAM min 8797 MB | cpu>85: 0 ram<2GB: 0 throttled: 0 effective {"idle": 624}
+  host moderate n=624 cpu median 45.4 max 64.0 | free RAM min 8848 MB | cpu>85: 0 ram<2GB: 0 throttled: 0 effective {"moderate": 624}
+  host high     n=624 cpu median 53.0 max 97.7 | free RAM min 8874 MB | cpu>85: 1 ram<2GB: 0 throttled: 0 effective {"high": 624}
+  gate_ms by load: {"high": "17.75", "idle": "14.91", "moderate": "16.11"}
+  delete RTT ms by load: {"high": "23.24", "idle": "21.05", "moderate": "22.35"}
+
+== E39-E  NetworkPolicy CREATE: P(INVALID_EXECUTED)
+  E/A1/async_scope/0                                     7/39  0.179 [0.090, 0.327]
+  E/A1/async_scope/2                                     2/39  0.051 [0.014, 0.169]
+  E/A1/async_scope/5                                     0/39  0.000 [0.000, 0.090]
+  E/A1/async_scope/10                                    0/39  0.000 [0.000, 0.090]
+  E/A1/async_scope/20                                    0/39  0.000 [0.000, 0.090]
+  E/A1/async_scope/50                                    0/39  0.000 [0.000, 0.090]
+  E/A1/async_scope/100                                   0/39  0.000 [0.000, 0.090]
+  E/A1/async_scope/200                                   0/39  0.000 [0.000, 0.090]
+  E/A1/async_evidence_last_literal/0                    12/39  0.308 [0.186, 0.464]
+  E/A1/async_evidence_last_literal/2                     3/39  0.077 [0.027, 0.203]
+  E/A1/async_evidence_last_literal/5                     0/39  0.000 [0.000, 0.090]
+  E/A1/async_evidence_last_literal/10                    0/39  0.000 [0.000, 0.090]
+  E/A1/async_evidence_last_literal/20                    0/39  0.000 [0.000, 0.090]
+  E/A1/async_evidence_last_literal/50                    0/39  0.000 [0.000, 0.090]
+  E/A1/async_evidence_last_literal/100                   0/39  0.000 [0.000, 0.090]
+  E/A1/async_evidence_last_literal/200                   0/39  0.000 [0.000, 0.090]
+  E/A3/async_scope/0                                     0/39  0.000 [0.000, 0.090]
+  E/A3/async_scope/2                                     0/39  0.000 [0.000, 0.090]
+  E/A3/async_scope/5                                     0/39  0.000 [0.000, 0.090]
+  E/A3/async_scope/10                                   17/39  0.436 [0.293, 0.590]
+  E/A3/async_scope/20                                    3/39  0.077 [0.027, 0.203]
+  E/A3/async_scope/50                                    1/39  0.026 [0.005, 0.132]
+  E/A3/async_scope/100                                   0/39  0.000 [0.000, 0.090]
+  E/A3/async_scope/200                                   0/39  0.000 [0.000, 0.090]
+  E/A3/async_evidence_last_literal/0                    30/39  0.769 [0.617, 0.874]
+  E/A3/async_evidence_last_literal/2                    38/39  0.974 [0.868, 0.995]
+  E/A3/async_evidence_last_literal/5                    39/39  1.000 [0.910, 1.000]
+  E/A3/async_evidence_last_literal/10                   39/39  1.000 [0.910, 1.000]
+  E/A3/async_evidence_last_literal/20                   10/39  0.256 [0.146, 0.411]
+  E/A3/async_evidence_last_literal/50                    0/39  0.000 [0.000, 0.090]
+  E/A3/async_evidence_last_literal/100                   0/39  0.000 [0.000, 0.090]
+  E/A3/async_evidence_last_literal/200                   0/39  0.000 [0.000, 0.090]
+  A1/async_scope                       d*=5.0 W=0.31 ms
+  A1/async_evidence_last_literal       d*=5.0 W=0.50 ms
+  A3/async_scope                       d*=50.0 W=5.83 ms
+  A3/async_evidence_last_literal       d*=50.0 W=19.83 ms
+  A3-A1 async_scope                  delta=0.0   -0.179 [-0.327, -0.053]
+  A3-A1 async_scope                  delta=2.0   -0.051 [-0.169, 0.046]
+  A3-A1 async_scope                  delta=5.0   0.000 [-0.090, 0.090]
+  A3-A1 async_scope                  delta=10.0  0.436 [0.267, 0.590]
+  A3-A1 async_scope                  delta=20.0  0.077 [-0.026, 0.203]
+  A3-A1 async_scope                  delta=50.0  0.026 [-0.066, 0.132]
+  A3-A1 async_scope                  delta=100.0 0.000 [-0.090, 0.090]
+  A3-A1 async_scope                  delta=200.0 0.000 [-0.090, 0.090]
+  A3-A1 async_evidence_last_literal  delta=0.0   0.462 [0.243, 0.622]
+  A3-A1 async_evidence_last_literal  delta=2.0   0.897 [0.732, 0.952]
+  A3-A1 async_evidence_last_literal  delta=5.0   1.000 [0.873, 1.000]
+  A3-A1 async_evidence_last_literal  delta=10.0  1.000 [0.873, 1.000]
+  A3-A1 async_evidence_last_literal  delta=20.0  0.256 [0.114, 0.411]
+  A3-A1 async_evidence_last_literal  delta=50.0  0.000 [-0.090, 0.090]
+  A3-A1 async_evidence_last_literal  delta=100.0 0.000 [-0.090, 0.090]
+  A3-A1 async_evidence_last_literal  delta=200.0 0.000 [-0.090, 0.090]
+  structural limitation: A4 (commit-bound) not applicable: CREATE carries no resourceVersion precondition on the evidence.
+
+== E39-F  client-go vs Python
+  F/A1/python/async_scope/0                             39/39  1.000 [0.910, 1.000]  409rv=0
+  F/A1/python/async_scope/2                             39/39  1.000 [0.910, 1.000]  409rv=0
+  F/A1/python/async_scope/5                             31/39  0.795 [0.645, 0.892]  409rv=0
+  F/A1/python/async_scope/10                            12/39  0.308 [0.186, 0.464]  409rv=0
+  F/A1/python/async_scope/20                             4/39  0.103 [0.041, 0.236]  409rv=0
+  F/A1/python/async_scope/50                             2/39  0.051 [0.014, 0.169]  409rv=0
+  F/A1/python/async_scope/100                            0/39  0.000 [0.000, 0.090]  409rv=0
+  F/A1/python/async_scope/200                            0/39  0.000 [0.000, 0.090]  409rv=0
+  F/A1/client-go/async_scope/0                          39/39  1.000 [0.910, 1.000]  409rv=0
+  F/A1/client-go/async_scope/2                          39/39  1.000 [0.910, 1.000]  409rv=0
+  F/A1/client-go/async_scope/5                          32/39  0.821 [0.673, 0.910]  409rv=0
+  F/A1/client-go/async_scope/10                          8/39  0.205 [0.108, 0.355]  409rv=0
+  F/A1/client-go/async_scope/20                          6/39  0.154 [0.072, 0.297]  409rv=0
+  F/A1/client-go/async_scope/50                          3/39  0.077 [0.027, 0.203]  409rv=0
+  F/A1/client-go/async_scope/100                         2/39  0.051 [0.014, 0.169]  409rv=0
+  F/A1/client-go/async_scope/200                         0/39  0.000 [0.000, 0.090]  409rv=0
+  F/A4d/client-go/async_scope/0                          0/39  0.000 [0.000, 0.090]  409rv=14
+  F/A4d/client-go/async_scope/2                          0/39  0.000 [0.000, 0.090]  409rv=4
+  F/A4d/client-go/async_scope/5                          0/39  0.000 [0.000, 0.090]  409rv=1
+  F/A4d/client-go/async_scope/10                         0/39  0.000 [0.000, 0.090]  409rv=2
+  F/A4d/client-go/async_scope/20                         0/39  0.000 [0.000, 0.090]  409rv=0
+  F/A4d/client-go/async_scope/50                         0/39  0.000 [0.000, 0.090]  409rv=0
+  F/A4d/client-go/async_scope/100                        0/39  0.000 [0.000, 0.090]  409rv=0
+  F/A4d/client-go/async_scope/200                        0/39  0.000 [0.000, 0.090]  409rv=0
+  A1/python                            d*=100.0 W=13.09 ms
+  A1/client-go                         d*=200.0 W=18.32 ms
+  A4d/client-go                        d*=0.0 W=0.00 ms
+  A1   python    DELETE RTT median 14.91 ms; gate-end->send median 0.081 ms (n=312)
+  A1   client-go DELETE RTT median 15.92 ms; gate-end->send median 0.258 ms (n=312)
+  A4d  client-go DELETE RTT median 15.30 ms; gate-end->send median 0.001 ms (n=291)
+  A1/client-go vs A1/python (within F): RTT HL 0.27 [-0.54,1.14] ms; gate-end->send HL 0.171 [0.162,0.183] ms
+  A4d/client-go vs A1/client-go (within F): RTT HL -0.50 [-1.32,0.32] ms; gate-end->send HL -0.257 [-0.273,-0.245] ms
+  A4d/client-go (F) vs A4d/python async_scope (E39-A, cross-block): RTT HL -0.18 [-1.16,0.67] ms; gate-end->send HL -0.062 [-0.063,-0.060] ms
+  A1 go-python delta=0.0   0.000 [-0.090, 0.090]
+  A1 go-python delta=2.0   0.000 [-0.090, 0.090]
+  A1 go-python delta=5.0   0.026 [-0.151, 0.201]
+  A1 go-python delta=10.0  -0.103 [-0.287, 0.091]
+  A1 go-python delta=20.0  0.051 [-0.105, 0.208]
+  A1 go-python delta=50.0  0.026 [-0.102, 0.157]
+  A1 go-python delta=100.0 0.051 [-0.046, 0.169]
+  A1 go-python delta=200.0 0.000 [-0.090, 0.090]
+  go_client_versions: ['v0.37.0']
+
+== E39-G  out-of-model robustness
+  out_of_model_cut_bdf   DCJI 39/39 1.000 [0.910, 1.000] | FullRefresh 0/39 0.000 [0.000, 0.090] | diff 1.000 [0.873, 1.000] (exact 0.908, 1.000)
+      A1 counts {"CORRECT_ABORT": 0, "FALSE_ABORT": 0, "INFRA_ERROR": 0, "INVALID_EXECUTED": 39, "UID_BLOCKED": 0, "UNKNOWN": 0, "VALID_EXECUTED": 0} | A2 counts {"CORRECT_ABORT": 39, "FALSE_ABORT": 0, "INFRA_ERROR": 0, "INVALID_EXECUTED": 0, "UID_BLOCKED": 0, "UNKNOWN": 0, "VALID_EXECUTED": 0}
+  in_model_cut_ace       DCJI 0/39 0.000 [0.000, 0.090] | FullRefresh 0/39 0.000 [0.000, 0.090] | diff 0.000 [-0.090, 0.090] (exact -0.231, 0.231)
+      A1 counts {"CORRECT_ABORT": 39, "FALSE_ABORT": 0, "INFRA_ERROR": 0, "INVALID_EXECUTED": 0, "UID_BLOCKED": 0, "UNKNOWN": 0, "VALID_EXECUTED": 0} | A2 counts {"CORRECT_ABORT": 39, "FALSE_ABORT": 0, "INFRA_ERROR": 0, "INVALID_EXECUTED": 0, "UID_BLOCKED": 0, "UNKNOWN": 0, "VALID_EXECUTED": 0}
+
+== Independent recomputation (standard library only): 32 differences
+   {"cell": ["A", "A3", "python", "async_app_policy", 100.0], "independent": [8, 88], "main": [10, 93]}
+   {"cell": ["A", "A3", "python", "async_app_policy", 20.0], "independent": [64, 91], "main": [66, 93]}
+   {"cell": ["A", "A3", "python", "async_app_policy", 200.0], "independent": [1, 37], "main": [1, 39]}
+   {"cell": ["A", "A3", "python", "async_app_policy", 50.0], "independent": [5, 88], "main": [6, 93]}
+   {"cell": ["A", "A3", "python", "async_evidence_last_literal", 0.0], "independent": [67, 90], "main": [70, 93]}
+   {"cell": ["A", "A3", "python", "async_evidence_last_literal", 0.5], "independent": [68, 91], "main": [70, 93]}
+   {"cell": ["A", "A3", "python", "async_evidence_last_literal", 1.0], "independent": [79, 92], "main": [80, 93]}
+   {"cell": ["A", "A3", "python", "async_evidence_last_literal", 10.0], "independent": [37, 38], "main": [38, 39]}
+   {"cell": ["A", "A3", "python", "async_evidence_last_literal", 100.0], "independent": [3, 92], "main": [4, 93]}
+   {"cell": ["A", "A3", "python", "async_evidence_last_literal", 2.0], "independent": [83, 88], "main": [88, 93]}
+   {"cell": ["A", "A3", "python", "async_evidence_last_literal", 20.0], "independent": [74, 92], "main": [75, 93]}
+   {"cell": ["A", "A3", "python", "async_evidence_last_literal", 200.0], "independent": [0, 38], "main": [0, 39]}
+   {"cell": ["A", "A3", "python", "async_evidence_last_literal", 3.0], "independent": [89, 91], "main": [91, 93]}
+   {"cell": ["A", "A3", "python", "async_evidence_last_literal", 5.0], "independent": [37, 38], "main": [38, 39]}
+   {"cell": ["A", "A3", "python", "async_evidence_last_literal", 50.0], "independent": [11, 90], "main": [13, 93]}
+   {"cell": ["A", "A3", "python", "async_scope", 10.0], "independent": [68, 92], "main": [69, 93]}
+   {"cell": ["A", "A3", "python", "async_scope", 100.0], "independent": [6, 90], "main": [6, 93]}
+   {"cell": ["A", "A3", "python", "async_scope", 20.0], "independent": [62, 91], "main": [64, 93]}
+   {"cell": ["A", "A3", "python", "async_scope", 200.0], "independent": [1, 90], "main": [3, 93]}
+   {"cell": ["A", "A3", "python", "async_scope", 50.0], "independent": [12, 90], "main": [13, 93]}
+   {"cell": ["A", "A4m", "python", "async_app_policy", 3.0], "independent": [89, 93], "main": [87, 91]}
+   {"cell": ["A", "A4m", "python", "async_app_policy", 5.0], "independent": [78, 93], "main": [77, 92]}
+   {"cell": ["A", "A4m", "python", "async_app_policy", 50.0], "independent": [5, 93], "main": [4, 92]}
+   {"cell": ["A", "A4m", "python", "async_evidence_last_literal", 5.0], "independent": [73, 93], "main": [72, 92]}
+   {"cell": ["A", "A4m", "python", "async_scope", 0.5], "independent": [38, 38], "main": [39, 39]}
+   {"cell": ["A", "A4m", "python", "async_scope", 1.0], "independent": [38, 38], "main": [37, 37]}
+   {"cell": ["A", "A4m", "python", "async_scope", 2.0], "independent": [38, 39], "main": [37, 38]}
+   {"cell": ["A", "A4m", "python", "async_scope", 3.0], "independent": [39, 39], "main": [38, 38]}
+   {"cell": ["A", "A4m", "python", "async_scope", 5.0], "independent": [70, 93], "main": [69, 92]}
+   {"cell": ["B", "A2", "async_scope", 10.0], "independent": [80, 399], "main": [81, 400]}
+   {"cell": ["B", "A3", "async_scope", 1.0], "independent": [16, 397], "main": [17, 400]}
+   {"cell": ["B", "A3", "async_scope", 10.0], "independent": [49, 389], "main": [57, 400]}
+== Operational quality gates: {"infra_lt_2pct": true, "join_ge_98pct": true, "agreement_ge_95pct": true, "controls_ok": true, "schema_valid": true, "no_unparsed_409": true, "c_fields": true, "d_fields": true}
+   INFRA 0/20734, audit ids joined 45141/45141, primary vs secondary agreement 0.9857, classes {"INVALID_EXECUTED": 4560, "VALID_EXECUTED": 9906, "CORRECT_ABORT": 2378, "UID_BLOCKED": 40, "UNKNOWN": 3850}
+   UNKNOWN reasons: {"A|mirror_rv_not_after_source": 10, "C|not_dispatched_without_abort(EXECUTE)": 1920, "C|fixture_prewrite_vcore_false": 1920}

@@ -1,0 +1,75 @@
+{
+  "a4d_async_delete_409": 41,
+  "a4d_async_primary_classes_without_audit": {
+    "CORRECT_ABORT": 41,
+    "INFRA_ERROR": 3,
+    "INVALID_EXECUTED": 393,
+    "VALID_EXECUTED": 335
+  },
+  "a4d_async_records": 772,
+  "apiserver_log_retained": false,
+  "audit_log_retained": false,
+  "complete": 3214,
+  "environment_records": [
+    {
+      "etcd_has_leader": "NA",
+      "etcd_is_leader_here": "NA",
+      "global_rv": "NA",
+      "kind": "ha_provenance",
+      "nodes": [
+        {
+          "addr": [
+            "172.16.0.7"
+          ],
+          "name": "mcb-experiment-node",
+          "roles": [
+            "control-plane",
+            "etcd"
+          ]
+        },
+        {
+          "addr": [
+            "172.16.0.4"
+          ],
+          "name": "mcb-k8s-v137",
+          "roles": [
+            "control-plane",
+            "etcd"
+          ]
+        },
+        {
+          "addr": [
+            "172.16.0.8"
+          ],
+          "name": "mcb-node-3",
+          "roles": [
+            "control-plane",
+            "etcd"
+          ]
+        }
+      ],
+      "run_id": "e51ha",
+      "ts": "2026-10-10T14:41:17Z"
+    },
+    {
+      "node": "mcb-experiment-node",
+      "ready": "True",
+      "ts": "2026-10-10T14:41:17Z"
+    },
+    {
+      "node": "mcb-k8s-v137",
+      "ready": "True",
+      "ts": "2026-10-10T14:41:17Z"
+    },
+    {
+      "node": "mcb-node-3",
+      "ready": "True",
+      "ts": "2026-10-10T14:41:17Z"
+    }
+  ],
+  "infra_error": 20,
+  "note": "Accepted A4d final-effect classification can be computed from retained writer/delete RVs and Pod events. Protected-boundary challenge attribution cannot be fully reproduced because the result archive retains no RequestResponse audit log. Final-effect INVALID_EXECUTED does not by itself imply boundary-condition failure.",
+  "recorded": 3234,
+  "runner_aborted_infra_guard": true,
+  "scheduled": 5344
+}

@@ -1,0 +1,1174 @@
+{
+ "ready_wait_ms": {
+  "n": 8728,
+  "median": 594.397,
+  "p95": 1005.116,
+  "max": 3109.822,
+  "min": 295.199
+ },
+ "gate_pod_state": {
+  "n_gated": 8728,
+  "n_with_state": 8728,
+  "running_ready_not_terminating": 8728,
+  "container_running": 8728
+ },
+ "per_arm": {
+  "A0_native_uid": {
+   "n_accepted": 2253,
+   "rtt_ms": {
+    "n": 2253,
+    "median": 14.991,
+    "p95": 77.44,
+    "max": 473.327,
+    "min": 6.535
+   },
+   "gone_after_response_ms": {
+    "n": 2253,
+    "median": 2.039,
+    "p95": 6.192,
+    "max": 204.32,
+    "min": 1.19
+   },
+   "deletion_rv_source": {
+    "audit+trial": 2214,
+    "(none)": 39
+   },
+   "pod_watch_accepted_to_deleted_rv_gap": {
+    "n": 2253,
+    "median": 1,
+    "p95": 2,
+    "max": 4,
+    "min": 1
+   },
+   "pod_watch_accepted_to_deleted_recv_ms": {
+    "n": 2253,
+    "median": 5.667,
+    "p95": 33.888,
+    "max": 297.165,
+    "min": 0.219
+   },
+   "container_state_in_DELETED_event": {
+    "running": 2253
+   }
+  },
+  "A1_dcji": {
+   "n_accepted": 2091,
+   "rtt_ms": {
+    "n": 2091,
+    "median": 14.765,
+    "p95": 119.043,
+    "max": 1445.676,
+    "min": 6.746
+   },
+   "gone_after_response_ms": {
+    "n": 2091,
+    "median": 2.039,
+    "p95": 6.633,
+    "max": 189.594,
+    "min": 1.221
+   },
+   "deletion_rv_source": {
+    "audit+trial": 2051,
+    "(none)": 39,
+    "pod_watch_deleted": 1
+   },
+   "pod_watch_accepted_to_deleted_rv_gap": {
+    "n": 2091,
+    "median": 1,
+    "p95": 2,
+    "max": 4,
+    "min": 1
+   },
+   "pod_watch_accepted_to_deleted_recv_ms": {
+    "n": 2091,
+    "median": 5.447,
+    "p95": 44.614,
+    "max": 299.751,
+    "min": 0.226
+   },
+   "container_state_in_DELETED_event": {
+    "running": 2091
+   }
+  },
+  "A2_fullrefresh": {
+   "n_accepted": 2199,
+   "rtt_ms": {
+    "n": 2199,
+    "median": 14.972,
+    "p95": 117.509,
+    "max": 389.256,
+    "min": 6.816
+   },
+   "gone_after_response_ms": {
+    "n": 2199,
+    "median": 2.044,
+    "p95": 6.431,
+    "max": 208.286,
+    "min": 1.187
+   },
+   "deletion_rv_source": {
+    "audit+trial": 2156,
+    "(none)": 39,
+    "pod_watch_deleted": 4
+   },
+   "pod_watch_accepted_to_deleted_rv_gap": {
+    "n": 2199,
+    "median": 1,
+    "p95": 2,
+    "max": 3,
+    "min": 1
+   },
+   "pod_watch_accepted_to_deleted_recv_ms": {
+    "n": 2199,
+    "median": 5.627,
+    "p95": 46.636,
+    "max": 293.311,
+    "min": 0.237
+   },
+   "container_state_in_DELETED_event": {
+    "running": 2199
+   }
+  },
+  "A3_dcji_webhook": {
+   "n_accepted": 1068,
+   "rtt_ms": {
+    "n": 1068,
+    "median": 41.064,
+    "p95": 186.287,
+    "max": 503.827,
+    "min": 20.457
+   },
+   "gone_after_response_ms": {
+    "n": 1068,
+    "median": 1.967,
+    "p95": 5.425,
+    "max": 256.585,
+    "min": 1.263
+   },
+   "deletion_rv_source": {
+    "audit+trial": 979,
+    "(none)": 39,
+    "pod_watch_deleted": 50
+   },
+   "pod_watch_accepted_to_deleted_rv_gap": {
+    "n": 1068,
+    "median": 1.0,
+    "p95": 2,
+    "max": 4,
+    "min": 1
+   },
+   "pod_watch_accepted_to_deleted_recv_ms": {
+    "n": 1068,
+    "median": 15.5,
+    "p95": 52.81,
+    "max": 259.516,
+    "min": 2.339
+   },
+   "container_state_in_DELETED_event": {
+    "running": 1068
+   }
+  }
+ },
+ "alt_reference_deletionTimestamp_commit": [
+  {
+   "arm": "A0_native_uid",
+   "condition": "async_app_policy",
+   "delta_ms": -5.0,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 39
+  },
+  {
+   "arm": "A0_native_uid",
+   "condition": "async_app_policy",
+   "delta_ms": -2.0,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 38
+  },
+  {
+   "arm": "A0_native_uid",
+   "condition": "async_app_policy",
+   "delta_ms": -1.0,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 38
+  },
+  {
+   "arm": "A0_native_uid",
+   "condition": "async_app_policy",
+   "delta_ms": 0.0,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 27
+  },
+  {
+   "arm": "A0_native_uid",
+   "condition": "async_app_policy",
+   "delta_ms": 0.5,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 8
+  },
+  {
+   "arm": "A0_native_uid",
+   "condition": "async_app_policy",
+   "delta_ms": 1.0,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 5
+  },
+  {
+   "arm": "A0_native_uid",
+   "condition": "async_app_policy",
+   "delta_ms": 2.0,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 5
+  },
+  {
+   "arm": "A0_native_uid",
+   "condition": "async_app_policy",
+   "delta_ms": 3.0,
+   "n_accepted": 93,
+   "primary_invalid": 88,
+   "write_before_deletionTimestamp_commit_and_invalid": 5
+  },
+  {
+   "arm": "A0_native_uid",
+   "condition": "async_app_policy",
+   "delta_ms": 5.0,
+   "n_accepted": 93,
+   "primary_invalid": 77,
+   "write_before_deletionTimestamp_commit_and_invalid": 0
+  },
+  {
+   "arm": "A0_native_uid",
+   "condition": "async_app_policy",
+   "delta_ms": 10.0,
+   "n_accepted": 93,
+   "primary_invalid": 23,
+   "write_before_deletionTimestamp_commit_and_invalid": 0
+  },
+  {
+   "arm": "A0_native_uid",
+   "condition": "async_app_policy",
+   "delta_ms": 20.0,
+   "n_accepted": 93,
+   "primary_invalid": 7,
+   "write_before_deletionTimestamp_commit_and_invalid": 0
+  },
+  {
+   "arm": "A0_native_uid",
+   "condition": "async_app_policy",
+   "delta_ms": 50.0,
+   "n_accepted": 93,
+   "primary_invalid": 4,
+   "write_before_deletionTimestamp_commit_and_invalid": 0
+  },
+  {
+   "arm": "A0_native_uid",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": -5.0,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 39
+  },
+  {
+   "arm": "A0_native_uid",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": -2.0,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 39
+  },
+  {
+   "arm": "A0_native_uid",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": -1.0,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 38
+  },
+  {
+   "arm": "A0_native_uid",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 0.0,
+   "n_accepted": 39,
+   "primary_invalid": 38,
+   "write_before_deletionTimestamp_commit_and_invalid": 24
+  },
+  {
+   "arm": "A0_native_uid",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 0.5,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 16
+  },
+  {
+   "arm": "A0_native_uid",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 1.0,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 7
+  },
+  {
+   "arm": "A0_native_uid",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 2.0,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 0
+  },
+  {
+   "arm": "A0_native_uid",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 3.0,
+   "n_accepted": 39,
+   "primary_invalid": 38,
+   "write_before_deletionTimestamp_commit_and_invalid": 1
+  },
+  {
+   "arm": "A0_native_uid",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 5.0,
+   "n_accepted": 93,
+   "primary_invalid": 75,
+   "write_before_deletionTimestamp_commit_and_invalid": 2
+  },
+  {
+   "arm": "A0_native_uid",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 10.0,
+   "n_accepted": 93,
+   "primary_invalid": 32,
+   "write_before_deletionTimestamp_commit_and_invalid": 1
+  },
+  {
+   "arm": "A0_native_uid",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 20.0,
+   "n_accepted": 93,
+   "primary_invalid": 11,
+   "write_before_deletionTimestamp_commit_and_invalid": 0
+  },
+  {
+   "arm": "A0_native_uid",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 50.0,
+   "n_accepted": 93,
+   "primary_invalid": 7,
+   "write_before_deletionTimestamp_commit_and_invalid": 0
+  },
+  {
+   "arm": "A0_native_uid",
+   "condition": "async_scope",
+   "delta_ms": -5.0,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 39
+  },
+  {
+   "arm": "A0_native_uid",
+   "condition": "async_scope",
+   "delta_ms": -2.0,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 39
+  },
+  {
+   "arm": "A0_native_uid",
+   "condition": "async_scope",
+   "delta_ms": -1.0,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 39
+  },
+  {
+   "arm": "A0_native_uid",
+   "condition": "async_scope",
+   "delta_ms": 0.0,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 23
+  },
+  {
+   "arm": "A0_native_uid",
+   "condition": "async_scope",
+   "delta_ms": 0.5,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 13
+  },
+  {
+   "arm": "A0_native_uid",
+   "condition": "async_scope",
+   "delta_ms": 1.0,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 11
+  },
+  {
+   "arm": "A0_native_uid",
+   "condition": "async_scope",
+   "delta_ms": 2.0,
+   "n_accepted": 93,
+   "primary_invalid": 90,
+   "write_before_deletionTimestamp_commit_and_invalid": 9
+  },
+  {
+   "arm": "A0_native_uid",
+   "condition": "async_scope",
+   "delta_ms": 3.0,
+   "n_accepted": 93,
+   "primary_invalid": 86,
+   "write_before_deletionTimestamp_commit_and_invalid": 7
+  },
+  {
+   "arm": "A0_native_uid",
+   "condition": "async_scope",
+   "delta_ms": 5.0,
+   "n_accepted": 93,
+   "primary_invalid": 78,
+   "write_before_deletionTimestamp_commit_and_invalid": 1
+  },
+  {
+   "arm": "A0_native_uid",
+   "condition": "async_scope",
+   "delta_ms": 10.0,
+   "n_accepted": 93,
+   "primary_invalid": 21,
+   "write_before_deletionTimestamp_commit_and_invalid": 1
+  },
+  {
+   "arm": "A0_native_uid",
+   "condition": "async_scope",
+   "delta_ms": 20.0,
+   "n_accepted": 93,
+   "primary_invalid": 16,
+   "write_before_deletionTimestamp_commit_and_invalid": 0
+  },
+  {
+   "arm": "A0_native_uid",
+   "condition": "async_scope",
+   "delta_ms": 50.0,
+   "n_accepted": 93,
+   "primary_invalid": 5,
+   "write_before_deletionTimestamp_commit_and_invalid": 1
+  },
+  {
+   "arm": "A1_dcji",
+   "condition": "async_app_policy",
+   "delta_ms": -5.0,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 39
+  },
+  {
+   "arm": "A1_dcji",
+   "condition": "async_app_policy",
+   "delta_ms": -2.0,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 39
+  },
+  {
+   "arm": "A1_dcji",
+   "condition": "async_app_policy",
+   "delta_ms": -1.0,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 39
+  },
+  {
+   "arm": "A1_dcji",
+   "condition": "async_app_policy",
+   "delta_ms": 0.0,
+   "n_accepted": 39,
+   "primary_invalid": 38,
+   "write_before_deletionTimestamp_commit_and_invalid": 23
+  },
+  {
+   "arm": "A1_dcji",
+   "condition": "async_app_policy",
+   "delta_ms": 0.5,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 10
+  },
+  {
+   "arm": "A1_dcji",
+   "condition": "async_app_policy",
+   "delta_ms": 1.0,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 5
+  },
+  {
+   "arm": "A1_dcji",
+   "condition": "async_app_policy",
+   "delta_ms": 2.0,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 3
+  },
+  {
+   "arm": "A1_dcji",
+   "condition": "async_app_policy",
+   "delta_ms": 3.0,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 3
+  },
+  {
+   "arm": "A1_dcji",
+   "condition": "async_app_policy",
+   "delta_ms": 5.0,
+   "n_accepted": 93,
+   "primary_invalid": 72,
+   "write_before_deletionTimestamp_commit_and_invalid": 1
+  },
+  {
+   "arm": "A1_dcji",
+   "condition": "async_app_policy",
+   "delta_ms": 10.0,
+   "n_accepted": 93,
+   "primary_invalid": 27,
+   "write_before_deletionTimestamp_commit_and_invalid": 1
+  },
+  {
+   "arm": "A1_dcji",
+   "condition": "async_app_policy",
+   "delta_ms": 20.0,
+   "n_accepted": 93,
+   "primary_invalid": 9,
+   "write_before_deletionTimestamp_commit_and_invalid": 0
+  },
+  {
+   "arm": "A1_dcji",
+   "condition": "async_app_policy",
+   "delta_ms": 50.0,
+   "n_accepted": 93,
+   "primary_invalid": 6,
+   "write_before_deletionTimestamp_commit_and_invalid": 0
+  },
+  {
+   "arm": "A1_dcji",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": -5.0,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 39
+  },
+  {
+   "arm": "A1_dcji",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": -2.0,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 39
+  },
+  {
+   "arm": "A1_dcji",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": -1.0,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 39
+  },
+  {
+   "arm": "A1_dcji",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 0.0,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 23
+  },
+  {
+   "arm": "A1_dcji",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 0.5,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 14
+  },
+  {
+   "arm": "A1_dcji",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 1.0,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 5
+  },
+  {
+   "arm": "A1_dcji",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 2.0,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 3
+  },
+  {
+   "arm": "A1_dcji",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 3.0,
+   "n_accepted": 39,
+   "primary_invalid": 38,
+   "write_before_deletionTimestamp_commit_and_invalid": 1
+  },
+  {
+   "arm": "A1_dcji",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 5.0,
+   "n_accepted": 93,
+   "primary_invalid": 77,
+   "write_before_deletionTimestamp_commit_and_invalid": 1
+  },
+  {
+   "arm": "A1_dcji",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 10.0,
+   "n_accepted": 93,
+   "primary_invalid": 24,
+   "write_before_deletionTimestamp_commit_and_invalid": 0
+  },
+  {
+   "arm": "A1_dcji",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 20.0,
+   "n_accepted": 93,
+   "primary_invalid": 14,
+   "write_before_deletionTimestamp_commit_and_invalid": 2
+  },
+  {
+   "arm": "A1_dcji",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 50.0,
+   "n_accepted": 39,
+   "primary_invalid": 1,
+   "write_before_deletionTimestamp_commit_and_invalid": 0
+  },
+  {
+   "arm": "A1_dcji",
+   "condition": "async_scope",
+   "delta_ms": -5.0,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 39
+  },
+  {
+   "arm": "A1_dcji",
+   "condition": "async_scope",
+   "delta_ms": -2.0,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 38
+  },
+  {
+   "arm": "A1_dcji",
+   "condition": "async_scope",
+   "delta_ms": -1.0,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 39
+  },
+  {
+   "arm": "A1_dcji",
+   "condition": "async_scope",
+   "delta_ms": 0.0,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 23
+  },
+  {
+   "arm": "A1_dcji",
+   "condition": "async_scope",
+   "delta_ms": 0.5,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 17
+  },
+  {
+   "arm": "A1_dcji",
+   "condition": "async_scope",
+   "delta_ms": 1.0,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 7
+  },
+  {
+   "arm": "A1_dcji",
+   "condition": "async_scope",
+   "delta_ms": 2.0,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 3
+  },
+  {
+   "arm": "A1_dcji",
+   "condition": "async_scope",
+   "delta_ms": 3.0,
+   "n_accepted": 93,
+   "primary_invalid": 88,
+   "write_before_deletionTimestamp_commit_and_invalid": 4
+  },
+  {
+   "arm": "A1_dcji",
+   "condition": "async_scope",
+   "delta_ms": 5.0,
+   "n_accepted": 93,
+   "primary_invalid": 75,
+   "write_before_deletionTimestamp_commit_and_invalid": 0
+  },
+  {
+   "arm": "A1_dcji",
+   "condition": "async_scope",
+   "delta_ms": 10.0,
+   "n_accepted": 93,
+   "primary_invalid": 17,
+   "write_before_deletionTimestamp_commit_and_invalid": 0
+  },
+  {
+   "arm": "A1_dcji",
+   "condition": "async_scope",
+   "delta_ms": 20.0,
+   "n_accepted": 93,
+   "primary_invalid": 12,
+   "write_before_deletionTimestamp_commit_and_invalid": 0
+  },
+  {
+   "arm": "A1_dcji",
+   "condition": "async_scope",
+   "delta_ms": 50.0,
+   "n_accepted": 93,
+   "primary_invalid": 5,
+   "write_before_deletionTimestamp_commit_and_invalid": 0
+  },
+  {
+   "arm": "A2_fullrefresh",
+   "condition": "async_app_policy",
+   "delta_ms": -5.0,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 39
+  },
+  {
+   "arm": "A2_fullrefresh",
+   "condition": "async_app_policy",
+   "delta_ms": -2.0,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 39
+  },
+  {
+   "arm": "A2_fullrefresh",
+   "condition": "async_app_policy",
+   "delta_ms": -1.0,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 39
+  },
+  {
+   "arm": "A2_fullrefresh",
+   "condition": "async_app_policy",
+   "delta_ms": 0.0,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 22
+  },
+  {
+   "arm": "A2_fullrefresh",
+   "condition": "async_app_policy",
+   "delta_ms": 0.5,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 11
+  },
+  {
+   "arm": "A2_fullrefresh",
+   "condition": "async_app_policy",
+   "delta_ms": 1.0,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 12
+  },
+  {
+   "arm": "A2_fullrefresh",
+   "condition": "async_app_policy",
+   "delta_ms": 2.0,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 1
+  },
+  {
+   "arm": "A2_fullrefresh",
+   "condition": "async_app_policy",
+   "delta_ms": 3.0,
+   "n_accepted": 93,
+   "primary_invalid": 89,
+   "write_before_deletionTimestamp_commit_and_invalid": 2
+  },
+  {
+   "arm": "A2_fullrefresh",
+   "condition": "async_app_policy",
+   "delta_ms": 5.0,
+   "n_accepted": 93,
+   "primary_invalid": 81,
+   "write_before_deletionTimestamp_commit_and_invalid": 2
+  },
+  {
+   "arm": "A2_fullrefresh",
+   "condition": "async_app_policy",
+   "delta_ms": 10.0,
+   "n_accepted": 93,
+   "primary_invalid": 35,
+   "write_before_deletionTimestamp_commit_and_invalid": 0
+  },
+  {
+   "arm": "A2_fullrefresh",
+   "condition": "async_app_policy",
+   "delta_ms": 20.0,
+   "n_accepted": 93,
+   "primary_invalid": 10,
+   "write_before_deletionTimestamp_commit_and_invalid": 1
+  },
+  {
+   "arm": "A2_fullrefresh",
+   "condition": "async_app_policy",
+   "delta_ms": 50.0,
+   "n_accepted": 93,
+   "primary_invalid": 10,
+   "write_before_deletionTimestamp_commit_and_invalid": 0
+  },
+  {
+   "arm": "A2_fullrefresh",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": -5.0,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 39
+  },
+  {
+   "arm": "A2_fullrefresh",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": -2.0,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 39
+  },
+  {
+   "arm": "A2_fullrefresh",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": -1.0,
+   "n_accepted": 39,
+   "primary_invalid": 38,
+   "write_before_deletionTimestamp_commit_and_invalid": 37
+  },
+  {
+   "arm": "A2_fullrefresh",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 0.0,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 22
+  },
+  {
+   "arm": "A2_fullrefresh",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 0.5,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 12
+  },
+  {
+   "arm": "A2_fullrefresh",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 1.0,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 13
+  },
+  {
+   "arm": "A2_fullrefresh",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 2.0,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 7
+  },
+  {
+   "arm": "A2_fullrefresh",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 3.0,
+   "n_accepted": 93,
+   "primary_invalid": 85,
+   "write_before_deletionTimestamp_commit_and_invalid": 3
+  },
+  {
+   "arm": "A2_fullrefresh",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 5.0,
+   "n_accepted": 93,
+   "primary_invalid": 72,
+   "write_before_deletionTimestamp_commit_and_invalid": 0
+  },
+  {
+   "arm": "A2_fullrefresh",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 10.0,
+   "n_accepted": 93,
+   "primary_invalid": 21,
+   "write_before_deletionTimestamp_commit_and_invalid": 0
+  },
+  {
+   "arm": "A2_fullrefresh",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 20.0,
+   "n_accepted": 93,
+   "primary_invalid": 12,
+   "write_before_deletionTimestamp_commit_and_invalid": 1
+  },
+  {
+   "arm": "A2_fullrefresh",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 50.0,
+   "n_accepted": 39,
+   "primary_invalid": 1,
+   "write_before_deletionTimestamp_commit_and_invalid": 0
+  },
+  {
+   "arm": "A2_fullrefresh",
+   "condition": "async_scope",
+   "delta_ms": -5.0,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 39
+  },
+  {
+   "arm": "A2_fullrefresh",
+   "condition": "async_scope",
+   "delta_ms": -2.0,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 39
+  },
+  {
+   "arm": "A2_fullrefresh",
+   "condition": "async_scope",
+   "delta_ms": -1.0,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 39
+  },
+  {
+   "arm": "A2_fullrefresh",
+   "condition": "async_scope",
+   "delta_ms": 0.0,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 28
+  },
+  {
+   "arm": "A2_fullrefresh",
+   "condition": "async_scope",
+   "delta_ms": 0.5,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 9
+  },
+  {
+   "arm": "A2_fullrefresh",
+   "condition": "async_scope",
+   "delta_ms": 1.0,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 8
+  },
+  {
+   "arm": "A2_fullrefresh",
+   "condition": "async_scope",
+   "delta_ms": 2.0,
+   "n_accepted": 39,
+   "primary_invalid": 38,
+   "write_before_deletionTimestamp_commit_and_invalid": 2
+  },
+  {
+   "arm": "A2_fullrefresh",
+   "condition": "async_scope",
+   "delta_ms": 3.0,
+   "n_accepted": 93,
+   "primary_invalid": 87,
+   "write_before_deletionTimestamp_commit_and_invalid": 4
+  },
+  {
+   "arm": "A2_fullrefresh",
+   "condition": "async_scope",
+   "delta_ms": 5.0,
+   "n_accepted": 93,
+   "primary_invalid": 79,
+   "write_before_deletionTimestamp_commit_and_invalid": 1
+  },
+  {
+   "arm": "A2_fullrefresh",
+   "condition": "async_scope",
+   "delta_ms": 10.0,
+   "n_accepted": 93,
+   "primary_invalid": 20,
+   "write_before_deletionTimestamp_commit_and_invalid": 0
+  },
+  {
+   "arm": "A2_fullrefresh",
+   "condition": "async_scope",
+   "delta_ms": 20.0,
+   "n_accepted": 93,
+   "primary_invalid": 16,
+   "write_before_deletionTimestamp_commit_and_invalid": 0
+  },
+  {
+   "arm": "A2_fullrefresh",
+   "condition": "async_scope",
+   "delta_ms": 50.0,
+   "n_accepted": 93,
+   "primary_invalid": 3,
+   "write_before_deletionTimestamp_commit_and_invalid": 0
+  },
+  {
+   "arm": "A3_dcji_webhook",
+   "condition": "async_app_policy",
+   "delta_ms": 10.0,
+   "n_accepted": 18,
+   "primary_invalid": 18,
+   "write_before_deletionTimestamp_commit_and_invalid": 17
+  },
+  {
+   "arm": "A3_dcji_webhook",
+   "condition": "async_app_policy",
+   "delta_ms": 20.0,
+   "n_accepted": 85,
+   "primary_invalid": 75,
+   "write_before_deletionTimestamp_commit_and_invalid": 6
+  },
+  {
+   "arm": "A3_dcji_webhook",
+   "condition": "async_app_policy",
+   "delta_ms": 50.0,
+   "n_accepted": 92,
+   "primary_invalid": 26,
+   "write_before_deletionTimestamp_commit_and_invalid": 2
+  },
+  {
+   "arm": "A3_dcji_webhook",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": -2.0,
+   "n_accepted": 1,
+   "primary_invalid": 1,
+   "write_before_deletionTimestamp_commit_and_invalid": 1
+  },
+  {
+   "arm": "A3_dcji_webhook",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": -1.0,
+   "n_accepted": 4,
+   "primary_invalid": 4,
+   "write_before_deletionTimestamp_commit_and_invalid": 3
+  },
+  {
+   "arm": "A3_dcji_webhook",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 0.0,
+   "n_accepted": 60,
+   "primary_invalid": 60,
+   "write_before_deletionTimestamp_commit_and_invalid": 60
+  },
+  {
+   "arm": "A3_dcji_webhook",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 0.5,
+   "n_accepted": 79,
+   "primary_invalid": 79,
+   "write_before_deletionTimestamp_commit_and_invalid": 79
+  },
+  {
+   "arm": "A3_dcji_webhook",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 1.0,
+   "n_accepted": 72,
+   "primary_invalid": 72,
+   "write_before_deletionTimestamp_commit_and_invalid": 72
+  },
+  {
+   "arm": "A3_dcji_webhook",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 2.0,
+   "n_accepted": 38,
+   "primary_invalid": 38,
+   "write_before_deletionTimestamp_commit_and_invalid": 38
+  },
+  {
+   "arm": "A3_dcji_webhook",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 3.0,
+   "n_accepted": 89,
+   "primary_invalid": 89,
+   "write_before_deletionTimestamp_commit_and_invalid": 89
+  },
+  {
+   "arm": "A3_dcji_webhook",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 5.0,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 39
+  },
+  {
+   "arm": "A3_dcji_webhook",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 10.0,
+   "n_accepted": 39,
+   "primary_invalid": 39,
+   "write_before_deletionTimestamp_commit_and_invalid": 39
+  },
+  {
+   "arm": "A3_dcji_webhook",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 20.0,
+   "n_accepted": 93,
+   "primary_invalid": 81,
+   "write_before_deletionTimestamp_commit_and_invalid": 25
+  },
+  {
+   "arm": "A3_dcji_webhook",
+   "condition": "async_evidence_last_literal",
+   "delta_ms": 50.0,
+   "n_accepted": 93,
+   "primary_invalid": 17,
+   "write_before_deletionTimestamp_commit_and_invalid": 2
+  },
+  {
+   "arm": "A3_dcji_webhook",
+   "condition": "async_scope",
+   "delta_ms": 10.0,
+   "n_accepted": 49,
+   "primary_invalid": 49,
+   "write_before_deletionTimestamp_commit_and_invalid": 48
+  },
+  {
+   "arm": "A3_dcji_webhook",
+   "condition": "async_scope",
+   "delta_ms": 20.0,
+   "n_accepted": 88,
+   "primary_invalid": 74,
+   "write_before_deletionTimestamp_commit_and_invalid": 14
+  },
+  {
+   "arm": "A3_dcji_webhook",
+   "condition": "async_scope",
+   "delta_ms": 50.0,
+   "n_accepted": 90,
+   "primary_invalid": 21,
+   "write_before_deletionTimestamp_commit_and_invalid": 5
+  }
+ ]
+}

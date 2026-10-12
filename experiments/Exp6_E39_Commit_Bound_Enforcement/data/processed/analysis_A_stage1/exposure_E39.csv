@@ -1,0 +1,13 @@
+experiment,group,d_star_ms,last_exposed_delta_ms,wilson_hi_at_d_star,d_star_secondary_ms,window_area_ms,boot_ci95_lo_ms,boot_ci95_hi_ms,boot_frac_not_closed
+A,A1/async_scope,200,100,0.0896669,200,18.5513,50,200,0
+A,A1/async_app_policy,50,20,0.0896669,50,14.8526,50,200,0
+A,A1/async_evidence_last_literal,200,100,0.0896669,200,19.8974,50,200,0
+A,A3/async_scope,not_closed,200,,not_closed,32.3718,100,not_closed,0.596
+A,A3/async_app_policy,200,100,0.13181,200,29.3846,100,not_closed,0.2865
+A,A3/async_evidence_last_literal,200,100,0.0896669,200,48.9744,100,200,0
+A,A4d/async_scope,0,,0.0896669,0,0,0,0,0
+A,A4d/async_app_policy,0,,0.0896669,0,0,0,0,0
+A,A4d/async_evidence_last_literal,0,,0.0896669,0,0,0,0,0
+A,A4m/async_scope,200,100,0.0896669,200,17.7986,50,200,0
+A,A4m/async_app_policy,100,50,0.0896669,100,13.3045,20,100,0
+A,A4m/async_evidence_last_literal,100,50,0.13181,100,16.8337,50,200,0

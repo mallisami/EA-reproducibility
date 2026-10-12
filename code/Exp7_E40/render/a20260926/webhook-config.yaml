@@ -1,0 +1,62 @@
+# Template: a20260926 substituted by deploy/render.sh; the caBundle placeholder below by deploy/gen_certs.sh.
+# Installed once for the whole run (arms are randomised within blocks, so the webhook
+# cannot be toggled per trial). Per-trial arm selection is done by objectSelector:
+# the webhook is called ONLY for objects labelled e40-webhook=enforce, which the runner
+# sets for A3 trials only. A1/A2/A4 targets carry no such label -> no call, no latency.
+# objectSelector mechanism (API server semantics):
+#   - Pod DELETE: the selector is evaluated against oldObject (the Pod being deleted), so the
+#     TARGET POD must carry e40-webhook=enforce.
+#   - NetworkPolicy CREATE (E39-E): there is no oldObject; the selector is evaluated against the NEW
+#     object, so the NETWORKPOLICY being created must carry e40-webhook=enforce (the label on the
+#     isolated Pod is irrelevant for this rule). Unlabelled NetworkPolicies are never sent.
+# Scope:
+#   - operations DELETE on core/v1 pods and CREATE on networking.k8s.io/v1 networkpolicies, namespaced
+#   - namespaceSelector: exactly the test namespace (kubernetes.io/metadata.name is set by the API server)
+#   - objectSelector: e40-webhook=enforce
+#   - matchConditions (CEL, GA since v1.30): the webhook is NOT called for the reset identity,
+#     kubelets (final grace-0 DELETE of an already-terminating Pod) and the namespace/GC controllers,
+#     so fixture reset and namespace teardown can never be blocked by failurePolicy Fail.
+#     (The server additionally exempts the same users; WEBHOOK_EXEMPT_USERS in webhook.yaml.)
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  name: e40-action-revalidation
+  labels: {e40-managed: "true", e40-run-id: a20260926}
+webhooks:
+- name: action-revalidation.e39.e40-managed.local
+  admissionReviewVersions: ["v1"]
+  sideEffects: None
+  failurePolicy: Fail
+  matchPolicy: Exact
+  timeoutSeconds: 5
+  clientConfig:
+    service:
+      namespace: e40-system
+      name: e40-webhook
+      path: /validate
+      port: 443
+    caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURJekNDQWd1Z0F3SUJBZ0lVQlpoL2ZsYUNVTVl4NU1YMnFBekIzTytyNVBBd0RRWUpLb1pJaHZjTkFRRUwKQlFBd0dURVhNQlVHQTFVRUF3d09aVFF3TFhkbFltaHZiMnN0WTJFd0hoY05Nall3T1RJMk1UYzBORFF3V2hjTgpNall4TURJMk1UYzBORFF3V2pBWk1SY3dGUVlEVlFRRERBNWxOREF0ZDJWaWFHOXZheTFqWVRDQ0FTSXdEUVlKCktvWklodmNOQVFFQkJRQURnZ0VQQURDQ0FRb0NnZ0VCQU1XY2pwV1BIeVBBd3RIQ0lOaHRzbFdsUVpRTmdsaC8KSk1BN2ViNmR2QkZIb2FNRmxPdHVJcHZkbmxnZzRVSW92TlA0bEdQdlR6anhtOEtLYUYza1hrcm9iMmlld25BcQpLa04zaWdSdHF4aXBVNHpodm13TnVUY1NOeHJsUU5nZWJobElXTVQ3VC9pQ3ZubXdRU1Q4UGpJbnNZZUYrL1ZjCndRTHY3ZFVITEM0SE5QSEt5T0YyaDVzUkxmMTlGMzZXY1NZRUxSUVlvQ3JmRi9sVnNzdVhWR3JzaEtTYUlxM3gKcmRYRS95R0JIODMxSThoaVA1R1M4elgvZXpaaGhQVW5xbmVFV0Q3dm9Eb0FwZ2lFQUVHbnhIYW1nZWpzYWZ6cwpicmc3dncwMDZTZlNnZzZaRit4bXpLbnhPaFVGSzRNT0RGTFAzVGlGSDlTMWd0VkxQcS9HVXgwQ0F3RUFBYU5qCk1HRXdIUVlEVlIwT0JCWUVGT0ZDRUltREkyRU9wSkVBMThjWlNLcVQwdjRjTUI4R0ExVWRJd1FZTUJhQUZPRkMKRUltREkyRU9wSkVBMThjWlNLcVQwdjRjTUE4R0ExVWRFd0VCL3dRRk1BTUJBZjh3RGdZRFZSMFBBUUgvQkFRRApBZ0VHTUEwR0NTcUdTSWIzRFFFQkN3VUFBNElCQVFCZVhSOFZVWGZiQ3RxbHFjYWcwZFNYZFRVYlhrT2EvTlpwCkVzV016cTBESFlsY3BZSjhzbHR2WGlKL0ovb2lRcjFFNWxFNkUwQU5EZnJ1bjZpaWtrckM4eGR4QXI5eE53NWQKQ29VQWlEU0lZREJNWUVxeGpGeUZ0UUhJNkxsUk9FVmYwV0tvaE53UUlWMG16QTZFNHhlaVZ2YUY2NjBldkhPMwpBUjFqK0VwT3ROTHAvNXYzM0djem5Hb1FzdGhUTCtwZTNadkhXY2E0QWlPYkRjYUhBNTBQeDV4Sm82azViYkp5Cm5zdHYxN1liK25KWFZaV1FzWW1QSUYvUDRFMWNpa2EwM2puVklqNWZkRkNQWlZJc3ExSnl5TTdnSElYRWhqOEYKUTJsQi9qKzlRck91bWNNT0xtRVJTbmR2V24xTkdwSmZWRTJqb3BmK1pEUkxGejdlbEFadgotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
+  rules:
+  - apiGroups: [""]
+    apiVersions: ["v1"]
+    operations: ["DELETE"]
+    resources: ["pods"]
+    scope: Namespaced
+  - apiGroups: ["networking.k8s.io"]
+    apiVersions: ["v1"]
+    operations: ["CREATE"]
+    resources: ["networkpolicies"]
+    scope: Namespaced
+  namespaceSelector:
+    matchLabels:
+      kubernetes.io/metadata.name: e40-a20260926
+  objectSelector:
+    matchLabels:
+      e40-webhook: enforce
+  matchConditions:
+  - name: exempt-reset-identity
+    expression: "request.userInfo.username != 'system:serviceaccount:e40-system:e40-reset'"
+  - name: exempt-kubelets
+    expression: "!request.userInfo.username.startsWith('system:node:')"
+  - name: exempt-namespace-and-gc-controllers
+    expression: "!(request.userInfo.username in ['system:serviceaccount:kube-system:namespace-controller', 'system:serviceaccount:kube-system:generic-garbage-collector'])"

@@ -1,0 +1,134 @@
+2026-09-26T14:46:24Z PROGRESS 300/324 (total recorded 300) infra=0 elapsed=266s rate=0.887s/trial mem_kb=9847872
+2026-09-26T14:46:41Z PROGRESS 324/324 (total recorded 324) infra=0 elapsed=283s rate=0.875s/trial mem_kb=9843056
+2026-09-26T14:46:41Z END {"written": 324, "infra": 0, "aborted": null, "skipped_recorded": 0, "elapsed_s": 283.5}
+pod_events snapshot: 2093 lines -> /home/azureuser/e39_20260926/results/smoke-e39-20260926a/smoke_inputs
+f7cea0da49cd110f8f4463f2214450061ed664c3137eb51db68554a9957d91f2  /home/azureuser/e39_20260926/results/smoke-e39-20260926a/webhook_log.jsonl
+70ecca69c0826e92b8704eefed3575c659279ec60ef085944dc2ae63fe8641cc  /home/azureuser/e39_20260926/results/smoke-e39-20260926a/audit.log
+7049bec25ba71f0cd0313009d1345941cabcc4aea99265d9b7775b722fd07fd6  /home/azureuser/e39_20260926/results/smoke-e39-20260926a/apiserver.log
+     135 /home/azureuser/e39_20260926/results/smoke-e39-20260926a/webhook_log.jsonl
+    4907 /home/azureuser/e39_20260926/results/smoke-e39-20260926a/audit.log
+     324 /home/azureuser/e39_20260926/results/smoke-e39-20260926a/RAW_TRIALS.jsonl
+    2093 /home/azureuser/e39_20260926/results/smoke-e39-20260926a/pod_events.jsonl
+     208 /home/azureuser/e39_20260926/results/smoke-e39-20260926a/mirror_log.jsonl
+   57563 /home/azureuser/e39_20260926/results/smoke-e39-20260926a/apiserver.log
+   65230 total
+total 10204
+drwxrwxr-x 2 azureuser azureuser     4096 Sep 26 14:10 .
+drwxrwxr-x 6 azureuser azureuser     4096 Sep 26 14:13 ..
+-rw------- 1 root      root      10433531 Sep 26 14:46 audit.log
+wrote /home/azureuser/e39_20260926/results/smoke-e39-20260926a/LOCK_SMOKE.json: 79 files, lock_sha256=17b31b35573bf322c8fb22604428c0f5ba38572b38c4deb7e266898122fc87d0
+fill rc=0
+oracle e39.oracle.v1: 324 trials; primary classes: {'CORRECT_ABORT': 34, 'INVALID_EXECUTED': 78, 'UID_BLOCKED': 4, 'UNKNOWN': 64, 'VALID_EXECUTED': 144}
+oracle rc=0
+E39 analysis written to /home/azureuser/e39_20260926/results/smoke-e39-20260926a/analysis_smoke (stage 1, experiments A,B,C,D,E,F,G, 324 trials, confirmatory=False)
+analysis rc=0
+  - stage-1 design mismatch E39-A cell A/A1/python/async_evidence_last_literal/5: planned 1, pre-registered 39
+  - stage-1 design mismatch E39-A cell A/A1/python/async_evidence_last_literal/10: planned 1, pre-registered 39
+  - stage-1 design mismatch E39-A cell A/A1/python/async_evidence_last_literal/20: planned 1, pre-registered 39
+strict rc=2 (refusal expected: 1-rep design)
+F/A4d/client-go/async_scope/50.0                             k=   0 n=   1
+G/A1/in_model_cut_ace                                        k=   0 n=   1
+G/A1/out_of_model_cut_bdf                                    k=   0 n=   1
+G/A2/in_model_cut_ace                                        k=   0 n=   1
+G/A2/out_of_model_cut_bdf                                    k=   0 n=   1
+recompute rc=3
+{
+ "n_trials": 324,
+ "infra_error": 0,
+ "infra_rate": 0.0,
+ "infra_examples": [],
+ "primary_classes": {
+  "CORRECT_ABORT": 34,
+  "INVALID_EXECUTED": 78,
+  "VALID_EXECUTED": 144,
+  "UID_BLOCKED": 4,
+  "UNKNOWN": 64
+ },
+ "primary_by_exp": {
+  "A": {
+   "CORRECT_ABORT": 15,
+   "INVALID_EXECUTED": 51,
+   "VALID_EXECUTED": 70,
+   "UID_BLOCKED": 4
+  },
+  "B": {
+   "VALID_EXECUTED": 8,
+   "INVALID_EXECUTED": 2,
+   "CORRECT_ABORT": 2
+  },
+  "C": {
+   "UNKNOWN": 64
+  },
+  "D": {
+   "CORRECT_ABORT": 11,
+   "VALID_EXECUTED": 23,
+   "INVALID_EXECUTED": 14
+  },
+  "E": {
+   "VALID_EXECUTED": 24,
+   "INVALID_EXECUTED": 5,
+   "CORRECT_ABORT": 3
+  },
+  "F": {
+   "VALID_EXECUTED": 19,
+   "INVALID_EXECUTED": 5
+  },
+  "G": {
+   "INVALID_EXECUTED": 1,
+   "CORRECT_ABORT": 3
+  }
+ },
+ "unknown_reasons": {
+  "C|not_dispatched_without_abort(EXECUTE)": 32,
+  "C|fixture_prewrite_vcore_false": 32
+ },
+ "audit_ids_joined": "559/559",
+ "join_rate": 1.0,
+ "join_misses": [],
+ "agreement_primary_secondary": 1.0,
+ "disagreements": [],
+ "controls": {
+  "G_in_model_ace|A1_dcji|CORRECT_ABORT": 1,
+  "G_in_model_ace|A2_fullrefresh|CORRECT_ABORT": 1,
+  "G_out_of_model_bdf|A1_dcji|INVALID_EXECUTED": 1,
+  "G_out_of_model_bdf|A2_fullrefresh|CORRECT_ABORT": 1,
+  "no_write|A1_dcji|VALID_EXECUTED": 1,
+  "no_write|A3_dcji_webhook|VALID_EXECUTED": 1,
+  "no_write|A4d_commit_direct|VALID_EXECUTED": 1,
+  "no_write|A4m_commit_mirror|VALID_EXECUTED": 1,
+  "uid_rebind|A1_dcji|UID_BLOCKED": 1,
+  "uid_rebind|A3_dcji_webhook|UID_BLOCKED": 1,
+  "uid_rebind|A4d_commit_direct|UID_BLOCKED": 1,
+  "uid_rebind|A4m_commit_mirror|UID_BLOCKED": 1
+ },
+ "controls_ok": true,
+ "conflict_kinds": {
+  "uid": 4,
+  "resourceVersion": 3
+ },
+ "flag_unparsed": 0,
+ "c_fields_ok": true,
+ "d_fields_ok": true,
+ "schema_invalid": [],
+ "n_schema_invalid": 0,
+ "n_by_exp": {
+  "A": 140,
+  "B": 12,
+  "C": 64,
+  "D": 48,
+  "E": 32,
+  "F": 24,
+  "G": 4
+ },
+ "GATES": {
+  "infra_lt_2pct": true,
+  "join_ge_98pct": true,
+  "agreement_ge_95pct": true,
+  "controls_ok": true,
+  "schema_valid": true,
+  "no_unparsed_409": true,
+  "c_fields": true,
+  "d_fields": true
+ },
+ "ALL_GATES_PASS": true
+}

@@ -1,0 +1,4 @@
+# E39/E40 deploy helpers ran with the VM system Python 3.12.3 (Ubuntu 24.04 python3-yaml); the only third-party
+# import of deploy/tests/validate_deploy.py and render helpers is PyYAML. The full system freeze is not reproduced here
+# because it lists unrelated OS packages.
+PyYAML==6.0.1

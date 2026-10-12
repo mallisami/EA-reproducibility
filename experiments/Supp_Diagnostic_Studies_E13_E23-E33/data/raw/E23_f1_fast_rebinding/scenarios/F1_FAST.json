@@ -1,0 +1,68 @@
+{
+  "scenario_id": "F1.FAST",
+  "title": "Same-Name Replacement ConfigMap (fast-recreating analog of F1.1/F1.2)",
+  "family": "F1",
+  "realism_tier": "R2",
+  "development": false,
+  "action": {
+    "action_type": "quarantine_workload",
+    "target_reference": "configmap/f1-target",
+    "target_snapshot": { "uid": "LIVE" },
+    "queue_semantics": "single_exactly_once_attempt",
+    "authorization": { "predicate": "p_authorized", "must_remain_valid": true },
+    "execution_precondition": { "predicate": "p_target_resolves" }
+  },
+  "attacker_capability_tier": "C2",
+  "initial_state": {
+    "timestamp_s": 0,
+    "facts": {
+      "compromised": true,
+      "current_uid": "LIVE",
+      "irrelevant_alert": false,
+      "action_authorized": true
+    },
+    "resources": [], "processes": [], "network_bindings": [],
+    "sessions": [], "context": {}, "evidence": [], "queue": []
+  },
+  "predicates": {
+    "p_compromised": { "path": "/facts/compromised", "op": "eq", "value": true, "evidence_class": "H", "description": "Confirmed compromise of original object." },
+    "p_binding": { "path": "/facts/current_uid", "op": "eq", "value": "LIVE", "evidence_class": "B", "description": "Reusable name still resolves to the decision-time UID." },
+    "p_authorized": { "path": "/facts/action_authorized", "op": "eq", "value": true, "evidence_class": "DERIVED", "description": "Response executor remains technically authorized." },
+    "p_target_resolves": { "path": "/facts/current_uid", "op": "ne", "value": null, "evidence_class": "B", "description": "Queued name resolves to a concrete resource at actuation." }
+  },
+  "policy_profiles": {
+    "balanced": {
+      "justification": { "predicate": "p_compromised" },
+      "binding": { "predicate": "p_binding" },
+      "scope": true
+    }
+  },
+  "primary_policy": "balanced",
+  "justification_bases": [ [ "p_compromised" ] ],
+  "transitions": [
+    { "transition_id": "irrelevant_change", "title": "Change unrelated ConfigMap", "actor": "environment", "capability_tier": "NONE", "duration_s": 0.1, "cost_ops": 0, "preconditions": true, "effects": [ { "op": "set", "path": "/facts/irrelevant_alert", "value": true } ], "notes": "", "adversarially_induced": false, "causal_parent_ids": [] },
+    { "transition_id": "recreate_target", "title": "Attacker deletes and recreates f1-target under the same name", "actor": "attacker", "capability_tier": "C2", "duration_s": 0.2, "cost_ops": 1, "preconditions": true, "effects": [ { "op": "set", "path": "/facts/current_uid", "value": "REBOUND" } ], "notes": "Real transition duration is measured live, not simulated; recorded per trial.", "adversarially_induced": true, "causal_parent_ids": [] }
+  ],
+  "worlds": {
+    "W0": { "commit_deadline_s": 5, "transition_path": [], "control_semantics": "stable", "expected_commit_by_policy": { "balanced": "EXECUTE" }, "expected_commit": "EXECUTE", "expected_attack_path_completed": true },
+    "W1": { "commit_deadline_s": 5, "transition_path": [ "irrelevant_change" ], "control_semantics": "irrelevant_change", "expected_commit_by_policy": { "balanced": "EXECUTE" }, "expected_commit": "EXECUTE", "expected_attack_path_completed": true },
+    "W2": { "commit_deadline_s": 5, "transition_path": [ "recreate_target" ], "control_semantics": "ea_toctou", "expected_commit_by_policy": { "balanced": "ABORT_REPLAN" }, "expected_commit": "ABORT_REPLAN", "expected_attack_path_completed": true }
+  },
+  "provenance": {
+    "platform_basis": "Kubernetes ConfigMaps have immutable UIDs; a replacement object created under the same name receives a new UID, exactly the same identity-rebinding mechanism as F1.1/F1.2's Pod, but without container scheduling/image-pull/start latency.",
+    "incident_basis": "Autonomous response queues quarantine after confirmed compromise, identical to F1.1/F1.2.",
+    "policy_basis": "Historical compromise still applies to the original object; response must remain bound to the original UID.",
+    "limitations": "This scenario exists specifically to test whether the F1 same-name-rebinding mechanism can be exercised within a live deadline; a ConfigMap is not a workload, so this does not itself demonstrate quarantining a real running process -- it isolates the identity-rebinding mechanism's timing from container-runtime overhead, which was the actual cause of F1.1/F1.2's 39-80s live transition times against a 5s deadline in the original E13 run."
+  },
+  "severity": "S2",
+  "notes": "E23 F1-fast-rebinding extension: deadline-feasible live replication of the F1.1/F1.2 mechanism, motivated by the reviewer finding that F1.1/F1.2's real transition duration (39-80s) made them structurally unable to complete within their 5s frozen deadline.",
+  "refresh_model": {
+    "cost_unit": "normalized_query_unit",
+    "query_costs": { "query:/facts/current_uid": 1.0, "immutable:p_compromised": 0.0 },
+    "predicate_query_ids": { "p_binding": "query:/facts/current_uid", "p_target_resolves": "query:/facts/current_uid", "p_compromised": "immutable:p_compromised" },
+    "query_observed_at_s": { "query:/facts/current_uid": 0.0, "immutable:p_compromised": 0.0 }
+  },
+  "native_controls": [],
+  "parameterizations": [],
+  "scenario_role": "positive_ea_toctou"
+}

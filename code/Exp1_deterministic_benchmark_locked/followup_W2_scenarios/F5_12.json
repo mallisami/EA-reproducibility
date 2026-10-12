@@ -1,0 +1,348 @@
+{
+  "scenario_id": "F5.12",
+  "title": "Three Independent Justification Bases (variant 12)",
+  "family": "F5",
+  "realism_tier": "R3",
+  "scenario_role": "positive_ea_toctou",
+  "development": false,
+  "action": {
+    "action_type": "quarantine_workload",
+    "target_reference": "workload/U12",
+    "target_snapshot": {
+      "uid": "U12"
+    },
+    "queue_semantics": "single_exactly_once_attempt",
+    "execution_precondition": true,
+    "authorization": {
+      "predicate": "p_authorized",
+      "must_remain_valid": true
+    }
+  },
+  "attacker_capability_tier": "C3",
+  "initial_state": {
+    "timestamp_s": 0,
+    "facts": {
+      "a": true,
+      "b": true,
+      "c": true,
+      "d": true,
+      "e": true,
+      "f": true,
+      "irrelevant_alert": false,
+      "action_authorized": true
+    },
+    "resources": [],
+    "processes": [],
+    "network_bindings": [],
+    "sessions": [],
+    "context": {},
+    "evidence": [],
+    "queue": []
+  },
+  "predicates": {
+    "a": {
+      "path": "/facts/a",
+      "op": "eq",
+      "value": true,
+      "evidence_class": "L",
+      "description": "Current predicate a."
+    },
+    "b": {
+      "path": "/facts/b",
+      "op": "eq",
+      "value": true,
+      "evidence_class": "L",
+      "description": "Current predicate b."
+    },
+    "c": {
+      "path": "/facts/c",
+      "op": "eq",
+      "value": true,
+      "evidence_class": "L",
+      "description": "Current predicate c."
+    },
+    "d": {
+      "path": "/facts/d",
+      "op": "eq",
+      "value": true,
+      "evidence_class": "L",
+      "description": "Current predicate d."
+    },
+    "e": {
+      "path": "/facts/e",
+      "op": "eq",
+      "value": true,
+      "evidence_class": "L",
+      "description": "Current predicate e."
+    },
+    "f": {
+      "path": "/facts/f",
+      "op": "eq",
+      "value": true,
+      "evidence_class": "L",
+      "description": "Current predicate f."
+    },
+    "p_authorized": {
+      "path": "/facts/action_authorized",
+      "op": "eq",
+      "value": true,
+      "evidence_class": "DERIVED",
+      "description": "Response executor remains technically authorized."
+    }
+  },
+  "policy_profiles": {
+    "balanced": {
+      "justification": {
+        "any": [
+          {
+            "all": [
+              {
+                "predicate": "a"
+              },
+              {
+                "predicate": "b"
+              }
+            ]
+          },
+          {
+            "all": [
+              {
+                "predicate": "c"
+              },
+              {
+                "predicate": "d"
+              }
+            ]
+          },
+          {
+            "all": [
+              {
+                "predicate": "e"
+              },
+              {
+                "predicate": "f"
+              }
+            ]
+          }
+        ]
+      },
+      "binding": true,
+      "scope": true
+    }
+  },
+  "transitions": [
+    {
+      "transition_id": "irrelevant_change",
+      "title": "Irrelevant alert",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.1,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/irrelevant_alert",
+          "value": true
+        }
+      ],
+      "notes": "",
+      "adversarially_induced": false,
+      "causal_parent_ids": []
+    },
+    {
+      "transition_id": "cut_b1",
+      "title": "Cut basis 1",
+      "actor": "attacker",
+      "capability_tier": "C3",
+      "duration_s": 0.6,
+      "cost_ops": 1,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/a",
+          "value": false
+        }
+      ],
+      "notes": "",
+      "adversarially_induced": true,
+      "causal_parent_ids": []
+    },
+    {
+      "transition_id": "cut_b2",
+      "title": "Cut basis 2",
+      "actor": "attacker",
+      "capability_tier": "C3",
+      "duration_s": 0.6,
+      "cost_ops": 1,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/c",
+          "value": false
+        }
+      ],
+      "notes": "",
+      "adversarially_induced": true,
+      "causal_parent_ids": []
+    },
+    {
+      "transition_id": "cut_b3",
+      "title": "Cut basis 3",
+      "actor": "attacker",
+      "capability_tier": "C3",
+      "duration_s": 0.6,
+      "cost_ops": 1,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/e",
+          "value": false
+        }
+      ],
+      "notes": "",
+      "adversarially_induced": true,
+      "causal_parent_ids": []
+    }
+  ],
+  "worlds": {
+    "W0": {
+      "commit_deadline_s": 10,
+      "transition_path": [],
+      "control_semantics": "stable",
+      "expected_commit_by_policy": {
+        "balanced": "EXECUTE"
+      },
+      "expected_commit": "EXECUTE",
+      "expected_attack_path_completed": true
+    },
+    "W1": {
+      "commit_deadline_s": 10,
+      "transition_path": [
+        "irrelevant_change"
+      ],
+      "control_semantics": "irrelevant_change",
+      "expected_commit_by_policy": {
+        "balanced": "EXECUTE"
+      },
+      "expected_commit": "EXECUTE",
+      "expected_attack_path_completed": true
+    },
+    "W2": {
+      "commit_deadline_s": 10,
+      "transition_path": [
+        "cut_b1",
+        "cut_b2",
+        "cut_b3"
+      ],
+      "control_semantics": "ea_toctou",
+      "expected_commit_by_policy": {
+        "balanced": "ABORT_REPLAN"
+      },
+      "expected_commit": "ABORT_REPLAN",
+      "expected_attack_path_completed": true
+    },
+    "W3": {
+      "commit_deadline_s": 0.4,
+      "transition_path": [
+        "cut_b1",
+        "cut_b2",
+        "cut_b3"
+      ],
+      "control_semantics": "deadline_miss",
+      "expected_commit_by_policy": {
+        "balanced": "EXECUTE"
+      },
+      "expected_commit": "EXECUTE",
+      "expected_attack_path_completed": false
+    }
+  },
+  "provenance": {
+    "platform_basis": "Controlled synthetic policy structure used to isolate justification semantics.",
+    "incident_basis": "Multiple independent active or historical evidence bases support a pending response.",
+    "policy_basis": "Commit validity follows the explicit Boolean response policy.",
+    "limitations": "The exact Boolean structure is methodological and is not claimed as a universal SOC policy."
+  },
+  "severity": "S4",
+  "notes": "v9 extended confirmatory pilot template (F5); same causal structure as locked F5.2.",
+  "primary_policy": "balanced",
+  "justification_bases_by_policy": {
+    "balanced": [
+      [
+        "a",
+        "b"
+      ],
+      [
+        "c",
+        "d"
+      ],
+      [
+        "e",
+        "f"
+      ]
+    ]
+  },
+  "justification_bases": [
+    [
+      "a",
+      "b"
+    ],
+    [
+      "c",
+      "d"
+    ],
+    [
+      "e",
+      "f"
+    ]
+  ],
+  "parameterizations": [
+    {
+      "id": "P1",
+      "description": "Minimal topology with only essential resources and evidence."
+    },
+    {
+      "id": "P2",
+      "description": "Distractor topology with benign resources and irrelevant evidence."
+    },
+    {
+      "id": "P3",
+      "description": "Noisy SOC context with non-material alerts and unrelated transitions."
+    },
+    {
+      "id": "P4",
+      "description": "High-impact variant with larger benign background or higher criticality."
+    }
+  ],
+  "native_controls": [],
+  "refresh_model": {
+    "cost_unit": "normalized_query_unit",
+    "query_costs": {
+      "query:/facts/a": 1.0,
+      "query:/facts/b": 1.0,
+      "query:/facts/c": 1.0,
+      "query:/facts/d": 1.0,
+      "query:/facts/e": 1.0,
+      "query:/facts/f": 1.0
+    },
+    "predicate_query_ids": {
+      "a": "query:/facts/a",
+      "b": "query:/facts/b",
+      "c": "query:/facts/c",
+      "d": "query:/facts/d",
+      "e": "query:/facts/e",
+      "f": "query:/facts/f"
+    },
+    "query_observed_at_s": {
+      "query:/facts/a": 0.0,
+      "query:/facts/b": 0.0,
+      "query:/facts/c": 0.0,
+      "query:/facts/d": 0.0,
+      "query:/facts/e": 0.0,
+      "query:/facts/f": 0.0
+    }
+  }
+}

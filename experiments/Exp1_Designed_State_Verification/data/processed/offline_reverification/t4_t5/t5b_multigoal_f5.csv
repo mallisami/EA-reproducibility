@@ -1,0 +1,74 @@
+variant,added_cuts,goals,locked_goal_count,status_o,status_p,cert,cost_o,cost_p,evals_o,evals_p,brute_min_pos,B4_cost,counterexample,reachable_states,valid_states,goal_states,B6o_unsafe,B6o_false_abort,B6p_unsafe,B6p_false_abort,B4_unsafe,B4_false_abort,B0_unsafe
+F5.10+0cuts,[],1,1,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/c"", ""query:/facts/e""]",3.0,3.0,8,8,3,6.0,False,8,7,1,0,0,0,0,0,0,1
+F5.10+1cuts,"[""b""]",3,3,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/b"", ""query:/facts/c"", ""query:/facts/e""]",4.0,4.0,16,16,4,6.0,False,16,13,3,0,0,0,0,0,0,3
+F5.10+2cuts,"[""b"", ""d""]",9,9,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/b"", ""query:/facts/c"", ""query:/facts/d"", ""query:/facts/e""]",5.0,5.0,32,32,5,6.0,False,32,23,9,0,0,0,0,0,0,9
+F5.10+3cuts,"[""b"", ""d"", ""f""]",27,27,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/b"", ""query:/facts/c"", ""query:/facts/d"", ""query:/facts/e"", ""query:/facts/f""]",6.0,6.0,64,64,6,6.0,False,64,37,27,0,0,0,0,0,0,27
+F5.11+0cuts,[],1,1,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/c"", ""query:/facts/e""]",3.0,3.0,8,8,3,6.0,False,8,7,1,0,0,0,0,0,0,1
+F5.11+1cuts,"[""b""]",3,3,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/b"", ""query:/facts/c"", ""query:/facts/e""]",4.0,4.0,16,16,4,6.0,False,16,13,3,0,0,0,0,0,0,3
+F5.11+2cuts,"[""b"", ""d""]",9,9,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/b"", ""query:/facts/c"", ""query:/facts/d"", ""query:/facts/e""]",5.0,5.0,32,32,5,6.0,False,32,23,9,0,0,0,0,0,0,9
+F5.11+3cuts,"[""b"", ""d"", ""f""]",26,26,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/b"", ""query:/facts/c"", ""query:/facts/d"", ""query:/facts/e"", ""query:/facts/f""]",6.0,6.0,64,64,6,6.0,False,63,37,26,0,0,0,0,0,0,26
+F5.12+0cuts,[],1,1,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/c"", ""query:/facts/e""]",3.0,3.0,8,8,3,6.0,False,8,7,1,0,0,0,0,0,0,1
+F5.12+1cuts,"[""b""]",3,3,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/b"", ""query:/facts/c"", ""query:/facts/e""]",4.0,4.0,16,16,4,6.0,False,16,13,3,0,0,0,0,0,0,3
+F5.12+2cuts,"[""b"", ""d""]",9,9,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/b"", ""query:/facts/c"", ""query:/facts/d"", ""query:/facts/e""]",5.0,5.0,32,32,5,6.0,False,32,23,9,0,0,0,0,0,0,9
+F5.12+3cuts,"[""b"", ""d"", ""f""]",27,27,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/b"", ""query:/facts/c"", ""query:/facts/d"", ""query:/facts/e"", ""query:/facts/f""]",6.0,6.0,64,64,6,6.0,False,64,37,27,0,0,0,0,0,0,27
+F5.13+0cuts,[],1,1,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/c"", ""query:/facts/e""]",3.0,3.0,8,8,3,6.0,False,8,7,1,0,0,0,0,0,0,1
+F5.13+1cuts,"[""b""]",3,3,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/b"", ""query:/facts/c"", ""query:/facts/e""]",4.0,4.0,16,16,4,6.0,False,16,13,3,0,0,0,0,0,0,3
+F5.13+2cuts,"[""b"", ""d""]",9,9,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/b"", ""query:/facts/c"", ""query:/facts/d"", ""query:/facts/e""]",5.0,5.0,32,32,5,6.0,False,32,23,9,0,0,0,0,0,0,9
+F5.13+3cuts,"[""b"", ""d"", ""f""]",27,27,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/b"", ""query:/facts/c"", ""query:/facts/d"", ""query:/facts/e"", ""query:/facts/f""]",6.0,6.0,64,64,6,6.0,False,64,37,27,0,0,0,0,0,0,27
+F5.14+0cuts,[],1,1,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/c"", ""query:/facts/e""]",3.0,3.0,8,8,3,6.0,False,8,7,1,0,0,0,0,0,0,1
+F5.14+1cuts,"[""b""]",3,3,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/b"", ""query:/facts/c"", ""query:/facts/e""]",4.0,4.0,16,16,4,6.0,False,16,13,3,0,0,0,0,0,0,3
+F5.14+2cuts,"[""b"", ""d""]",9,9,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/b"", ""query:/facts/c"", ""query:/facts/d"", ""query:/facts/e""]",5.0,5.0,32,32,5,6.0,False,32,23,9,0,0,0,0,0,0,9
+F5.14+3cuts,"[""b"", ""d"", ""f""]",27,27,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/b"", ""query:/facts/c"", ""query:/facts/d"", ""query:/facts/e"", ""query:/facts/f""]",6.0,6.0,64,64,6,6.0,False,64,37,27,0,0,0,0,0,0,27
+F5.15+0cuts,[],1,1,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/c"", ""query:/facts/e""]",3.0,3.0,8,8,3,6.0,False,8,7,1,0,0,0,0,0,0,1
+F5.15+1cuts,"[""b""]",3,3,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/b"", ""query:/facts/c"", ""query:/facts/e""]",4.0,4.0,16,16,4,6.0,False,16,13,3,0,0,0,0,0,0,3
+F5.15+2cuts,"[""b"", ""d""]",9,9,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/b"", ""query:/facts/c"", ""query:/facts/d"", ""query:/facts/e""]",5.0,5.0,32,32,5,6.0,False,32,23,9,0,0,0,0,0,0,9
+F5.15+3cuts,"[""b"", ""d"", ""f""]",27,27,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/b"", ""query:/facts/c"", ""query:/facts/d"", ""query:/facts/e"", ""query:/facts/f""]",6.0,6.0,64,64,6,6.0,False,64,37,27,0,0,0,0,0,0,27
+F5.16+0cuts,[],1,1,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/c"", ""query:/facts/e""]",3.0,3.0,8,8,3,6.0,False,8,7,1,0,0,0,0,0,0,1
+F5.16+1cuts,"[""b""]",3,3,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/b"", ""query:/facts/c"", ""query:/facts/e""]",4.0,4.0,16,16,4,6.0,False,16,13,3,0,0,0,0,0,0,3
+F5.16+2cuts,"[""b"", ""d""]",9,9,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/b"", ""query:/facts/c"", ""query:/facts/d"", ""query:/facts/e""]",5.0,5.0,32,32,5,6.0,False,32,23,9,0,0,0,0,0,0,9
+F5.16+3cuts,"[""b"", ""d"", ""f""]",27,27,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/b"", ""query:/facts/c"", ""query:/facts/d"", ""query:/facts/e"", ""query:/facts/f""]",6.0,6.0,64,64,6,6.0,False,64,37,27,0,0,0,0,0,0,27
+F5.17+0cuts,[],1,1,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/c"", ""query:/facts/e""]",3.0,3.0,8,8,3,6.0,False,8,7,1,0,0,0,0,0,0,1
+F5.17+1cuts,"[""b""]",3,3,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/b"", ""query:/facts/c"", ""query:/facts/e""]",4.0,4.0,16,16,4,6.0,False,16,13,3,0,0,0,0,0,0,3
+F5.17+2cuts,"[""b"", ""d""]",9,9,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/b"", ""query:/facts/c"", ""query:/facts/d"", ""query:/facts/e""]",5.0,5.0,32,32,5,6.0,False,32,23,9,0,0,0,0,0,0,9
+F5.17+3cuts,"[""b"", ""d"", ""f""]",27,27,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/b"", ""query:/facts/c"", ""query:/facts/d"", ""query:/facts/e"", ""query:/facts/f""]",6.0,6.0,64,64,6,6.0,False,64,37,27,0,0,0,0,0,0,27
+F5.18+0cuts,[],1,1,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/c"", ""query:/facts/e""]",3.0,3.0,8,8,3,6.0,False,8,7,1,0,0,0,0,0,0,1
+F5.18+1cuts,"[""b""]",3,3,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/b"", ""query:/facts/c"", ""query:/facts/e""]",4.0,4.0,16,16,4,6.0,False,16,13,3,0,0,0,0,0,0,3
+F5.18+2cuts,"[""b"", ""d""]",9,9,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/b"", ""query:/facts/c"", ""query:/facts/d"", ""query:/facts/e""]",5.0,5.0,32,32,5,6.0,False,32,23,9,0,0,0,0,0,0,9
+F5.18+3cuts,"[""b"", ""d"", ""f""]",27,27,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/b"", ""query:/facts/c"", ""query:/facts/d"", ""query:/facts/e"", ""query:/facts/f""]",6.0,6.0,64,64,6,6.0,False,64,37,27,0,0,0,0,0,0,27
+F5.19+0cuts,[],1,1,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/c"", ""query:/facts/e""]",3.0,3.0,8,8,3,6.0,False,8,7,1,0,0,0,0,0,0,1
+F5.19+1cuts,"[""b""]",3,3,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/b"", ""query:/facts/c"", ""query:/facts/e""]",4.0,4.0,16,16,4,6.0,False,16,13,3,0,0,0,0,0,0,3
+F5.19+2cuts,"[""b"", ""d""]",9,9,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/b"", ""query:/facts/c"", ""query:/facts/d"", ""query:/facts/e""]",5.0,5.0,32,32,5,6.0,False,32,23,9,0,0,0,0,0,0,9
+F5.19+3cuts,"[""b"", ""d"", ""f""]",27,27,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/b"", ""query:/facts/c"", ""query:/facts/d"", ""query:/facts/e"", ""query:/facts/f""]",6.0,6.0,64,64,6,6.0,False,64,37,27,0,0,0,0,0,0,27
+F5.2-P1+0cuts,[],1,1,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/c"", ""query:/facts/e""]",3.0,3.0,8,8,3,6.0,False,8,7,1,0,0,0,0,0,0,1
+F5.2-P1+1cuts,"[""b""]",3,3,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/b"", ""query:/facts/c"", ""query:/facts/e""]",4.0,4.0,16,16,4,6.0,False,16,13,3,0,0,0,0,0,0,3
+F5.2-P1+2cuts,"[""b"", ""d""]",9,9,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/b"", ""query:/facts/c"", ""query:/facts/d"", ""query:/facts/e""]",5.0,5.0,32,32,5,6.0,False,32,23,9,0,0,0,0,0,0,9
+F5.2-P1+3cuts,"[""b"", ""d"", ""f""]",27,27,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/b"", ""query:/facts/c"", ""query:/facts/d"", ""query:/facts/e"", ""query:/facts/f""]",6.0,6.0,64,64,6,6.0,False,64,37,27,0,0,0,0,0,0,27
+F5.20+0cuts,[],1,1,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/c"", ""query:/facts/e""]",3.0,3.0,8,8,3,6.0,False,8,7,1,0,0,0,0,0,0,1
+F5.20+1cuts,"[""b""]",3,3,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/b"", ""query:/facts/c"", ""query:/facts/e""]",4.0,4.0,16,16,4,6.0,False,16,13,3,0,0,0,0,0,0,3
+F5.20+2cuts,"[""b"", ""d""]",9,9,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/b"", ""query:/facts/c"", ""query:/facts/d"", ""query:/facts/e""]",5.0,5.0,32,32,5,6.0,False,32,23,9,0,0,0,0,0,0,9
+F5.20+3cuts,"[""b"", ""d"", ""f""]",27,27,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/b"", ""query:/facts/c"", ""query:/facts/d"", ""query:/facts/e"", ""query:/facts/f""]",6.0,6.0,64,64,6,6.0,False,64,37,27,0,0,0,0,0,0,27
+F5.21+0cuts,[],1,1,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/c"", ""query:/facts/e""]",3.0,3.0,8,8,3,6.0,False,8,7,1,0,0,0,0,0,0,1
+F5.21+1cuts,"[""b""]",3,3,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/b"", ""query:/facts/c"", ""query:/facts/e""]",4.0,4.0,16,16,4,6.0,False,16,13,3,0,0,0,0,0,0,3
+F5.21+2cuts,"[""b"", ""d""]",9,9,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/b"", ""query:/facts/c"", ""query:/facts/d"", ""query:/facts/e""]",5.0,5.0,32,32,5,6.0,False,32,23,9,0,0,0,0,0,0,9
+F5.21+3cuts,"[""b"", ""d"", ""f""]",27,27,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/b"", ""query:/facts/c"", ""query:/facts/d"", ""query:/facts/e"", ""query:/facts/f""]",6.0,6.0,64,64,6,6.0,False,64,37,27,0,0,0,0,0,0,27
+F5.3-P1+0cuts,[],1,1,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/c"", ""query:/facts/e"", ""query:/facts/g""]",4.0,4.0,16,16,4,8.0,False,16,15,1,0,0,0,0,0,0,1
+F5.3-P1+1cuts,"[""b""]",3,3,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/b"", ""query:/facts/c"", ""query:/facts/e"", ""query:/facts/g""]",5.0,5.0,32,32,5,8.0,False,32,29,3,0,0,0,0,0,0,3
+F5.3-P1+2cuts,"[""b"", ""d""]",9,9,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/b"", ""query:/facts/c"", ""query:/facts/d"", ""query:/facts/e"", ""query:/facts/g""]",6.0,6.0,64,64,6,8.0,False,64,55,9,0,0,0,0,0,0,9
+F5.3-P1+3cuts,"[""b"", ""d"", ""f""]",27,27,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/b"", ""query:/facts/c"", ""query:/facts/d"", ""query:/facts/e"", ""query:/facts/f"", ""query:/facts/g""]",7.0,7.0,128,128,7,8.0,False,128,101,27,0,0,0,0,0,0,27
+F5.3-P1+4cuts,"[""b"", ""d"", ""f"", ""h""]",81,81,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/b"", ""query:/facts/c"", ""query:/facts/d"", ""query:/facts/e"", ""query:/facts/f"", ""query:/facts/g"", ""query:/facts/h""]",8.0,8.0,256,256,8,8.0,False,256,175,81,0,0,0,0,0,0,81
+F5.4-P1+0cuts,[],1,1,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/X"", ""query:/facts/Y""]",2.0,2.0,4,4,2,5.0,False,4,3,1,0,0,0,0,0,0,1
+F5.4-P1+1cuts,"[""A""]",2,2,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/X"", ""query:/facts/Y""]",2.0,2.0,7,7,2,5.0,False,8,6,2,0,0,0,0,0,0,2
+F5.4-P1+2cuts,"[""A"", ""B""]",5,5,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/A"", ""query:/facts/B"", ""query:/facts/X"", ""query:/facts/Y""]",4.0,4.0,16,16,4,5.0,False,16,11,5,0,0,0,0,0,0,5
+F5.4-P1+3cuts,"[""A"", ""B"", ""C""]",15,15,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/A"", ""query:/facts/B"", ""query:/facts/C"", ""query:/facts/X"", ""query:/facts/Y""]",5.0,5.0,32,32,5,5.0,False,32,17,15,0,0,0,0,0,0,15
+F5.7+0cuts,[],1,1,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/c"", ""query:/facts/e""]",3.0,3.0,8,8,3,6.0,False,8,7,1,0,0,0,0,0,0,1
+F5.7+1cuts,"[""b""]",3,3,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/b"", ""query:/facts/c"", ""query:/facts/e""]",4.0,4.0,16,16,4,6.0,False,16,13,3,0,0,0,0,0,0,3
+F5.7+2cuts,"[""b"", ""d""]",9,9,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/b"", ""query:/facts/c"", ""query:/facts/d"", ""query:/facts/e""]",5.0,5.0,32,32,5,6.0,False,32,23,9,0,0,0,0,0,0,9
+F5.7+3cuts,"[""b"", ""d"", ""f""]",27,27,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/b"", ""query:/facts/c"", ""query:/facts/d"", ""query:/facts/e"", ""query:/facts/f""]",6.0,6.0,64,64,6,6.0,False,64,37,27,0,0,0,0,0,0,27
+F5.8+0cuts,[],1,1,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/c"", ""query:/facts/e""]",3.0,3.0,8,8,3,6.0,False,8,7,1,0,0,0,0,0,0,1
+F5.8+1cuts,"[""b""]",3,3,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/b"", ""query:/facts/c"", ""query:/facts/e""]",4.0,4.0,16,16,4,6.0,False,16,13,3,0,0,0,0,0,0,3
+F5.8+2cuts,"[""b"", ""d""]",9,9,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/b"", ""query:/facts/c"", ""query:/facts/d"", ""query:/facts/e""]",5.0,5.0,32,32,5,6.0,False,32,23,9,0,0,0,0,0,0,9
+F5.8+3cuts,"[""b"", ""d"", ""f""]",27,27,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/b"", ""query:/facts/c"", ""query:/facts/d"", ""query:/facts/e"", ""query:/facts/f""]",6.0,6.0,64,64,6,6.0,False,64,37,27,0,0,0,0,0,0,27
+F5.9+0cuts,[],1,1,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/c"", ""query:/facts/e""]",3.0,3.0,8,8,3,6.0,False,8,7,1,0,0,0,0,0,0,1
+F5.9+1cuts,"[""b""]",3,3,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/b"", ""query:/facts/c"", ""query:/facts/e""]",4.0,4.0,16,16,4,6.0,False,16,13,3,0,0,0,0,0,0,3
+F5.9+2cuts,"[""b"", ""d""]",9,9,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/b"", ""query:/facts/c"", ""query:/facts/d"", ""query:/facts/e""]",5.0,5.0,32,32,5,6.0,False,32,23,9,0,0,0,0,0,0,9
+F5.9+3cuts,"[""b"", ""d"", ""f""]",27,27,EXPLOITABLE,EXPLOITABLE,"[""query:/facts/a"", ""query:/facts/b"", ""query:/facts/c"", ""query:/facts/d"", ""query:/facts/e"", ""query:/facts/f""]",6.0,6.0,64,64,6,6.0,False,64,37,27,0,0,0,0,0,0,27

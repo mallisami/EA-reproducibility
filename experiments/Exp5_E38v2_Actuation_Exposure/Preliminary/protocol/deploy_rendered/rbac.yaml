@@ -1,0 +1,119 @@
+# Template: e38v2-20260926t0813z is substituted by deploy/render.sh.
+# Identities live in e38v2-system (stable usernames across runs); permissions are
+# granted ONLY inside the per-run test namespace e38v2-e38v2-20260926t0813z.
+#   responder : system:serviceaccount:e38v2-system:e38v2-responder  get CMs, get/delete pods, create SSAR
+#   writer    : system:serviceaccount:e38v2-system:e38v2-writer     get/patch the fixture CMs only
+#   reset     : system:serviceaccount:e38v2-system:e38v2-reset      full fixture control; EXEMPT from the webhook
+#   webhook   : system:serviceaccount:e38v2-system:e38v2-webhook    get the 8 policy CMs only
+# The runner obtains short-lived tokens with `kubectl create token` (see RUNBOOK).
+apiVersion: v1
+kind: ServiceAccount
+metadata: {name: e38v2-responder, namespace: e38v2-system, labels: {e38-managed: "true"}}
+automountServiceAccountToken: false
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata: {name: e38v2-writer, namespace: e38v2-system, labels: {e38-managed: "true"}}
+automountServiceAccountToken: false
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata: {name: e38v2-reset, namespace: e38v2-system, labels: {e38-managed: "true"}}
+automountServiceAccountToken: false
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata: {name: e38v2-webhook, namespace: e38v2-system, labels: {e38-managed: "true"}}
+automountServiceAccountToken: true
+---
+# ---------------------------------------------------------------- responder
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata: {name: e38v2-responder, namespace: e38v2-e38v2-20260926t0813z, labels: {e38-managed: "true"}}
+rules:
+- apiGroups: [""]
+  resources: ["configmaps"]
+  resourceNames: [evidence-a, evidence-b, evidence-c, evidence-d, evidence-e, evidence-f,
+                  response-scope, application-policy, e38-epoch]
+  verbs: ["get"]
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get", "delete"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata: {name: e38v2-responder, namespace: e38v2-e38v2-20260926t0813z, labels: {e38-managed: "true"}}
+roleRef: {apiGroup: rbac.authorization.k8s.io, kind: Role, name: e38v2-responder}
+subjects:
+- {kind: ServiceAccount, name: e38v2-responder, namespace: e38v2-system}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata: {name: e38v2-ssar, labels: {e38-managed: "true"}}
+rules:
+- apiGroups: ["authorization.k8s.io"]
+  resources: ["selfsubjectaccessreviews"]
+  verbs: ["create"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata: {name: e38v2-ssar, labels: {e38-managed: "true"}}
+roleRef: {apiGroup: rbac.authorization.k8s.io, kind: ClusterRole, name: e38v2-ssar}
+subjects:
+- {kind: ServiceAccount, name: e38v2-responder, namespace: e38v2-system}
+- {kind: ServiceAccount, name: e38v2-reset, namespace: e38v2-system}
+---
+# ---------------------------------------------------------------- writer
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata: {name: e38v2-writer, namespace: e38v2-e38v2-20260926t0813z, labels: {e38-managed: "true"}}
+rules:
+- apiGroups: [""]
+  resources: ["configmaps"]
+  resourceNames: [evidence-a, evidence-b, evidence-c, evidence-d, evidence-e, evidence-f,
+                  response-scope, application-policy, e38-epoch]
+  verbs: ["get", "patch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata: {name: e38v2-writer, namespace: e38v2-e38v2-20260926t0813z, labels: {e38-managed: "true"}}
+roleRef: {apiGroup: rbac.authorization.k8s.io, kind: Role, name: e38v2-writer}
+subjects:
+- {kind: ServiceAccount, name: e38v2-writer, namespace: e38v2-system}
+---
+# ---------------------------------------------------------------- reset (fixture control)
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata: {name: e38v2-reset, namespace: e38v2-e38v2-20260926t0813z, labels: {e38-managed: "true"}}
+rules:
+- apiGroups: [""]
+  resources: ["configmaps", "pods"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete", "deletecollection"]
+- apiGroups: [""]
+  resources: ["pods/log", "pods/status", "events"]
+  verbs: ["get", "list", "watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata: {name: e38v2-reset, namespace: e38v2-e38v2-20260926t0813z, labels: {e38-managed: "true"}}
+roleRef: {apiGroup: rbac.authorization.k8s.io, kind: Role, name: e38v2-reset}
+subjects:
+- {kind: ServiceAccount, name: e38v2-reset, namespace: e38v2-system}
+---
+# ---------------------------------------------------------------- webhook (read-only, 8 objects)
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata: {name: e38v2-webhook-reader, namespace: e38v2-e38v2-20260926t0813z, labels: {e38-managed: "true"}}
+rules:
+- apiGroups: [""]
+  resources: ["configmaps"]
+  resourceNames: [evidence-a, evidence-b, evidence-c, evidence-d, evidence-e, evidence-f,
+                  response-scope, application-policy]
+  verbs: ["get"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata: {name: e38v2-webhook-reader, namespace: e38v2-e38v2-20260926t0813z, labels: {e38-managed: "true"}}
+roleRef: {apiGroup: rbac.authorization.k8s.io, kind: Role, name: e38v2-webhook-reader}
+subjects:
+- {kind: ServiceAccount, name: e38v2-webhook, namespace: e38v2-system}

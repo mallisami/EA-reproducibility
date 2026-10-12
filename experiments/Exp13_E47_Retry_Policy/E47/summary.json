@@ -1,0 +1,35 @@
+{
+ "trials": 1140,
+ "by_arm_policy": {
+  "A4d/blind": {
+   "n": 380,
+   "contested": 4,
+   "stale_accept": 176,
+   "benign_abort": 8,
+   "EXECUTED": 368,
+   "UNKNOWN": 0,
+   "INFRA_ERROR": 0,
+   "stale_upper_among_contested": 0.9913
+  },
+  "A4d/none": {
+   "n": 380,
+   "contested": 180,
+   "stale_accept": 0,
+   "benign_abort": 103,
+   "EXECUTED": 97,
+   "UNKNOWN": 0,
+   "INFRA_ERROR": 0,
+   "stale_upper_among_contested": 0.0209
+  },
+  "A4d/revalidate": {
+   "n": 380,
+   "contested": 180,
+   "stale_accept": 0,
+   "benign_abort": 5,
+   "EXECUTED": 195,
+   "UNKNOWN": 0,
+   "INFRA_ERROR": 0,
+   "stale_upper_among_contested": 0.0209
+  }
+ }
+}

@@ -1,0 +1,131 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: e39-webhook
+  namespace: e39-system
+  labels:
+    app: e39-webhook
+    e39-managed: 'true'
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: e39-webhook
+  template:
+    metadata:
+      labels:
+        app: e39-webhook
+        e39-managed: 'true'
+    spec:
+      serviceAccountName: e39-webhook
+      automountServiceAccountToken: true
+      enableServiceLinks: false
+      terminationGracePeriodSeconds: 5
+      tolerations:
+      - key: node-role.kubernetes.io/control-plane
+        operator: Exists
+        effect: NoSchedule
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+      - name: webhook
+        image: python:3.12-slim
+        imagePullPolicy: IfNotPresent
+        command:
+        - python
+        - -u
+        - /app/server.py
+        env:
+        - name: WEBHOOK_NAMESPACE
+          value: e39-a4dcr-r2-20261001
+        - name: WEBHOOK_BIND
+          value: 0.0.0.0
+        - name: WEBHOOK_PORT
+          value: '8443'
+        - name: WEBHOOK_TLS_CERT
+          value: /tls/tls.crt
+        - name: WEBHOOK_TLS_KEY
+          value: /tls/tls.key
+        - name: WEBHOOK_LOG_PATH
+          value: /var/log/e39-webhook/a4dcr-r2-20261001/webhook_log.jsonl
+        - name: WEBHOOK_API_TIMEOUT_S
+          value: '1.0'
+        - name: WEBHOOK_BUDGET_S
+          value: '3.5'
+        - name: WEBHOOK_EXEMPT_USERS
+          value: system:serviceaccount:e39-system:e39-reset
+        - name: PYTHONDONTWRITEBYTECODE
+          value: '1'
+        ports:
+        - name: https
+          containerPort: 8443
+          protocol: TCP
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 8443
+            scheme: HTTPS
+          periodSeconds: 5
+        livenessProbe:
+          tcpSocket:
+            port: 8443
+          periodSeconds: 20
+        resources:
+          requests:
+            cpu: 200m
+            memory: 64Mi
+          limits:
+            memory: 256Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+            - ALL
+        volumeMounts:
+        - name: code
+          mountPath: /app
+          readOnly: true
+        - name: tls
+          mountPath: /tls
+          readOnly: true
+        - name: log
+          mountPath: /var/log/e39-webhook
+      volumes:
+      - name: code
+        configMap:
+          name: e39-webhook-code
+          defaultMode: 292
+      - name: tls
+        secret:
+          secretName: e39-webhook-tls
+          defaultMode: 288
+      - name: log
+        emptyDir: {}
+      nodeSelector:
+        a4d-role: workload
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: e39-webhook
+  namespace: e39-system
+  labels:
+    app: e39-webhook
+    e39-managed: 'true'
+spec:
+  selector:
+    app: e39-webhook
+  ports:
+  - name: https
+    port: 443
+    targetPort: 8443
+    protocol: TCP

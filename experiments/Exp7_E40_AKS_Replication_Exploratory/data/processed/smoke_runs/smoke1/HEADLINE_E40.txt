@@ -1,0 +1,129 @@
+E40 HEADLINE - AKS replication of the E38v2/E39-A exposure-window measurement (primary oracle = client RV order)
+==============================================================================================================
+Cells: P(INVALID_EXECUTED) k/n, Wilson 95% CI; sec = client-timestamp secondary p. Columns: primary n = analyzable + fail-closed.
+
+A1 / no_write
+  delta=   NA ms  k/n=  0/1    p=0.000 [0.000, 0.793]  VALID=1 INVALID=0 CORR_ABORT=0 FALSE_ABORT=0 UID_BLOCKED=0 UNK=0 INFRA=0 sec=0.000
+
+A1 / async_scope
+  delta=    0 ms  k/n=  1/1    p=1.000 [0.207, 1.000]  VALID=0 INVALID=1 CORR_ABORT=0 FALSE_ABORT=0 UID_BLOCKED=0 UNK=0 INFRA=0 sec=1.000
+  delta=    2 ms  k/n=  1/1    p=1.000 [0.207, 1.000]  VALID=0 INVALID=1 CORR_ABORT=0 FALSE_ABORT=0 UID_BLOCKED=0 UNK=0 INFRA=0 sec=1.000
+  delta=    5 ms  k/n=  1/1    p=1.000 [0.207, 1.000]  VALID=0 INVALID=1 CORR_ABORT=0 FALSE_ABORT=0 UID_BLOCKED=0 UNK=0 INFRA=0 sec=1.000
+  delta=   10 ms  k/n=  0/1    p=0.000 [0.000, 0.793]  VALID=1 INVALID=0 CORR_ABORT=0 FALSE_ABORT=0 UID_BLOCKED=0 UNK=0 INFRA=0 sec=0.000
+  delta=   20 ms  k/n=  0/1    p=0.000 [0.000, 0.793]  VALID=1 INVALID=0 CORR_ABORT=0 FALSE_ABORT=0 UID_BLOCKED=0 UNK=0 INFRA=0 sec=0.000
+  delta=   50 ms  k/n=  0/1    p=0.000 [0.000, 0.793]  VALID=1 INVALID=0 CORR_ABORT=0 FALSE_ABORT=0 UID_BLOCKED=0 UNK=0 INFRA=0 sec=0.000
+  delta=  100 ms  k/n=  0/1    p=0.000 [0.000, 0.793]  VALID=1 INVALID=0 CORR_ABORT=0 FALSE_ABORT=0 UID_BLOCKED=0 UNK=0 INFRA=0 sec=0.000
+  delta=  200 ms  k/n=  0/1    p=0.000 [0.000, 0.793]  VALID=1 INVALID=0 CORR_ABORT=0 FALSE_ABORT=0 UID_BLOCKED=0 UNK=0 INFRA=0 sec=0.000
+
+A1 / async_evidence_last_literal
+  delta=    0 ms  k/n=  1/1    p=1.000 [0.207, 1.000]  VALID=0 INVALID=1 CORR_ABORT=0 FALSE_ABORT=0 UID_BLOCKED=0 UNK=0 INFRA=0 sec=1.000
+  delta=    2 ms  k/n=  1/1    p=1.000 [0.207, 1.000]  VALID=0 INVALID=1 CORR_ABORT=0 FALSE_ABORT=0 UID_BLOCKED=0 UNK=0 INFRA=0 sec=1.000
+  delta=    5 ms  k/n=  1/1    p=1.000 [0.207, 1.000]  VALID=0 INVALID=1 CORR_ABORT=0 FALSE_ABORT=0 UID_BLOCKED=0 UNK=0 INFRA=0 sec=1.000
+  delta=   10 ms  k/n=  0/1    p=0.000 [0.000, 0.793]  VALID=1 INVALID=0 CORR_ABORT=0 FALSE_ABORT=0 UID_BLOCKED=0 UNK=0 INFRA=0 sec=0.000
+  delta=   20 ms  k/n=  0/1    p=0.000 [0.000, 0.793]  VALID=1 INVALID=0 CORR_ABORT=0 FALSE_ABORT=0 UID_BLOCKED=0 UNK=0 INFRA=0 sec=0.000
+  delta=   50 ms  k/n=  0/1    p=0.000 [0.000, 0.793]  VALID=1 INVALID=0 CORR_ABORT=0 FALSE_ABORT=0 UID_BLOCKED=0 UNK=0 INFRA=0 sec=0.000
+  delta=  100 ms  k/n=  0/1    p=0.000 [0.000, 0.793]  VALID=1 INVALID=0 CORR_ABORT=0 FALSE_ABORT=0 UID_BLOCKED=0 UNK=0 INFRA=0 sec=0.000
+  delta=  200 ms  k/n=  0/1    p=0.000 [0.000, 0.793]  VALID=1 INVALID=0 CORR_ABORT=0 FALSE_ABORT=0 UID_BLOCKED=0 UNK=0 INFRA=0 sec=0.000
+
+A1 / uid_rebind_control
+  delta=   NA ms  k/n=  0/1    p=0.000 [0.000, 0.793]  VALID=0 INVALID=0 CORR_ABORT=0 FALSE_ABORT=0 UID_BLOCKED=1 UNK=0 INFRA=0 sec=0.000
+
+A3 / no_write
+  delta=   NA ms  k/n=  0/1    p=0.000 [0.000, 0.793]  VALID=1 INVALID=0 CORR_ABORT=0 FALSE_ABORT=0 UID_BLOCKED=0 UNK=0 INFRA=0 sec=0.000
+
+A3 / async_scope
+  delta=    0 ms  k/n=  0/1    p=0.000 [0.000, 0.793]  VALID=0 INVALID=0 CORR_ABORT=1 FALSE_ABORT=0 UID_BLOCKED=0 UNK=0 INFRA=0 sec=0.000
+  delta=    2 ms  k/n=  0/1    p=0.000 [0.000, 0.793]  VALID=0 INVALID=0 CORR_ABORT=1 FALSE_ABORT=0 UID_BLOCKED=0 UNK=0 INFRA=0 sec=0.000
+  delta=    5 ms  k/n=  0/1    p=0.000 [0.000, 0.793]  VALID=0 INVALID=0 CORR_ABORT=1 FALSE_ABORT=0 UID_BLOCKED=0 UNK=0 INFRA=0 sec=0.000
+  delta=   10 ms  k/n=  0/1    p=0.000 [0.000, 0.793]  VALID=0 INVALID=0 CORR_ABORT=1 FALSE_ABORT=0 UID_BLOCKED=0 UNK=0 INFRA=0 sec=0.000
+  delta=   20 ms  k/n=  0/1    p=0.000 [0.000, 0.793]  VALID=0 INVALID=0 CORR_ABORT=1 FALSE_ABORT=0 UID_BLOCKED=0 UNK=0 INFRA=0 sec=0.000
+  delta=   50 ms  k/n=  1/1    p=1.000 [0.207, 1.000]  VALID=0 INVALID=1 CORR_ABORT=0 FALSE_ABORT=0 UID_BLOCKED=0 UNK=0 INFRA=0 sec=1.000
+  delta=  100 ms  k/n=  1/1    p=1.000 [0.207, 1.000]  VALID=0 INVALID=1 CORR_ABORT=0 FALSE_ABORT=0 UID_BLOCKED=0 UNK=0 INFRA=0 sec=1.000
+  delta=  200 ms  k/n=  0/1    p=0.000 [0.000, 0.793]  VALID=1 INVALID=0 CORR_ABORT=0 FALSE_ABORT=0 UID_BLOCKED=0 UNK=0 INFRA=0 sec=0.000
+
+A3 / async_evidence_last_literal
+  delta=    0 ms  k/n=  0/1    p=0.000 [0.000, 0.793]  VALID=0 INVALID=0 CORR_ABORT=1 FALSE_ABORT=0 UID_BLOCKED=0 UNK=0 INFRA=0 sec=0.000
+  delta=    2 ms  k/n=  0/1    p=0.000 [0.000, 0.793]  VALID=0 INVALID=0 CORR_ABORT=1 FALSE_ABORT=0 UID_BLOCKED=0 UNK=0 INFRA=0 sec=0.000
+  delta=    5 ms  k/n=  0/1    p=0.000 [0.000, 0.793]  VALID=0 INVALID=0 CORR_ABORT=1 FALSE_ABORT=0 UID_BLOCKED=0 UNK=0 INFRA=0 sec=0.000
+  delta=   10 ms  k/n=  1/1    p=1.000 [0.207, 1.000]  VALID=0 INVALID=1 CORR_ABORT=0 FALSE_ABORT=0 UID_BLOCKED=0 UNK=0 INFRA=0 sec=1.000
+  delta=   20 ms  k/n=  1/1    p=1.000 [0.207, 1.000]  VALID=0 INVALID=1 CORR_ABORT=0 FALSE_ABORT=0 UID_BLOCKED=0 UNK=0 INFRA=0 sec=1.000
+  delta=   50 ms  k/n=  1/1    p=1.000 [0.207, 1.000]  VALID=0 INVALID=1 CORR_ABORT=0 FALSE_ABORT=0 UID_BLOCKED=0 UNK=0 INFRA=0 sec=1.000
+  delta=  100 ms  k/n=  1/1    p=1.000 [0.207, 1.000]  VALID=0 INVALID=1 CORR_ABORT=0 FALSE_ABORT=0 UID_BLOCKED=0 UNK=0 INFRA=0 sec=1.000
+  delta=  200 ms  k/n=  0/1    p=0.000 [0.000, 0.793]  VALID=1 INVALID=0 CORR_ABORT=0 FALSE_ABORT=0 UID_BLOCKED=0 UNK=0 INFRA=0 sec=0.000
+
+A3 / uid_rebind_control
+  delta=   NA ms  k/n=  0/1    p=0.000 [0.000, 0.793]  VALID=0 INVALID=0 CORR_ABORT=0 FALSE_ABORT=0 UID_BLOCKED=1 UNK=0 INFRA=0 sec=0.000
+
+A4d / no_write
+  delta=   NA ms  k/n=  0/1    p=0.000 [0.000, 0.793]  VALID=1 INVALID=0 CORR_ABORT=0 FALSE_ABORT=0 UID_BLOCKED=0 UNK=0 INFRA=0 sec=0.000
+
+A4d / async_scope
+  delta=    0 ms  k/n=  0/1    p=0.000 [0.000, 0.793]  VALID=0 INVALID=0 CORR_ABORT=1 FALSE_ABORT=0 UID_BLOCKED=0 UNK=0 INFRA=0 sec=0.000
+  delta=    2 ms  k/n=  1/1    p=1.000 [0.207, 1.000]  VALID=0 INVALID=1 CORR_ABORT=0 FALSE_ABORT=0 UID_BLOCKED=0 UNK=0 INFRA=0 sec=0.000
+  delta=    5 ms  k/n=  0/1    p=0.000 [0.000, 0.793]  VALID=1 INVALID=0 CORR_ABORT=0 FALSE_ABORT=0 UID_BLOCKED=0 UNK=0 INFRA=0 sec=0.000
+  delta=   10 ms  k/n=  0/1    p=0.000 [0.000, 0.793]  VALID=1 INVALID=0 CORR_ABORT=0 FALSE_ABORT=0 UID_BLOCKED=0 UNK=0 INFRA=0 sec=0.000
+  delta=   20 ms  k/n=  0/1    p=0.000 [0.000, 0.793]  VALID=1 INVALID=0 CORR_ABORT=0 FALSE_ABORT=0 UID_BLOCKED=0 UNK=0 INFRA=0 sec=0.000
+  delta=   50 ms  k/n=  0/1    p=0.000 [0.000, 0.793]  VALID=1 INVALID=0 CORR_ABORT=0 FALSE_ABORT=0 UID_BLOCKED=0 UNK=0 INFRA=0 sec=0.000
+  delta=  100 ms  k/n=  0/1    p=0.000 [0.000, 0.793]  VALID=1 INVALID=0 CORR_ABORT=0 FALSE_ABORT=0 UID_BLOCKED=0 UNK=0 INFRA=0 sec=0.000
+  delta=  200 ms  k/n=  0/1    p=0.000 [0.000, 0.793]  VALID=1 INVALID=0 CORR_ABORT=0 FALSE_ABORT=0 UID_BLOCKED=0 UNK=0 INFRA=0 sec=0.000
+
+A4d / async_evidence_last_literal
+  delta=    0 ms  k/n=  0/1    p=0.000 [0.000, 0.793]  VALID=1 INVALID=0 CORR_ABORT=0 FALSE_ABORT=0 UID_BLOCKED=0 UNK=0 INFRA=0 sec=0.000
+  delta=    2 ms  k/n=  0/1    p=0.000 [0.000, 0.793]  VALID=1 INVALID=0 CORR_ABORT=0 FALSE_ABORT=0 UID_BLOCKED=0 UNK=0 INFRA=0 sec=0.000
+  delta=    5 ms  k/n=  0/1    p=0.000 [0.000, 0.793]  VALID=1 INVALID=0 CORR_ABORT=0 FALSE_ABORT=0 UID_BLOCKED=0 UNK=0 INFRA=0 sec=0.000
+  delta=   10 ms  k/n=  0/1    p=0.000 [0.000, 0.793]  VALID=1 INVALID=0 CORR_ABORT=0 FALSE_ABORT=0 UID_BLOCKED=0 UNK=0 INFRA=0 sec=0.000
+  delta=   20 ms  k/n=  0/1    p=0.000 [0.000, 0.793]  VALID=1 INVALID=0 CORR_ABORT=0 FALSE_ABORT=0 UID_BLOCKED=0 UNK=0 INFRA=0 sec=0.000
+  delta=   50 ms  k/n=  0/1    p=0.000 [0.000, 0.793]  VALID=1 INVALID=0 CORR_ABORT=0 FALSE_ABORT=0 UID_BLOCKED=0 UNK=0 INFRA=0 sec=0.000
+  delta=  100 ms  k/n=  0/1    p=0.000 [0.000, 0.793]  VALID=1 INVALID=0 CORR_ABORT=0 FALSE_ABORT=0 UID_BLOCKED=0 UNK=0 INFRA=0 sec=0.000
+  delta=  200 ms  k/n=  0/1    p=0.000 [0.000, 0.793]  VALID=1 INVALID=0 CORR_ABORT=0 FALSE_ABORT=0 UID_BLOCKED=0 UNK=0 INFRA=0 sec=0.000
+
+A4d / uid_rebind_control
+  delta=   NA ms  k/n=  0/1    p=0.000 [0.000, 0.793]  VALID=0 INVALID=0 CORR_ABORT=0 FALSE_ABORT=0 UID_BLOCKED=1 UNK=0 INFRA=0 sec=0.000
+
+d* (smallest grid delta with p_hat <= 0.05 there and at all larger deltas), window area 0-200 ms, bootstrap CI:
+  A1/async_scope                         d*=10         last_exposed=5      area=7.5      boot95=[10, 10] frac_not_closed=0 d*_sec=not_closed
+  A1/async_evidence_last_literal         d*=10         last_exposed=5      area=7.5      boot95=[10, 10] frac_not_closed=0 d*_sec=not_closed
+  A3/async_scope                         d*=200        last_exposed=100    area=115      boot95=[200, 200] frac_not_closed=0 d*_sec=not_closed
+  A3/async_evidence_last_literal         d*=200        last_exposed=100    area=142.5    boot95=[200, 200] frac_not_closed=0 d*_sec=not_closed
+  A4d/async_scope                        d*=5          last_exposed=2      area=2.5      boot95=[5, 5] frac_not_closed=0 d*_sec=5
+  A4d/async_evidence_last_literal        d*=0          last_exposed=       area=0        boot95=[0, 0] frac_not_closed=0 d*_sec=0
+
+Agreement primary vs client-time secondary: {"invalid_2x2": {"(False, False)": 41, "(True, False)": 1, "(True, True)": 12}, "kappa_invalid": 0.9479768786127168, "n_both_classified": 54, "n_exact_agree": 51, "prop": 0.9444444444444444}
+Accepted DELETEs whose writer request overlapped the DELETE request: {"n": 25, "n_overlap": 15, "prop": 0.6}
+
+Webhook latency cost (DELETE round trip, accepted, ms; HL shift with bootstrap 95% CI):
+  A3_minus_A1_all_accepted: {"ci95": [93.961722, 118.469664], "hl_shift_ms": 110.145298, "median_x": 125.601158, "median_y": 15.20829, "n_x": 9, "n_y": 17, "p95_x": 158.96981079999998, "p95_y": 22.495394599999994}
+  A3_minus_A1_no_write: {"ci95": [101.154765, 101.154765], "hl_shift_ms": 101.154765, "median_x": 120.799109, "median_y": 19.644344, "n_x": 1, "n_y": 1, "p95_x": 120.799109, "p95_y": 19.644344}
+  A4d_minus_A1_all_accepted: {"ci95": [-2.1135087500000007, 1.0697829999999993], "hl_shift_ms": -0.8252639999999998, "median_x": 14.2701835, "median_y": 15.20829, "n_x": 16, "n_y": 17, "p95_x": 18.2156265, "p95_y": 22.495394599999994}
+  webhook_calls_per_accepted_A3_delete: 2.888888888888889
+  webhook_evaluation_ms: {"max": 68.351398, "median": 46.615588, "n": 28, "p95": 57.261303}
+
+A4d availability cost:
+  async: {"attribution_409": {"writer": 1}, "false_abort_by_reason": {}, "false_abort_rate": [0.0, 0.0, 0.1936076805344365], "n": 16, "n_409": 1, "n_dispatched": 16, "n_false_abort": 0, "rate_409_among_dispatched": [0.0625, 0.01111934476464252, 0.28328737570298945]}
+  no_write: {"attribution_409": {}, "false_abort_by_reason": {}, "false_abort_rate": [0.0, 0.0, 0.7934506856227626], "n": 1, "n_409": 0, "n_dispatched": 1, "n_false_abort": 0, "rate_409_among_dispatched": [0.0, 0.0, 0.7934506856227626]}
+
+AKS minus kind, per cell (Newcombe hybrid-score 95% CI):
+  E38v2_rerun_kind  A1  async_evidence_last_literal  d=   0.0  AKS 1/1  kind 39/39  diff=+0.000 [-0.793, +0.090]
+  E38v2_rerun_kind  A1  async_evidence_last_literal  d=   2.0  AKS 1/1  kind 39/39  diff=+0.000 [-0.793, +0.090]
+  E38v2_rerun_kind  A1  async_evidence_last_literal  d=   5.0  AKS 1/1  kind 77/93  diff=+0.172 [-0.624, +0.261]
+  E38v2_rerun_kind  A1  async_evidence_last_literal  d=  10.0  AKS 0/1  kind 24/93  diff=-0.258 [-0.355, +0.539]
+  E38v2_rerun_kind  A1  async_evidence_last_literal  d=  20.0  AKS 0/1  kind 14/93  diff=-0.151 [-0.237, +0.645]
+  E38v2_rerun_kind  A1  async_evidence_last_literal  d=  50.0  AKS 0/1  kind 1/39  diff=-0.026 [-0.132, +0.768]
+  E38v2_rerun_kind  A1  async_scope                  d=   0.0  AKS 1/1  kind 39/39  diff=+0.000 [-0.793, +0.090]
+  E38v2_rerun_kind  A1  async_scope                  d=   2.0  AKS 1/1  kind 39/39  diff=+0.000 [-0.793, +0.090]
+  E38v2_rerun_kind  A1  async_scope                  d=   5.0  AKS 1/1  kind 75/93  diff=+0.194 [-0.603, +0.285]
+  E38v2_rerun_kind  A1  async_scope                  d=  10.0  AKS 0/1  kind 17/93  diff=-0.183 [-0.273, +0.613]
+  E38v2_rerun_kind  A1  async_scope                  d=  20.0  AKS 0/1  kind 12/93  diff=-0.129 [-0.212, +0.666]
+  E38v2_rerun_kind  A1  async_scope                  d=  50.0  AKS 0/1  kind 5/93  diff=-0.054 [-0.120, +0.740]
+  E38v2_rerun_kind  A3  async_evidence_last_literal  d=   0.0  AKS 0/1  kind 60/93  diff=-0.645 [-0.735, +0.155]
+  E38v2_rerun_kind  A3  async_evidence_last_literal  d=   2.0  AKS 0/1  kind 38/39  diff=-0.974 [-0.995, -0.174]
+  E38v2_rerun_kind  A3  async_evidence_last_literal  d=   5.0  AKS 0/1  kind 39/39  diff=-1.000 [-1.000, -0.201]
+  E38v2_rerun_kind  A3  async_evidence_last_literal  d=  10.0  AKS 1/1  kind 39/39  diff=+0.000 [-0.793, +0.090]
+  E38v2_rerun_kind  A3  async_evidence_last_literal  d=  20.0  AKS 1/1  kind 81/93  diff=+0.129 [-0.666, +0.212]
+  E38v2_rerun_kind  A3  async_evidence_last_literal  d=  50.0  AKS 1/1  kind 17/93  diff=+0.817 [+0.019, +0.883]
+  E38v2_rerun_kind  A3  async_scope                  d=   0.0  AKS 0/1  kind 0/39  diff=+0.000 [-0.090, +0.793]
+  E38v2_rerun_kind  A3  async_scope                  d=   2.0  AKS 0/1  kind 0/39  diff=+0.000 [-0.090, +0.793]
+  E38v2_rerun_kind  A3  async_scope                  d=   5.0  AKS 0/1  kind 0/39  diff=+0.000 [-0.090, +0.793]
+  E38v2_rerun_kind  A3  async_scope                  d=  10.0  AKS 0/1  kind 49/93  diff=-0.527 [-0.625, +0.273]
+  E38v2_rerun_kind  A3  async_scope                  d=  20.0  AKS 0/1  kind 74/93  diff=-0.796 [-0.865, +0.003]
+  E38v2_rerun_kind  A3  async_scope                  d=  50.0  AKS 1/1  kind 21/93  diff=+0.774 [-0.025, +0.847]

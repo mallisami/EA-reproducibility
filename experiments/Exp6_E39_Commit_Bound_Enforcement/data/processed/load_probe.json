@@ -1,0 +1,444 @@
+{
+ "trace": [
+  {
+   "load_level": "moderate",
+   "requested_level": "moderate",
+   "target_rps": 50.0,
+   "load_observed_rps": 50.0,
+   "host": {
+    "cpu_pct": 17.88,
+    "free_ram_mb": 9663.7,
+    "load_throttled": false
+   },
+   "completed": 497,
+   "errors": 0,
+   "dropped_ticks": 0,
+   "events": [],
+   "tag": "moderate_10s",
+   "loadavg": [
+    "0.89",
+    "1.07",
+    "1.07"
+   ]
+  },
+  {
+   "load_level": "moderate",
+   "requested_level": "moderate",
+   "target_rps": 50.0,
+   "load_observed_rps": 50.0,
+   "host": {
+    "cpu_pct": 15.38,
+    "free_ram_mb": 9663.4,
+    "load_throttled": false
+   },
+   "completed": 997,
+   "errors": 0,
+   "dropped_ticks": 0,
+   "events": [],
+   "tag": "moderate_20s",
+   "loadavg": [
+    "0.75",
+    "1.03",
+    "1.06"
+   ]
+  },
+  {
+   "load_level": "moderate",
+   "requested_level": "moderate",
+   "target_rps": 50.0,
+   "load_observed_rps": 50.0,
+   "host": {
+    "cpu_pct": 13.88,
+    "free_ram_mb": 9664.6,
+    "load_throttled": false
+   },
+   "completed": 1497,
+   "errors": 0,
+   "dropped_ticks": 0,
+   "events": [],
+   "tag": "moderate_30s",
+   "loadavg": [
+    "0.72",
+    "1.01",
+    "1.06"
+   ]
+  },
+  {
+   "load_level": "moderate",
+   "requested_level": "moderate",
+   "target_rps": 50.0,
+   "load_observed_rps": 50.0,
+   "host": {
+    "cpu_pct": 20.23,
+    "free_ram_mb": 9630.2,
+    "load_throttled": false
+   },
+   "completed": 1997,
+   "errors": 0,
+   "dropped_ticks": 0,
+   "events": [],
+   "tag": "moderate_40s",
+   "loadavg": [
+    "0.61",
+    "0.98",
+    "1.04"
+   ]
+  },
+  {
+   "load_level": "moderate",
+   "requested_level": "moderate",
+   "target_rps": 50.0,
+   "load_observed_rps": 49.8,
+   "host": {
+    "cpu_pct": 14.61,
+    "free_ram_mb": 9654.1,
+    "load_throttled": false
+   },
+   "completed": 2497,
+   "errors": 0,
+   "dropped_ticks": 0,
+   "events": [],
+   "tag": "moderate_50s",
+   "loadavg": [
+    "0.59",
+    "0.96",
+    "1.04"
+   ]
+  },
+  {
+   "load_level": "moderate",
+   "requested_level": "moderate",
+   "target_rps": 50.0,
+   "load_observed_rps": 50.0,
+   "host": {
+    "cpu_pct": 18.36,
+    "free_ram_mb": 9656.7,
+    "load_throttled": false
+   },
+   "completed": 2998,
+   "errors": 0,
+   "dropped_ticks": 0,
+   "events": [],
+   "tag": "moderate_60s",
+   "loadavg": [
+    "0.50",
+    "0.93",
+    "1.03"
+   ]
+  },
+  {
+   "load_level": "high",
+   "requested_level": "high",
+   "target_rps": 150.0,
+   "load_observed_rps": 149.4,
+   "host": {
+    "cpu_pct": 32.06,
+    "free_ram_mb": 9658.1,
+    "load_throttled": false
+   },
+   "completed": 3745,
+   "errors": 0,
+   "dropped_ticks": 0,
+   "events": [],
+   "tag": "high_before_inject",
+   "loadavg": [
+    "0.46",
+    "0.91",
+    "1.02"
+   ]
+  },
+  {
+   "load_level": "moderate",
+   "requested_level": "high",
+   "target_rps": 50.0,
+   "load_observed_rps": 50.17,
+   "host": {
+    "cpu_pct": 15.17,
+    "free_ram_mb": 1500.0,
+    "load_throttled": true
+   },
+   "completed": 3947,
+   "errors": 0,
+   "dropped_ticks": 0,
+   "events": [
+    {
+     "t_wall_ns": 1790436023231871867,
+     "t_mono_ns": 55129653214085,
+     "from_level": "high",
+     "to_level": "moderate",
+     "cpu_pct": 24.85,
+     "free_ram_mb": 1500.0,
+     "reason": "mem_available_lt_2048mb"
+    }
+   ],
+   "tag": "after_inject_mem1500",
+   "loadavg": [
+    "0.50",
+    "0.92",
+    "1.02"
+   ]
+  },
+  {
+   "load_level": "high",
+   "requested_level": "high",
+   "target_rps": 150.0,
+   "load_observed_rps": 150.2,
+   "host": {
+    "cpu_pct": 26.18,
+    "free_ram_mb": 9658.6,
+    "load_throttled": false
+   },
+   "completed": 5745,
+   "errors": 0,
+   "dropped_ticks": 0,
+   "events": [
+    {
+     "t_wall_ns": 1790436023231871867,
+     "t_mono_ns": 55129653214085,
+     "from_level": "high",
+     "to_level": "moderate",
+     "cpu_pct": 24.85,
+     "free_ram_mb": 1500.0,
+     "reason": "mem_available_lt_2048mb"
+    }
+   ],
+   "tag": "high_10s",
+   "loadavg": [
+    "0.50",
+    "0.90",
+    "1.01"
+   ]
+  },
+  {
+   "load_level": "high",
+   "requested_level": "high",
+   "target_rps": 150.0,
+   "load_observed_rps": 150.0,
+   "host": {
+    "cpu_pct": 23.41,
+    "free_ram_mb": 9659.8,
+    "load_throttled": false
+   },
+   "completed": 7245,
+   "errors": 0,
+   "dropped_ticks": 0,
+   "events": [
+    {
+     "t_wall_ns": 1790436023231871867,
+     "t_mono_ns": 55129653214085,
+     "from_level": "high",
+     "to_level": "moderate",
+     "cpu_pct": 24.85,
+     "free_ram_mb": 1500.0,
+     "reason": "mem_available_lt_2048mb"
+    }
+   ],
+   "tag": "high_20s",
+   "loadavg": [
+    "0.72",
+    "0.94",
+    "1.02"
+   ]
+  },
+  {
+   "load_level": "high",
+   "requested_level": "high",
+   "target_rps": 150.0,
+   "load_observed_rps": 150.2,
+   "host": {
+    "cpu_pct": 24.35,
+    "free_ram_mb": 9658.8,
+    "load_throttled": false
+   },
+   "completed": 8745,
+   "errors": 0,
+   "dropped_ticks": 0,
+   "events": [
+    {
+     "t_wall_ns": 1790436023231871867,
+     "t_mono_ns": 55129653214085,
+     "from_level": "high",
+     "to_level": "moderate",
+     "cpu_pct": 24.85,
+     "free_ram_mb": 1500.0,
+     "reason": "mem_available_lt_2048mb"
+    }
+   ],
+   "tag": "high_30s",
+   "loadavg": [
+    "0.98",
+    "0.99",
+    "1.04"
+   ]
+  },
+  {
+   "load_level": "high",
+   "requested_level": "high",
+   "target_rps": 150.0,
+   "load_observed_rps": 150.0,
+   "host": {
+    "cpu_pct": 28.32,
+    "free_ram_mb": 9657.9,
+    "load_throttled": false
+   },
+   "completed": 10245,
+   "errors": 0,
+   "dropped_ticks": 0,
+   "events": [
+    {
+     "t_wall_ns": 1790436023231871867,
+     "t_mono_ns": 55129653214085,
+     "from_level": "high",
+     "to_level": "moderate",
+     "cpu_pct": 24.85,
+     "free_ram_mb": 1500.0,
+     "reason": "mem_available_lt_2048mb"
+    }
+   ],
+   "tag": "high_40s",
+   "loadavg": [
+    "0.83",
+    "0.95",
+    "1.03"
+   ]
+  },
+  {
+   "load_level": "high",
+   "requested_level": "high",
+   "target_rps": 150.0,
+   "load_observed_rps": 150.0,
+   "host": {
+    "cpu_pct": 21.43,
+    "free_ram_mb": 9662.3,
+    "load_throttled": false
+   },
+   "completed": 11745,
+   "errors": 0,
+   "dropped_ticks": 0,
+   "events": [
+    {
+     "t_wall_ns": 1790436023231871867,
+     "t_mono_ns": 55129653214085,
+     "from_level": "high",
+     "to_level": "moderate",
+     "cpu_pct": 24.85,
+     "free_ram_mb": 1500.0,
+     "reason": "mem_available_lt_2048mb"
+    }
+   ],
+   "tag": "high_50s",
+   "loadavg": [
+    "0.78",
+    "0.94",
+    "1.02"
+   ]
+  },
+  {
+   "load_level": "high",
+   "requested_level": "high",
+   "target_rps": 150.0,
+   "load_observed_rps": 150.0,
+   "host": {
+    "cpu_pct": 21.37,
+    "free_ram_mb": 9663.0,
+    "load_throttled": false
+   },
+   "completed": 13245,
+   "errors": 0,
+   "dropped_ticks": 0,
+   "events": [
+    {
+     "t_wall_ns": 1790436023231871867,
+     "t_mono_ns": 55129653214085,
+     "from_level": "high",
+     "to_level": "moderate",
+     "cpu_pct": 24.85,
+     "free_ram_mb": 1500.0,
+     "reason": "mem_available_lt_2048mb"
+    }
+   ],
+   "tag": "high_60s",
+   "loadavg": [
+    "1.61",
+    "1.11",
+    "1.08"
+   ]
+  },
+  {
+   "load_level": "idle",
+   "requested_level": "idle",
+   "target_rps": 0.0,
+   "load_observed_rps": 0.5,
+   "host": {
+    "cpu_pct": 8.56,
+    "free_ram_mb": 9662.3,
+    "load_throttled": false
+   },
+   "completed": 13246,
+   "errors": 0,
+   "dropped_ticks": 0,
+   "events": [
+    {
+     "t_wall_ns": 1790436023231871867,
+     "t_mono_ns": 55129653214085,
+     "from_level": "high",
+     "to_level": "moderate",
+     "cpu_pct": 24.85,
+     "free_ram_mb": 1500.0,
+     "reason": "mem_available_lt_2048mb"
+    }
+   ],
+   "tag": "idle_end",
+   "loadavg": [
+    "1.48",
+    "1.09",
+    "1.07"
+   ]
+  }
+ ],
+ "created_objects": 0,
+ "final": {
+  "load_level": "idle",
+  "requested_level": "idle",
+  "target_rps": 0.0,
+  "load_observed_rps": 0.48,
+  "host": {
+   "cpu_pct": 8.56,
+   "free_ram_mb": 9662.3,
+   "load_throttled": false
+  },
+  "completed": 13246,
+  "errors": 0,
+  "dropped_ticks": 0,
+  "op_counts": {
+   "get": 7907,
+   "list": 2691,
+   "patch": 2648
+  },
+  "status_counts": {
+   "200": 13246
+  },
+  "events": [
+   {
+    "t_wall_ns": 1790436023231871867,
+    "t_mono_ns": 55129653214085,
+    "from_level": "high",
+    "to_level": "moderate",
+    "cpu_pct": 24.85,
+    "free_ram_mb": 1500.0,
+    "reason": "mem_available_lt_2048mb"
+   }
+  ]
+ },
+ "summary": {
+  "moderate_rps_60s": 50.0,
+  "moderate_errors": 0,
+  "inject_level": "moderate",
+  "inject_throttled": true,
+  "inject_events": 1,
+  "high_rps_60s": 150.0,
+  "high_cpu_max": 28.32,
+  "high_cpu_ok": true
+ },
+ "PASS": true
+}

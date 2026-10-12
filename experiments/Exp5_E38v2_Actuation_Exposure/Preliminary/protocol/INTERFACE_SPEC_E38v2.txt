@@ -1,0 +1,88 @@
+E38v2 INTERFACE SPECIFICATION (shared by all build pieces)  — version 1, 2026-09-26
+=====================================================================================
+
+PURPOSE
+Defensive security evaluation, run by the paper's authors on their OWN disposable kind cluster on their OWN Azure VM.
+Question: after a client-side revalidation gate (DCJI or FullRefresh) accepts a Pod DELETE, can an independent
+concurrent write to the justification/scope/policy ConfigMaps make the DELETE take effect in an invalid state, and
+does a server-side validating admission webhook that re-checks those objects at DELETE admission close or narrow
+that window? Output: P(invalid accepted effect | arm, condition, delta) and the residual exposure window.
+
+DIRECTORY LAYOUT on VM: ~/e38v2_20260926/
+  frozen_ref/        read-only copy of frozen E38 V4 code (reference only)
+  src/               runner (piece 3): e38v2_runner.py, e38v2_model.py, flashir_core/ (patched, fail-closed), writer.py
+  webhook/           webhook server (piece 2): server.py, policy.py (pure function), tests/
+  deploy/            (piece 2) kind-config.yaml, audit-policy.yaml, webhook manifests, rbac.yaml, namespace.yaml, gen_certs.sh
+  analysis/          (piece 1) oracle.py, analyze_e38v2.py, stage2_topup.py, tests/, fixtures/
+  protocol/          PROTOCOL_E38v2.txt, RUNBOOK_E38v2.txt, LOCK_TEMPLATE_E38v2.json
+  results/<run_id>/  RAW_TRIALS.jsonl, SESSION.json, webhook_log.jsonl, audit.log (copied from node), SCHEDULE.json
+
+ARMS (arm field)
+  A0_native_uid      : no client gate re-read of ConfigMaps; DELETE with UID precondition only (baseline)
+  A1_dcji            : DCJI client gate (certificate {a,c,e,uid,scope} + mandatory app_policy + SSAR) then UID-preconditioned DELETE
+  A2_fullrefresh     : FullRefresh client gate (a..f, uid, scope + app_policy + SSAR) then UID-preconditioned DELETE
+  A3_dcji_webhook    : A1 plus validating admission webhook on pods/DELETE in the test namespace
+
+CONDITIONS (condition field)
+  no_write                    : no post-gate write (availability / latency control)
+  async_scope                 : writer sets scope ConfigMap to "not allowed"
+  async_app_policy            : writer sets application-policy ConfigMap allowed="false"
+  async_evidence_last_literal : before the gate c=false and e=false (so J = a AND b); writer sets a=false after gate
+  uid_rebind_control          : small positive control; target Pod replaced after gate (expect HTTP 409 all arms except none)
+DELTA GRID (ms, relative to gate end, monotonic clock): -5, -2, -1, 0, 0.5, 1, 2, 3, 5, 10, 20, 50
+  negative delta: writer released before gate end (tests the epoch fence / coherence check)
+  no_write and uid_rebind_control use delta = null.
+
+VALIDITY POLICY (identical in client gate, webhook and oracle)
+  J = (a AND b) OR (c AND d) OR (e AND f)   ; V_core = J AND scope_ok AND app_policy_allowed
+  ConfigMaps (namespace e38v2-<run_id>): evidence-a .. evidence-f (data.value "true"/"false"), response-scope
+  (data.allowed), application-policy (data.allowed), e38-epoch (data.sequence, fence).
+
+RAW TRIAL RECORD  (results/<run_id>/RAW_TRIALS.jsonl, one JSON object per line)
+{
+ "schema": "e38v2.trial.v1", "run_id": str, "trial_id": int, "stage": 1|2, "block": int,
+ "arm": str, "condition": str, "delta_ms": float|null, "rep": int, "schedule_seed": int,
+ "fixture": {"reset_ok": bool, "pod_uid_decision": str, "initial_values": {obj: value}},
+ "gate": {"decision": "EXECUTE"|"ABORT_REPLAN"|"UNKNOWN_COHERENCE"|null,
+          "t_start_mono_ns": int, "t_end_mono_ns": int, "t_end_wall_ns": int,
+          "reads": [{"object": str, "resource_version": str, "value": str, "t_send_mono_ns": int, "t_recv_mono_ns": int}],
+          "ssar_allowed": bool|null},
+ "writer": null | {"object": str, "new_value": str, "intended_release_mono_ns": int, "actual_release_mono_ns": int,
+          "t_resp_mono_ns": int, "http_status": int, "resulting_resource_version": str, "audit_id": str},
+ "delete": {"dispatched": bool, "t_send_mono_ns": int|null, "t_send_wall_ns": int|null, "t_resp_mono_ns": int|null,
+          "http_status": int|null, "reason": str|null, "audit_id": str|null, "expected_uid": str,
+          "deleted_object_resource_version": str|null},
+ "effect": {"verified": bool, "t_verified_mono_ns": int|null},
+ "webhook_request_uid": str|null,
+ "status": "COMPLETE"|"UNKNOWN"|"INFRA_ERROR", "error": str|null
+}
+Clock rule: mono and wall captured together at session start and per trial (clock_anchor in SESSION.json) so mono can be mapped to wall.
+audit_id = value of the "Audit-Id" HTTP response header returned by kube-apiserver for that request.
+
+WEBHOOK LOG (results/<run_id>/webhook_log.jsonl)
+{"schema":"e38v2.webhook.v1","request_uid":str,"pod_name":str,"pod_uid":str,"received_wall_ns":int,
+ "reads":[{"object":str,"resource_version":str,"value":str}],"decision":"allow"|"deny","reason":str,"completed_wall_ns":int}
+Webhook reads MUST be quorum reads (no resourceVersion=0 / no informer cache).
+
+AUDIT LOG: standard audit.k8s.io/v1 Event JSON lines from kube-apiserver (audit-policy: RequestResponse for configmaps
+update/patch and pods delete in namespace e38v2-*; Metadata elsewhere suppressed / None). Join key: auditID == audit_id.
+
+ORACLE (ground truth, piece 1 implements; independent of runner's own belief)
+Primary rule (commit order): a trial with an accepted DELETE (HTTP 200/202) and a writer is INVALID_AT_USE iff the
+writer's committed resourceVersion (from audit responseObject.metadata.resourceVersion or trial writer.resulting_resource_version)
+is numerically less than the resourceVersion at which the Pod deletion was committed (audit responseObject of the DELETE,
+or delete.deleted_object_resource_version), AND the written value makes V_core false given the pre-write state.
+Secondary rule (time order, sensitivity): writer ResponseComplete stageTimestamp < DELETE requestReceivedTimestamp.
+Report agreement between rules. Limitation to document: resourceVersion is opaque per Kubernetes API conventions;
+numeric ordering relies on the etcd-revision implementation of this Kubernetes version (v1.37.0) and is used as an
+empirical ordering, validated by agreement with timestamps.
+Outcome classes per trial: VALID_EXECUTED, INVALID_EXECUTED (the failure of interest), CORRECT_ABORT (gate or webhook
+denied and oracle invalid), FALSE_ABORT (denied but oracle valid), UID_BLOCKED (409), UNKNOWN, INFRA_ERROR.
+
+SAMPLE SIZE / STAGES
+Stage 1: n = 39 per (arm x condition x delta) cell for async conditions; no_write n = 39 per arm; uid_rebind_control n = 10 per arm.
+Stage 2 top-up to n = 93 for cells with 0.05 < p_hat(INVALID_EXECUTED) < 0.95 after stage 1 (pre-registered).
+Randomize arm and delta within blocks; new seed recorded in LOCK (must NOT be 20260912).
+
+HORIZON: planner horizon passed from SESSION config (default 30 s). Re-analysis showed certificate {a,c,e,uid,scope} is
+identical at 5, 10, 30, 60 s for this model; runner asserts this and fails closed otherwise.

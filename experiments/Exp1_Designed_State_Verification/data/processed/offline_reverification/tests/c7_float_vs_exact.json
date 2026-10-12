@@ -1,0 +1,154 @@
+{
+ "dyadic": {
+  "scenarios": 2597,
+  "differ": 0,
+  "cost_value_differs": 0,
+  "certificate_identity_differs": 0,
+  "examples": []
+ },
+ "non_dyadic": {
+  "scenarios": 2597,
+  "differ": 110,
+  "cost_value_differs": 110,
+  "certificate_identity_differs": 0,
+  "examples": [
+   {
+    "orig": [
+     "EXPLOITABLE",
+     [
+      "q:v3",
+      "q:v4"
+     ],
+     0.8999999999999999,
+     4
+    ],
+    "patched": [
+     "EXPLOITABLE",
+     [
+      "q:v3",
+      "q:v4"
+     ],
+     0.9,
+     4
+    ],
+    "costs": {
+     "q:v0": 0.3,
+     "q:v1": 0.1,
+     "q:v4": 0.7,
+     "q:v2": 0.2,
+     "q:v3": 0.2,
+     "q:v5": 0.2
+    }
+   },
+   {
+    "orig": [
+     "EXPLOITABLE",
+     [
+      "q:v0",
+      "q:v1"
+     ],
+     0.8999999999999999,
+     5
+    ],
+    "patched": [
+     "EXPLOITABLE",
+     [
+      "q:v0",
+      "q:v1"
+     ],
+     0.9,
+     5
+    ],
+    "costs": {
+     "q:v0": 0.7,
+     "q:v1": 0.2,
+     "q:v4": 0.7,
+     "q:v2": 0.7,
+     "q:v3": 0.3,
+     "q:v5": 0.1
+    }
+   },
+   {
+    "orig": [
+     "EXPLOITABLE",
+     [
+      "q:v0",
+      "q:v1",
+      "q:v2"
+     ],
+     1.0999999999999999,
+     8
+    ],
+    "patched": [
+     "EXPLOITABLE",
+     [
+      "q:v0",
+      "q:v1",
+      "q:v2"
+     ],
+     1.1,
+     8
+    ],
+    "costs": {
+     "q:v1": 0.7,
+     "q:v0": 0.1,
+     "q:v2": 0.3
+    }
+   },
+   {
+    "orig": [
+     "EXPLOITABLE",
+     [
+      "q:v0",
+      "q:v2",
+      "q:v3"
+     ],
+     0.8999999999999999,
+     9
+    ],
+    "patched": [
+     "EXPLOITABLE",
+     [
+      "q:v0",
+      "q:v2",
+      "q:v3"
+     ],
+     0.9,
+     9
+    ],
+    "costs": {
+     "q:v0": 0.3,
+     "q:v1": 0.1,
+     "q:v4": 0.7,
+     "q:v2": 0.3,
+     "q:v3": 0.3
+    }
+   },
+   {
+    "orig": [
+     "EXPLOITABLE",
+     [
+      "q:v0",
+      "q:v2"
+     ],
+     0.30000000000000004,
+     4
+    ],
+    "patched": [
+     "EXPLOITABLE",
+     [
+      "q:v0",
+      "q:v2"
+     ],
+     0.3,
+     4
+    ],
+    "costs": {
+     "q:v1": 0.7,
+     "q:v0": 0.2,
+     "q:v2": 0.1
+    }
+   }
+  ]
+ }
+}

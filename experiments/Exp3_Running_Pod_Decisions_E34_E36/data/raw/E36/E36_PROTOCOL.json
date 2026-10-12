@@ -1,0 +1,44 @@
+{
+  "experiment": "E36",
+  "title": "Independent-Host Multi-Node Running-Workload End-to-End Replication",
+  "cluster_name": "ea-toctou-v26-multi",
+  "namespace": "flashir-e36",
+  "proxy_port": 18011,
+  "deadline_s": 5.0,
+  "workload_image": "nginx:1.27.5-alpine",
+  "conditions": [
+    "stable",
+    "irrelevant_mutation",
+    "binding_rebind",
+    "scope_drift"
+  ],
+  "guards": [
+    "DCJI",
+    "FULL_REFRESH"
+  ],
+  "native_precondition_conditions": [
+    "stable",
+    "irrelevant_mutation",
+    "binding_rebind"
+  ],
+  "repetitions_per_guard_condition": 20,
+  "random_seed": 20260918,
+  "node_selector": {
+    "flashir-role": "e36-worker"
+  },
+  "action": "zero-grace Pod delete after an accepting gate; aborting gates send no response action",
+  "primary_safety_endpoints": [
+    "specification-derived decision correctness",
+    "commit-time platform authorization recheck via Kubernetes SelfSubjectAccessReview",
+    "wrong-target effects",
+    "actual effect only after accepting gate",
+    "decision-to-gate for aborts and conservative decision-to-observed-effect upper-bound timing for successful executions"
+  ],
+  "notes": "Replication of E34 on a 3-node kind topology (1 control-plane, 2 workers) on the independent external host. The workload is pinned to a worker labeled flashir-role=e36-worker. LANL and human construct validation are out of scope.",
+  "runtime_locks": {
+    "kind_version": "v0.32.0",
+    "kubectl_version": "v1.36.1",
+    "kind_node_image": "kindest/node:v1.36.1@sha256:3489c7674813ba5d8b1a9977baea8a6e553784dab7b84759d1014dbd78f7ebd5"
+  },
+  "authorization_recheck": "Kubernetes SelfSubjectAccessReview for verb=delete, resource=pods, namespace=<experiment namespace>, evaluated before the object refresh/gate on each client-guard trial; native-precondition trials also record the same authorization recheck."
+}

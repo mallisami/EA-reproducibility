@@ -1,0 +1,5 @@
+{
+  "provenance/superseded_statistics/confirmatory_comparisons.json": "analysis/confirmatory_comparisons_cluster_corrected.json",
+  "provenance/superseded_statistics/E1_E5_HELDOUT_RESULTS.md": "analysis/E1_E5_HELDOUT_RESULTS_CORRECTED.md",
+  "note": "Superseded files are retained only to document the v4.0 -> v4.1 statistical correction and must never be cited as current results."
+}

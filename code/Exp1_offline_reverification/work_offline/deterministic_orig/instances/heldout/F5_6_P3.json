@@ -1,0 +1,323 @@
+{
+  "instance_id": "F5.6-P3",
+  "template_id": "F5.6",
+  "parameterization_id": "P3",
+  "split": "heldout",
+  "materialization_version": "3.1.0",
+  "causal_core_hash": "6daded768e3ab719eb33364ef065b73cc1956a4ac2002227fdf479c65e3d1c83",
+  "template_hash": "0600b1ad50da82b39da404c83be4b0b0a2f191642e280968bb358b65610421dd",
+  "scenario": {
+    "scenario_id": "F5.6",
+    "title": "Uncuttable Historical Justification Basis",
+    "family": "F5",
+    "realism_tier": "R3",
+    "scenario_role": "negative_exploitability_control",
+    "development": false,
+    "action": {
+      "action_type": "quarantine_workload",
+      "target_reference": "workload/U1",
+      "target_snapshot": {
+        "uid": "U1"
+      },
+      "queue_semantics": "single_exactly_once_attempt",
+      "execution_precondition": true,
+      "authorization": {
+        "predicate": "p_authorized",
+        "must_remain_valid": true
+      }
+    },
+    "attacker_capability_tier": "C1",
+    "initial_state": {
+      "timestamp_s": 0,
+      "facts": {
+        "current_threat": true,
+        "confirmed_history": true,
+        "irrelevant_alert": false,
+        "action_authorized": true,
+        "materialization_benign_resource_count": 3,
+        "materialization_background_alerts": 3,
+        "materialization_irrelevant_1": true,
+        "materialization_irrelevant_2": true,
+        "materialization_irrelevant_3": true
+      },
+      "resources": [
+        {
+          "kind": "SyntheticBenignResource",
+          "name": "benign-1",
+          "uid": "BENIGN-F5.6-1",
+          "active": true,
+          "security_state": "clean",
+          "criticality": "low"
+        },
+        {
+          "kind": "SyntheticBenignResource",
+          "name": "benign-2",
+          "uid": "BENIGN-F5.6-2",
+          "active": true,
+          "security_state": "clean",
+          "criticality": "low"
+        },
+        {
+          "kind": "SyntheticBenignResource",
+          "name": "benign-3",
+          "uid": "BENIGN-F5.6-3",
+          "active": true,
+          "security_state": "clean",
+          "criticality": "low"
+        }
+      ],
+      "processes": [],
+      "network_bindings": [],
+      "sessions": [],
+      "context": {
+        "materialization": {
+          "parameterization_id": "P3",
+          "template_id": "F5.6",
+          "description": "Noisy SOC context."
+        },
+        "soc_noise": {
+          "unrelated_alerts": [
+            {
+              "alert_id": "NOISE-1",
+              "severity": "low",
+              "status": "open"
+            },
+            {
+              "alert_id": "NOISE-2",
+              "severity": "medium",
+              "status": "acknowledged"
+            },
+            {
+              "alert_id": "NOISE-3",
+              "severity": "low",
+              "status": "closed"
+            }
+          ],
+          "unrelated_ticket_count": 5,
+          "background_change_window": true
+        }
+      },
+      "evidence": [
+        {
+          "evidence_id": "MAT-IRR-1",
+          "predicate": "materialization_irrelevant_1",
+          "evidence_class": "S",
+          "source": "synthetic-background",
+          "observed_at_s": 0,
+          "subject_uid": null,
+          "truth_value": true,
+          "supersedes": null
+        },
+        {
+          "evidence_id": "MAT-IRR-2",
+          "predicate": "materialization_irrelevant_2",
+          "evidence_class": "S",
+          "source": "synthetic-background",
+          "observed_at_s": 0,
+          "subject_uid": null,
+          "truth_value": true,
+          "supersedes": null
+        },
+        {
+          "evidence_id": "MAT-IRR-3",
+          "predicate": "materialization_irrelevant_3",
+          "evidence_class": "S",
+          "source": "synthetic-background",
+          "observed_at_s": 0,
+          "subject_uid": null,
+          "truth_value": true,
+          "supersedes": null
+        }
+      ],
+      "queue": []
+    },
+    "predicates": {
+      "p_current": {
+        "path": "/facts/current_threat",
+        "op": "eq",
+        "value": true,
+        "evidence_class": "L",
+        "description": "Current threat condition."
+      },
+      "p_history": {
+        "path": "/facts/confirmed_history",
+        "op": "eq",
+        "value": true,
+        "evidence_class": "H",
+        "description": "Confirmed compromise history requiring mandatory isolation."
+      },
+      "p_authorized": {
+        "path": "/facts/action_authorized",
+        "op": "eq",
+        "value": true,
+        "evidence_class": "DERIVED",
+        "description": "Response executor remains technically authorized."
+      }
+    },
+    "policy_profiles": {
+      "balanced": {
+        "justification": {
+          "any": [
+            {
+              "predicate": "p_current"
+            },
+            {
+              "predicate": "p_history"
+            }
+          ]
+        },
+        "binding": true,
+        "scope": true
+      }
+    },
+    "transitions": [
+      {
+        "transition_id": "irrelevant_change",
+        "title": "Irrelevant alert",
+        "actor": "environment",
+        "capability_tier": "NONE",
+        "duration_s": 0.1,
+        "cost_ops": 0,
+        "preconditions": true,
+        "effects": [
+          {
+            "op": "set",
+            "path": "/facts/irrelevant_alert",
+            "value": true
+          }
+        ],
+        "notes": "",
+        "adversarially_induced": false,
+        "causal_parent_ids": []
+      },
+      {
+        "transition_id": "remove_current_threat",
+        "title": "Attacker removes current live threat condition",
+        "actor": "attacker",
+        "capability_tier": "C1",
+        "duration_s": 0.7,
+        "cost_ops": 1,
+        "preconditions": true,
+        "effects": [
+          {
+            "op": "set",
+            "path": "/facts/current_threat",
+            "value": false
+          }
+        ],
+        "notes": "",
+        "adversarially_induced": true,
+        "causal_parent_ids": []
+      }
+    ],
+    "worlds": {
+      "W0": {
+        "commit_deadline_s": 5,
+        "transition_path": [],
+        "expected_commit": "EXECUTE",
+        "expected_attack_path_completed": false,
+        "control_semantics": "stable",
+        "expected_commit_by_policy": {
+          "balanced": "EXECUTE"
+        }
+      },
+      "W1": {
+        "commit_deadline_s": 5,
+        "transition_path": [
+          "irrelevant_change"
+        ],
+        "expected_commit": "EXECUTE",
+        "expected_attack_path_completed": false,
+        "control_semantics": "irrelevant_change",
+        "expected_commit_by_policy": {
+          "balanced": "EXECUTE"
+        }
+      },
+      "W2": {
+        "commit_deadline_s": 5,
+        "transition_path": [
+          "remove_current_threat"
+        ],
+        "expected_commit": "EXECUTE",
+        "expected_attack_path_completed": true,
+        "control_semantics": "adversarial_negative_control",
+        "expected_commit_by_policy": {
+          "balanced": "EXECUTE"
+        }
+      },
+      "W3": {
+        "commit_deadline_s": 0.4,
+        "transition_path": [
+          "remove_current_threat"
+        ],
+        "expected_commit": "EXECUTE",
+        "expected_attack_path_completed": false,
+        "control_semantics": "deadline_miss",
+        "expected_commit_by_policy": {
+          "balanced": "EXECUTE"
+        }
+      }
+    },
+    "provenance": {
+      "platform_basis": "Controlled synthetic policy structure used to isolate justification semantics.",
+      "incident_basis": "Multiple independent active or historical evidence bases support a pending response.",
+      "policy_basis": "Commit validity follows the explicit Boolean response policy.",
+      "limitations": "The exact Boolean structure is methodological and is not claimed as a universal SOC policy."
+    },
+    "severity": "S1",
+    "notes": "Negative exploitability control: live basis is cut, but immutable historical basis remains sufficient.",
+    "primary_policy": "balanced",
+    "justification_bases_by_policy": {
+      "balanced": [
+        [
+          "p_current"
+        ],
+        [
+          "p_history"
+        ]
+      ]
+    },
+    "justification_bases": [
+      [
+        "p_current"
+      ],
+      [
+        "p_history"
+      ]
+    ],
+    "parameterizations": [
+      {
+        "id": "P1",
+        "description": "Minimal topology with only essential resources and evidence."
+      },
+      {
+        "id": "P2",
+        "description": "Distractor topology with benign resources and irrelevant evidence."
+      },
+      {
+        "id": "P3",
+        "description": "Noisy SOC context with non-material alerts and unrelated transitions."
+      },
+      {
+        "id": "P4",
+        "description": "High-impact variant with larger benign background or higher criticality."
+      }
+    ],
+    "native_controls": [],
+    "refresh_model": {
+      "cost_unit": "normalized_query_unit",
+      "query_costs": {
+        "query:/facts/current_threat": 1.0,
+        "immutable:p_history": 0.0
+      },
+      "predicate_query_ids": {
+        "p_current": "query:/facts/current_threat",
+        "p_history": "immutable:p_history"
+      },
+      "query_observed_at_s": {
+        "query:/facts/current_threat": 0.0,
+        "immutable:p_history": 0.0
+      }
+    }
+  }
+}

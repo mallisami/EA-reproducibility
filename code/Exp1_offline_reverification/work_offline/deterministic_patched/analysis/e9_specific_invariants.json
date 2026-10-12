@@ -1,0 +1,38 @@
+{
+  "historical fact persists": {
+    "p_history_initial": true,
+    "p_history_commit": true
+  },
+  "non-attacker transition": {
+    "actors": [
+      "environment"
+    ],
+    "attack_goal": false
+  },
+  "immutable target": {
+    "queued_target_uid_initial": "U1",
+    "queued_target_uid_commit": "U1",
+    "binding_initial": true,
+    "binding_commit": true
+  },
+  "one basis breaks while another remains": {
+    "minimal_bases": [
+      [
+        "p_c2",
+        "p_malproc"
+      ],
+      [
+        "p_cred",
+        "p_session"
+      ]
+    ],
+    "basis_truth_at_commit": [
+      false,
+      true
+    ]
+  },
+  "F5.6 uncuttable historical basis": {
+    "current_basis_commit": false,
+    "historical_basis_commit": true
+  }
+}

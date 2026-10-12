@@ -1,0 +1,67 @@
+{
+  "version": "8.1.1",
+  "freeze_id": "FLASHIR-E13-LIVE-FREEZE-20260906-V3.1",
+  "status": "FROZEN_BEFORE_FIRST_REAL_CLUSTER_OUTPUT",
+  "planner": "locked deterministic/flashir_core/dcji.py via B6_dcji_gate",
+  "planning_phase": "critical query plan is derived after the decision snapshot and before the induced transition; planning time is recorded separately from commit-gate latency",
+  "cases": {
+    "F1.1": {
+      "scenario_rel": "scenarios/dev/F1_1.json",
+      "scenario_sha256": "8d472168967519d24f3d5ba03763c02e5ccd84dbe1bccec0df3a67ca106a15e0",
+      "deadline_world": "W2",
+      "deadline_s": 5.0,
+      "profile": "balanced",
+      "attacker_capability": "C2",
+      "expected_critical_query_ids": [
+        "query:/facts/api0_current_uid"
+      ]
+    },
+    "F1.2": {
+      "scenario_rel": "scenarios/heldout/F1_2.json",
+      "scenario_sha256": "bd14fb28dfe1cf29a3d3eba77568e1e8034138bb0da6166606f8ebd9e3396750",
+      "deadline_world": "W2",
+      "deadline_s": 5.0,
+      "profile": "balanced",
+      "attacker_capability": "C2",
+      "expected_critical_query_ids": [
+        "query:/facts/F1_2_current_uid"
+      ]
+    },
+    "F4.1": {
+      "scenario_rel": "scenarios/dev/F4_1.json",
+      "scenario_sha256": "7e5b10ee7c7b9c13640014635c931f0e6d822fd4854e981a8d3f5fe1dc7013be",
+      "deadline_world": "W2",
+      "deadline_s": 3.0,
+      "profile": "balanced",
+      "attacker_capability": "C2",
+      "expected_critical_query_ids": [
+        "query:/facts/selector_members"
+      ]
+    },
+    "F4.4": {
+      "scenario_rel": "scenarios/heldout/F4_4.json",
+      "scenario_sha256": "01fe9be41a435e7b21cc701c51493d57240a7973b1831e691aa9c83c853f7371",
+      "deadline_world": "W2",
+      "deadline_s": 3.0,
+      "profile": "balanced",
+      "attacker_capability": "C2",
+      "expected_critical_query_ids": [
+        "query:/facts/scope_members"
+      ]
+    }
+  },
+  "controls": {
+    "NC-L1": {
+      "model_case": "F1.1",
+      "semantics": "stable relevant state",
+      "expected_gate_decision": "EXECUTE",
+      "repetitions": 20
+    },
+    "NC-L2": {
+      "model_case": "F1.1",
+      "semantics": "irrelevant annotation mutation with stable UID",
+      "expected_gate_decision": "EXECUTE",
+      "repetitions": 20
+    }
+  }
+}

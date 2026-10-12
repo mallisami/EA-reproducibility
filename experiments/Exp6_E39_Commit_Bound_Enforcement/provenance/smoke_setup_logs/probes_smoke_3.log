@@ -1,0 +1,113 @@
+2026-09-26T14:29:23.646441056Z
+already running pid 3209813
+               total        used        free      shared  buff/cache   available
+Mem:           15939        6117         851         194        9511        9822
+ 14:29:23 up 14:27,  4 users,  load average: 1.60, 0.87, 0.81
+14:29:23 == part kl
+14:31:01    PASS kl {"summary": {"pods_with_rv_change_0_3s": 0, "n_pods": 10, "changes_0_3s": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "steady_rate_per_s": 0.0, "first_change_times_s": []}}
+14:31:01 == part proxy
+14:31:42    PASS proxy {"acceptance": [{"c": 0.0, "median_err_ms": 0.010686500000000043, "ok": true}, {"c": 50.0, "median_err_ms": 0.982953000000002, "ok": true}, {"c": 200.0, "median_err_ms": 1.0430150000000253, "ok": true}, {"c": 1000.0, "median_err_ms": 1.166462000000024, "ok": true}]}
+14:31:42 == part load
+14:31:52 load moderate_10s moderate 50.0 {'cpu_pct': 13.48, 'free_ram_mb': 9790.8, 'load_throttled': False} errors 0
+14:32:02 load moderate_20s moderate 50.0 {'cpu_pct': 14.08, 'free_ram_mb': 9790.1, 'load_throttled': False} errors 0
+14:32:12 load moderate_30s moderate 50.0 {'cpu_pct': 15.97, 'free_ram_mb': 9787.3, 'load_throttled': False} errors 0
+14:32:22 load moderate_40s moderate 50.0 {'cpu_pct': 14.93, 'free_ram_mb': 9787.0, 'load_throttled': False} errors 0
+14:32:32 load moderate_50s moderate 50.0 {'cpu_pct': 17.7, 'free_ram_mb': 9769.5, 'load_throttled': False} errors 0
+14:32:42 load moderate_60s moderate 50.0 {'cpu_pct': 14.25, 'free_ram_mb': 9779.9, 'load_throttled': False} errors 0
+14:32:47 load high_before_inject high 149.8 {'cpu_pct': 26.61, 'free_ram_mb': 9779.1, 'load_throttled': False} errors 0
+14:32:51 load after_inject_mem1500 moderate 50.16 {'cpu_pct': 13.73, 'free_ram_mb': 1500.0, 'load_throttled': True} errors 0
+14:33:03 load high_10s high 149.8 {'cpu_pct': 23.28, 'free_ram_mb': 9779.8, 'load_throttled': False} errors 0
+14:33:13 load high_20s high 150.0 {'cpu_pct': 24.07, 'free_ram_mb': 9780.7, 'load_throttled': False} errors 0
+14:33:23 load high_30s high 150.0 {'cpu_pct': 25.29, 'free_ram_mb': 9781.9, 'load_throttled': False} errors 0
+14:33:33 load high_40s high 150.0 {'cpu_pct': 29.19, 'free_ram_mb': 9781.4, 'load_throttled': False} errors 0
+14:33:43 load high_50s high 150.0 {'cpu_pct': 22.48, 'free_ram_mb': 9782.1, 'load_throttled': False} errors 0
+14:33:53 load high_60s high 150.0 {'cpu_pct': 26.45, 'free_ram_mb': 9781.4, 'load_throttled': False} errors 0
+14:33:55 load idle_end idle 0.5 {'cpu_pct': 11.29, 'free_ram_mb': 9781.1, 'load_throttled': False} errors 0
+14:33:55    PASS load {"summary": {"moderate_rps_60s": 50.0, "moderate_errors": 0, "inject_level": "moderate", "inject_throttled": true, "inject_events": 1, "high_rps_60s": 150.0, "high_cpu_max": 29.19, "high_cpu_ok": true}}
+14:33:55 ALL_PASS True {'kl': True, 'proxy': True, 'load': True}
+{
+ "checks": {
+  "configmaps_patch_RR": true,
+  "pods_patch_writer_RR": true,
+  "pods_patch_mirror_RR": true,
+  "pods_status_kubelet_RR": true,
+  "pods_delete_200": true,
+  "pods_delete_409": true,
+  "pods_delete_403": true,
+  "netpol_create_RR": true,
+  "no_RequestReceived": true,
+  "no_load_ns_events": true,
+  "no_system_ns_events": true,
+  "delete_409_message_in_audit": true,
+  "audit_join_all": true
+ },
+ "audit_join": {
+  "ops_with_audit_id": 11,
+  "matched": 11,
+  "rv_mismatch": 0
+ },
+ "rv_time_order": {
+  "n": 0,
+  "pairwise_concordant": 0,
+  "discordant": 0,
+  "ties": 0,
+  "adjacent_nondecreasing": 0,
+  "adjacent_total": 0,
+  "seq_only_adjacent_nondecreasing": 0,
+  "seq_only_n": 0
+ },
+ "pods_status_writes_per_pod": {
+  "e39-target": 3,
+  "probe-a4": 6,
+  "probe-go1": 7,
+  "probe-go2": 6,
+  "probe-go3": 6,
+  "probe-kl-00": 4,
+  "probe-kl-01": 3,
+  "probe-kl-02": 4,
+  "probe-kl-03": 4,
+  "probe-kl-04": 4,
+  "probe-kl-05": 4,
+  "probe-kl-06": 4,
+  "probe-kl-07": 3,
+  "probe-kl-08": 4,
+  "probe-kl-09": 4,
+  "probe-kl-long": 4,
+  "probe-wh-deny": 4,
+  "probe-wh-nolabel": 3,
+  "probe-wh-reset": 3,
+  "probe-wh-scope": 4
+ },
+ "delete_409_messages": [
+  [
+   "probe-a4",
+   "Operation cannot be fulfilled on Pod \"probe-a4\": the ResourceVersion in the precondition (1293) does not match the ResourceVersion in record (1294). The object might have been modified"
+  ],
+  [
+   "probe-a4",
+   "Operation cannot be fulfilled on Pod \"probe-a4\": the UID in the precondition (00000000-0000-0000-0000-000000000000) does not match the UID in record (50683df6-746a-49db-a629-b3d6ce96e3c0). The object might have been deleted and then recreated"
+  ],
+  [
+   "probe-go3",
+   "Operation cannot be fulfilled on Pod \"probe-go3\": the ResourceVersion in the precondition (1323) does not match the ResourceVersion in record (1330). The object might have been modified"
+  ],
+  [
+   "probe-a4",
+   "Operation cannot be fulfilled on Pod \"probe-a4\": the ResourceVersion in the precondition (2523) does not match the ResourceVersion in record (2524). The object might have been modified"
+  ]
+ ]
+}
+coverage:
+  create networkpolicies sa:e39-responder                      n=3     ['RequestResponse'] RO=3 codes=[201, 403]
+  delete networkpolicies sa:e39-reset                          n=3     ['RequestResponse'] RO=3 codes=[200, 404]
+  delete pods sa:e39-reset                                     n=15    ['RequestResponse'] RO=15 codes=[200]
+  delete pods sa:e39-responder                                 n=17    ['RequestResponse'] RO=17 codes=[200, 403, 409]
+  patch configmaps kubernetes-admin                            n=10    ['RequestResponse'] RO=10 codes=[200]
+  patch configmaps sa:e39-reset                                n=80    ['RequestResponse'] RO=80 codes=[200]
+  patch configmaps sa:e39-writer                               n=284   ['RequestResponse'] RO=284 codes=[200]
+  patch pods sa:e39-mirror                                     n=12    ['RequestResponse'] RO=12 codes=[200]
+  patch pods sa:e39-writer                                     n=4     ['RequestResponse'] RO=4 codes=[200]
+  patch pods/status system:node:e39-control-plane              n=84    ['RequestResponse'] RO=84 codes=[200, 404]
+PROBE AUDIT PASS
+No resources found
+2026-09-26T14:33:57.914096440Z

@@ -1,0 +1,37 @@
+EXECUTION ENVIRONMENTS (as recorded; see also each experiment's provenance/ENVIRONMENT.txt)
+=====================================================================================
+
+1. Azure experiment VM  (E38 smoke, E38v2 preliminary + confirmatory, E39, all re-analyses, manuscript build)
+   captured_utc=2026-09-26T18:46:54Z
+   Linux <experiment-vm> 6.17.0-1022-azure #22-Ubuntu SMP Mon Jul 27 17:24:03 UTC 2026 x86_64 GNU/Linux
+   Ubuntu 24.04.4 LTS (Noble Numbat)
+   Azure Standard_D4as_v5: 4 vCPU AMD EPYC 7763, 16 GB RAM (15 GiB visible), region eastasia
+   docker: Docker version 29.1.3, build 29.1.3-0ubuntu3~24.04.2
+   kind:   kind v0.33.0 go1.26.7 linux/amd64
+   kubectl: Client Version v1.37.0
+   go:     go version go1.27.1 linux/amd64
+   python3: Python 3.12.3
+   az:     2.90.0 (used only for E40 cluster lifecycle)
+   Kubernetes under test: single-node kind clusters, kindest/node v1.37.0 (containerd 2.3.4), created per experiment
+   and deleted afterwards. Unrelated kind clusters of other projects ran on the same VM (see Exp6 provenance/
+   OTHER_CLUSTERS_STOPPED.txt and the deviations registers).
+   (Host name replaced by <experiment-vm> in this summary; raw ENVIRONMENT.txt files keep the original host name.)
+
+2. Azure Kubernetes Service (E40, exploratory)
+   one free-tier cluster, one Standard_D2as_v5 node (2 vCPU, 8 GiB), region koreasouth (pre-approved fallback),
+   Kubernetes v1.36.3 (server), node OS Ubuntu 24.04.4 LTS, kernel 6.8.0-1067-azure, containerd 2.3.3-2;
+   kubectl client v1.37.0. Created for the run and deleted afterwards (code/Exp7_E40/ops/CLUSTER_*_EPOCH).
+   Runner, writer, webhook and target Pod ran inside the cluster (python:3.12-slim image).
+
+3. Original local host (E5, E12, E13, E21, E23-E33; frozen evidence)
+   Windows 11, 4 cores, ~7.8 GB RAM; Python 3.13.14; Docker Desktop 4.85.0; kind v0.32.0; Kubernetes v1.36.1.
+   Processor and resource-allocation metadata are incomplete (as stated in the paper, Section 5.1).
+
+4. Collaborator host (E34-E37; frozen evidence, executed by a collaborator from an unchanged protocol)
+   Ubuntu 24.04.1 LTS under WSL2, kernel 6.18.33.2-microsoft-standard-WSL2, 2 logical CPUs visible,
+   8,328,945,664 bytes RAM, Docker Engine 29.8.1 (containerd v2.3.5, runc 1.5.1), kind v0.32.0, kubectl v1.36.1,
+   Python 3.12.3; E37 node image kindest/node v1.36.1. Processor model not recorded; host name not reported.
+
+Reviewer reproduction (scripts): L0-L2 need only Python 3.12 (Linux/macOS/Windows) with the packages in
+requirements/requirements-reproduce.txt. L3 (live re-execution) needs Linux + Docker + kind v0.33.0 +
+kubectl v1.37.0 (+ Go 1.27.1 for the E39-F client-go responder) and a disposable machine.

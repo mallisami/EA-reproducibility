@@ -1,0 +1,383 @@
+{
+  "scenario_id": "E15.F5.4",
+  "title": "Shared Predicate Across Justification Bases",
+  "family": "F5",
+  "realism_tier": "R3",
+  "scenario_role": "positive_ea_toctou",
+  "development": false,
+  "action": {
+    "action_type": "quarantine_workload",
+    "target_reference": "workload/U1",
+    "target_snapshot": {
+      "uid": "U1"
+    },
+    "queue_semantics": "single_exactly_once_attempt",
+    "execution_precondition": true,
+    "authorization": {
+      "predicate": "p_authorized",
+      "must_remain_valid": true
+    }
+  },
+  "attacker_capability_tier": "C1",
+  "initial_state": {
+    "timestamp_s": 0,
+    "facts": {
+      "A": true,
+      "B": true,
+      "C": true,
+      "X": true,
+      "Y": true,
+      "irrelevant_alert": false,
+      "action_authorized": true,
+      "e15_benign_noise": false
+    },
+    "resources": [],
+    "processes": [],
+    "network_bindings": [],
+    "sessions": [],
+    "context": {
+      "materialization": {
+        "parameterization_id": "P1",
+        "template_id": "F5.4",
+        "description": "Minimal canonical topology."
+      }
+    },
+    "evidence": [],
+    "queue": []
+  },
+  "predicates": {
+    "A": {
+      "path": "/facts/A",
+      "op": "eq",
+      "value": true,
+      "evidence_class": "L",
+      "description": "Current predicate A."
+    },
+    "B": {
+      "path": "/facts/B",
+      "op": "eq",
+      "value": true,
+      "evidence_class": "L",
+      "description": "Current predicate B."
+    },
+    "C": {
+      "path": "/facts/C",
+      "op": "eq",
+      "value": true,
+      "evidence_class": "L",
+      "description": "Current predicate C."
+    },
+    "X": {
+      "path": "/facts/X",
+      "op": "eq",
+      "value": true,
+      "evidence_class": "L",
+      "description": "Current predicate X."
+    },
+    "Y": {
+      "path": "/facts/Y",
+      "op": "eq",
+      "value": true,
+      "evidence_class": "L",
+      "description": "Current predicate Y."
+    },
+    "p_authorized": {
+      "path": "/facts/action_authorized",
+      "op": "eq",
+      "value": true,
+      "evidence_class": "DERIVED",
+      "description": "Response executor remains technically authorized."
+    }
+  },
+  "policy_profiles": {
+    "balanced": {
+      "justification": {
+        "any": [
+          {
+            "all": [
+              {
+                "predicate": "A"
+              },
+              {
+                "predicate": "X"
+              }
+            ]
+          },
+          {
+            "all": [
+              {
+                "predicate": "B"
+              },
+              {
+                "predicate": "X"
+              }
+            ]
+          },
+          {
+            "all": [
+              {
+                "predicate": "C"
+              },
+              {
+                "predicate": "Y"
+              }
+            ]
+          }
+        ]
+      },
+      "binding": true,
+      "scope": true
+    }
+  },
+  "transitions": [
+    {
+      "transition_id": "irrelevant_change",
+      "title": "Irrelevant alert",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.1,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/irrelevant_alert",
+          "value": true
+        }
+      ],
+      "notes": "",
+      "adversarially_induced": false,
+      "causal_parent_ids": []
+    },
+    {
+      "transition_id": "cut_shared_x",
+      "title": "Cut shared predicate X",
+      "actor": "attacker",
+      "capability_tier": "C1",
+      "duration_s": 0.6,
+      "cost_ops": 1,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/X",
+          "value": false
+        }
+      ],
+      "notes": "",
+      "adversarially_induced": true,
+      "causal_parent_ids": []
+    },
+    {
+      "transition_id": "cut_y",
+      "title": "Cut remaining basis through Y",
+      "actor": "attacker",
+      "capability_tier": "C1",
+      "duration_s": 0.6,
+      "cost_ops": 1,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/Y",
+          "value": false
+        }
+      ],
+      "notes": "",
+      "adversarially_induced": true,
+      "causal_parent_ids": []
+    },
+    {
+      "transition_id": "e15_benign_noise",
+      "title": "Concurrent benign irrelevant state update",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.0,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/e15_benign_noise",
+          "value": true
+        }
+      ],
+      "notes": "E15 concurrency control; benign and excluded from attacker model.",
+      "adversarially_induced": false,
+      "causal_parent_ids": [],
+      "benign_actor_class": "human"
+    },
+    {
+      "transition_id": "e15_benign_01_cut_shared_x",
+      "title": "Benign concurrency mirror: Cut shared predicate X",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.6,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/X",
+          "value": false
+        }
+      ],
+      "notes": "E15 benign mirror of frozen state transition; excluded from attacker operation count.",
+      "adversarially_induced": false,
+      "causal_parent_ids": [],
+      "benign_actor_class": "human"
+    },
+    {
+      "transition_id": "e15_benign_02_cut_y",
+      "title": "Benign concurrency mirror: Cut remaining basis through Y",
+      "actor": "environment",
+      "capability_tier": "NONE",
+      "duration_s": 0.6,
+      "cost_ops": 0,
+      "preconditions": true,
+      "effects": [
+        {
+          "op": "set",
+          "path": "/facts/Y",
+          "value": false
+        }
+      ],
+      "notes": "E15 benign mirror of frozen state transition; excluded from attacker operation count.",
+      "adversarially_induced": false,
+      "causal_parent_ids": [],
+      "benign_actor_class": "human"
+    }
+  ],
+  "worlds": {
+    "W0": {
+      "commit_deadline_s": 5,
+      "transition_path": [],
+      "expected_commit": "EXECUTE",
+      "expected_attack_path_completed": false,
+      "control_semantics": "stable",
+      "expected_commit_by_policy": {
+        "balanced": "EXECUTE"
+      }
+    },
+    "W1": {
+      "commit_deadline_s": 5,
+      "transition_path": [
+        "irrelevant_change"
+      ],
+      "expected_commit": "EXECUTE",
+      "expected_attack_path_completed": false,
+      "control_semantics": "irrelevant_change",
+      "expected_commit_by_policy": {
+        "balanced": "EXECUTE"
+      }
+    },
+    "W2": {
+      "commit_deadline_s": 5,
+      "transition_path": [
+        "cut_shared_x",
+        "cut_y"
+      ],
+      "expected_commit": "ABORT_REPLAN",
+      "expected_attack_path_completed": true,
+      "control_semantics": "ea_toctou",
+      "expected_commit_by_policy": {
+        "balanced": "ABORT_REPLAN"
+      }
+    },
+    "W3": {
+      "commit_deadline_s": 0.4,
+      "transition_path": [
+        "cut_shared_x",
+        "cut_y"
+      ],
+      "expected_commit": "EXECUTE",
+      "expected_attack_path_completed": false,
+      "control_semantics": "deadline_miss",
+      "expected_commit_by_policy": {
+        "balanced": "EXECUTE"
+      }
+    }
+  },
+  "provenance": {
+    "platform_basis": "Controlled synthetic policy structure used to isolate justification semantics.",
+    "incident_basis": "Multiple independent active or historical evidence bases support a pending response.",
+    "policy_basis": "Commit validity follows the explicit Boolean response policy.",
+    "limitations": "The exact Boolean structure is methodological and is not claimed as a universal SOC policy."
+  },
+  "severity": "S1",
+  "notes": "Held-out justification-structure template. | E15 derived concurrency overlay; frozen base scenario unchanged.",
+  "primary_policy": "balanced",
+  "justification_bases_by_policy": {
+    "balanced": [
+      [
+        "A",
+        "X"
+      ],
+      [
+        "B",
+        "X"
+      ],
+      [
+        "C",
+        "Y"
+      ]
+    ]
+  },
+  "justification_bases": [
+    [
+      "A",
+      "X"
+    ],
+    [
+      "B",
+      "X"
+    ],
+    [
+      "C",
+      "Y"
+    ]
+  ],
+  "parameterizations": [
+    {
+      "id": "P1",
+      "description": "Minimal topology with only essential resources and evidence."
+    },
+    {
+      "id": "P2",
+      "description": "Distractor topology with benign resources and irrelevant evidence."
+    },
+    {
+      "id": "P3",
+      "description": "Noisy SOC context with non-material alerts and unrelated transitions."
+    },
+    {
+      "id": "P4",
+      "description": "High-impact variant with larger benign background or higher criticality."
+    }
+  ],
+  "native_controls": [],
+  "refresh_model": {
+    "cost_unit": "normalized_query_unit",
+    "query_costs": {
+      "query:/facts/A": 1.0,
+      "query:/facts/B": 1.0,
+      "query:/facts/C": 1.0,
+      "query:/facts/X": 1.0,
+      "query:/facts/Y": 1.0
+    },
+    "predicate_query_ids": {
+      "A": "query:/facts/A",
+      "B": "query:/facts/B",
+      "C": "query:/facts/C",
+      "X": "query:/facts/X",
+      "Y": "query:/facts/Y"
+    },
+    "query_observed_at_s": {
+      "query:/facts/A": 0.0,
+      "query:/facts/B": 0.0,
+      "query:/facts/C": 0.0,
+      "query:/facts/X": 0.0,
+      "query:/facts/Y": 0.0
+    }
+  }
+}

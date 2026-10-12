@@ -1,0 +1,74 @@
+{
+ "experiment": "E46 target-state admission (A5v) versus whole-object binding (A4d)",
+ "seed": 46400113,
+ "blocks": [
+  {
+   "name": "inv",
+   "arms": [
+    "A5v",
+    "A4d"
+   ],
+   "delays_ms": [
+    0,
+    0.5,
+    1,
+    2,
+    3,
+    5,
+    10,
+    50
+   ],
+   "n": 60,
+   "n_control": 39
+  },
+  {
+   "name": "inv-hold20",
+   "arms": [
+    "A5v"
+   ],
+   "hold_ms": 20,
+   "delays_ms": [
+    0,
+    2,
+    5,
+    10,
+    40
+   ],
+   "n": 150,
+   "n_control": 39
+  },
+  {
+   "name": "benign",
+   "arms": [
+    "A5v",
+    "A4d"
+   ],
+   "cond": "benign",
+   "delays_ms": [
+    0,
+    0.5,
+    1,
+    2,
+    5
+   ],
+   "n": 60,
+   "n_control": 39
+  },
+  {
+   "name": "benign-hold20",
+   "arms": [
+    "A5v",
+    "A4d"
+   ],
+   "cond": "benign",
+   "hold_ms": 20,
+   "delays_ms": [
+    0,
+    5,
+    10
+   ],
+   "n": 60,
+   "n_control": 39
+  }
+ ]
+}

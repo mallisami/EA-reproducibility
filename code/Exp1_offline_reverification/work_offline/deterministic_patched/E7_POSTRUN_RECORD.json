@@ -1,0 +1,21 @@
+{
+  "results_version": "4.7.0-e7",
+  "protocol_deviations": [],
+  "basis_counts": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "delay_grid": [
+    0,
+    1,
+    2,
+    5,
+    10,
+    30
+  ],
+  "one_basis_construct": "derived from development F5.1",
+  "shared_predicate_control": "F5.4",
+  "validation_status": "PASS"
+}

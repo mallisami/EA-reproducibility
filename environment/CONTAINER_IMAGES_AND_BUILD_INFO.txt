@@ -1,0 +1,38 @@
+CONTAINER IMAGES (digests as recorded) AND GO BUILD INFO
+=========================================================
+
+A. kind clusters on the Azure experiment VM (E38v2, E39)
+   Host image (docker images --digests, 2026-09-26):
+     kindest/node   v1.37.0     sha256:a1ed56cfb0e7b93589bdf97c8cd566405a265939e3620fc4f5de89adff580ae5
+     python         3.12-slim   sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9  (webhook image base)
+   Images inside the E39 kind node (crictl images; IMAGE ID column):
+     registry.k8s.io/kube-apiserver            v1.37.0   bec5f0e1e2eeb
+     registry.k8s.io/kube-controller-manager   v1.37.0   364b3c3d9ec19
+     registry.k8s.io/kube-scheduler            v1.37.0   1fabf80a1273a
+     registry.k8s.io/kube-proxy                v1.37.0   d6a28daf3e6b0
+     registry.k8s.io/etcd                      3.7.0-0   270fbeb697171
+     registry.k8s.io/coredns/coredns           v1.14.6   520212b8b0fcd
+     registry.k8s.io/pause                     3.10      873ed75102791   (target Pod image)
+     docker.io/library/python                  3.12-slim 9e87977b86784
+     docker.io/kindest/kindnetd                v20260820-69b56db7   4626fe10df5b9
+     docker.io/kindest/local-path-provisioner  v20260820-69b56db7   c82008e2cd018
+     docker.io/kindest/local-path-helper       v20260131-7181c60a   19aa6a21b42cb
+   (Images of unrelated projects present on the same host are omitted.)
+
+B. AKS (E40), images pulled into the cluster (code/Exp7_E40/ops/IMAGES.txt)
+     registry.k8s.io/pause:3.10          sha256:ee6521f290b2168b6e0935a181d4cff9be1ac3f505666ef0e3c98fae8199917a
+     docker.io/library/python:3.12-slim  sha256:f77ac9e44ae96ef2c90b8053ea08c31f8be030f824196b0ae4db6d462c84e51f
+   Kubernetes server v1.36.3 (gitCommit 0f29094e5b73085e3802ecc1298ecae13866bfe6), kubectl client v1.37.0.
+   The in-cluster runner used a vendored wheel bundle (pylib.tgz: attrs, jsonschema, referencing, rpds-py,
+   typing_extensions ... exact versions = requirements/requirements-E39-E40-runner.txt). pylib.tgz is not
+   redistributed here (third-party code; its SHA-256 is recorded in LOCK_E40.json); rebuild it with
+   `pip download -r requirements/requirements-E39-E40-runner.txt`.
+
+C. E39-F client-go responder (code/Exp6_E39/src/goclient)
+     go_version: go1.27.1 linux/amd64
+     k8s.io/client-go v0.37.0, k8s.io/api v0.37.0, k8s.io/apimachinery v0.37.0, golang.org/x/sys v0.47.0
+     go.sum sha256: b71d045a9d9a5015db223bc978276e37f0050ab062ba64324ae52780c6cd4cfc
+     binary bin/e39-goclient sha256: 6c7a68fc972d0d9a60123a2d2e3d987d874df11ed07a23470e96d8afac7398b7
+     built_utc: 2026-09-26T13:47:11Z
+   The compiled binary is not included (rebuild: cd code/Exp6_E39/src/goclient && go build -o bin/e39-goclient .);
+   a rebuilt binary is not expected to be byte-identical unless the same toolchain and flags are used.

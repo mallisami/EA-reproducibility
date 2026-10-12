@@ -1,0 +1,301 @@
+{
+  "provenance": {
+    "source_tree_sha256_recomputed": "4ee6607fc9243ab4d413d8da50b2c3d1c07875bcd89da71a63c3d7ef0bc81ef4",
+    "source_tree_sha256_session": "4ee6607fc9243ab4d413d8da50b2c3d1c07875bcd89da71a63c3d7ef0bc81ef4",
+    "model_sha256_recomputed": "911425ef971a4cc42becd1eccf62120f0f45d0416fbbb746beef059dcf35260b",
+    "model_sha256_session": "911425ef971a4cc42becd1eccf62120f0f45d0416fbbb746beef059dcf35260b",
+    "runner_sha256_recomputed": "95f2d078471c87f4fd6f38edd114016090b879a6e2a23e511fc3dcde4aaa2fdb",
+    "runner_sha256_session": "95f2d078471c87f4fd6f38edd114016090b879a6e2a23e511fc3dcde4aaa2fdb",
+    "provenance_json_sha256": "c54f4331cf0d73e7cde1b5da564480bb4911d4889b4f06c9670e1da4efd3cb2f",
+    "source_tree_match": true,
+    "model_match": true,
+    "runner_match": true
+  },
+  "transitions": [
+    {
+      "id": "irrelevant_change",
+      "actor": "environment",
+      "tier": "NONE",
+      "duration_s": 0.1,
+      "cost": 0
+    },
+    {
+      "id": "cut_a",
+      "actor": "attacker",
+      "tier": "C2",
+      "duration_s": 0.6,
+      "cost": 1
+    },
+    {
+      "id": "cut_c",
+      "actor": "attacker",
+      "tier": "C2",
+      "duration_s": 0.6,
+      "cost": 1
+    },
+    {
+      "id": "cut_e",
+      "actor": "attacker",
+      "tier": "C2",
+      "duration_s": 0.6,
+      "cost": 1
+    },
+    {
+      "id": "uid_rebind",
+      "actor": "attacker",
+      "tier": "C2",
+      "duration_s": 0.6,
+      "cost": 1
+    },
+    {
+      "id": "scope_drift",
+      "actor": "attacker",
+      "tier": "C2",
+      "duration_s": 0.6,
+      "cost": 1
+    }
+  ],
+  "horizons": {
+    "0.5": {
+      "status": "NOT_EXPLOITABLE",
+      "goal_count": 0,
+      "expanded": 1,
+      "subset_evals": 0,
+      "critical_predicates": [],
+      "certificate": [],
+      "query_cost_units": 0.0,
+      "candidate_query_ids": []
+    },
+    "1.0": {
+      "status": "EXPLOITABLE",
+      "goal_count": 2,
+      "expanded": 6,
+      "subset_evals": 4,
+      "critical_predicates": [
+        "p_binding",
+        "p_scope"
+      ],
+      "certificate": [
+        "scope",
+        "uid"
+      ],
+      "query_cost_units": 2.0,
+      "candidate_query_ids": [
+        "query:/facts/current_uid",
+        "query:/facts/scope_ok"
+      ]
+    },
+    "2.0": {
+      "status": "EXPLOITABLE",
+      "goal_count": 19,
+      "expanded": 26,
+      "subset_evals": 32,
+      "critical_predicates": [
+        "flag_a",
+        "flag_c",
+        "flag_e",
+        "p_binding",
+        "p_scope"
+      ],
+      "certificate": [
+        "a",
+        "c",
+        "e",
+        "scope",
+        "uid"
+      ],
+      "query_cost_units": 5.0,
+      "candidate_query_ids": [
+        "query:/facts/current_uid",
+        "query:/facts/flag_a",
+        "query:/facts/flag_c",
+        "query:/facts/flag_e",
+        "query:/facts/scope_ok"
+      ]
+    },
+    "5.0": {
+      "status": "EXPLOITABLE",
+      "goal_count": 25,
+      "expanded": 32,
+      "subset_evals": 32,
+      "critical_predicates": [
+        "flag_a",
+        "flag_c",
+        "flag_e",
+        "p_binding",
+        "p_scope"
+      ],
+      "certificate": [
+        "a",
+        "c",
+        "e",
+        "scope",
+        "uid"
+      ],
+      "query_cost_units": 5.0,
+      "candidate_query_ids": [
+        "query:/facts/current_uid",
+        "query:/facts/flag_a",
+        "query:/facts/flag_c",
+        "query:/facts/flag_e",
+        "query:/facts/scope_ok"
+      ]
+    },
+    "10.0": {
+      "status": "EXPLOITABLE",
+      "goal_count": 25,
+      "expanded": 32,
+      "subset_evals": 32,
+      "critical_predicates": [
+        "flag_a",
+        "flag_c",
+        "flag_e",
+        "p_binding",
+        "p_scope"
+      ],
+      "certificate": [
+        "a",
+        "c",
+        "e",
+        "scope",
+        "uid"
+      ],
+      "query_cost_units": 5.0,
+      "candidate_query_ids": [
+        "query:/facts/current_uid",
+        "query:/facts/flag_a",
+        "query:/facts/flag_c",
+        "query:/facts/flag_e",
+        "query:/facts/scope_ok"
+      ]
+    },
+    "30.0": {
+      "status": "EXPLOITABLE",
+      "goal_count": 25,
+      "expanded": 32,
+      "subset_evals": 32,
+      "critical_predicates": [
+        "flag_a",
+        "flag_c",
+        "flag_e",
+        "p_binding",
+        "p_scope"
+      ],
+      "certificate": [
+        "a",
+        "c",
+        "e",
+        "scope",
+        "uid"
+      ],
+      "query_cost_units": 5.0,
+      "candidate_query_ids": [
+        "query:/facts/current_uid",
+        "query:/facts/flag_a",
+        "query:/facts/flag_c",
+        "query:/facts/flag_e",
+        "query:/facts/scope_ok"
+      ]
+    },
+    "60.0": {
+      "status": "EXPLOITABLE",
+      "goal_count": 25,
+      "expanded": 32,
+      "subset_evals": 32,
+      "critical_predicates": [
+        "flag_a",
+        "flag_c",
+        "flag_e",
+        "p_binding",
+        "p_scope"
+      ],
+      "certificate": [
+        "a",
+        "c",
+        "e",
+        "scope",
+        "uid"
+      ],
+      "query_cost_units": 5.0,
+      "candidate_query_ids": [
+        "query:/facts/current_uid",
+        "query:/facts/flag_a",
+        "query:/facts/flag_c",
+        "query:/facts/flag_e",
+        "query:/facts/scope_ok"
+      ]
+    }
+  },
+  "timing": {
+    "derive_critical_predicates_H5_ms": {
+      "n": 20,
+      "median_ms": 34.0440015,
+      "min_ms": 20.64873,
+      "max_ms": 52.302898,
+      "mean_ms": 34.2314063
+    },
+    "derive_critical_predicates_H30_ms": {
+      "n": 20,
+      "median_ms": 28.6988265,
+      "min_ms": 20.01042,
+      "max_ms": 30.974322,
+      "mean_ms": 27.23464315
+    },
+    "frozen_planner_certificate_end_to_end_ms(H5,incl model build+independent oracle)": {
+      "n": 20,
+      "median_ms": 34.042893,
+      "min_ms": 18.852785,
+      "max_ms": 63.163277,
+      "mean_ms": 34.8925239
+    },
+    "independent_exact_minimum_ms": {
+      "n": 20,
+      "median_ms": 1.5815875,
+      "min_ms": 1.362671,
+      "max_ms": 7.738891,
+      "mean_ms": 2.1233393
+    },
+    "host": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+    "python": "3.12.3"
+  },
+  "frozen_planner_certificate": {
+    "observations": [
+      "a",
+      "c",
+      "e",
+      "uid",
+      "scope"
+    ],
+    "goal_count": 25,
+    "independent_exact_minima": [
+      [
+        "a",
+        "c",
+        "e",
+        "uid",
+        "scope"
+      ]
+    ]
+  },
+  "independent_minimum_asymmetric": [
+    [
+      "a",
+      "c",
+      "e",
+      "uid",
+      "scope"
+    ]
+  ],
+  "independent_minimum_symmetric": [
+    [
+      "a",
+      "b",
+      "c",
+      "d",
+      "e",
+      "f",
+      "uid",
+      "scope"
+    ]
+  ]
+}

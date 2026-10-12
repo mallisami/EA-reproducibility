@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: flashir-malicious
+  namespace: flashir-e13
+  labels:
+    app: flashir-scope
+    flashir-quarantine: "true"
+    flashir-role: malicious
+spec:
+  nodeName: flashir-nonexistent
+  containers:
+  - name: hold
+    image: registry.k8s.io/pause:3.10.1
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: flashir-benign
+  namespace: flashir-e13
+  labels:
+    app: flashir-scope
+    flashir-quarantine: "false"
+    flashir-role: benign
+spec:
+  nodeName: flashir-nonexistent
+  containers:
+  - name: hold
+    image: registry.k8s.io/pause:3.10.1

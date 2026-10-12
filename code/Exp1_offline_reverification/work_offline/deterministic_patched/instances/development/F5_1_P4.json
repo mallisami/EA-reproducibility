@@ -1,0 +1,514 @@
+{
+  "instance_id": "F5.1-P4",
+  "template_id": "F5.1",
+  "parameterization_id": "P4",
+  "split": "development",
+  "materialization_version": "3.1.0",
+  "causal_core_hash": "b39ff3b1d8188d39eba46a65b79165e28be72c93aba7d066cfd76e88f52bbe6a",
+  "template_hash": "6ee0d39f0bfa5847dd0565a56c8f8a28b66cc6606d5b604d2885b6192a041700",
+  "scenario": {
+    "scenario_id": "F5.1",
+    "title": "Two Independent Active-Threat Bases",
+    "family": "F5",
+    "realism_tier": "R3",
+    "development": true,
+    "action": {
+      "action_type": "quarantine_workload",
+      "target_reference": "workload/U1",
+      "target_snapshot": {
+        "uid": "U1"
+      },
+      "queue_semantics": "single_exactly_once_attempt",
+      "authorization": {
+        "predicate": "p_authorized",
+        "must_remain_valid": true
+      },
+      "execution_precondition": true
+    },
+    "attacker_capability_tier": "C1",
+    "initial_state": {
+      "timestamp_s": 0,
+      "facts": {
+        "active_c2": true,
+        "malicious_process_active": true,
+        "credential_misuse_current": true,
+        "privileged_session_active": true,
+        "confirmed_compromise_history": true,
+        "irrelevant_alert": false,
+        "action_authorized": true,
+        "materialization_benign_resource_count": 6,
+        "materialization_high_impact": true,
+        "materialization_irrelevant_1": true,
+        "materialization_irrelevant_2": true
+      },
+      "resources": [
+        {
+          "kind": "SyntheticBenignResource",
+          "name": "benign-1",
+          "uid": "BENIGN-F5.1-1",
+          "active": true,
+          "security_state": "clean",
+          "criticality": "low"
+        },
+        {
+          "kind": "SyntheticBenignResource",
+          "name": "benign-2",
+          "uid": "BENIGN-F5.1-2",
+          "active": true,
+          "security_state": "clean",
+          "criticality": "low"
+        },
+        {
+          "kind": "SyntheticBenignResource",
+          "name": "benign-3",
+          "uid": "BENIGN-F5.1-3",
+          "active": true,
+          "security_state": "clean",
+          "criticality": "low"
+        },
+        {
+          "kind": "SyntheticBenignResource",
+          "name": "benign-4",
+          "uid": "BENIGN-F5.1-4",
+          "active": true,
+          "security_state": "clean",
+          "criticality": "low"
+        },
+        {
+          "kind": "SyntheticBenignResource",
+          "name": "benign-5",
+          "uid": "BENIGN-F5.1-5",
+          "active": true,
+          "security_state": "clean",
+          "criticality": "low"
+        },
+        {
+          "kind": "SyntheticBenignResource",
+          "name": "benign-6",
+          "uid": "BENIGN-F5.1-6",
+          "active": true,
+          "security_state": "clean",
+          "criticality": "low"
+        },
+        {
+          "kind": "SyntheticBenignResource",
+          "name": "critical-benign-1",
+          "uid": "CRIT-F5.1-1",
+          "active": true,
+          "security_state": "clean",
+          "criticality": "high"
+        },
+        {
+          "kind": "SyntheticBenignResource",
+          "name": "critical-benign-2",
+          "uid": "CRIT-F5.1-2",
+          "active": true,
+          "security_state": "clean",
+          "criticality": "high"
+        },
+        {
+          "kind": "SyntheticBenignResource",
+          "name": "critical-benign-3",
+          "uid": "CRIT-F5.1-3",
+          "active": true,
+          "security_state": "clean",
+          "criticality": "medium"
+        },
+        {
+          "kind": "SyntheticBenignResource",
+          "name": "critical-benign-4",
+          "uid": "CRIT-F5.1-4",
+          "active": true,
+          "security_state": "clean",
+          "criticality": "medium"
+        },
+        {
+          "kind": "SyntheticBenignResource",
+          "name": "critical-benign-5",
+          "uid": "CRIT-F5.1-5",
+          "active": true,
+          "security_state": "clean",
+          "criticality": "medium"
+        },
+        {
+          "kind": "SyntheticBenignResource",
+          "name": "critical-benign-6",
+          "uid": "CRIT-F5.1-6",
+          "active": true,
+          "security_state": "clean",
+          "criticality": "medium"
+        }
+      ],
+      "processes": [],
+      "network_bindings": [],
+      "sessions": [],
+      "context": {
+        "materialization": {
+          "parameterization_id": "P4",
+          "template_id": "F5.1",
+          "description": "High-impact background topology."
+        },
+        "business_impact": {
+          "service_tier": "tier-1",
+          "benign_dependency_count": 6,
+          "recovery_priority": "high"
+        }
+      },
+      "evidence": [
+        {
+          "evidence_id": "MAT-IRR-1",
+          "predicate": "materialization_irrelevant_1",
+          "evidence_class": "S",
+          "source": "synthetic-background",
+          "observed_at_s": 0,
+          "subject_uid": null,
+          "truth_value": true,
+          "supersedes": null
+        },
+        {
+          "evidence_id": "MAT-IRR-2",
+          "predicate": "materialization_irrelevant_2",
+          "evidence_class": "S",
+          "source": "synthetic-background",
+          "observed_at_s": 0,
+          "subject_uid": null,
+          "truth_value": true,
+          "supersedes": null
+        }
+      ],
+      "queue": []
+    },
+    "predicates": {
+      "p_c2": {
+        "path": "/facts/active_c2",
+        "op": "eq",
+        "value": true,
+        "evidence_class": "L",
+        "description": "Current C2."
+      },
+      "p_malproc": {
+        "path": "/facts/malicious_process_active",
+        "op": "eq",
+        "value": true,
+        "evidence_class": "L",
+        "description": "Current malicious process."
+      },
+      "p_cred": {
+        "path": "/facts/credential_misuse_current",
+        "op": "eq",
+        "value": true,
+        "evidence_class": "L",
+        "description": "Current credential misuse."
+      },
+      "p_session": {
+        "path": "/facts/privileged_session_active",
+        "op": "eq",
+        "value": true,
+        "evidence_class": "L",
+        "description": "Current privileged malicious session."
+      },
+      "p_history": {
+        "path": "/facts/confirmed_compromise_history",
+        "op": "eq",
+        "value": true,
+        "evidence_class": "H",
+        "description": "Historical confirmed compromise."
+      },
+      "p_authorized": {
+        "path": "/facts/action_authorized",
+        "op": "eq",
+        "value": true,
+        "evidence_class": "DERIVED",
+        "description": "Response executor remains technically authorized."
+      }
+    },
+    "policy_profiles": {
+      "balanced": {
+        "justification": {
+          "any": [
+            {
+              "all": [
+                {
+                  "predicate": "p_c2"
+                },
+                {
+                  "predicate": "p_malproc"
+                }
+              ]
+            },
+            {
+              "all": [
+                {
+                  "predicate": "p_cred"
+                },
+                {
+                  "predicate": "p_session"
+                }
+              ]
+            }
+          ]
+        },
+        "binding": true,
+        "scope": true
+      },
+      "conservative": {
+        "justification": {
+          "any": [
+            {
+              "predicate": "p_history"
+            },
+            {
+              "all": [
+                {
+                  "predicate": "p_c2"
+                },
+                {
+                  "predicate": "p_malproc"
+                }
+              ]
+            },
+            {
+              "all": [
+                {
+                  "predicate": "p_cred"
+                },
+                {
+                  "predicate": "p_session"
+                }
+              ]
+            }
+          ]
+        },
+        "binding": true,
+        "scope": true
+      },
+      "aggressive": {
+        "justification": {
+          "any": [
+            {
+              "predicate": "p_c2"
+            },
+            {
+              "predicate": "p_cred"
+            }
+          ]
+        },
+        "binding": true,
+        "scope": true
+      }
+    },
+    "primary_policy": "balanced",
+    "justification_bases": [
+      [
+        "p_c2",
+        "p_malproc"
+      ],
+      [
+        "p_cred",
+        "p_session"
+      ]
+    ],
+    "transitions": [
+      {
+        "transition_id": "irrelevant_alert_change",
+        "title": "Unrelated alert appears",
+        "actor": "environment",
+        "capability_tier": "NONE",
+        "duration_s": 0.1,
+        "cost_ops": 0,
+        "preconditions": true,
+        "effects": [
+          {
+            "op": "set",
+            "path": "/facts/irrelevant_alert",
+            "value": true
+          }
+        ],
+        "notes": "",
+        "adversarially_induced": false,
+        "causal_parent_ids": []
+      },
+      {
+        "transition_id": "close_c2",
+        "title": "Attacker closes C2",
+        "actor": "attacker",
+        "capability_tier": "C1",
+        "duration_s": 0.6,
+        "cost_ops": 1,
+        "preconditions": true,
+        "effects": [
+          {
+            "op": "set",
+            "path": "/facts/active_c2",
+            "value": false
+          }
+        ],
+        "notes": "",
+        "adversarially_induced": true,
+        "causal_parent_ids": []
+      },
+      {
+        "transition_id": "terminate_privileged_session",
+        "title": "Attacker terminates malicious privileged session",
+        "actor": "attacker",
+        "capability_tier": "C1",
+        "duration_s": 0.7,
+        "cost_ops": 1,
+        "preconditions": true,
+        "effects": [
+          {
+            "op": "set",
+            "path": "/facts/privileged_session_active",
+            "value": false
+          }
+        ],
+        "notes": "",
+        "adversarially_induced": true,
+        "causal_parent_ids": []
+      }
+    ],
+    "worlds": {
+      "W0": {
+        "commit_deadline_s": 3,
+        "transition_path": [],
+        "expected_commit": "EXECUTE",
+        "expected_attack_path_completed": false,
+        "control_semantics": "stable",
+        "expected_commit_by_policy": {
+          "balanced": "EXECUTE",
+          "conservative": "EXECUTE",
+          "aggressive": "EXECUTE"
+        }
+      },
+      "W1": {
+        "commit_deadline_s": 3,
+        "transition_path": [
+          "irrelevant_alert_change"
+        ],
+        "expected_commit": "EXECUTE",
+        "expected_attack_path_completed": false,
+        "control_semantics": "irrelevant_change",
+        "expected_commit_by_policy": {
+          "balanced": "EXECUTE",
+          "conservative": "EXECUTE",
+          "aggressive": "EXECUTE"
+        }
+      },
+      "W2": {
+        "commit_deadline_s": 3,
+        "transition_path": [
+          "close_c2",
+          "terminate_privileged_session"
+        ],
+        "expected_commit": "ABORT_REPLAN",
+        "expected_attack_path_completed": true,
+        "control_semantics": "ea_toctou",
+        "expected_commit_by_policy": {
+          "balanced": "ABORT_REPLAN",
+          "conservative": "EXECUTE",
+          "aggressive": "EXECUTE"
+        }
+      },
+      "W3": {
+        "commit_deadline_s": 0.5,
+        "transition_path": [
+          "close_c2",
+          "terminate_privileged_session"
+        ],
+        "expected_commit": "EXECUTE",
+        "expected_attack_path_completed": false,
+        "control_semantics": "deadline_miss",
+        "expected_commit_by_policy": {
+          "balanced": "EXECUTE",
+          "conservative": "EXECUTE",
+          "aggressive": "EXECUTE"
+        }
+      }
+    },
+    "parameterizations": [
+      {
+        "id": "P1",
+        "description": "Minimal topology with only essential resources and evidence."
+      },
+      {
+        "id": "P2",
+        "description": "Distractor topology with benign resources and irrelevant evidence."
+      },
+      {
+        "id": "P3",
+        "description": "Noisy SOC context with non-material alerts and unrelated transitions."
+      },
+      {
+        "id": "P4",
+        "description": "High-impact variant with larger benign background or higher criticality."
+      }
+    ],
+    "provenance": {
+      "platform_basis": "Controlled synthetic justification structure.",
+      "incident_basis": "Two independent current-threat rationales support temporary quarantine.",
+      "policy_basis": "Balanced policy requires at least one complete active-threat basis; conservative profile additionally treats historical compromise as independently sufficient.",
+      "limitations": "Methodological scenario; exact Boolean policy is not claimed as universal."
+    },
+    "severity": "S1",
+    "notes": "Policy-sensitivity/all-bases development case.",
+    "justification_bases_by_policy": {
+      "balanced": [
+        [
+          "p_c2",
+          "p_malproc"
+        ],
+        [
+          "p_cred",
+          "p_session"
+        ]
+      ],
+      "conservative": [
+        [
+          "p_history"
+        ],
+        [
+          "p_c2",
+          "p_malproc"
+        ],
+        [
+          "p_cred",
+          "p_session"
+        ]
+      ],
+      "aggressive": [
+        [
+          "p_c2"
+        ],
+        [
+          "p_cred"
+        ]
+      ]
+    },
+    "refresh_model": {
+      "cost_unit": "normalized_query_unit",
+      "query_costs": {
+        "query:/facts/active_c2": 1.0,
+        "query:/facts/credential_misuse_current": 1.0,
+        "immutable:p_history": 0.0,
+        "query:/facts/malicious_process_active": 1.0,
+        "query:/facts/privileged_session_active": 1.0
+      },
+      "predicate_query_ids": {
+        "p_c2": "query:/facts/active_c2",
+        "p_cred": "query:/facts/credential_misuse_current",
+        "p_history": "immutable:p_history",
+        "p_malproc": "query:/facts/malicious_process_active",
+        "p_session": "query:/facts/privileged_session_active"
+      },
+      "query_observed_at_s": {
+        "query:/facts/active_c2": 0.0,
+        "query:/facts/credential_misuse_current": 0.0,
+        "immutable:p_history": 0.0,
+        "query:/facts/malicious_process_active": 0.0,
+        "query:/facts/privileged_session_active": 0.0
+      }
+    },
+    "native_controls": [],
+    "scenario_role": "positive_ea_toctou"
+  }
+}

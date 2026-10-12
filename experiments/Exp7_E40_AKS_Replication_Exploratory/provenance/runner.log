@@ -1,0 +1,157 @@
+2026-09-26T17:45:03Z E40 START run_id=a20260926 trials=2019 identities={'responder': 'system:serviceaccount:e40-system:e40-responder', 'writer': 'system:serviceaccount:e40-system:e40-writer', 'reset': 'system:serviceaccount:e40-system:e40-reset', 'mirror': 'system:serviceaccount:e40-system:e40-mirror'} lock=LOCKED api=https://10.0.0.1:443
+2026-09-26T17:45:44Z PROGRESS 50/54 (total recorded 50) infra=0 elapsed=41s rate=0.811s/trial mem_kb=6886708
+2026-09-26T17:45:47Z PROGRESS 54/54 (total recorded 54) infra=0 elapsed=44s rate=0.813s/trial mem_kb=6890904
+2026-09-26T17:45:47Z BLOCK 0 done: {"written": 54, "infra": 0, "aborted": null, "skipped_recorded": 0, "elapsed_s": 43.9} (cum written 54 infra 0)
+2026-09-26T17:45:47Z RESUME: 54 trials already recorded, 54 to run
+2026-09-26T17:46:26Z PROGRESS 50/54 (total recorded 104) infra=0 elapsed=39s rate=0.785s/trial mem_kb=6847296
+2026-09-26T17:46:30Z PROGRESS 54/54 (total recorded 108) infra=0 elapsed=43s rate=0.804s/trial mem_kb=6850588
+2026-09-26T17:46:30Z BLOCK 1 done: {"written": 54, "infra": 0, "aborted": null, "skipped_recorded": 0, "elapsed_s": 43.4} (cum written 108 infra 0)
+2026-09-26T17:46:30Z RESUME: 108 trials already recorded, 54 to run
+2026-09-26T17:47:13Z PROGRESS 50/54 (total recorded 158) infra=0 elapsed=42s rate=0.847s/trial mem_kb=6833272
+2026-09-26T17:47:16Z PROGRESS 54/54 (total recorded 162) infra=0 elapsed=45s rate=0.840s/trial mem_kb=6852612
+2026-09-26T17:47:16Z BLOCK 2 done: {"written": 54, "infra": 0, "aborted": null, "skipped_recorded": 0, "elapsed_s": 45.4} (cum written 162 infra 0)
+2026-09-26T17:47:16Z RESUME: 162 trials already recorded, 54 to run
+2026-09-26T17:47:59Z PROGRESS 50/54 (total recorded 212) infra=0 elapsed=43s rate=0.863s/trial mem_kb=6812884
+2026-09-26T17:48:03Z PROGRESS 54/54 (total recorded 216) infra=0 elapsed=47s rate=0.867s/trial mem_kb=6821832
+2026-09-26T17:48:03Z BLOCK 3 done: {"written": 54, "infra": 0, "aborted": null, "skipped_recorded": 0, "elapsed_s": 46.8} (cum written 216 infra 0)
+2026-09-26T17:48:03Z RESUME: 216 trials already recorded, 54 to run
+2026-09-26T17:48:45Z PROGRESS 50/54 (total recorded 266) infra=0 elapsed=42s rate=0.842s/trial mem_kb=6820900
+2026-09-26T17:48:49Z PROGRESS 54/54 (total recorded 270) infra=0 elapsed=46s rate=0.852s/trial mem_kb=6818124
+2026-09-26T17:48:49Z BLOCK 4 done: {"written": 54, "infra": 0, "aborted": null, "skipped_recorded": 0, "elapsed_s": 46.0} (cum written 270 infra 0)
+2026-09-26T17:48:49Z RESUME: 270 trials already recorded, 54 to run
+2026-09-26T17:49:34Z PROGRESS 50/54 (total recorded 320) infra=0 elapsed=46s rate=0.912s/trial mem_kb=6792128
+2026-09-26T17:49:38Z PROGRESS 54/54 (total recorded 324) infra=0 elapsed=49s rate=0.906s/trial mem_kb=6812480
+2026-09-26T17:49:38Z BLOCK 5 done: {"written": 54, "infra": 0, "aborted": null, "skipped_recorded": 0, "elapsed_s": 48.9} (cum written 324 infra 0)
+2026-09-26T17:49:38Z RESUME: 324 trials already recorded, 54 to run
+2026-09-26T17:50:19Z PROGRESS 50/54 (total recorded 374) infra=0 elapsed=42s rate=0.835s/trial mem_kb=6808100
+2026-09-26T17:50:23Z PROGRESS 54/54 (total recorded 378) infra=0 elapsed=45s rate=0.834s/trial mem_kb=6805712
+2026-09-26T17:50:23Z BLOCK 6 done: {"written": 54, "infra": 0, "aborted": null, "skipped_recorded": 0, "elapsed_s": 45.1} (cum written 378 infra 0)
+2026-09-26T17:50:23Z RESUME: 378 trials already recorded, 54 to run
+2026-09-26T17:51:08Z PROGRESS 50/54 (total recorded 428) infra=0 elapsed=45s rate=0.907s/trial mem_kb=6813700
+2026-09-26T17:51:11Z PROGRESS 54/54 (total recorded 432) infra=0 elapsed=49s rate=0.901s/trial mem_kb=6807464
+2026-09-26T17:51:11Z BLOCK 7 done: {"written": 54, "infra": 0, "aborted": null, "skipped_recorded": 0, "elapsed_s": 48.7} (cum written 432 infra 0)
+2026-09-26T17:51:11Z RESUME: 432 trials already recorded, 54 to run
+2026-09-26T17:51:54Z PROGRESS 50/54 (total recorded 482) infra=0 elapsed=43s rate=0.854s/trial mem_kb=6770876
+2026-09-26T17:51:59Z PROGRESS 54/54 (total recorded 486) infra=0 elapsed=47s rate=0.874s/trial mem_kb=6768284
+2026-09-26T17:51:59Z BLOCK 8 done: {"written": 54, "infra": 0, "aborted": null, "skipped_recorded": 0, "elapsed_s": 47.2} (cum written 486 infra 0)
+2026-09-26T17:51:59Z RESUME: 486 trials already recorded, 54 to run
+2026-09-26T17:52:43Z PROGRESS 50/54 (total recorded 536) infra=0 elapsed=44s rate=0.888s/trial mem_kb=6789664
+2026-09-26T17:52:46Z PROGRESS 54/54 (total recorded 540) infra=0 elapsed=48s rate=0.880s/trial mem_kb=6805996
+2026-09-26T17:52:46Z BLOCK 9 done: {"written": 54, "infra": 0, "aborted": null, "skipped_recorded": 0, "elapsed_s": 47.5} (cum written 540 infra 0)
+2026-09-26T17:52:46Z RESUME: 540 trials already recorded, 51 to run
+2026-09-26T17:53:27Z PROGRESS 50/51 (total recorded 590) infra=0 elapsed=41s rate=0.818s/trial mem_kb=6812928
+2026-09-26T17:53:28Z PROGRESS 51/51 (total recorded 591) infra=0 elapsed=42s rate=0.818s/trial mem_kb=6814276
+2026-09-26T17:53:28Z BLOCK 10 done: {"written": 51, "infra": 0, "aborted": null, "skipped_recorded": 0, "elapsed_s": 41.7} (cum written 591 infra 0)
+2026-09-26T17:53:28Z RESUME: 591 trials already recorded, 51 to run
+2026-09-26T17:54:08Z PROGRESS 50/51 (total recorded 641) infra=0 elapsed=40s rate=0.798s/trial mem_kb=6790700
+2026-09-26T17:54:09Z PROGRESS 51/51 (total recorded 642) infra=0 elapsed=41s rate=0.797s/trial mem_kb=6783564
+2026-09-26T17:54:09Z BLOCK 11 done: {"written": 51, "infra": 0, "aborted": null, "skipped_recorded": 0, "elapsed_s": 40.6} (cum written 642 infra 0)
+2026-09-26T17:54:09Z RESUME: 642 trials already recorded, 51 to run
+2026-09-26T17:54:50Z PROGRESS 50/51 (total recorded 692) infra=0 elapsed=42s rate=0.837s/trial mem_kb=6794276
+2026-09-26T17:54:52Z PROGRESS 51/51 (total recorded 693) infra=0 elapsed=43s rate=0.840s/trial mem_kb=6784172
+2026-09-26T17:54:52Z BLOCK 12 done: {"written": 51, "infra": 0, "aborted": null, "skipped_recorded": 0, "elapsed_s": 42.9} (cum written 693 infra 0)
+2026-09-26T17:54:52Z RESUME: 693 trials already recorded, 51 to run
+2026-09-26T17:55:31Z PROGRESS 50/51 (total recorded 743) infra=0 elapsed=39s rate=0.781s/trial mem_kb=6799064
+2026-09-26T17:55:31Z PROGRESS 51/51 (total recorded 744) infra=0 elapsed=40s rate=0.781s/trial mem_kb=6792448
+2026-09-26T17:55:31Z BLOCK 13 done: {"written": 51, "infra": 0, "aborted": null, "skipped_recorded": 0, "elapsed_s": 39.8} (cum written 744 infra 0)
+2026-09-26T17:55:31Z RESUME: 744 trials already recorded, 51 to run
+2026-09-26T17:56:12Z PROGRESS 50/51 (total recorded 794) infra=0 elapsed=41s rate=0.818s/trial mem_kb=6804252
+2026-09-26T17:56:13Z PROGRESS 51/51 (total recorded 795) infra=0 elapsed=42s rate=0.822s/trial mem_kb=6803536
+2026-09-26T17:56:13Z BLOCK 14 done: {"written": 51, "infra": 0, "aborted": null, "skipped_recorded": 0, "elapsed_s": 41.9} (cum written 795 infra 0)
+2026-09-26T17:56:13Z RESUME: 795 trials already recorded, 51 to run
+2026-09-26T17:56:53Z PROGRESS 50/51 (total recorded 845) infra=0 elapsed=39s rate=0.790s/trial mem_kb=6792252
+2026-09-26T17:56:54Z PROGRESS 51/51 (total recorded 846) infra=0 elapsed=40s rate=0.786s/trial mem_kb=6781052
+2026-09-26T17:56:54Z BLOCK 15 done: {"written": 51, "infra": 0, "aborted": null, "skipped_recorded": 0, "elapsed_s": 40.1} (cum written 846 infra 0)
+2026-09-26T17:56:54Z RESUME: 846 trials already recorded, 51 to run
+2026-09-26T17:57:36Z PROGRESS 50/51 (total recorded 896) infra=0 elapsed=43s rate=0.857s/trial mem_kb=6794912
+2026-09-26T17:57:38Z PROGRESS 51/51 (total recorded 897) infra=0 elapsed=44s rate=0.861s/trial mem_kb=6784204
+2026-09-26T17:57:38Z BLOCK 16 done: {"written": 51, "infra": 0, "aborted": null, "skipped_recorded": 0, "elapsed_s": 43.9} (cum written 897 infra 0)
+2026-09-26T17:57:38Z RESUME: 897 trials already recorded, 51 to run
+2026-09-26T17:58:18Z PROGRESS 50/51 (total recorded 947) infra=0 elapsed=40s rate=0.809s/trial mem_kb=6792136
+2026-09-26T17:58:19Z PROGRESS 51/51 (total recorded 948) infra=0 elapsed=41s rate=0.809s/trial mem_kb=6799604
+2026-09-26T17:58:19Z BLOCK 17 done: {"written": 51, "infra": 0, "aborted": null, "skipped_recorded": 0, "elapsed_s": 41.3} (cum written 948 infra 0)
+2026-09-26T17:58:19Z RESUME: 948 trials already recorded, 51 to run
+2026-09-26T17:59:02Z PROGRESS 50/51 (total recorded 998) infra=0 elapsed=43s rate=0.864s/trial mem_kb=6791788
+2026-09-26T17:59:03Z PROGRESS 51/51 (total recorded 999) infra=0 elapsed=44s rate=0.864s/trial mem_kb=6792284
+2026-09-26T17:59:03Z BLOCK 18 done: {"written": 51, "infra": 0, "aborted": null, "skipped_recorded": 0, "elapsed_s": 44.1} (cum written 999 infra 0)
+2026-09-26T17:59:03Z RESUME: 999 trials already recorded, 51 to run
+2026-09-26T17:59:43Z PROGRESS 50/51 (total recorded 1049) infra=0 elapsed=40s rate=0.804s/trial mem_kb=6785896
+2026-09-26T17:59:44Z PROGRESS 51/51 (total recorded 1050) infra=0 elapsed=41s rate=0.800s/trial mem_kb=6792636
+2026-09-26T17:59:44Z BLOCK 19 done: {"written": 51, "infra": 0, "aborted": null, "skipped_recorded": 0, "elapsed_s": 40.8} (cum written 1050 infra 0)
+2026-09-26T17:59:44Z RESUME: 1050 trials already recorded, 51 to run
+2026-09-26T18:00:27Z PROGRESS 50/51 (total recorded 1100) infra=0 elapsed=43s rate=0.869s/trial mem_kb=6799420
+2026-09-26T18:00:28Z PROGRESS 51/51 (total recorded 1101) infra=0 elapsed=44s rate=0.867s/trial mem_kb=6798444
+2026-09-26T18:00:28Z BLOCK 20 done: {"written": 51, "infra": 0, "aborted": null, "skipped_recorded": 0, "elapsed_s": 44.2} (cum written 1101 infra 0)
+2026-09-26T18:00:28Z RESUME: 1101 trials already recorded, 51 to run
+2026-09-26T18:01:07Z PROGRESS 50/51 (total recorded 1151) infra=0 elapsed=39s rate=0.774s/trial mem_kb=6774820
+2026-09-26T18:01:07Z PROGRESS 51/51 (total recorded 1152) infra=0 elapsed=39s rate=0.772s/trial mem_kb=6779252
+2026-09-26T18:01:07Z BLOCK 21 done: {"written": 51, "infra": 0, "aborted": null, "skipped_recorded": 0, "elapsed_s": 39.4} (cum written 1152 infra 0)
+2026-09-26T18:01:08Z RESUME: 1152 trials already recorded, 51 to run
+2026-09-26T18:01:50Z PROGRESS 50/51 (total recorded 1202) infra=0 elapsed=43s rate=0.853s/trial mem_kb=6784736
+2026-09-26T18:01:51Z PROGRESS 51/51 (total recorded 1203) infra=0 elapsed=43s rate=0.849s/trial mem_kb=6778408
+2026-09-26T18:01:51Z BLOCK 22 done: {"written": 51, "infra": 0, "aborted": null, "skipped_recorded": 0, "elapsed_s": 43.3} (cum written 1203 infra 0)
+2026-09-26T18:01:51Z RESUME: 1203 trials already recorded, 51 to run
+2026-09-26T18:02:31Z PROGRESS 50/51 (total recorded 1253) infra=0 elapsed=40s rate=0.802s/trial mem_kb=6778912
+2026-09-26T18:02:32Z PROGRESS 51/51 (total recorded 1254) infra=0 elapsed=41s rate=0.800s/trial mem_kb=6774088
+2026-09-26T18:02:32Z BLOCK 23 done: {"written": 51, "infra": 0, "aborted": null, "skipped_recorded": 0, "elapsed_s": 40.8} (cum written 1254 infra 0)
+2026-09-26T18:02:32Z RESUME: 1254 trials already recorded, 51 to run
+2026-09-26T18:03:15Z PROGRESS 50/51 (total recorded 1304) infra=0 elapsed=44s rate=0.871s/trial mem_kb=6793180
+2026-09-26T18:03:16Z PROGRESS 51/51 (total recorded 1305) infra=0 elapsed=44s rate=0.870s/trial mem_kb=6797056
+2026-09-26T18:03:16Z BLOCK 24 done: {"written": 51, "infra": 0, "aborted": null, "skipped_recorded": 0, "elapsed_s": 44.4} (cum written 1305 infra 0)
+2026-09-26T18:03:16Z RESUME: 1305 trials already recorded, 51 to run
+2026-09-26T18:03:56Z PROGRESS 50/51 (total recorded 1355) infra=0 elapsed=40s rate=0.798s/trial mem_kb=6780820
+2026-09-26T18:03:57Z PROGRESS 51/51 (total recorded 1356) infra=0 elapsed=41s rate=0.798s/trial mem_kb=6775212
+2026-09-26T18:03:57Z BLOCK 25 done: {"written": 51, "infra": 0, "aborted": null, "skipped_recorded": 0, "elapsed_s": 40.7} (cum written 1356 infra 0)
+2026-09-26T18:03:57Z RESUME: 1356 trials already recorded, 51 to run
+2026-09-26T18:04:40Z PROGRESS 50/51 (total recorded 1406) infra=0 elapsed=43s rate=0.852s/trial mem_kb=6761340
+2026-09-26T18:04:40Z PROGRESS 51/51 (total recorded 1407) infra=0 elapsed=43s rate=0.851s/trial mem_kb=6765732
+2026-09-26T18:04:40Z BLOCK 26 done: {"written": 51, "infra": 0, "aborted": null, "skipped_recorded": 0, "elapsed_s": 43.4} (cum written 1407 infra 0)
+2026-09-26T18:04:40Z RESUME: 1407 trials already recorded, 51 to run
+2026-09-26T18:05:18Z PROGRESS 50/51 (total recorded 1457) infra=0 elapsed=38s rate=0.752s/trial mem_kb=6757492
+2026-09-26T18:05:19Z PROGRESS 51/51 (total recorded 1458) infra=0 elapsed=38s rate=0.752s/trial mem_kb=6764100
+2026-09-26T18:05:19Z BLOCK 27 done: {"written": 51, "infra": 0, "aborted": null, "skipped_recorded": 0, "elapsed_s": 38.3} (cum written 1458 infra 0)
+2026-09-26T18:05:19Z RESUME: 1458 trials already recorded, 51 to run
+2026-09-26T18:06:01Z PROGRESS 50/51 (total recorded 1508) infra=0 elapsed=42s rate=0.848s/trial mem_kb=6768872
+2026-09-26T18:06:02Z PROGRESS 51/51 (total recorded 1509) infra=0 elapsed=43s rate=0.852s/trial mem_kb=6789676
+2026-09-26T18:06:02Z BLOCK 28 done: {"written": 51, "infra": 0, "aborted": null, "skipped_recorded": 0, "elapsed_s": 43.5} (cum written 1509 infra 0)
+2026-09-26T18:06:02Z RESUME: 1509 trials already recorded, 51 to run
+2026-09-26T18:06:42Z PROGRESS 50/51 (total recorded 1559) infra=0 elapsed=40s rate=0.790s/trial mem_kb=6777100
+2026-09-26T18:06:43Z PROGRESS 51/51 (total recorded 1560) infra=0 elapsed=40s rate=0.792s/trial mem_kb=6780496
+2026-09-26T18:06:43Z BLOCK 29 done: {"written": 51, "infra": 0, "aborted": null, "skipped_recorded": 0, "elapsed_s": 40.4} (cum written 1560 infra 0)
+2026-09-26T18:06:43Z RESUME: 1560 trials already recorded, 51 to run
+2026-09-26T18:07:25Z PROGRESS 50/51 (total recorded 1610) infra=0 elapsed=43s rate=0.852s/trial mem_kb=6774844
+2026-09-26T18:07:26Z PROGRESS 51/51 (total recorded 1611) infra=0 elapsed=43s rate=0.848s/trial mem_kb=6764804
+2026-09-26T18:07:26Z BLOCK 30 done: {"written": 51, "infra": 0, "aborted": null, "skipped_recorded": 0, "elapsed_s": 43.3} (cum written 1611 infra 0)
+2026-09-26T18:07:26Z RESUME: 1611 trials already recorded, 51 to run
+2026-09-26T18:08:05Z PROGRESS 50/51 (total recorded 1661) infra=0 elapsed=38s rate=0.768s/trial mem_kb=6771596
+2026-09-26T18:08:05Z PROGRESS 51/51 (total recorded 1662) infra=0 elapsed=39s rate=0.768s/trial mem_kb=6781648
+2026-09-26T18:08:05Z BLOCK 31 done: {"written": 51, "infra": 0, "aborted": null, "skipped_recorded": 0, "elapsed_s": 39.2} (cum written 1662 infra 0)
+2026-09-26T18:08:05Z RESUME: 1662 trials already recorded, 51 to run
+2026-09-26T18:08:49Z PROGRESS 50/51 (total recorded 1712) infra=0 elapsed=44s rate=0.874s/trial mem_kb=6743400
+2026-09-26T18:08:50Z PROGRESS 51/51 (total recorded 1713) infra=0 elapsed=44s rate=0.871s/trial mem_kb=6739644
+2026-09-26T18:08:50Z BLOCK 32 done: {"written": 51, "infra": 0, "aborted": null, "skipped_recorded": 0, "elapsed_s": 44.4} (cum written 1713 infra 0)
+2026-09-26T18:08:50Z RESUME: 1713 trials already recorded, 51 to run
+2026-09-26T18:09:28Z PROGRESS 50/51 (total recorded 1763) infra=0 elapsed=38s rate=0.766s/trial mem_kb=6753484
+2026-09-26T18:09:29Z PROGRESS 51/51 (total recorded 1764) infra=0 elapsed=39s rate=0.769s/trial mem_kb=6745232
+2026-09-26T18:09:29Z BLOCK 33 done: {"written": 51, "infra": 0, "aborted": null, "skipped_recorded": 0, "elapsed_s": 39.2} (cum written 1764 infra 0)
+2026-09-26T18:09:29Z RESUME: 1764 trials already recorded, 51 to run
+2026-09-26T18:10:13Z PROGRESS 50/51 (total recorded 1814) infra=0 elapsed=44s rate=0.874s/trial mem_kb=6753548
+2026-09-26T18:10:14Z PROGRESS 51/51 (total recorded 1815) infra=0 elapsed=45s rate=0.873s/trial mem_kb=6760268
+2026-09-26T18:10:14Z BLOCK 34 done: {"written": 51, "infra": 0, "aborted": null, "skipped_recorded": 0, "elapsed_s": 44.5} (cum written 1815 infra 0)
+2026-09-26T18:10:14Z RESUME: 1815 trials already recorded, 51 to run
+2026-09-26T18:10:53Z PROGRESS 50/51 (total recorded 1865) infra=0 elapsed=39s rate=0.782s/trial mem_kb=6784316
+2026-09-26T18:10:54Z PROGRESS 51/51 (total recorded 1866) infra=0 elapsed=40s rate=0.780s/trial mem_kb=6782576
+2026-09-26T18:10:54Z BLOCK 35 done: {"written": 51, "infra": 0, "aborted": null, "skipped_recorded": 0, "elapsed_s": 39.8} (cum written 1866 infra 0)
+2026-09-26T18:10:54Z RESUME: 1866 trials already recorded, 51 to run
+2026-09-26T18:11:38Z PROGRESS 50/51 (total recorded 1916) infra=0 elapsed=44s rate=0.878s/trial mem_kb=6772348
+2026-09-26T18:11:38Z PROGRESS 51/51 (total recorded 1917) infra=0 elapsed=45s rate=0.878s/trial mem_kb=6766372
+2026-09-26T18:11:38Z BLOCK 36 done: {"written": 51, "infra": 0, "aborted": null, "skipped_recorded": 0, "elapsed_s": 44.8} (cum written 1917 infra 0)
+2026-09-26T18:11:39Z RESUME: 1917 trials already recorded, 51 to run
+2026-09-26T18:12:18Z PROGRESS 50/51 (total recorded 1967) infra=0 elapsed=40s rate=0.791s/trial mem_kb=6758864
+2026-09-26T18:12:20Z PROGRESS 51/51 (total recorded 1968) infra=0 elapsed=41s rate=0.806s/trial mem_kb=6757868
+2026-09-26T18:12:20Z BLOCK 37 done: {"written": 51, "infra": 0, "aborted": null, "skipped_recorded": 0, "elapsed_s": 41.1} (cum written 1968 infra 0)
+2026-09-26T18:12:20Z RESUME: 1968 trials already recorded, 51 to run
+2026-09-26T18:13:02Z PROGRESS 50/51 (total recorded 2018) infra=0 elapsed=42s rate=0.839s/trial mem_kb=6755724
+2026-09-26T18:13:02Z PROGRESS 51/51 (total recorded 2019) infra=0 elapsed=43s rate=0.837s/trial mem_kb=6759304
+2026-09-26T18:13:02Z BLOCK 38 done: {"written": 51, "infra": 0, "aborted": null, "skipped_recorded": 0, "elapsed_s": 42.7} (cum written 2019 infra 0)
+2026-09-26T18:13:02Z E40 END {"blocks_done": 39, "written": 2019, "infra": 0, "aborted": null, "time_box_stop": null}

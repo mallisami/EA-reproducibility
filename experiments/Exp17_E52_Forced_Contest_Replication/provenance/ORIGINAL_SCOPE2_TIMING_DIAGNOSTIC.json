@@ -1,0 +1,15 @@
+{
+  "async_a4d_trials": 9360,
+  "contests": 0,
+  "definition": "contest = RV advanced past precondition AND writer committed (t_resp) before DELETE dispatch (t_send); late/ambiguous writers excluded",
+  "excluded_non_contest": {
+    "late_or_ambiguous_writer": 8905,
+    "not_committed": 455,
+    "rv_not_advanced": 0
+  },
+  "pre_boundary_other": 0,
+  "stale_accepts": 0,
+  "stale_fraction": null,
+  "wilson95_stale_upper": null,
+  "writer_409": 0
+}

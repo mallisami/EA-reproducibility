@@ -1,0 +1,134 @@
+{
+  "categories": {
+    "correct_abort": 22,
+    "postgate_invalid_accepted": 12,
+    "valid_control_executed": 8,
+    "UNKNOWN_during_acq(status COMPLETE)": 4,
+    "postgate_UID_409_blocked": 4,
+    "UNKNOWN_open_epoch(status UNKNOWN)": 4,
+    "symmetric_gate_miss_invalid_accepted": 2
+  },
+  "unknown_coherence_total": 8,
+  "unknown_status_UNKNOWN": 4,
+  "refresh_mean_all": [
+    17.242430730778814,
+    23.43688484615548
+  ],
+  "gate_mean_all": [
+    18.826700423089697,
+    25.149054615388966
+  ],
+  "refresh_mean_excl": [
+    15.190520416676009,
+    21.06155804167065
+  ],
+  "gate_mean_excl": [
+    16.781395500011666,
+    22.77771283333762
+  ],
+  "max_decision_to_first_effect": 69.61663999996381,
+  "max_decision_to_first_effect_trial": "e3820260919094024-000029",
+  "max_guard_start_to_effect_excl_injector": 48.03656899998896,
+  "max_guard_start_to_effect_excl_injector_trial": "e3820260919094024-000008",
+  "timing": {
+    "setup_first_t0": 306033.679689,
+    "setup_last_t1": 306129.606144,
+    "setup_span_s": 0.09592645500000799,
+    "trials_span_s": 131.722805093,
+    "sum_elapsed_wall_s": 131.43783780499984,
+    "mean_s_per_trial": 2.3471042465178544,
+    "mean_s_per_trial_excl_uid_rebind_conditions": 2.069845397625,
+    "mean_s_per_trial_uid_rebind_conditions": 4.0106573398749825,
+    "session_wall_s": "09:40:24Z->09:42:36Z = 132 s (UTC second resolution)",
+    "by_condition_mean_wall_ms": {
+      "application_policy_revoke": 2031.509297749988,
+      "during_acquisition": 2017.5384667499893,
+      "evidence_cut": 2002.7689437500085,
+      "irrelevant": 1974.652808999992,
+      "postgate_application_policy": 2290.0929422500194,
+      "postgate_evidence": 2001.3232829999906,
+      "postgate_scope": 1992.6886877500074,
+      "postgate_uid": 4017.258444999985,
+      "scope_expand": 1993.157255750004,
+      "scope_shrink": 1997.7917117500183,
+      "stable": 2109.7420379999967,
+      "symmetric_bdf_stress": 1960.7129272500024,
+      "uid_rebind": 4004.05623474998,
+      "unknown_open_epoch": 2466.1664084999793
+    }
+  },
+  "rtt": {
+    "PATCH_configmap_all": {
+      "n": 708,
+      "mean": 3.544700625706165,
+      "median": 2.495159499987494,
+      "min": 1.9003559999982826,
+      "max": 27.137770999979693,
+      "sd": 2.218301437507065,
+      "p90": 5.992647000006401
+    },
+    "PATCH_configmap_mutation": {
+      "n": 148,
+      "mean": 5.291133709457967,
+      "median": 4.4647449999756645,
+      "min": 3.6666340000228956,
+      "max": 27.137770999979693,
+      "sd": 2.451774842904585,
+      "p90": 7.2137989000009854
+    },
+    "GET_configmap_guard": {
+      "n": 446,
+      "mean": 1.8105609663668185,
+      "median": 1.6821499999787193,
+      "min": 1.4301809999742545,
+      "max": 8.096567000029609,
+      "sd": 0.4536376278146632,
+      "p90": 2.2215105000068434
+    },
+    "GET_pod_guard": {
+      "n": 52,
+      "mean": 2.0379105961530093,
+      "median": 1.9239835000189487,
+      "min": 1.7173060000059195,
+      "max": 3.5800339999841526,
+      "sd": 0.3466010152370733,
+      "p90": 2.492475599999307
+    },
+    "SSAR_guard": {
+      "n": 52,
+      "mean": 1.5575704230823948,
+      "median": 1.4709974999714177,
+      "min": 1.3122539999894798,
+      "max": 3.122075000021141,
+      "sd": 0.2859075066990273,
+      "p90": 1.8640831999655347
+    },
+    "DELETE_guard_200": {
+      "n": 22,
+      "mean": 13.395916136360029,
+      "median": 12.938272499974119,
+      "min": 9.113419000001159,
+      "max": 24.2524019999546,
+      "sd": 3.763469971704085,
+      "p90": 16.574006999982522
+    },
+    "DELETE_guard_409": {
+      "n": 4,
+      "mean": 2.279660000000149,
+      "median": 2.2794709999870975,
+      "min": 2.1299030000227503,
+      "max": 2.429795000003651,
+      "sd": 0.12305300667059706,
+      "p90": 2.3892394999973474
+    },
+    "DELETE_reset": {
+      "n": 34,
+      "mean": 14.550000794124037,
+      "median": 12.473433500010287,
+      "min": 8.841305999958422,
+      "max": 44.97434100002283,
+      "sd": 6.367907611632876,
+      "p90": 18.87158190003829
+    }
+  }
+}

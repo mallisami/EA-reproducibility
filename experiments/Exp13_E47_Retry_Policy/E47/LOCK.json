@@ -1,0 +1,12 @@
+{
+ "locked_utc": "2026-10-03T08:17:35.181855+00:00",
+ "n_trials": 1140,
+ "sha256": {
+  "ea_exp2.py": "af229ea3bfec790f033ed8b3b8fd617b4cdd73b0b940e497987f90244ac36f08",
+  "ea_exp.py": "1cc110f6b2c3b9fb7ba458fb933a39b3a857cf6ddc0aa12d8fcb6640654acd79",
+  "PROTOCOL_ADDENDUM.md": "676052b734ca908f0fef1e9ae84682abdcbb4796f400b9587679e2468e6c6cf1",
+  "vap.yaml": "4f3bd4a1dabdbf0f628f21015d3e70cd2b4d3c3360f87d17d20c4f3e4b911411",
+  "plan.json": "3e5681aa332a14c7505025c7a9ea04cd3f7cc6ff2e35585c63beff7152c66ced",
+  "schedule.jsonl": "d62cb1ecee5ff15cde8cb5ef4b1632b5cdae8afaabeacd4766efe1e64ce34798"
+ }
+}

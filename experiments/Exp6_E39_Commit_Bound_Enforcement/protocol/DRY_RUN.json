@@ -1,0 +1,95 @@
+{
+  "stage": 1,
+  "seed": 972231175,
+  "run_id": "e39-20260926t1515z",
+  "counts_by_experiment": {
+    "A": 5344,
+    "B": 4800,
+    "C": 3840,
+    "D": 1872,
+    "E": 1248,
+    "F": 936,
+    "G": 156
+  },
+  "design_totals_stage1": {
+    "A": 5344,
+    "B": 4800,
+    "C": 3840,
+    "D": 1872,
+    "E": 1248,
+    "F": 936,
+    "G": 156
+  },
+  "total_trials": 18196,
+  "c_pairs": 1920,
+  "runtime_estimate": {
+    "per_experiment": {
+      "A": {
+        "trials": 5344,
+        "seconds": 4280.5,
+        "level_switches": 0,
+        "injected_latency_s": 0.0,
+        "hours": 1.189
+      },
+      "B": {
+        "trials": 4800,
+        "seconds": 3936.0,
+        "level_switches": 0,
+        "injected_latency_s": 0.0,
+        "hours": 1.093
+      },
+      "C": {
+        "trials": 3840,
+        "seconds": 3501.6,
+        "level_switches": 0,
+        "injected_latency_s": 3309.6,
+        "hours": 0.973
+      },
+      "D": {
+        "trials": 1872,
+        "seconds": 2451.4,
+        "level_switches": 101,
+        "injected_latency_s": 0.0,
+        "hours": 0.681
+      },
+      "E": {
+        "trials": 1248,
+        "seconds": 961.0,
+        "level_switches": 0,
+        "injected_latency_s": 0.0,
+        "hours": 0.267
+      },
+      "F": {
+        "trials": 936,
+        "seconds": 720.7,
+        "level_switches": 0,
+        "injected_latency_s": 0.0,
+        "hours": 0.2
+      },
+      "G": {
+        "trials": 156,
+        "seconds": 120.1,
+        "level_switches": 0,
+        "injected_latency_s": 0.0,
+        "hours": 0.033
+      }
+    },
+    "total_seconds": 15971.3,
+    "total_hours": 4.436,
+    "budget_hours": 5.0,
+    "within_budget": true,
+    "model": {
+      "sec_per_running_pod_delete_trial_measured_smoke": 0.77,
+      "uid_rebind_extra_s_smoke": 0.8,
+      "a4m_mirror_extra_s_smoke": 0.1,
+      "b_arrival_tail_s": 0.05,
+      "e_netpol_cleanup_s_smoke": 0.0,
+      "c_overhead_s_smoke": 0.05,
+      "c_reads": "sequential: n_reads x c (A1 3, A2 6); parallel: c",
+      "c_planning_s_estimate": 0.01,
+      "d_level_settle_s": 10.0,
+      "note": "constants measured in the e39 smoke run smoke-e39-20260926a (budget 5 h, Amendment 1)"
+    }
+  },
+  "schedule_file": "/home/azureuser/e39_20260926/results/e39-20260926t1515z/SCHEDULE.json"
+}

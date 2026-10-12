@@ -1,0 +1,11 @@
+{
+  "trials_verified": 3600,
+  "trials_with_dcji_request_count_not_3": 0,
+  "trials_with_full_request_count_not_6": 0,
+  "request_count_claim_verified": true,
+  "total_trial_rows": 3600,
+  "decision_discordant_count": 0,
+  "dcji_decisions_not_matching_expected": 0,
+  "full_decisions_not_matching_expected": 0,
+  "safety_verified": true
+}

@@ -1,0 +1,22 @@
+{
+  "experiment": "E28",
+  "title": "Concurrent Acquisition Coherence Under Moderate (Realistic) Contention",
+  "motivation": "E24 tested naive-vs-fenced acquisition coherence only under sustained, adversarially maximal contention (all three resources flipped concurrently as fast as HTTP round-trips allow), where the fenced double-collect mechanism never delivered a result within its retry bound. This leaves open whether the fenced mechanism is USEFUL at a realistic background-mutation rate, or only ever fail-safe. This experiment reuses E24's exact mechanism, resources, and coherence oracle, adding a bounded inter-toggle delay to the mutator so it represents plausible occasional configuration drift (an order of magnitude slower than a full fenced acquisition round) rather than adversarial saturation.",
+  "namespace": "flashir-e24",
+  "resources": ["obs-a", "obs-c", "obs-e"],
+  "proxy_port": 8001,
+  "mutator": {
+    "description": "Identical concurrent all-three-resource-flip mutator as E24, with a fixed inter-tick delay inserted between toggle rounds so toggles occur at a bounded rate rather than as fast as possible.",
+    "inter_tick_delay_s": 0.3,
+    "trial_window_s": 2.0
+  },
+  "acquisition_methods": ["naive_sequential", "fenced_double_collect"],
+  "fenced_max_retries": 10,
+  "attempts_per_method_per_trial": 10,
+  "trials_per_method": 20,
+  "random_seed": 20260914,
+  "primary_endpoint": "incoherent_view_rate",
+  "secondary_endpoints": ["fenced_delivery_rate", "fenced_retry_count", "acquisition_latency_ms"],
+  "coherence_definition": "Identical to E24: an acquired combination is COHERENT iff there exists an instant during the trial at which every queried resource's ground-truth value (reconstructed from the mutator's timestamped log) equals the value returned for it.",
+  "notes": "Preregistered post-hoc extension (E28), run outside the locked v8.1.1 package and outside all other v9/E21/E23-E27 evidence. Reuses E24's namespace/ConfigMaps without modifying E24's own frozen protocol or results."
+}

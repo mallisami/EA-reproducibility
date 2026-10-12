@@ -1,0 +1,30 @@
+{
+  "archive": "experiments/Exp7_E40_AKS_Replication_Exploratory/data/raw/E40_EXPORT_a20260926.REDACTED.tar.gz",
+  "supplied_archive_sha256": "3fbe5335fc731a510fd948d5c4765ae030f6e14863e23bda109fab3f1711c3f7",
+  "clean_archive_sha256": "80ef85f1dd94953dd1fd0d2936bf32dac6aa551b2fa7cdf694793b245a8296bc",
+  "removed_cache_members": [
+    {
+      "member": "code/analysis/__pycache__/e39_common.cpython-312.pyc",
+      "sha256": "11b3199a11f68b6799431f1b6b1c472468f19abf666022d539adc12ab85f3fd6",
+      "bytes": 33157
+    },
+    {
+      "member": "code/analysis/__pycache__/oracle_e39.cpython-312.pyc",
+      "sha256": "824d8845803c69976307c177ff16bc531738e1a38739702d8b9b30e5092a5dac",
+      "bytes": 73512
+    },
+    {
+      "member": "code/src/__pycache__/e39_runner.cpython-312.pyc",
+      "sha256": "4cd122dd4bc81e14da8db0644bd86a0ea260a5b60d5ba0c28a3276365f010d6c",
+      "bytes": 126855
+    },
+    {
+      "member": "code/src/__pycache__/e39_kube.cpython-312.pyc",
+      "sha256": "df0fd14dfd403a204d3c7a1ac7418cb1f0f073273f3b983a73da4d0ca78954a1",
+      "bytes": 24088
+    }
+  ],
+  "retained_regular_members": 183,
+  "retained_member_bytes": "Unchanged; checked against supplied member-level manifest.",
+  "raw_observations_changed": false
+}

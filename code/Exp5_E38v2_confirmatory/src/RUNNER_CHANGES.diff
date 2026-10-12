@@ -1,0 +1,1430 @@
+--- frozen_ref/src/e38_runner.py	1979-12-31 19:00:00.000000000 +0000
++++ src/e38v2_runner.py	2026-09-26 06:22:04.453229584 +0000
+@@ -1,714 +1,730 @@
+ #!/usr/bin/env python3
+-"""E38 prospective engineering runner for a specifically named disposable kind cluster.
++"""E38v2 experiment runner (piece 3).
+ 
+-NOT YET TESTED AGAINST LIVE KUBERNETES in the authoring environment. First run
+---dry-run, preflight.py, then --phase smoke on a dedicated non-production VM.
+-Never points at a cluster unless operator explicitly acknowledges destructive
+-Pod and ConfigMap changes; creates/uses only run-labeled e38-* namespace.
+-Only a separate signed lock enables confirmatory execution.
++Evaluates whether a client-side revalidation gate (DCJI / FullRefresh), optionally
++backed by a server-side validating admission webhook, keeps an incident-response
++Pod DELETE valid when an independent ConfigMap write occurs shortly after the gate.
++
++Adapted from the frozen E38 V4 runner. It is built and exercised entirely OFFLINE
++against an in-process fake apiserver (fake_api.FakeApiServer); it makes no network
++call other than to a 127.0.0.1 fake in tests / --offline-selftest, and --dry-run
++touches no socket at all. A separate signed LOCK gates any live run, which the
++paper's authors perform themselves on their own disposable kind cluster.
++
++Fixes vs frozen (see DESIGN_NOTES.txt): (a) reset order + separate reset identity,
++(b) horizon from SESSION config with fail-closed certificate assertion,
++(c) no writer activity inside timed gate regions, (d) no runner-side use-time
++oracle, (e) persistent keep-alive http.client connections + Audit-Id capture.
+ """
+ from __future__ import annotations
+-import argparse, hashlib, json, os, random, re, subprocess, sys, time, threading
+-from concurrent.futures import ThreadPoolExecutor
++import argparse, hashlib, http.client, json, os, random, sys, time
+ from pathlib import Path
+-from urllib.error import HTTPError, URLError
+-from urllib.request import Request, urlopen
+ from urllib.parse import urlsplit
+-from e38_model import FLAGS, frozen_planner_certificate, model_policy, make_hybrid
+ 
+-HERE=Path(__file__).resolve().parent
+-ROOT=HERE.parent
+-NAME='e38-target'
+-CM='obs-'
+-RESOURCE_CM=('scope-policy','application-policy','e38-epoch','obs-irrelevant')
+-METHODS=('DCJI','FullRefresh','TTLGuard','NativeUID')
+-PLAN=frozen_planner_certificate()  # planned at queue construction, outside timed acquisition
+-CONDITIONS=(
+-    'stable','irrelevant','evidence_cut','uid_rebind','scope_expand',
+-    'scope_shrink','application_policy_revoke','during_acquisition','unknown_open_epoch',
+-    'postgate_uid','postgate_evidence','postgate_scope','postgate_application_policy',
+-    'symmetric_bdf_stress'
+-)
+-PRIMARY=('stable','irrelevant','evidence_cut','uid_rebind','scope_expand','during_acquisition','postgate_uid','postgate_evidence','postgate_scope')
+-PHASES=('smoke','pilot','confirmatory')
+-
+-
+-def sha(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+-
+-def source_tree_sha():
+-    '''Hash every executable source and contract in src; exclude Python bytecode.'''
+-    h=hashlib.sha256()
+-    for path in sorted(HERE.rglob('*')):
+-        if path.is_file() and '__pycache__' not in path.parts and path.suffix in ('.py','.json'):
+-            h.update(str(path.relative_to(HERE)).encode()+b'\0'+sha(path).encode()+b'\n')
+-    # The actual model consumes a JSON input OUTSIDE src; hash it too.
+-    # Otherwise an operator could change the threat model after pilot without
+-    # triggering the source-bound phase acceptance gate.
+-    provenance=ROOT/'source_provenance/E37_F5_PHYS_ORIGINAL.json'
+-    h.update(b'source_provenance/E37_F5_PHYS_ORIGINAL.json\0'+sha(provenance).encode()+b'\n')
+-    return h.hexdigest()
+-def monotonic_ms():return time.monotonic_ns()/1e6
+-def canonical(obj):return json.dumps(obj,sort_keys=True,separators=(',',':')).encode()
+-
+-class APIError(RuntimeError):pass
+-
+-class KubeAPI:
+-    def __init__(self,base,namespace):
+-        parsed=urlsplit(base)
+-        if (parsed.scheme!='http' or parsed.hostname!='127.0.0.1' or parsed.port is None
+-                or parsed.username or parsed.password or parsed.path not in ('','/')
+-                or parsed.query or parsed.fragment or parsed.netloc!=f'127.0.0.1:{parsed.port}'):
+-            raise ValueError('Only an exact http://127.0.0.1:PORT loopback proxy URL is supported')
+-        if not namespace.startswith('e38-') or len(namespace)>63:
+-            raise ValueError('Namespace must be disposable and prefixed e38-')
+-        self.base=base.rstrip('/');self.ns=namespace;self.requests=[];self.events=[]
+-    def url(self,kind,name=None):
+-        root=f'/api/v1/namespaces/{self.ns}'
+-        if kind=='ns':return '/api/v1/namespaces'+('/'+name if name else '')
+-        suffix={'cm':'configmaps','pod':'pods'}[kind]
+-        return root+'/'+suffix+('/'+name if name else '')
+-    def call(self,method,path,body=None,kind='setup'):
+-        if method in ('POST','PUT','PATCH','DELETE'):
+-            ns_root=f'/api/v1/namespaces/{self.ns}'
+-            allowed_cms={f'{ns_root}/configmaps/{x}' for x in
+-                         tuple('obs-'+k for k in FLAGS)+RESOURCE_CM}
+-            allowed=False
+-            if method=='POST' and path=='/api/v1/namespaces':
+-                md=(body or {}).get('metadata',{})
+-                allowed=md.get('name')==self.ns and md.get('labels',{}).get('e38-managed')=='true'
+-            elif method=='POST' and path=='/apis/authorization.k8s.io/v1/selfsubjectaccessreviews':
+-                allowed=(body or {}).get('spec',{}).get('resourceAttributes',{}).get('namespace')==self.ns
+-            elif method=='POST' and path==f'{ns_root}/pods':
+-                md=(body or {}).get('metadata',{})
+-                allowed=md.get('name')==NAME and md.get('labels',{}).get('e38-managed')=='true'
+-            elif method=='POST' and path==f'{ns_root}/configmaps':
+-                md=(body or {}).get('metadata',{})
+-                allowed=(md.get('name') in {x.rsplit('/',1)[-1] for x in allowed_cms}
+-                         and md.get('labels',{}).get('e38-managed')=='true')
+-            elif method=='PATCH' and path in allowed_cms:
+-                allowed=isinstance((body or {}).get('data'),dict)
+-            elif method=='DELETE' and path==f'{ns_root}/pods/{NAME}':
+-                allowed=bool((body or {}).get('preconditions',{}).get('uid'))
+-            if not allowed:raise APIError('WRITE BLOCKED: unapproved resource, operation or UID precondition')
+-        payload=canonical(body) if body is not None else None
+-        headers={'Content-Type':'application/merge-patch+json' if method=='PATCH' else 'application/json'}
+-        req=Request(self.base+path,data=payload,method=method,headers=headers)
+-        t0=monotonic_ms()
+-        try:
+-            with urlopen(req,timeout=20) as res: raw=res.read();status=res.status
+-        except HTTPError as err:
+-            raw=err.read();status=err.code
+-        except (URLError,TimeoutError) as exc:
+-            self.requests.append({'kind':kind,'method':method,'path':path,'t0_ms':t0,
+-                't1_ms':monotonic_ms(),'status':None,'error':repr(exc),'payload_sha256':hashlib.sha256(payload or b'').hexdigest()})
+-            raise APIError(f'{method} {path}: {exc}') from exc
+-        record={'kind':kind,'method':method,'path':path,'t0_ms':t0,'t1_ms':monotonic_ms(),
+-                'status':status,'response_bytes':len(raw)}
+-        if payload is not None:record.update(payload_sha256=hashlib.sha256(payload).hexdigest(),payload_bytes=len(payload))
+-        if method=='DELETE':record['delete_options']=body
+-        self.requests.append(record)
+-        try:return json.loads(raw) if raw else None,status,len(raw)
+-        except ValueError:raise APIError('Non-JSON API reply for '+method+' '+path)
+-    def expect(self,method,path,body=None,ok=(200,201,202),kind='setup'):
+-        data,status,size=self.call(method,path,body,kind)
+-        if status not in ok:raise APIError(f'{method} {path}: HTTP {status}: {str(data)[:240]}')
+-        return data,size
+-    def get_cm(self,name,kind='guard'):
+-        obj,n=self.expect('GET',self.url('cm',name),kind=kind)
+-        self.requests[-1].update(resource_uid=obj.get('metadata',{}).get('uid'),
+-            resource_version=obj.get('metadata',{}).get('resourceVersion'),
+-            decoded_data_sha256=hashlib.sha256(canonical(obj.get('data',{}))).hexdigest())
+-        return obj,n
+-    def get_pod(self,kind='guard',allow_missing=False):
+-        data,status,n=self.call('GET',self.url('pod',NAME),kind=kind)
+-        if status==404 and allow_missing:return None,n
+-        if status!=200:raise APIError(f'GET pod: HTTP {status} {data}')
+-        self.requests[-1].update(resource_uid=data.get('metadata',{}).get('uid'),
+-            resource_version=data.get('metadata',{}).get('resourceVersion'),
+-            pod_phase=data.get('status',{}).get('phase'))
+-        return data,n
+-    def patch_cm(self,name,data,kind='mutation'):
+-        return self.expect('PATCH',self.url('cm',name),{'data':{k:str(v) for k,v in data.items()}},kind=kind)[0]
+-    def ssar(self,kind='guard'):
+-        body={'apiVersion':'authorization.k8s.io/v1','kind':'SelfSubjectAccessReview',
+-          'spec':{'resourceAttributes':{'namespace':self.ns,'verb':'delete','group':'','resource':'pods','name':NAME}}}
+-        data,_=self.expect('POST','/apis/authorization.k8s.io/v1/selfsubjectaccessreviews',body,kind=kind)
+-        allowed=data['status'].get('allowed') is True
+-        self.requests[-1]['authorization_allowed']=allowed
+-        return allowed
+-    def delete_pod(self,uid,kind='guard'):
+-        if not uid or not isinstance(uid,str):raise APIError('No UID for conditioned delete')
+-        opts={'apiVersion':'v1','kind':'DeleteOptions','gracePeriodSeconds':0,
+-              'preconditions':{'uid':uid}}
+-        return self.call('DELETE',self.url('pod',NAME),opts,kind=kind)
+-    def get_epoch(self):
+-        obj,n=self.get_cm('e38-epoch');return int(obj['data']['sequence']),n
+-
+-def pod_ready(p):
+-    return bool(p and p.get('status',{}).get('phase')=='Running' and any(
+-      c.get('type')=='Ready' and c.get('status')=='True' for c in p.get('status',{}).get('conditions',[])))
+-
+-def read_until(api,predicate,timeout=90,period=0.2):
+-    end=time.monotonic()+timeout
+-    while time.monotonic()<end:
+-        obj,_=api.get_pod(kind='setup',allow_missing=True)
+-        if predicate(obj):return obj
+-        time.sleep(period)
+-    raise APIError('Timed out waiting for Pod state')
+-
+-def create_pod(api,image):
+-    manifest={'apiVersion':'v1','kind':'Pod','metadata':{
+-        'name':NAME,'namespace':api.ns,'labels':{'app':'e38','e38-managed':'true'}},
+-        'spec':{'restartPolicy':'Never','containers':[{'name':'web','image':image,'imagePullPolicy':'IfNotPresent',
+-        'ports':[{'containerPort':80}], 'readinessProbe':{'httpGet':{'path':'/','port':80},
+-        'periodSeconds':1,'initialDelaySeconds':1,'timeoutSeconds':1,'failureThreshold':20}}]}}
+-    api.expect('POST',api.url('pod'),manifest,kind='setup')
+-    return read_until(api,pod_ready)
+-
+-def ensure_owned_namespace(api,run_id):
+-    ns,status,_=api.call('GET',api.url('ns',api.ns),kind='preflight')
+-    if status==404:
+-        ns,_=api.expect('POST','/api/v1/namespaces',{'apiVersion':'v1','kind':'Namespace',
+-         'metadata':{'name':api.ns,'labels':{'e38-managed':'true','e38-run-id':run_id}}},kind='setup')
+-    elif status!=200:raise APIError('Namespace lookup failure: HTTP '+str(status))
+-    labels=ns['metadata'].get('labels',{})
+-    if labels.get('e38-managed')!='true' or labels.get('e38-run-id')!=run_id:
+-        raise APIError('Namespace ownership mismatch: will not write into it')
+-    return ns
+-
+-def ensure_fixture(api,image):
+-    for k in ('a','b','c','d','e','f'):
+-        name='obs-'+k
+-        d,s,_=api.call('GET',api.url('cm',name),kind='setup')
+-        if s==404:api.expect('POST',api.url('cm'),{'apiVersion':'v1','kind':'ConfigMap',
+-            'metadata':{'name':name,'namespace':api.ns,'labels':{'e38-managed':'true'}},
+-            'data':{'valid':'true'}},kind='setup')
+-        elif s!=200 or d['metadata'].get('labels',{}).get('e38-managed')!='true':raise APIError('Unowned CM '+name)
+-    data={'scope-policy':{'members':json.dumps([NAME])},
+-      'application-policy':{'allowed':'true'}, 'e38-epoch':{'sequence':'0'},
+-      'obs-irrelevant':{'note':'original'}}
+-    for name,kv in data.items():
+-        d,s,_=api.call('GET',api.url('cm',name),kind='setup')
+-        if s==404:api.expect('POST',api.url('cm'),{'apiVersion':'v1','kind':'ConfigMap',
+-            'metadata':{'name':name,'namespace':api.ns,'labels':{'e38-managed':'true'}},
+-            'data':kv},kind='setup')
+-        elif s!=200 or d['metadata'].get('labels',{}).get('e38-managed')!='true':raise APIError('Unowned CM '+name)
+-    p,_=api.get_pod(kind='setup',allow_missing=True)
+-    if p is not None and p.get('metadata',{}).get('labels',{}).get('e38-managed')!='true':
+-        raise APIError('Unowned Pod with target name: refuse to delete')
+-    return data
+-
+-def reset_fixture(api,image):
+-    # Only objects verified to be in a run-labeled, disposable namespace.
+-    p,_=api.get_pod(kind='setup',allow_missing=True)
+-    if p is not None:
+-        if p.get('metadata',{}).get('labels',{}).get('e38-managed')!='true':
+-            raise APIError('Reset refused: target Pod lacks e38-managed ownership label')
+-        uid=p['metadata']['uid'];data,status,_=api.delete_pod(uid,kind='reset')
+-        if status not in (200,202):raise APIError(f'Reset DELETE failed HTTP {status}: {data}')
+-        read_until(api,lambda x:x is None,timeout=90)
+-    for k in FLAGS:api.patch_cm('obs-'+k,{'valid':'true'},kind='reset')
+-    api.patch_cm('scope-policy',{'members':json.dumps([NAME])},kind='reset')
+-    api.patch_cm('application-policy',{'allowed':'true'},kind='reset')
+-    api.patch_cm('e38-epoch',{'sequence':'0'},kind='reset')
+-    api.patch_cm('obs-irrelevant',{'note':'original'},kind='reset')
+-    p=create_pod(api,image)
+-    return p['metadata']['uid']
+-
+-
+-def mutate(api,kind,uid,image,event_history):
+-    """All E38-controlled evidence/scope/policy mutation goes through epoch fence.
+-    This does NOT fence arbitrary external writers and cannot enforce atomicity
+-    between gate and DELETE. Post-gate conditions intentionally demonstrate this.
++from e38v2_model import (frozen_planner_certificate, make_hybrid, core_decision, FLAGS, POD_NAME)
++from schema import ARMS, CONDITIONS, DELTA_GRID_MS, validate_record
++
++HERE = Path(__file__).resolve().parent
++DEFAULT_F5 = HERE.parent / 'frozen_ref' / 'source_provenance' / 'E37_F5_PHYS_ORIGINAL.json'
++
++EVIDENCE_CMS = tuple('evidence-' + k for k in FLAGS)
++OBJ_SCOPE = 'response-scope'
++OBJ_APP = 'application-policy'
++OBJ_EPOCH = 'e38-epoch'
++ALL_CMS = EVIDENCE_CMS + (OBJ_SCOPE, OBJ_APP, OBJ_EPOCH)
++
++ASYNC_CONDITIONS = ('async_scope', 'async_app_policy', 'async_evidence_last_literal')
++FORBIDDEN_SEED = 20260912
++
++# Scheduler sizes (interface spec SAMPLE SIZE / STAGES).
++STAGE1_ASYNC_N = 39
++STAGE1_NO_WRITE_N = 39
++STAGE1_UID_N = 10
++STAGE2_TARGET_N = 93
++
++# Runtime-estimate constants (prior run + writer overhead).
++SEC_PER_TRIAL_NON_UID = 2.07
++SEC_PER_TRIAL_UID = 4.01
++WRITER_OVERHEAD_S = 0.15   # pre-arm connect + thread join + release busy-wait, documented estimate
++
++REQUIRED_CONTEXT = 'e38v2'
++NS_PREFIX = 'e38v2-'
++
++WEBHOOK_ARM = 'A3_dcji_webhook'
++
++
++def sha256_file(path):
++    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
++
++
++def mono_ns():
++    return time.monotonic_ns()
++
++
++class CIHeaders(dict):
++    """Case-insensitive header dict."""
++    def __init__(self, pairs):
++        super().__init__()
++        for k, v in pairs:
++            self[k.lower()] = v
++
++    def get(self, key, default=None):
++        return super().get(key.lower(), default)
++
++
++class APIError(RuntimeError):
++    pass
++
++
++class KubeClient:
++    """Persistent keep-alive http.client connection to a 127.0.0.1 loopback proxy.
++
++    One instance per identity (responder / writer / reset). Enforces the mutation
++    allowlist (safety rail 7) and captures the Audit-Id response header (fix e).
+     """
+-    event={'kind':kind,'started_ms':monotonic_ms(),'original_uid':uid,'completed':False}
+-    event_history.append(event)
+-    if kind=='irrelevant':
+-        api.patch_cm('obs-irrelevant',{'note':'changed'});event['completed']=True;event['finished_ms']=monotonic_ms();return
+-    if kind=='uid_rebind':
+-        old,_=api.get_pod(kind='mutation',allow_missing=True)
+-        if old is None or old['metadata']['uid']!=uid:raise APIError('Cannot rebind: old UID differs')
+-        if old.get('metadata',{}).get('labels',{}).get('e38-managed')!='true':
+-            raise APIError('Rebinding refused: Pod ownership label missing')
+-        _,status,_=api.delete_pod(uid,kind='mutation')
+-        if status not in (200,202):raise APIError('Mutation UID delete failed '+str(status))
+-        read_until(api,lambda x:x is None,timeout=90)
+-        new=create_pod(api,image)
+-        if new['metadata']['uid']==uid:raise APIError('Recreated Pod has unchanged UID')
+-        event.update(completed=True,replacement_uid=new['metadata']['uid'],finished_ms=monotonic_ms());return
+-    seq_obj,_=api.get_cm('e38-epoch',kind='mutation')
+-    seq=int(seq_obj['data']['sequence'])
+-    if seq%2:raise APIError('Cannot begin mutation: epoch already open')
+-    api.patch_cm('e38-epoch',{'sequence':str(seq+1)})
+-    event['open_sequence']=seq+1
+-    if kind=='unknown_open_epoch':
+-        # Deliberately leave odd to force an UNKNOWN acquisition. Reset before next trial.
+-        event['completed']=True;event['finished_ms']=monotonic_ms();return
++
++    def __init__(self, base, namespace, identity, token_path=None, context=None,
++                 webhook_header=False):
++        parsed = urlsplit(base)
++        if (parsed.scheme != 'http' or parsed.hostname != '127.0.0.1' or parsed.port is None
++                or parsed.username or parsed.password or parsed.path not in ('', '/')
++                or parsed.query or parsed.fragment or parsed.netloc != f'127.0.0.1:{parsed.port}'):
++            raise ValueError('Only an exact http://127.0.0.1:PORT loopback proxy URL is supported')
++        if not namespace.startswith(NS_PREFIX) or len(namespace) > 63:
++            raise ValueError('Namespace must be disposable and prefixed ' + NS_PREFIX)
++        self.base = base.rstrip('/')
++        self.host = parsed.hostname
++        self.port = parsed.port
++        self.ns = namespace
++        self.identity = identity
++        self.token_path = token_path
++        self.context = context
++        self.webhook_header = webhook_header
++        self.conn = None
++
++    def connect(self):
++        if self.conn is None:
++            self.conn = http.client.HTTPConnection(self.host, self.port, timeout=20)
++            self.conn.connect()
++        return self
++
++    def close(self):
++        if self.conn is not None:
++            try:
++                self.conn.close()
++            finally:
++                self.conn = None
++
++    def _ns_root(self):
++        return f'/api/v1/namespaces/{self.ns}'
++
++    def _check_allowed(self, method, path, body):
++        if method == 'GET':
++            return
++        ns_root = self._ns_root()
++        allowed_cms = {f'{ns_root}/configmaps/{x}' for x in ALL_CMS}
++        if method == 'POST' and path == '/api/v1/namespaces':
++            md = (body or {}).get('metadata', {})
++            if md.get('name') == self.ns and md.get('labels', {}).get('e38v2-managed') == 'true':
++                return
++        elif method == 'POST' and path == '/apis/authorization.k8s.io/v1/selfsubjectaccessreviews':
++            return
++        elif method == 'POST' and path == f'{ns_root}/pods':
++            md = (body or {}).get('metadata', {})
++            if md.get('name') == POD_NAME and md.get('labels', {}).get('e38v2-managed') == 'true':
++                return
++        elif method == 'POST' and path == f'{ns_root}/configmaps':
++            md = (body or {}).get('metadata', {})
++            if md.get('name') in set(ALL_CMS) and md.get('labels', {}).get('e38v2-managed') == 'true':
++                return
++        elif method == 'PATCH' and path in allowed_cms:
++            if isinstance((body or {}).get('data'), dict):
++                return
++        elif method == 'DELETE' and path == f'{ns_root}/pods/{POD_NAME}':
++            if (body or {}).get('preconditions', {}).get('uid'):
++                return
++        raise APIError(f'WRITE BLOCKED: unapproved {method} {path} (safety rail)')
++
++    def request(self, method, path, body=None, extra_headers=None):
++        self._check_allowed(method, path, body)
++        self.connect()
++        payload = json.dumps(body, sort_keys=True, separators=(',', ':')).encode() if body is not None else None
++        headers = {'Content-Type': 'application/merge-patch+json' if method == 'PATCH' else 'application/json',
++                   'Accept': 'application/json'}
++        if payload is not None:
++            headers['Content-Length'] = str(len(payload))
++        if extra_headers:
++            headers.update(extra_headers)
++        for attempt in (0, 1):
++            try:
++                self.conn.request(method, path, body=payload, headers=headers)
++                resp = self.conn.getresponse()
++                raw = resp.read()
++                status = resp.status
++                rheaders = CIHeaders(resp.getheaders())
++                obj = json.loads(raw) if raw else None
++                return status, rheaders, obj
++            except (http.client.HTTPException, ConnectionError, OSError) as exc:
++                self.close()
++                if attempt == 0:
++                    self.connect()
++                    continue
++                raise APIError(f'{method} {path}: {exc!r}') from exc
++
++    # --- typed helpers ---
++    def get_version(self):
++        return self.request('GET', '/version')
++
++    def get_namespace(self):
++        return self.request('GET', self._ns_root())
++
++    def get_configmap(self, name):
++        return self.request('GET', f'{self._ns_root()}/configmaps/{name}')
++
++    def patch_configmap(self, name, data):
++        body = {'data': {k: str(v) for k, v in data.items()}}
++        return self.request('PATCH', f'{self._ns_root()}/configmaps/{name}', body)
++
++    def get_pod(self):
++        status, h, obj = self.request('GET', f'{self._ns_root()}/pods/{POD_NAME}')
++        if status == 404:
++            return None, h
++        if status != 200:
++            raise APIError(f'GET pod HTTP {status}')
++        return obj, h
++
++    def create_pod(self):
++        body = {'apiVersion': 'v1', 'kind': 'Pod',
++                'metadata': {'name': POD_NAME, 'namespace': self.ns,
++                             'labels': {'app': 'e38v2', 'e38v2-managed': 'true'}},
++                'spec': {'restartPolicy': 'Never',
++                         'containers': [{'name': 'web', 'image': 'nginx', 'imagePullPolicy': 'IfNotPresent'}]}}
++        return self.request('POST', f'{self._ns_root()}/pods', body)
++
++    def delete_pod(self, uid, webhook=False):
++        opts = {'apiVersion': 'v1', 'kind': 'DeleteOptions', 'gracePeriodSeconds': 0,
++                'preconditions': {'uid': uid}}
++        extra = {'X-E38v2-Webhook': 'on'} if webhook else None
++        return self.request('DELETE', f'{self._ns_root()}/pods/{POD_NAME}', opts, extra_headers=extra)
++
++    def ssar(self):
++        body = {'apiVersion': 'authorization.k8s.io/v1', 'kind': 'SelfSubjectAccessReview',
++                'spec': {'resourceAttributes': {'namespace': self.ns, 'verb': 'delete',
++                         'group': '', 'resource': 'pods', 'name': POD_NAME}}}
++        status, h, obj = self.request('POST', '/apis/authorization.k8s.io/v1/selfsubjectaccessreviews', body)
++        allowed = bool(obj and obj.get('status', {}).get('allowed') is True)
++        return allowed, h
++
++
++# --------------------------------------------------------------------------- #
++# Fixture reset (FIX (a)): restore ConfigMaps FIRST, then replace the Pod, using
++# a dedicated reset identity distinct from responder and writer identities.
++# --------------------------------------------------------------------------- #
++def reset_fixture(reset_client):
++    reset_ok = True
++    initial = {}
++    try:
++        # 1) restore ConfigMaps BEFORE touching the Pod
++        for name in EVIDENCE_CMS:
++            reset_client.patch_configmap(name, {'value': 'true'})
++            initial[name] = 'true'
++        reset_client.patch_configmap(OBJ_SCOPE, {'allowed': 'true'});  initial[OBJ_SCOPE] = 'true'
++        reset_client.patch_configmap(OBJ_APP, {'allowed': 'true'});    initial[OBJ_APP] = 'true'
++        reset_client.patch_configmap(OBJ_EPOCH, {'sequence': '0'});    initial[OBJ_EPOCH] = '0'
++        # 2) THEN replace the Pod
++        pod, _ = reset_client.get_pod()
++        if pod is not None:
++            uid = pod['metadata']['uid']
++            status, _, _ = reset_client.delete_pod(uid)
++            if status not in (200, 202):
++                raise APIError(f'reset delete failed HTTP {status}')
++            end = time.monotonic() + 30
++            while time.monotonic() < end:
++                pod, _ = reset_client.get_pod()
++                if pod is None:
++                    break
++                time.sleep(0.02)
++        reset_client.create_pod()
++        pod, _ = reset_client.get_pod()
++        decision_uid = pod['metadata']['uid']
++    except Exception as exc:
++        return {'reset_ok': False, 'pod_uid_decision': '', 'initial_values': initial,
++                'error': repr(exc)}, None
++    return {'reset_ok': reset_ok, 'pod_uid_decision': decision_uid, 'initial_values': initial}, decision_uid
++
++
++# --------------------------------------------------------------------------- #
++# Gate. No writer activity is issued inside this timed region (fix c); the only
++# writer interaction is a single non-blocking ``writer.arm(...)`` for negative
++# delta, done immediately before the final fence read is sent.
++# --------------------------------------------------------------------------- #
++def _record_read(client, name, kind='cm'):
++    t_send = mono_ns()
++    if kind == 'pod':
++        obj, _ = client.get_pod()
++        t_recv = mono_ns()
++        if obj is None:
++            return {'object': POD_NAME, 'resource_version': None, 'value': None,
++                    't_send_mono_ns': t_send, 't_recv_mono_ns': t_recv}, None
++        return ({'object': POD_NAME,
++                 'resource_version': obj['metadata'].get('resourceVersion'),
++                 'value': obj['metadata'].get('uid'),
++                 't_send_mono_ns': t_send, 't_recv_mono_ns': t_recv}, obj)
++    status, _, obj = client.request('GET', f'{client._ns_root()}/configmaps/{name}')
++    t_recv = mono_ns()
++    data = (obj or {}).get('data', {})
++    val = data.get('value', data.get('allowed', data.get('sequence')))
++    return ({'object': name, 'resource_version': (obj or {}).get('metadata', {}).get('resourceVersion'),
++             'value': val, 't_send_mono_ns': t_send, 't_recv_mono_ns': t_recv}, obj)
++
++
++def run_gate(responder, arm, decision_uid, writer=None):
++    reads = []
++    ssar_allowed = None
++    t_start = mono_ns()
++
++    def read_cm(name):
++        rec, obj = _record_read(responder, name, kind='cm')
++        reads.append(rec)
++        return rec['value']
++
++    def read_pod():
++        rec, obj = _record_read(responder, None, kind='pod')
++        reads.append(rec)
++        return rec['value']
++
++    # helper to arm the writer for a negative delta immediately before a read.
++    def arm_before_final(final_read_callable):
++        if writer is not None and writer.negative:
++            writer.arm(mono_ns())  # anchor = start of final fence read
++        return final_read_callable()
++
++    if arm == 'A0_native_uid':
++        # Baseline: no ConfigMap re-read. A single pod read serves as the timed
++        # final fence read and confirms the current uid.
++        observed_uid = arm_before_final(read_pod)
++        t_end = mono_ns(); t_end_wall = time.time_ns()
++        decision = 'EXECUTE'  # native uid arm always dispatches; only the DELETE precondition guards it
++        return {'decision': decision, 't_start_mono_ns': t_start, 't_end_mono_ns': t_end,
++                't_end_wall_ns': t_end_wall, 'reads': reads, 'ssar_allowed': ssar_allowed}
++
++    # DCJI (A1/A3) and FullRefresh (A2) share the fenced structure.
++    seq_before = read_cm(OBJ_EPOCH)
++    measured = {}
++    if arm in ('A1_dcji', WEBHOOK_ARM):
++        cert_flags = ('a', 'c', 'e')
++    else:  # A2_fullrefresh
++        cert_flags = tuple(FLAGS)
++    for k in cert_flags:
++        measured[k] = (read_cm('evidence-' + k) == 'true')
++    scope_ok = (read_cm(OBJ_SCOPE) == 'true')
++    app_ok = (read_cm(OBJ_APP) == 'true')
++    observed_uid = read_pod()
++    ssar_allowed, _ = responder.ssar()
++    # Final fence read is the epoch re-read (coherence check).
++    seq_after = arm_before_final(lambda: read_cm(OBJ_EPOCH))
++    t_end = mono_ns(); t_end_wall = time.time_ns()
++
++    coherent = (seq_before is not None and seq_after is not None
++                and seq_before == seq_after and int(seq_before) % 2 == 0)
++    evidence = make_hybrid({k: True for k in FLAGS}, measured)
++    uid_match = (observed_uid == decision_uid)
++    decision = core_decision(evidence, scope_ok, app_ok, uid_match, bool(ssar_allowed), coherent)
++    return {'decision': decision, 't_start_mono_ns': t_start, 't_end_mono_ns': t_end,
++            't_end_wall_ns': t_end_wall, 'reads': reads, 'ssar_allowed': ssar_allowed}
++
++
++# --------------------------------------------------------------------------- #
++# One trial. The runner logs raw facts only (fix d: NO use-time oracle here).
++# --------------------------------------------------------------------------- #
++def build_writer(condition, delta_ms, writer_client):
++    from writer import PostGateWriter
++    if condition == 'async_scope':
++        return PostGateWriter(writer_client, OBJ_SCOPE, {'allowed': 'false'}, delta_ms)
++    if condition == 'async_app_policy':
++        return PostGateWriter(writer_client, OBJ_APP, {'allowed': 'false'}, delta_ms)
++    if condition == 'async_evidence_last_literal':
++        return PostGateWriter(writer_client, 'evidence-a', {'value': 'false'}, delta_ms)
++    return None
++
++
++def one_trial(clients, spec, fake_cluster=None):
++    """clients: dict(responder=, writer=, reset=). spec: dict from the schedule.
++    fake_cluster: optional FakeCluster for uid_rebind_control pod replacement in tests."""
++    responder = clients['responder']; reset = clients['reset']
++    arm = spec['arm']; condition = spec['condition']; delta_ms = spec['delta_ms']
++
++    record = {'schema': 'e38v2.trial.v1', 'run_id': spec['run_id'], 'trial_id': spec['trial_id'],
++              'stage': spec['stage'], 'block': spec['block'], 'arm': arm, 'condition': condition,
++              'delta_ms': delta_ms, 'rep': spec['rep'], 'schedule_seed': spec['schedule_seed'],
++              'fixture': None, 'gate': None, 'writer': None,
++              'delete': {'dispatched': False, 't_send_mono_ns': None, 't_send_wall_ns': None,
++                         't_resp_mono_ns': None, 'http_status': None, 'reason': None,
++                         'audit_id': None, 'expected_uid': '', 'deleted_object_resource_version': None},
++              'effect': {'verified': False, 't_verified_mono_ns': None},
++              'webhook_request_uid': None, 'status': 'COMPLETE', 'error': None}
++    writer = None
+     try:
+-        if kind=='evidence_cut':
+-            for k in ('a','c','e'):api.patch_cm('obs-'+k,{'valid':'false'})
+-        elif kind=='symmetric_bdf_stress':
+-            for k in ('b','d','f'):api.patch_cm('obs-'+k,{'valid':'false'})
+-        elif kind=='scope_expand':api.patch_cm('scope-policy',{'members':json.dumps([NAME,'benign'])})
+-        elif kind=='scope_shrink':api.patch_cm('scope-policy',{'members':'[]'})
+-        elif kind=='application_policy_revoke':api.patch_cm('application-policy',{'allowed':'false'})
+-        else:raise ValueError('Unknown mutation '+kind)
++        fixture, decision_uid = reset_fixture(reset)
++        record['fixture'] = {'reset_ok': fixture['reset_ok'],
++                             'pod_uid_decision': fixture['pod_uid_decision'],
++                             'initial_values': fixture['initial_values']}
++        record['delete']['expected_uid'] = fixture['pod_uid_decision']
++        if not fixture['reset_ok']:
++            record['status'] = 'INFRA_ERROR'
++            record['error'] = 'reset_failed: ' + str(fixture.get('error'))
++            return record
++
++        # pre-gate condition: async_evidence_last_literal cuts c,e BEFORE the gate
++        # (so J = a AND b), using the reset identity (this is fixture prep, not the
++        # asynchronous post-gate writer).
++        if condition == 'async_evidence_last_literal':
++            reset.patch_configmap('evidence-c', {'value': 'false'})
++            reset.patch_configmap('evidence-e', {'value': 'false'})
++
++        # pre-arm the async writer (own keep-alive connection + spinning thread)
++        # BEFORE the gate begins.
++        if condition in ASYNC_CONDITIONS:
++            writer = build_writer(condition, delta_ms, clients['writer'])
++            writer.prearm()
++
++        gate = run_gate(responder, arm, decision_uid, writer=writer)
++        record['gate'] = gate
++
++        # non-negative delta: arm the writer at the (now known) gate end.
++        if writer is not None and not writer.negative:
++            writer.arm(gate['t_end_mono_ns'])
++
++        # uid_rebind_control: replace the Pod AFTER the gate (positive control).
++        if condition == 'uid_rebind_control':
++            pod, _ = reset.get_pod()
++            if pod is not None:
++                reset.delete_pod(pod['metadata']['uid'])
++                end = time.monotonic() + 30
++                while time.monotonic() < end:
++                    pod, _ = reset.get_pod()
++                    if pod is None:
++                        break
++                    time.sleep(0.02)
++            reset.create_pod()
++
++        # DELETE (responder identity) when the client gate accepts.
++        if gate['decision'] == 'EXECUTE':
++            webhook = (arm == WEBHOOK_ARM)
++            t_send = mono_ns(); t_send_wall = time.time_ns()
++            status, headers, obj = responder.delete_pod(decision_uid, webhook=webhook)
++            t_resp = mono_ns()
++            deleted_rv = None
++            reason = None
++            if isinstance(obj, dict):
++                if status in (200, 202):
++                    deleted_rv = obj.get('metadata', {}).get('resourceVersion')
++                else:
++                    reason = obj.get('reason') or obj.get('message')
++            record['delete'] = {'dispatched': True, 't_send_mono_ns': t_send,
++                                't_send_wall_ns': t_send_wall, 't_resp_mono_ns': t_resp,
++                                'http_status': status, 'reason': reason,
++                                'audit_id': headers.get('Audit-Id'),
++                                'expected_uid': decision_uid,
++                                'deleted_object_resource_version': deleted_rv}
++            record['webhook_request_uid'] = headers.get('X-Webhook-Request-Uid')
++            # effect verification (raw fact only)
++            if status in (200, 202):
++                pod, _ = responder.get_pod()
++                record['effect'] = {'verified': pod is None, 't_verified_mono_ns': mono_ns()}
++        # else: gate ABORT / UNKNOWN_COHERENCE -> no DELETE dispatched
++        if gate['decision'] == 'UNKNOWN_COHERENCE':
++            record['status'] = 'UNKNOWN'
++
++        # collect the asynchronous writer result
++        if writer is not None:
++            writer.join(timeout=30)
++            record['writer'] = writer.result
++    except APIError as exc:
++        record['status'] = 'INFRA_ERROR'
++        record['error'] = repr(exc)
++    except Exception as exc:  # pragma: no cover - defensive
++        record['status'] = 'INFRA_ERROR'
++        record['error'] = repr(exc)
+     finally:
+-        # Always close the epoch if possible. Failure remains a logged trial error.
+-        api.patch_cm('e38-epoch',{'sequence':str(seq+2)})
+-    event.update(completed=True,finished_ms=monotonic_ms(),closed_sequence=seq+2)
+-
+-
+-def get_oracle(api,uid):
+-    # Independent complete physical state read outside timed guard; no DCJI import.
+-    evidence={}
+-    for k in FLAGS:
+-        obj,_=api.get_cm('obs-'+k,kind='oracle');evidence[k]=obj['data']['valid']=='true'
+-    obj,_=api.get_cm('scope-policy',kind='oracle')
+-    members=json.loads(obj['data']['members']);scope=(members==[NAME])
+-    obj,_=api.get_cm('application-policy',kind='oracle');app=(obj['data']['allowed']=='true')
+-    pod,_=api.get_pod(kind='oracle',allow_missing=True)
+-    rbac=api.ssar(kind='oracle')
+-    result=model_policy(evidence,bool(pod and pod['metadata']['uid']==uid),scope,app,rbac,pod_ready(pod))
+-    result['physical_evidence']=evidence;result['physical_scope_members']=members
+-    result['physical_uid']=pod['metadata']['uid'] if pod else None
+-    return result
+-
+-
+-def guard(api,method,uid,mode,ttl_seconds,image,condition,event_history,queued_ms=None):
+-    """One measured guard. Decision is hybrid-state evaluation, not oracle output.
+-    Hardware GET records and timing come only from 'guard' request slice.
+-    """
+-    t0=monotonic_ms();start=len(api.requests)
+-    if method=='TTLGuard' and ttl_seconds<=0:raise APIError('TTLGuard needs positive, fixed TTL')
+-    cache_age_s=((t0-queued_ms)/1000 if queued_ms is not None else 0.)
+-    ttl_expired=(method=='TTLGuard' and cache_age_s>=ttl_seconds)
+-    full_refresh=(method=='FullRefresh' or ttl_expired)
+-    fenced=(method=='DCJI' or full_refresh)
+-    selected=PLAN['observations'] if method=='DCJI' else (tuple(FLAGS)+('uid','scope') if full_refresh else ('uid',))
+-    requested=tuple(k for k in selected if k in FLAGS)
+-    # NativeUID is a limited-invariant diagnostic, not a like-for-like J/scope baseline.
+-    recorded={};modes={'parallel','sequential'}
+-    if mode not in modes:raise ValueError('Unknown acquisition mode')
+-    epoch_before=None;epoch_after=None;coherent=False
+-    if fenced:
+-        epoch_before,_=api.get_epoch()
+-        if epoch_before%2:
+-            raise APIError('OPEN_EPOCH_DETECTED: odd initial epoch; abort without deletion')
+-    # This helper is intentionally declared after epoch check to avoid optimistic
+-    # return on a malformed fixture; normal returns use the final block below.
+-    def read_flag(k):
+-        obj,_=api.get_cm('obs-'+k)
+-        value=obj.get('data',{}).get('valid')
+-        if value not in ('true','false'):raise APIError('Unknown flag '+k)
+-        return k,value=='true'
+-    if mode=='parallel' and requested:
+-        if condition=='during_acquisition':raise APIError('during_acquisition requires sequential mode')
+-        with ThreadPoolExecutor(max_workers=len(requested)) as pool:
+-            for k,v in pool.map(read_flag,requested):recorded[k]=v
+-    else:
+-        for i,k in enumerate(requested):
+-            k,v=read_flag(k);recorded[k]=v
+-            if i==0 and condition=='during_acquisition':mutate(api,'evidence_cut',uid,image,event_history)
+-    pod,_=api.get_pod()
+-    obj,_=api.get_cm('application-policy')
+-    app_policy=obj['data'].get('allowed')=='true'
+-    if fenced:
+-        scope_obj,_=api.get_cm('scope-policy')
+-        scope=(json.loads(scope_obj['data']['members'])==[NAME])
+-        epoch_after,_=api.get_epoch()
+-        coherent=epoch_before==epoch_after and epoch_before%2==0
+-    else:
+-        scope=True # stale approved singleton, intentionally not reacquired
+-    get_finish=monotonic_ms()
+-    rbac=api.ssar()
+-    evidence=make_hybrid({k:True for k in FLAGS},recorded)
+-    # The TTLGuard uses a fixed fresh-on-queue cached policy; no claim is made
+-    # about elapsed hardware freshness beyond the declared TTL semantics.
+-    uid_match=bool(pod and pod['metadata']['uid']==uid)
+-    truth=model_policy(evidence,uid_match,scope,app_policy,rbac,pod_ready(pod))
+-    if fenced and not coherent:
+-        decision='UNKNOWN_COHERENCE';reason='fence changed or open'
++        if writer is not None:
++            writer.cancel()
++    return record
++
++
++# --------------------------------------------------------------------------- #
++# Scheduler (FEATURE 4)
++# --------------------------------------------------------------------------- #
++def build_schedule(stage, seed, run_id, topup_file=None):
++    if seed == FORBIDDEN_SEED:
++        raise ValueError(f'seed {FORBIDDEN_SEED} is refused (reserved for the prior locked run)')
++    rng = random.Random(seed)
++    schedule = []
++    if stage == 1:
++        blocks = STAGE1_ASYNC_N  # 39 replicate blocks
++        for block in range(blocks):
++            units = []
++            for cond in ASYNC_CONDITIONS:
++                for arm in ARMS:
++                    for delta in DELTA_GRID_MS:
++                        units.append({'arm': arm, 'condition': cond, 'delta_ms': float(delta)})
++            for arm in ARMS:
++                units.append({'arm': arm, 'condition': 'no_write', 'delta_ms': None})
++            if block < STAGE1_UID_N:
++                for arm in ARMS:
++                    units.append({'arm': arm, 'condition': 'uid_rebind_control', 'delta_ms': None})
++            rng.shuffle(units)   # randomize arm and delta within the block
++            for u in units:
++                u.update(block=block, rep=block, stage=1)
++                schedule.append(u)
++    elif stage == 2:
++        if not topup_file:
++            raise ValueError('stage 2 requires --topup-file')
++        topups = json.loads(Path(topup_file).read_text())
++        # topups: list of {arm, condition, delta_ms, n_additional} OR {..., n_target}
++        block = 0
++        units = []
++        for entry in topups:
++            n_add = entry.get('n_additional')
++            if n_add is None:
++                n_add = int(entry.get('n_target', STAGE2_TARGET_N)) - STAGE1_ASYNC_N
++            for r in range(int(n_add)):
++                units.append({'arm': entry['arm'], 'condition': entry['condition'],
++                              'delta_ms': (None if entry.get('delta_ms') is None else float(entry['delta_ms'])),
++                              'rep': STAGE1_ASYNC_N + r})
++        rng.shuffle(units)
++        for u in units:
++            u.update(block=0, stage=2)
++            schedule.append(u)
+     else:
+-        decision=truth['decision'];reason='evaluated observed/cached predicates'
+-    t1=monotonic_ms();records=api.requests[start:]
+-    guard_gets=[x for x in records if x['kind']=='guard' and x['method']=='GET']
+-    return {'decision':decision,'reason':reason,'model':truth,'coherent':coherent,
+-      'partial_invariant_method':method=='NativeUID' or (method=='TTLGuard' and not ttl_expired),
+-      'ttl_expired':ttl_expired if method=='TTLGuard' else None,'cache_age_s':cache_age_s if method=='TTLGuard' else None,
+-      'epoch_before':epoch_before,'epoch_after':epoch_after,
+-      'measured_evidence':recorded,'queried_evidence':list(requested),'selected_certificate':list(selected),
+-      'observed_uid':pod['metadata']['uid'] if pod else None,
+-      'guard_get_count':len(guard_gets),'core_evidence_get_count':sum('obs-' in x['path'] for x in guard_gets),
+-      'response_body_bytes':sum(x.get('response_bytes',0) for x in guard_gets),
+-      'refresh_latency_ms':get_finish-t0,'gate_latency_ms':t1-t0,
+-      'ssar_posts':sum(x['method']=='POST' and 'selfsubjectaccessreviews' in x['path'] for x in records),
+-      'guard_requests':records}
+-
+-
+-def verify_effect(api,decision_uid,status,delete_sent):
+-    if not delete_sent:return {'pod_absent':False,'effect_verified':False,'post_effect_uid':None,'effect_elapsed_ms':None}
+-    if status not in (200,202):
+-        pod,_=api.get_pod(kind='effect',allow_missing=True)
+-        return {'pod_absent':pod is None,'effect_verified':False,
+-                'post_effect_uid':pod['metadata']['uid'] if pod else None,'effect_elapsed_ms':None}
+-    t0=monotonic_ms()
+-    end=time.monotonic()+30
+-    while time.monotonic()<end:
+-        pod,_=api.get_pod(kind='effect',allow_missing=True)
+-        if pod is None:return {'pod_absent':True,'effect_verified':True,
+-                              'post_effect_uid':None,'effect_elapsed_ms':monotonic_ms()-t0}
+-        if pod['metadata']['uid']!=decision_uid:
+-            return {'pod_absent':False,'effect_verified':False,'post_effect_uid':pod['metadata']['uid'],
+-                    'effect_elapsed_ms':None}
+-        time.sleep(.1)
+-    return {'pod_absent':False,'effect_verified':False,'post_effect_uid':decision_uid,'effect_elapsed_ms':None}
+-
+-
+-def oracle_after_controlled_mutation(prior,mutation,events):
+-    """Prospective use-time truth based on the prior physically read state plus
+-    independently logged successful injector calls. Does not presume immunity
+-    to uninstrumented external writers; after-action records need separate audit.
+-    """
+-    if not mutation:return dict(prior,oracle_source='preacquisition physical oracle and no new injector')
+-    if not events or not events[-1].get('completed') or events[-1]['kind']!=mutation:
+-        raise APIError('Missing completed injector event; oracle unavailable')
+-    out=dict(prior);ev=dict(prior['physical_evidence'])
+-    if mutation=='uid_rebind':out['physical_uid']=events[-1]['replacement_uid']
+-    elif mutation=='evidence_cut':
+-        for k in ('a','c','e'):ev[k]=False
+-    elif mutation=='scope_expand':out['physical_scope_members']=[NAME,'benign']
+-    elif mutation=='application_policy_revoke':out['app_policy_allowed']=False
+-    else:raise ValueError('Unknown oracle mutation '+mutation)
+-    truth=model_policy(ev, False if mutation=='uid_rebind' else out['same_binding'],
+-        out['physical_scope_members']==[NAME],
+-        out['app_policy_allowed'],out['rbac_allowed'],out['ready'])
+-    out.update(truth,physical_evidence=ev,oracle_source='controlled injector event and pre-state; no global transaction')
+-    return out
+-
+-class BackgroundTraffic:
+-    """Bounded unrelated 20 GET/s local background API load (not CPU saturation)."""
+-    def __init__(self,api,rate=20):
+-        self.api=api;self.rate=rate;self.stop=threading.Event();self.issued=0;self.errors=[];self.thread=None
+-    def start(self):
+-        def work():
+-            while not self.stop.is_set():
+-                try:
+-                    self.api.get_cm('obs-irrelevant',kind='background_load');self.issued+=1
+-                except Exception as exc:self.errors.append(repr(exc))
+-                self.stop.wait(1/self.rate)
+-        self.thread=threading.Thread(target=work,daemon=True);self.thread.start()
+-    def finish(self):
+-        if self.thread:
+-            self.stop.set();self.thread.join(timeout=20)
+-            if self.thread.is_alive():raise APIError('Background load thread did not stop')
+-        return {'issued':self.issued,'errors':self.errors,'target_rps':self.rate}
+-
+-def one_trial(api,method,condition,image,mode,ttl,horizon,trial_id,phase,block,seed,order,rep_index=0,load='idle'):
+-    trial={'trial_id':trial_id,'method':method,'condition':condition,'phase':phase,'block_id':block,
+-           'seed':seed,'rep_index':rep_index,'method_order':order,'namespace':api.ns,'mode':mode,'load':load,'status':'STARTED',
+-           'failed':False,'timeout':False,'safety_notes':[],'events':[]}
+-    start=monotonic_ms();logs=len(api.requests)
++        raise ValueError('stage must be 1 or 2')
++    # assign trial ids and run metadata
++    for i, u in enumerate(schedule, start=1):
++        u['trial_id'] = i
++        u['run_id'] = run_id
++        u['schedule_seed'] = seed
++    return schedule
++
++
++def schedule_counts(schedule):
++    cells = {}
++    arms = {}
++    conds = {}
++    uid_count = 0
++    writer_count = 0
++    for u in schedule:
++        key = (u['arm'], u['condition'], u['delta_ms'])
++        cells[key] = cells.get(key, 0) + 1
++        arms[u['arm']] = arms.get(u['arm'], 0) + 1
++        conds[u['condition']] = conds.get(u['condition'], 0) + 1
++        if u['condition'] == 'uid_rebind_control':
++            uid_count += 1
++        if u['condition'] in ASYNC_CONDITIONS:
++            writer_count += 1
++    return {'total': len(schedule), 'by_arm': arms, 'by_condition': conds,
++            'distinct_cells': len(cells), 'uid_trials': uid_count,
++            'writer_trials': writer_count,
++            'non_uid_trials': len(schedule) - uid_count}
++
++
++def runtime_estimate(counts):
++    non_uid = counts['non_uid_trials']; uid = counts['uid_trials']; writer = counts['writer_trials']
++    seconds = non_uid * SEC_PER_TRIAL_NON_UID + uid * SEC_PER_TRIAL_UID + writer * WRITER_OVERHEAD_S
++    return {'seconds': round(seconds, 1), 'hours': round(seconds / 3600.0, 3),
++            'model': {'sec_per_trial_non_uid': SEC_PER_TRIAL_NON_UID,
++                      'sec_per_trial_uid': SEC_PER_TRIAL_UID,
++                      'writer_overhead_s': WRITER_OVERHEAD_S}}
++
++
++# --------------------------------------------------------------------------- #
++# LOCK verification (safety rail 7)
++# --------------------------------------------------------------------------- #
++def verify_lock(lock_path):
++    lock = json.loads(Path(lock_path).read_text())
++    hashes = lock.get('file_sha256', {})
++    mismatches = []
++    for rel, expected in hashes.items():
++        p = HERE / rel
++        if not p.is_file():
++            mismatches.append(f'{rel}: missing')
++        elif sha256_file(p) != expected:
++            mismatches.append(f'{rel}: sha256 mismatch')
++    if mismatches:
++        raise APIError('LOCK hash mismatch: ' + '; '.join(mismatches))
++    return lock
++
++
++# --------------------------------------------------------------------------- #
++# Session metadata
++# --------------------------------------------------------------------------- #
++def build_session(run_id, stage, seed, horizon, f5_path, cert, namespace, context,
++                  identities):
++    src_files = ['e38v2_runner.py', 'e38v2_model.py', 'writer.py', 'fake_api.py', 'schema.py',
++                 'e38_independent_offline_oracle.py']
++    file_hashes = {}
++    for name in src_files:
++        p = HERE / name
++        if p.is_file():
++            file_hashes[name] = sha256_file(p)
++    for p in sorted((HERE / 'flashir_core').glob('*.py')):
++        file_hashes['flashir_core/' + p.name] = sha256_file(p)
++    return {
++        'schema': 'e38v2.session.v1',
++        'run_id': run_id, 'stage': stage, 'schedule_seed': seed,
++        'horizon_s': horizon,
++        'clock_anchor': {'mono_ns': mono_ns(), 'wall_ns': time.time_ns()},
++        'namespace': namespace, 'context': context,
++        'certificate': cert['certificate'],
++        'certificate_invariant_horizons': cert['invariant_horizons_checked'],
++        'f5_path': cert['f5_path'], 'f5_sha256': cert['f5_sha256'],
++        'identities': identities,
++        'file_sha256': file_hashes,
++        'python': sys.version.split()[0],
++        'created_wall': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
++        'note': 'Offline session metadata. No live cluster results are implied.',
++    }
++
++
++# --------------------------------------------------------------------------- #
++# --offline-selftest
++# --------------------------------------------------------------------------- #
++def offline_selftest(output_dir, seed, horizon, f5_path, reps=1, deltas=None, run_id='e38v2selftest'):
++    from fake_api import FakeApiServer
++    deltas = deltas if deltas is not None else [-2.0, 0.0, 1.0, 5.0]
++    cert = frozen_planner_certificate(horizon, f5_path)
++    output_dir = Path(output_dir)
++    output_dir.mkdir(parents=True, exist_ok=True)
++    namespace = 'e38v2-selftest'
++    server = FakeApiServer(namespace=namespace).start()
+     try:
+-        uid=reset_fixture(api,image)
+-        queued_ms=monotonic_ms()
+-        trial['decision_uid']=uid
+-        pre={'irrelevant':'irrelevant','evidence_cut':'evidence_cut','uid_rebind':'uid_rebind',
+-          'scope_expand':'scope_expand','scope_shrink':'scope_shrink',
+-          'application_policy_revoke':'application_policy_revoke',
+-          'symmetric_bdf_stress':'symmetric_bdf_stress','unknown_open_epoch':'unknown_open_epoch'}
+-        if condition in pre:mutate(api,pre[condition],uid,image,trial['events'])
+-        trial['oracle_at_gate_preacquisition']=get_oracle(api,uid)
+-        bg=BackgroundTraffic(api) if load=='moderate' else None
+-        if bg:bg.start();time.sleep(.05)
+-        decision_started=monotonic_ms()
+-        try:
+-            try:g=guard(api,method,uid,mode,ttl,image,condition,trial['events'],queued_ms=queued_ms)
+-            finally:
+-                if bg:trial['background_load']=bg.finish()
+-        except APIError as e:
+-            if str(e).startswith('OPEN_EPOCH_DETECTED'):
+-                trial.update(guard={'decision':'UNKNOWN_COHERENCE','reason':str(e)},
+-                    guard_decision='UNKNOWN_COHERENCE',status='UNKNOWN',deleted=False,
+-                    oracle_at_use=get_oracle(api,uid),delete_sent=False,server_http_status=None,
+-                    effect={'pod_absent':False,'effect_verified':False,'post_effect_uid':None,'effect_elapsed_ms':None},
+-                    gate_deadline_missed=None,effect_deadline_missed=None)
+-                return trial
+-            raise
+-        trial.update(guard=g,guard_decision=g['decision'],oracle_gate_decision=trial['oracle_at_gate_preacquisition']['decision'])
+-        if condition=='during_acquisition':trial['oracle_gate_decision']=get_oracle(api,uid)['decision']
+-        if g['decision']=='EXECUTE':
+-            post={'postgate_uid':'uid_rebind','postgate_evidence':'evidence_cut',
+-              'postgate_scope':'scope_expand','postgate_application_policy':'application_policy_revoke'}
+-            if condition in post:mutate(api,post[condition],uid,image,trial['events'])
+-            # No oracle GET or SSAR intervenes between accepted gate and DELETE;
+-            # use-time truth uses independently logged controlled mutation events.
+-            trial['oracle_at_use']=oracle_after_controlled_mutation(
+-              trial['oracle_at_gate_preacquisition'],post.get(condition),trial['events'])
+-            tdel=monotonic_ms()
+-            body,status,_=api.delete_pod(uid)
+-            effect=verify_effect(api,uid,status,True)
+-            trial.update(delete_sent=True,server_http_status=status,delete_options={'preconditions':{'uid':uid}},
+-              effect=effect,action_dispatch_ms=tdel,deleted=effect['effect_verified'])
+-            if status==409 and effect['effect_verified']:trial['safety_notes'].append('ERROR 409 miscounted effect')
+-            if effect['post_effect_uid'] and effect['post_effect_uid']!=uid and status in (200,202):
+-                trial['safety_notes'].append('Wrong-target deletion may have occurred: investigate immediately')
+-            if trial['oracle_at_use']['decision']!='EXECUTE' and status in (200,202):
+-                trial['safety_notes'].append('USE-TIME INVALID ACTION ACCEPTED: UID comparator does not enforce other policy predicates')
+-        else:
+-            trial['oracle_at_use']=get_oracle(api,uid)
+-            trial.update(delete_sent=False,server_http_status=None,deleted=False,
+-                effect={'pod_absent':False,'effect_verified':False,'post_effect_uid':None,'effect_elapsed_ms':None})
+-        trial['decision_to_gate_ms']=g.get('gate_latency_ms')
+-        trial['decision_to_first_effect_ms']=(monotonic_ms()-decision_started if trial['effect']['effect_verified'] else None)
+-        trial['gate_deadline_missed']=g.get('gate_latency_ms',float('inf'))>horizon*1000
+-        # Effect latency is not applicable to an intentionally aborted decision
+-        # or a server-side 409 that correctly prevents the action.  Counting
+-        # these safe negative cases as deadline misses inflates failure rates.
+-        trial['effect_deadline_missed']=(
+-            (trial['decision_to_first_effect_ms'] is None or trial['decision_to_first_effect_ms']>horizon*1000)
+-            if trial.get('server_http_status') in (200,202) else None)
+-        trial['status']='COMPLETE_WITH_SAFETY_NOTE' if trial['safety_notes'] else 'COMPLETE'
+-    except Exception as exc:
+-        trial.update(status='ERROR',failed=True,timeout=isinstance(exc,TimeoutError) or 'timed out' in repr(exc).lower(),error=repr(exc))
++        base = server.base_url
++        clients = {
++            'responder': KubeClient(base, namespace, 'responder', token_path='/run/secrets/responder.token', context=REQUIRED_CONTEXT),
++            'writer': KubeClient(base, namespace, 'writer', token_path='/run/secrets/writer.token', context=REQUIRED_CONTEXT),
++            'reset': KubeClient(base, namespace, 'reset', token_path='/run/secrets/reset.token', context=REQUIRED_CONTEXT),
++        }
++        for c in clients.values():
++            c.connect()
++        identities = {k: {'identity': v.identity, 'token_path': v.token_path, 'context': v.context}
++                      for k, v in clients.items()}
++        # Build a compact but exhaustive-per-path schedule.
++        specs = []
++        tid = 0
++        for arm in ARMS:
++            for cond in CONDITIONS:
++                if cond in ASYNC_CONDITIONS:
++                    ds = deltas
++                else:
++                    ds = [None]
++                for d in ds:
++                    for r in range(reps):
++                        tid += 1
++                        specs.append({'run_id': run_id, 'trial_id': tid, 'stage': 1, 'block': 0,
++                                      'arm': arm, 'condition': cond, 'delta_ms': d, 'rep': r,
++                                      'schedule_seed': seed})
++        raw_path = output_dir / 'RAW_TRIALS.jsonl'
++        n_valid = 0
++        release_offsets = []
++        with raw_path.open('w', encoding='utf8') as fh:
++            for spec in specs:
++                rec = one_trial(clients, spec, fake_cluster=server.cluster)
++                validate_record(rec)
++                n_valid += 1
++                if rec['writer'] and rec['writer'].get('actual_release_mono_ns') is not None:
++                    release_offsets.append(rec['writer']['actual_release_mono_ns']
++                                           - rec['writer']['intended_release_mono_ns'])
++                fh.write(json.dumps(rec, sort_keys=True) + '\n')
++                fh.flush()
++        session = build_session(run_id, 1, seed, horizon, f5_path, cert, namespace,
++                                REQUIRED_CONTEXT, identities)
++        session['selftest'] = True
++        session['raw_sha256'] = sha256_file(raw_path)
++        session['trials_written'] = n_valid
++        (output_dir / 'SESSION.json').write_text(json.dumps(session, indent=2) + '\n')
++        summary = {'trials': n_valid, 'all_schema_valid': True,
++                   'writer_trials': len(release_offsets)}
++        if release_offsets:
++            release_offsets.sort()
++            summary['release_offset_ns'] = {
++                'min': release_offsets[0], 'max': release_offsets[-1],
++                'median': release_offsets[len(release_offsets) // 2],
++                'mean': round(sum(release_offsets) / len(release_offsets), 1)}
++        print(json.dumps(summary, indent=2))
++        return 0
+     finally:
+-        trial['elapsed_wall_ms']=monotonic_ms()-start
+-        trial['all_requests']=api.requests[logs:]
+-        trial['all_request_count']=len(trial['all_requests'])
+-    return trial
+-
+-
+-def verify_cluster_context(expected='kind-e38'):
+-    result=subprocess.run(['kubectl','config','current-context'],capture_output=True,text=True,timeout=10)
+-    current=result.stdout.strip()
+-    if result.returncode or current!=expected:raise APIError(f'Context mismatch: need {expected}, got {current!r}')
+-    return current
+-
+-def validate_phase_report(path,expected_phase):
+-    """Tie an operator acceptance to preserved raw bytes, schedule and tested code.
+-
+-    A JSON boolean is NOT sufficient evidence of an actual completed smoke/pilot.
+-    This only verifies local provenance and consistency, not the human's signature.
+-    """
+-    report=json.loads(Path(path).read_text())
+-    rid=report.get('run_id')
+-    if not isinstance(rid,str) or not rid.startswith('e38') or not rid.isalnum():
+-        raise APIError('Acceptance report has an invalid or absent run ID')
+-    if report.get('phase')!=expected_phase:raise APIError('Acceptance phase mismatch')
+-    run=ROOT/'results'/f'{rid}-{expected_phase}'
+-    raw=run/'RAW_TRIALS.jsonl'
+-    if not raw.is_file() or not (run/'SESSION.json').is_file():
+-        raise APIError('Acceptance has no locally retained physical trial records: '+str(run))
+-    session=json.loads((run/'SESSION.json').read_text())
+-    if session.get('phase')!=expected_phase or session.get('run_id')!=rid:
+-        raise APIError('Acceptance run metadata mismatch')
+-    if session.get('source_tree_sha256')!=source_tree_sha():
+-        raise APIError('Source changed since approved '+expected_phase+'; re-test affected phase')
+-    if report.get('raw_sha256')!=sha(raw):
+-        raise APIError('Acceptance raw SHA256 not equal to existing raw results')
+-    descriptive=run/'DESCRIPTIVE_AUDIT.json'
+-    integrity=run/'RAW_INTEGRITY_REPORT.json'
+-    if not descriptive.is_file() or not integrity.is_file():
+-        raise APIError('Missing required full-run audit files for '+expected_phase)
+-    analysis=json.loads(descriptive.read_text());checks=json.loads(integrity.read_text())
+-    if not analysis.get('complete_schedule') or analysis.get('raw_sha256')!=sha(raw):
+-        raise APIError('Incomplete or stale descriptive audit for '+expected_phase)
+-    if checks.get('hard_accounting_errors') or checks.get('total_attempts_checked')!=session.get('total_planned_trials'):
+-        raise APIError('Raw integrity problems in '+expected_phase)
+-    if analysis.get('failed_attempts'):
+-        raise APIError('Failed attempts require engineering re-review of '+expected_phase)
+-    # Recompute the raw audit at the phase boundary; do not trust an arbitrary
+-    # previously written JSON claiming zero errors.
+-    import importlib.util
+-    spec=importlib.util.spec_from_file_location('e38_boundary_verify_raw',ROOT/'analysis/verify_raw.py')
+-    verifier=importlib.util.module_from_spec(spec);spec.loader.exec_module(verifier)
+-    rows=[json.loads(line) for line in raw.read_text().splitlines() if line.strip()]
+-    recomputed=verifier.audit(rows,session)
+-    if recomputed['hard_accounting_errors'] or len(rows)!=session['total_planned_trials']:
+-        raise APIError('Physical raw trials fail a fresh phase-boundary integrity audit')
+-    if recomputed['total_attempts_checked']!=checks.get('total_attempts_checked'):
+-        raise APIError('Saved raw audit disagrees with fresh recomputation')
+-    return report
+-
+-
+-def require_lock(path,conditions,methods,mode,repetitions,blocks,image,ttl_seconds,horizon_seconds,seed):
+-    """Second-stage confirmatory gate. A real independent signoff cannot be self-certified by code."""
+-    data=json.loads(Path(path).read_text())
+-    expected={'status':'LOCKED_APPROVED','independent_oracle_approval':True,
+-       'namespace_disposable_approval':True,'risk_signoff':True,'pilot_independent_from_confirmatory':True}
+-    for key,value in expected.items():
+-        if data.get(key)!=value:raise APIError('Confirmatory lock incomplete: '+key)
+-    for key in ('operator','hardware_provenance','protocol_sha256','source_sha256','pilot_report_sha256',
+-       'oracle_approval_record','analysis_plan_sha256','sample_size_justification','lock_timestamp_utc',
+-       'source_tree_sha256','oracle_spec_sha256','trial_contract_sha256','raw_audit_sha256'):
+-        if not data.get(key):raise APIError('Lock missing '+key)
+-    if data['source_sha256']!=sha(__file__):raise APIError('Locked source hash mismatch')
+-    if data['source_tree_sha256']!=source_tree_sha():raise APIError('Locked full source tree hash mismatch')
+-    if data['oracle_spec_sha256']!=sha(ROOT/'protocol/E38_ORACLE_REVIEW_FOR_REVIEWERS.md'):
+-        raise APIError('Locked E38 oracle specification hash mismatch')
+-    if data['trial_contract_sha256']!=sha(ROOT/'protocol/E38_TRIAL_CONTRACT_V2.json'):
+-        raise APIError('Locked trial contract hash mismatch')
+-    if data['raw_audit_sha256']!=sha(ROOT/'analysis/verify_raw.py'):
+-        raise APIError('Locked raw audit script hash mismatch')
+-    if data['protocol_sha256']!=sha(ROOT/'protocol/CONFIRMATORY_DESIGN.json'):
+-        raise APIError('Protocol hash mismatch')
+-    if data['analysis_plan_sha256']!=sha(ROOT/'analysis/analyze.py'):
+-        raise APIError('Analysis script hash mismatch')
+-    if data.get('image')!=image or not re.fullmatch(r'[^\s@]+@sha256:[0-9a-fA-F]{64}',image):
+-        raise APIError('Confirmatory image must match an exact locked SHA256 digest')
+-    if sorted(data['conditions'])!=sorted(conditions) or sorted(data['methods'])!=sorted(methods):
+-        raise APIError('Lock condition/method mismatch')
+-    if data['mode']!=mode or data['repetitions_per_method_condition']!=repetitions or data['blocks']!=blocks:
+-        raise APIError('Lock sample schedule mismatch')
+-    if (data.get('ttl_seconds')!=ttl_seconds or data.get('horizon_seconds')!=horizon_seconds
+-            or data.get('random_seed')!=seed):
+-        raise APIError('Lock TTL/horizon/random-seed mismatch')
+-    return data
++        for c in clients.values():
++            c.close()
++        server.stop()
+ 
+ 
++# --------------------------------------------------------------------------- #
++# CLI
++# --------------------------------------------------------------------------- #
+ def main(argv=None):
+-    ap=argparse.ArgumentParser(description=__doc__)
+-    ap.add_argument('--phase',choices=PHASES,default='smoke')
+-    ap.add_argument('--proxy',default='http://127.0.0.1:18038')
+-    ap.add_argument('--context',default='kind-e38')
+-    ap.add_argument('--namespace',required=True,help='e38-* owned disposable namespace')
+-    ap.add_argument('--run-id',required=True,help='fixed run label for resuming an existing namespace')
+-    ap.add_argument('--image',default='nginx:stable-alpine')
+-    ap.add_argument('--conditions',default=','.join(PRIMARY))
+-    ap.add_argument('--methods',default='DCJI,FullRefresh')
+-    ap.add_argument('--mode',choices=['sequential','parallel'],default='sequential')
+-    ap.add_argument('--load',choices=['idle','moderate'],default='idle')
+-    ap.add_argument('--repetitions',type=int,default=None)
+-    ap.add_argument('--blocks',type=int,default=1)
+-    ap.add_argument('--seed',type=int,default=3801)
+-    ap.add_argument('--ttl-seconds',type=float,default=30.0)
+-    ap.add_argument('--horizon-seconds',type=float,default=30.0)
+-    ap.add_argument('--output-dir',type=Path,required=True)
+-    ap.add_argument('--final-lock',type=Path)
+-    ap.add_argument('--smoke-report',type=Path,help='Audited smoke report, required for pilot/confirmatory')
+-    ap.add_argument('--pilot-report',type=Path,help='Audited pilot report, required for confirmatory')
+-    ap.add_argument('--ack-disposable',action='store_true')
+-    ap.add_argument('--dry-run',action='store_true')
+-    a=ap.parse_args(argv)
+-    conditions=[x.strip() for x in a.conditions.split(',') if x.strip()]
+-    methods=[x.strip() for x in a.methods.split(',') if x.strip()]
+-    if not conditions or len(conditions)!=len(set(conditions)):
+-        ap.error('Require nonempty distinct conditions; repeated cells corrupt matching')
+-    if len(methods)!=len(set(methods)):
+-        ap.error('Require distinct methods; repeated cells corrupt matching')
+-    unknown=set(conditions)-set(CONDITIONS)
+-    if unknown:ap.error('Invalid conditions: '+str(unknown))
+-    if a.context!='kind-e38':ap.error('Only dedicated kind-e38 cluster is permitted')
+-    if a.ttl_seconds<=0 or a.horizon_seconds<=0:ap.error('Positive TTL and horizon required')
+-    if not methods or set(methods)-set(METHODS):ap.error('Invalid methods')
+-    if a.mode=='parallel' and 'during_acquisition' in conditions:
+-        ap.error('during_acquisition requires sequential mode; use a separate predeclared parallel subset')
+-    reps=a.repetitions if a.repetitions is not None else {'smoke':2,'pilot':20,'confirmatory':0}[a.phase]
+-    if reps<=0 or a.blocks<=0:ap.error('Positive repetitions and blocks required')
+-    if a.phase=='smoke' and (reps>2 or a.blocks!=1):ap.error('Engineering smoke limited to two repetitions and one block')
+-    if a.phase=='pilot' and not re.fullmatch(r'[^\s@]+@sha256:[0-9a-fA-F]{64}',a.image):
+-        ap.error('Pilot requires a complete container image @sha256:<64 hex digits> digest; carry the identical digest into confirmatory')
+-    if a.phase in ('pilot','confirmatory'):
+-        if not a.smoke_report or not a.smoke_report.is_file():ap.error('Pilot/confirmatory requires --smoke-report')
+-        try:smoke=validate_phase_report(a.smoke_report,'smoke')
+-        except (ValueError,APIError,OSError) as exc:ap.error('Invalid/unsubstantiated smoke report: '+str(exc))
+-        if smoke.get('phase')!='smoke' or not smoke.get('engineering_acceptance_signed'):
+-            ap.error('Smoke report not signed/accepted')
+-        if not all(smoke.get(k) is True for k in ('planned_attempts_accounted_for',
+-            'UID_precondition_verified_on_real_server','coherence_unknown_fail_closed_verified',
+-            'all_expected_safe_and_negative_controls_inspected')):
+-            ap.error('Smoke engineering criteria not all signed as passing')
+-        if not smoke.get('reviewer') or not smoke.get('raw_sha256'):
+-            ap.error('Smoke signoff must cite reviewer and real raw-file digest')
+-    if a.phase=='confirmatory':
+-        if not a.final_lock or not a.pilot_report or not a.pilot_report.is_file():
+-            ap.error('Confirmatory requires --final-lock and --pilot-report')
+-        try:pilot=validate_phase_report(a.pilot_report,'pilot')
+-        except (ValueError,APIError,OSError) as exc:ap.error('Invalid/unsubstantiated pilot report: '+str(exc))
+-        if pilot.get('phase')!='pilot' or not pilot.get('independent_analysis_accepted'):
+-            ap.error('Pilot report not independently accepted')
+-        if pilot.get('planned_attempts_accounted_for') is not True or not all(pilot.get(k) for k in (
+-            'reviewer','raw_sha256','sample_size_basis_and_schedule','mean_latency_precision_target_ms')):
+-            ap.error('Pilot report lacks independent audit, full accounting or declared precision')
+-        lock=require_lock(a.final_lock,conditions,methods,a.mode,reps,a.blocks,a.image,
+-                          a.ttl_seconds,a.horizon_seconds,a.seed)
+-        if lock['pilot_report_sha256']!=sha(a.pilot_report):ap.error('Pilot report hash mismatch')
+-        pilot_session=json.loads((ROOT/'results'/f"{pilot['run_id']}-pilot"/'SESSION.json').read_text())
+-        if pilot_session.get('image')!=a.image:
+-            ap.error('Confirmatory image differs from pinned pilot image: must use same digest')
+-        if lock.get('load')!=a.load:ap.error('Locked load mismatch')
+-    # Preflight planning never writes a cluster resource.
+-    plan=frozen_planner_certificate()
+-    session={'phase':a.phase,'conditions':conditions,'methods':methods,'mode':a.mode,'repetitions':reps,
+-      'blocks':a.blocks,'total_planned_trials':len(conditions)*len(methods)*reps*a.blocks,
+-      'namespace':a.namespace,'run_id':a.run_id,'certificate':plan['observations'],
+-      'model_goals':plan['plan']['goal_count'],'source_sha256':sha(__file__),
+-      'model_sha256':sha(HERE/'e38_model.py'),'source_tree_sha256':source_tree_sha(),
+-      'image':a.image,'load':a.load,
+-      'ttl_seconds':a.ttl_seconds,'horizon_seconds':a.horizon_seconds,'random_seed':a.seed,
+-      'note':'No results are implied by this plan.'}
+-    if a.dry_run:print(json.dumps(session,indent=2));return 0
+-    if not a.ack_disposable:ap.error('Physical mutation requires --ack-disposable')
+-    if not a.namespace.startswith('e38-') or not a.run_id:ap.error('Invalid namespace/run ID')
+-    if a.output_dir.exists():ap.error('Output directory already exists: refusing to mutate resources before creating new raw log')
+-    verify_cluster_context(a.context)
+-    api=KubeAPI(a.proxy,a.namespace)
+-    version,status,_=api.call('GET','/version',kind='preflight')
+-    if status!=200:raise APIError('Cannot reach Kubernetes API via local proxy')
+-    # Establish a durable audit directory BEFORE the first cluster mutation.
+-    # Previously an image-pull, namespace or fixture failure could leave cluster
+-    # changes behind with no corresponding per-run setup record.
+-    a.output_dir.mkdir(parents=True,exist_ok=False)
+-    session.update(cluster_version=version,started_at_utc=time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()),
+-                   setup_status='IN_PROGRESS')
+-    (a.output_dir/'SESSION.json').write_text(json.dumps(session,indent=2)+'\n')
+-    try:
+-        ensure_owned_namespace(api,a.run_id)
+-        ensure_fixture(api,a.image)
+-    except BaseException as exc:
+-        (a.output_dir/'SETUP_TRACE.json').write_text(json.dumps(api.requests,indent=2)+'\n')
+-        (a.output_dir/'SETUP_FAILED.json').write_text(json.dumps({
+-            'status':'SETUP_FAILED','error':repr(exc),'no_experimental_trials_executed':True,
+-            'setup_trace_sha256':sha(a.output_dir/'SETUP_TRACE.json')},indent=2)+'\n')
+-        session['setup_status']='FAILED'
+-        (a.output_dir/'SESSION.json').write_text(json.dumps(session,indent=2)+'\n')
+-        raise
+-    (a.output_dir/'SETUP_TRACE.json').write_text(json.dumps(api.requests,indent=2)+'\n')
+-    session['setup_status']='COMPLETE'
+-    session['setup_trace_sha256']=sha(a.output_dir/'SETUP_TRACE.json')
+-    (a.output_dir/'SESSION.json').write_text(json.dumps(session,indent=2)+'\n')
+-    results_path=a.output_dir/'RAW_TRIALS.jsonl'
+-    rng=random.Random(a.seed);ordinal=0;written=0;run_completed=False;interruption=None
+-    try:
+-        with results_path.open('x',encoding='utf8') as output:
+-            for block in range(a.blocks):
+-                for cond in conditions:
+-                    # Methods are reset to identical starting state before each trial.
+-                    for rep in range(reps):
+-                        order=methods[:];rng.shuffle(order)
+-                        for method in order:
+-                            ordinal+=1;tid=f'{a.run_id}-{ordinal:06d}'
+-                            trial=one_trial(api,method,cond,a.image,a.mode,a.ttl_seconds,a.horizon_seconds,
+-                              tid,a.phase,block,a.seed,order,rep_index=rep,load=a.load)
+-                            output.write(json.dumps(trial,sort_keys=True,default=str)+'\n')
+-                            output.flush();os.fsync(output.fileno())
+-                            written+=1
+-                            print(tid,method,cond,trial['status'],trial.get('guard_decision','NO_GATE'),flush=True)
+-                            # Do not silently suppress infrastructure / instrumentation failures.
+-                            if trial['failed'] or any('Wrong-target' in note for note in trial['safety_notes']):
+-                                raise APIError(f'P0 defect: {tid}; preserve logs and stop campaign')
+-            run_completed=True
+-    except BaseException as exc:
+-        interruption=repr(exc)
+-        raise
+-    finally:
+-        (a.output_dir/'COMPLETE_OR_INTERRUPTED.json').write_text(json.dumps({
+-          'run_id':a.run_id,'planned':session['total_planned_trials'],'written':written,
+-          'attempts_started':ordinal,'completed':run_completed,'interruption':interruption,
+-          'raw_sha256':sha(results_path) if results_path.exists() else None,
+-          'finished_at_utc':time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()),
+-          'namespace_left_intact':'Manual cleanup only after data verification.'},indent=2)+'\n')
+-    print('FINISHED; review RAW_TRIALS and source checksums. This is only '+a.phase+' output.')
+-    return 0
++    ap = argparse.ArgumentParser(description=__doc__)
++    ap.add_argument('--stage', type=int, choices=[1, 2], default=1)
++    ap.add_argument('--topup-file', type=Path)
++    ap.add_argument('--seed', type=int, default=3802)
++    ap.add_argument('--horizon-seconds', type=float, default=30.0)
++    ap.add_argument('--f5-path', type=Path, default=DEFAULT_F5)
++    ap.add_argument('--run-id', default='e38v2run')
++    ap.add_argument('--namespace', default='e38v2-run')
++    ap.add_argument('--context', default=REQUIRED_CONTEXT)
++    ap.add_argument('--proxy', default='http://127.0.0.1:18039')
++    ap.add_argument('--output-dir', type=Path)
++    ap.add_argument('--lock', type=Path)
++    ap.add_argument('--dry-run', action='store_true')
++    ap.add_argument('--offline-selftest', action='store_true')
++    ap.add_argument('--selftest-reps', type=int, default=1)
++    ap.add_argument('--ack-disposable', action='store_true')
++    a = ap.parse_args(argv)
++
++    # Certificate (fix b): fail closed if it is not {a,c,e,uid,scope} at the horizon.
++    cert = frozen_planner_certificate(a.horizon_seconds, a.f5_path)
++
++    if a.offline_selftest:
++        if not a.output_dir:
++            ap.error('--offline-selftest requires --output-dir')
++        return offline_selftest(a.output_dir, a.seed, a.horizon_seconds, a.f5_path,
++                                reps=a.selftest_reps, run_id=a.run_id)
++
++    schedule = build_schedule(a.stage, a.seed, a.run_id, topup_file=a.topup_file)
++    counts = schedule_counts(schedule)
++    est = runtime_estimate(counts)
++
++    if a.dry_run:
++        out = {'stage': a.stage, 'seed': a.seed, 'horizon_s': a.horizon_seconds,
++               'certificate': cert['certificate'], 'counts': counts,
++               'runtime_estimate': est}
++        print(json.dumps(out, indent=2))
++        if a.output_dir:
++            a.output_dir.mkdir(parents=True, exist_ok=True)
++            (a.output_dir / 'SCHEDULE.json').write_text(json.dumps(schedule, indent=2) + '\n')
++        return 0
++
++    # ---- Beyond here a live/proxied run would begin. Safety rails: ----
++    if a.context != REQUIRED_CONTEXT:
++        ap.error(f'refusing to run: --context must be exactly {REQUIRED_CONTEXT!r}')
++    if not a.namespace.startswith(NS_PREFIX):
++        ap.error(f'refusing to run: --namespace must start with {NS_PREFIX!r}')
++    if a.lock:
++        try:
++            verify_lock(a.lock)
++        except APIError as exc:
++            ap.error(str(exc))
++    if not a.ack_disposable:
++        ap.error('live/proxied execution requires --ack-disposable (operator acknowledges destructive '
++                 'Pod/ConfigMap changes on the disposable e38v2 kind cluster)')
++    if not a.output_dir:
++        ap.error('a real run requires --output-dir')
++    # NOTE: the actual proxied execution loop against a live cluster is intentionally
++    # not exercised in this offline build; the authors run it themselves after review.
++    # It would: verify_cluster_context, open the three identity connections to
++    # a.proxy, write SESSION.json + SCHEDULE.json, then iterate one_trial over the
++    # schedule writing RAW_TRIALS.jsonl. The trial logic is fully covered by
++    # --offline-selftest and the unit tests.
++    ap.error('live execution path is disabled in this offline build; use --offline-selftest')
++
+ 
+-if __name__=='__main__':sys.exit(main())
++if __name__ == '__main__':
++    sys.exit(main())

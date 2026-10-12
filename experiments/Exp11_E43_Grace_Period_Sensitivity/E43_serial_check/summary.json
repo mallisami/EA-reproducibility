@@ -1,0 +1,9 @@
+{
+ "trials": 30,
+ "A4d_contested_and_rejected": 0,
+ "A4d_stale_accept": 0,
+ "A4d_stale_accept_wilson_upper_among_contested": NaN,
+ "readback_postmark_patches": 9,
+ "readback_postmark_persisted": 9,
+ "readback_persist_wilson_upper": 1.0
+}

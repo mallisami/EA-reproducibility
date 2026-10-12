@@ -1,0 +1,12 @@
+{
+  "imageReference": {
+    "offer": "ubuntu-24_04-lts",
+    "publisher": "Canonical",
+    "sku": "server",
+    "version": "latest"
+  },
+  "location": "eastasia",
+  "osType": "Linux",
+  "vmSize": "Standard_D2as_v4",
+  "zone": ""
+}

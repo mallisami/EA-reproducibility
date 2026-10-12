@@ -1,0 +1,57 @@
+E38v2 CONFIRMATORY RERUN (run_id e38v2r-20260926t1032z) -- DEVIATIONS / CHANGES vs the first run
+===================================================================================================
+Reference: first run e38v2-20260926t0813z (RUNBOOK v1, INTERFACE_SPEC v1, ANALYSIS_PLAN v1.1, deviations D1-D10 in
+its DEVIATIONS_E38v2.txt). D1 (dedicated kubeconfig), D3 (image import via ctr), D4-D10 apply unchanged to the rerun;
+D2 is superseded by R1. Everything below was decided and implemented BEFORE the rerun LOCK (10:34:43Z) unless marked.
+Design, arms, conditions, delta grid, n = 39 -> 93 two-stage rule, validity policy, primary oracle rule,
+denominators and sensitivities S1-S4 are unchanged.
+
+REQUESTED CHANGES
+R1  Target Pod genuinely Running and Ready: registry.k8s.io/pause:3.10 from the kindest/node:v1.37.0 containerd store
+    (imagePullPolicy Never, no pulls), no scheduling gate. The reset waits until the Pod is Running+Ready (20 ms
+    GET polls, 90 s timeout -> INFRA_ERROR). Recorded per trial: fixture.pod_ready (wait, ready time), gate.pod_state
+    (Pod as read by the gate), effect.t_gone_mono_ns (Pod object gone), effect.delete_response_deletion_timestamp.
+    DELETE options unchanged: gracePeriodSeconds = 0 + UID precondition (as in the first run). Consequence (documented,
+    not a change): with grace 0 the DELETE itself removes the API object (force deletion); the kubelet kills the
+    container afterwards (verified by crictl in the running-Pod probe) and no kubelet "final delete" request exists for
+    runner-deleted Pods; a system:node final delete (exempt from the webhook) was observed only for probe Pods deleted
+    by kubectl with the default grace period.
+R2  Secondary oracle rule corrected (ANALYSIS_PLAN v1.2 (g)): writer ResponseComplete vs DELETE ResponseComplete.
+    The v1/v1.1 rule (vs DELETE requestReceived) is computed as TERTIARY and reported (v1.2 (h)).
+R3  kube-apiserver logs for the webhook multi-evaluation question: --v=3 --vmodule=store=6,round_trippers=6 (instead
+    of a global --v=4..6: global v=6 produced ~15 KB/s at idle and APF/handler lines per request; the targeted flags
+    keep exactly the needed lines: httplog "HTTP" per request, the rest-client "Response" line of every webhook call,
+    registry/etcd3 store.go delete lines). kubelet containerLogMaxSize 4Gi x 5 so the container log (klog's only
+    sink in v1.37) is not rotated during the run. APIServer tracing not used (would need an OTLP collector).
+R4  New seed 154080643 and run_id e38v2r-20260926t1032z; seeds 20260912 and 1772720255 refused by runner, lock tool
+    and analysis.
+
+CHANGES FORCED BY FINDINGS (pre-lock)
+R5  Pod-event recorder + deletion-RV fallback (ANALYSIS_PLAN v1.2 (i)). Pre-lock exploration showed that with a
+    Running Pod the kubelet's status update can remove the object (kube-apiserver: store.go:660 "Going to delete object
+    from registry, triggered by update") while the responder's DELETE is in its storage-delete phase; the DELETE then
+    returns 200 with an object WITHOUT resourceVersion, so BOTH pre-registered deletion-RV sources are missing (14/40
+    webhook-arm DELETEs in exploration, 0/40 without webhook). src/pod_watch.py (new, locked, tested) records every Pod
+    watch event of the test namespace; the oracle uses the DELETED event RV only when both sources are missing, and
+    cross-checks it otherwise (UNKNOWN on conflict). Without this, those trials would have been UNKNOWN
+    (delete_rv_missing), concentrated in A3.
+R6  Plan v1.1 (f) wording and the oracle comment corrected (v1.2 (j)): the unverified mechanism statement ("stale deny
+    discarded by refresh-and-retry") was removed; the governing-evaluation RULE is unchanged.
+
+OPERATIONAL
+R7  Exploration cluster: created 09:14Z with --v=6, used for 83 exploratory DELETEs (no trials), deleted and recreated
+    09:25Z from the final kind-config; its audit/webhook host logs parked in results/_parked_explore1 (not used).
+    Namespaces explore-a/-b are exploration only.
+R8  A first detached setup+probe attempt for the smoke namespace (10:07Z) left empty log files for unknown reasons;
+    its only visible effect is in the audit log (10:08:02 one kubectl --as reset DELETE of probe-reset answered
+    403 by RBAC because the Role did not yet exist). Setup and probes were redone at 10:09-10:11Z (all OK); detached
+    jobs afterwards used ops/bg.sh. Smoke data are not confirmatory in any case.
+R9  launch.sh pipefail/SIGPIPE false negative in the recorder check (fixed before the smoke; no effect on data).
+R10 Runner runtime-estimate constants re-measured in the rerun smoke (dry-run estimate only; changed before the LOCK).
+R11 Probe Pods use the pause image (running) instead of python:3.12-slim sleep; uid_rebind_control replacement Pods
+    are also waited to Running+Ready before the stale-UID DELETE.
+R12 Python venvs were copied from the first run's tree (identical packages); analysis/run_tests.sh points to the
+    rerun tree's venv.
+R13 (post-lock, operational) final.sh called the stage-1-only analysis without the stage-2 schedule; the
+    gate correctly refused; rerun with both schedules (S4 cells identical to the stage-1 analysis). No data or code change.
+R14 (post-lock, operational) the agent session paused ~11:05-11:35Z (API rate limit); the detached runner was unaffected.

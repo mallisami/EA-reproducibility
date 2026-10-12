@@ -1,0 +1,25 @@
+{
+  "results_version": "4.2.0-e3-e4",
+  "parent": "4.1.0-audited",
+  "protocol_deviations": [],
+  "frozen_delta_grid": [
+    0,
+    1,
+    2,
+    5,
+    10,
+    30
+  ],
+  "frozen_capability_grid": [
+    "C0",
+    "C1",
+    "C2",
+    "C3"
+  ],
+  "frozen_B2_ttl_s": 2.0,
+  "e3_rows": 576,
+  "e4_rows": 384,
+  "solver_unknown_count": 0,
+  "p1_p4_mismatch_count": 0,
+  "validation_status": "PASS"
+}

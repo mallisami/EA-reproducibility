@@ -1,0 +1,49 @@
+{
+  "schema_version": "0.1 prospective contract, no trials",
+  "required_fields": [
+    "trial_id",
+    "scenario",
+    "method",
+    "cell",
+    "block_id",
+    "seed",
+    "guard_order",
+    "namespace",
+    "decision_uid",
+    "observed_uid",
+    "current_justification",
+    "current_scope_safe",
+    "oracle_decision",
+    "guard_decision",
+    "coherent",
+    "get_count",
+    "response_body_bytes",
+    "refresh_latency_ms",
+    "gate_latency_ms",
+    "delete_sent",
+    "uid_precondition_sent",
+    "server_http_status",
+    "post_effect_uid",
+    "pod_absent",
+    "first_effect_elapsed_ms",
+    "gate_deadline_missed",
+    "effect_deadline_missed",
+    "failed",
+    "aborted",
+    "timeout",
+    "log_reference"
+  ],
+  "safety_counts": [
+    "oracle_mismatch",
+    "wrong_target_effect",
+    "delete_after_abort",
+    "accepted_without_verified_effect"
+  ],
+  "rules": [
+    "Never infer a completed effect from HTTP 409",
+    "Never omit failure/timeout/abort from planned denominator",
+    "Verified UID condition applies to all guards when applicable",
+    "Multi-resource resourceVersion tags alone do not certify coherent global snapshots",
+    "E38 has no measurements in this package"
+  ]
+}

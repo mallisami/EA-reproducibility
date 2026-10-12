@@ -1,0 +1,407 @@
+{
+  "t4": {
+    "heldout": {
+      "rows": 192,
+      "exploitable_rows": 92,
+      "goal_sets_equal_locked_vs_indep": 192,
+      "goal_count_distribution": {
+        "1": 92,
+        "0": 100
+      },
+      "rows_where_no_auth_prune_adds_goals": 0,
+      "orig_eq_patched": 192,
+      "cert_sound_indep_true": 192,
+      "counterexamples_full_pos_universe": 0,
+      "argmin_identity_match": 192,
+      "dcji_none_but_brute_feasible": 0,
+      "zero_cost_universe_strictly_cheaper": 0,
+      "allpred_semantics_differs": 0,
+      "total_subsets_tried": 3232
+    },
+    "pilot68": {
+      "rows": 136,
+      "exploitable_rows": 68,
+      "goal_sets_equal_locked_vs_indep": 136,
+      "goal_count_distribution": {
+        "1": 68,
+        "0": 68
+      },
+      "rows_where_no_auth_prune_adds_goals": 0,
+      "orig_eq_patched": 136,
+      "cert_sound_indep_true": 136,
+      "counterexamples_full_pos_universe": 0,
+      "argmin_identity_match": 136,
+      "dcji_none_but_brute_feasible": 0,
+      "zero_cost_universe_strictly_cheaper": 0,
+      "allpred_semantics_differs": 0,
+      "total_subsets_tried": 2192
+    },
+    "dev": {
+      "rows": 12,
+      "exploitable_rows": 6,
+      "goal_sets_equal_locked_vs_indep": 12,
+      "goal_count_distribution": {
+        "1": 6,
+        "0": 6
+      },
+      "rows_where_no_auth_prune_adds_goals": 0,
+      "orig_eq_patched": 12,
+      "cert_sound_indep_true": 12,
+      "counterexamples_full_pos_universe": 0,
+      "argmin_identity_match": 12,
+      "dcji_none_but_brute_feasible": 0,
+      "zero_cost_universe_strictly_cheaper": 0,
+      "allpred_semantics_differs": 0,
+      "total_subsets_tried": 84
+    },
+    "heldout_P1_only": {
+      "rows": 48,
+      "exploitable_rows": 23,
+      "goal_sets_equal_locked_vs_indep": 48,
+      "goal_count_distribution": {
+        "1": 23,
+        "0": 25
+      },
+      "rows_where_no_auth_prune_adds_goals": 0,
+      "orig_eq_patched": 48,
+      "cert_sound_indep_true": 48,
+      "counterexamples_full_pos_universe": 0,
+      "argmin_identity_match": 48,
+      "dcji_none_but_brute_feasible": 0,
+      "zero_cost_universe_strictly_cheaper": 0,
+      "allpred_semantics_differs": 0,
+      "total_subsets_tried": 808
+    }
+  },
+  "p1_p4_identity": {
+    "templates": 24,
+    "templates_with_only_initial_state_or_param_metadata_differing": 24,
+    "non_state_keys_differing_union": [],
+    "material_initial_values_equal": 24,
+    "t4_results_identical_across_P": 24,
+    "e5_cells_template_world_defense": 464,
+    "e5_cells_identical_across_P1_P4": 464
+  },
+  "t5a": {
+    "goals": 1,
+    "goal_states": [
+      {
+        "A": false,
+        "B": true,
+        "C": false,
+        "D": true,
+        "auth": true
+      }
+    ],
+    "dcji_orig": {
+      "status": "EXPLOITABLE",
+      "critical_query_ids": [
+        "q_A"
+      ],
+      "query_cost_units": 1.0,
+      "candidate_query_ids": [
+        "q_A"
+      ]
+    },
+    "dcji_patched": {
+      "status": "EXPLOITABLE",
+      "critical_query_ids": [
+        "q_A"
+      ],
+      "query_cost_units": 1.0
+    },
+    "brute_full_universe": {
+      "min_cost": "1",
+      "argmin": [
+        "q_A"
+      ],
+      "feasible": 8,
+      "tried": 16
+    },
+    "fullrefresh_cost": 4.0,
+    "on_goal": {
+      "B0": "EXECUTE",
+      "B2": "EXECUTE",
+      "B4": "ABORT_REPLAN",
+      "B6o": "ABORT_REPLAN",
+      "B6p": "ABORT_REPLAN"
+    },
+    "unreachable_states_where_B6_executes_but_invalid": 3
+  },
+  "t5b": {
+    "variants": 73,
+    "multi_goal_variants": 55,
+    "goal_count_range": [
+      1,
+      81
+    ],
+    "counterexamples": 0,
+    "orig_patched_cert_equal": 73,
+    "B6_unsafe_total": 0,
+    "B6_false_abort_total": 0,
+    "B4_false_abort_total": 0,
+    "variants_where_cert_cost_equals_B4": 18,
+    "multi_goal_variants_total": 55
+  },
+  "t5c": {
+    "heldout_P1/in_model": {
+      "B0_exec_unauth": 0,
+      "B0_false_abort": 0,
+      "B0_unsafe": 23,
+      "B2_exec_unauth": 0,
+      "B2_false_abort": 0,
+      "B2_unsafe": 0,
+      "B4_exec_unauth": 0,
+      "B4_false_abort": 0,
+      "B4_unsafe": 0,
+      "B6o_exec_unauth": 0,
+      "B6o_false_abort": 0,
+      "B6o_unsafe": 0,
+      "B6p_exec_unauth": 0,
+      "B6p_false_abort": 0,
+      "B6p_unsafe": 0,
+      "attack_goal": 23,
+      "states": 85,
+      "unauthorized": 0,
+      "valid": 47
+    },
+    "heldout_P1/all_transitions": {
+      "B0_exec_unauth": 0,
+      "B0_false_abort": 0,
+      "B0_unsafe": 46,
+      "B2_exec_unauth": 0,
+      "B2_false_abort": 0,
+      "B2_unsafe": 0,
+      "B4_exec_unauth": 0,
+      "B4_false_abort": 0,
+      "B4_unsafe": 0,
+      "B6o_exec_unauth": 0,
+      "B6o_false_abort": 0,
+      "B6o_unsafe": 0,
+      "B6p_exec_unauth": 0,
+      "B6p_false_abort": 0,
+      "B6p_unsafe": 0,
+      "attack_goal": 46,
+      "states": 170,
+      "unauthorized": 0,
+      "valid": 94
+    },
+    "pilot68/in_model": {
+      "B0_exec_unauth": 0,
+      "B0_false_abort": 0,
+      "B0_unsafe": 68,
+      "B2_exec_unauth": 0,
+      "B2_false_abort": 0,
+      "B2_unsafe": 2,
+      "B4_exec_unauth": 0,
+      "B4_false_abort": 0,
+      "B4_unsafe": 0,
+      "B6o_exec_unauth": 0,
+      "B6o_false_abort": 0,
+      "B6o_unsafe": 0,
+      "B6p_exec_unauth": 0,
+      "B6p_false_abort": 0,
+      "B6p_unsafe": 0,
+      "attack_goal": 68,
+      "states": 264,
+      "unauthorized": 0,
+      "valid": 158
+    },
+    "pilot68/all_transitions": {
+      "B0_exec_unauth": 0,
+      "B0_false_abort": 0,
+      "B0_unsafe": 136,
+      "B2_exec_unauth": 0,
+      "B2_false_abort": 0,
+      "B2_unsafe": 4,
+      "B4_exec_unauth": 0,
+      "B4_false_abort": 0,
+      "B4_unsafe": 0,
+      "B6o_exec_unauth": 0,
+      "B6o_false_abort": 0,
+      "B6o_unsafe": 0,
+      "B6p_exec_unauth": 0,
+      "B6p_false_abort": 0,
+      "B6p_unsafe": 0,
+      "attack_goal": 136,
+      "states": 528,
+      "unauthorized": 0,
+      "valid": 316
+    },
+    "dev/in_model": {
+      "B0_exec_unauth": 0,
+      "B0_false_abort": 0,
+      "B0_unsafe": 6,
+      "B2_exec_unauth": 0,
+      "B2_false_abort": 0,
+      "B2_unsafe": 0,
+      "B4_exec_unauth": 0,
+      "B4_false_abort": 0,
+      "B4_unsafe": 0,
+      "B6o_exec_unauth": 0,
+      "B6o_false_abort": 0,
+      "B6o_unsafe": 0,
+      "B6p_exec_unauth": 0,
+      "B6p_false_abort": 0,
+      "B6p_unsafe": 0,
+      "attack_goal": 6,
+      "states": 19,
+      "unauthorized": 0,
+      "valid": 10
+    },
+    "dev/all_transitions": {
+      "B0_exec_unauth": 0,
+      "B0_false_abort": 0,
+      "B0_unsafe": 12,
+      "B2_exec_unauth": 0,
+      "B2_false_abort": 0,
+      "B2_unsafe": 0,
+      "B4_exec_unauth": 0,
+      "B4_false_abort": 0,
+      "B4_unsafe": 0,
+      "B6o_exec_unauth": 0,
+      "B6o_false_abort": 0,
+      "B6o_unsafe": 0,
+      "B6p_exec_unauth": 0,
+      "B6p_false_abort": 0,
+      "B6p_unsafe": 0,
+      "attack_goal": 12,
+      "states": 38,
+      "unauthorized": 0,
+      "valid": 20
+    }
+  },
+  "t5d": {
+    "heldout_P1/zero_cost": {
+      "specs": 21,
+      "B0_false_abort": 0,
+      "B0_unsafe": 41,
+      "B2_false_abort": 0,
+      "B2_unsafe": 21,
+      "B4_false_abort": 0,
+      "B4_unsafe": 21,
+      "B6o_false_abort": 0,
+      "B6o_unsafe": 21,
+      "B6p_false_abort": 0,
+      "B6p_unsafe": 21,
+      "attack_goal": 41,
+      "mutated_states": 57,
+      "valid": 1
+    },
+    "heldout_P1/positive_cost": {
+      "specs": 3,
+      "B0_false_abort": 0,
+      "B0_unsafe": 120,
+      "B2_false_abort": 0,
+      "B2_unsafe": 0,
+      "B4_false_abort": 0,
+      "B4_unsafe": 0,
+      "B6o_false_abort": 0,
+      "B6o_unsafe": 91,
+      "B6p_false_abort": 0,
+      "B6p_unsafe": 91,
+      "attack_goal": 120,
+      "mutated_states": 324,
+      "valid": 204
+    },
+    "pilot68/zero_cost": {
+      "specs": 53,
+      "B0_false_abort": 0,
+      "B0_unsafe": 106,
+      "B2_false_abort": 0,
+      "B2_unsafe": 55,
+      "B4_false_abort": 0,
+      "B4_unsafe": 53,
+      "B6o_false_abort": 0,
+      "B6o_unsafe": 53,
+      "B6p_false_abort": 0,
+      "B6p_unsafe": 53,
+      "attack_goal": 106,
+      "mutated_states": 144,
+      "valid": 0
+    },
+    "pilot68/positive_cost": {
+      "specs": 15,
+      "B0_false_abort": 0,
+      "B0_unsafe": 390,
+      "B2_false_abort": 0,
+      "B2_unsafe": 0,
+      "B4_false_abort": 0,
+      "B4_unsafe": 0,
+      "B6o_false_abort": 0,
+      "B6o_unsafe": 285,
+      "B6p_false_abort": 0,
+      "B6p_unsafe": 285,
+      "attack_goal": 390,
+      "mutated_states": 840,
+      "valid": 450
+    }
+  },
+  "t5e": {
+    "W0": {
+      "n": 68,
+      "expected_matches_truth": 68,
+      "B6o_correct": 68,
+      "B6o_unsafe": 0,
+      "B6o_false_abort": 0,
+      "B4_unsafe": 0,
+      "B4_false_abort": 0,
+      "B6o_eq_B6p": 68,
+      "B6_modes": {
+        "dcji_selective": 68
+      },
+      "mean_B6_cost": 1.4411764705882353,
+      "mean_B4_cost": 2.323529411764706
+    },
+    "W1": {
+      "n": 68,
+      "expected_matches_truth": 68,
+      "B6o_correct": 68,
+      "B6o_unsafe": 0,
+      "B6o_false_abort": 0,
+      "B4_unsafe": 0,
+      "B4_false_abort": 0,
+      "B6o_eq_B6p": 68,
+      "B6_modes": {
+        "dcji_selective": 68
+      },
+      "mean_B6_cost": 1.4411764705882353,
+      "mean_B4_cost": 2.323529411764706
+    },
+    "W2": {
+      "n": 68,
+      "expected_matches_truth": 68,
+      "B6o_correct": 68,
+      "B6o_unsafe": 0,
+      "B6o_false_abort": 0,
+      "B4_unsafe": 0,
+      "B4_false_abort": 0,
+      "B6o_eq_B6p": 68,
+      "B6_modes": {
+        "dcji_selective": 68
+      },
+      "mean_B6_cost": 1.4411764705882353,
+      "mean_B4_cost": 2.323529411764706
+    },
+    "W3": {
+      "n": 68,
+      "expected_matches_truth": 68,
+      "B6o_correct": 68,
+      "B6o_unsafe": 0,
+      "B6o_false_abort": 0,
+      "B4_unsafe": 0,
+      "B4_false_abort": 0,
+      "B6o_eq_B6p": 68,
+      "B6_modes": {
+        "dcji_no_feasible_attack": 68
+      },
+      "mean_B6_cost": 0.0,
+      "mean_B4_cost": 2.323529411764706
+    }
+  },
+  "validator_zero_cost_write_violations": {
+    "heldout_P1": 0,
+    "pilot68": 0,
+    "dev": 0
+  }
+}

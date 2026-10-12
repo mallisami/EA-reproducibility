@@ -1,0 +1,13 @@
+{
+  "results_version": "4.9.0-e9",
+  "protocol_deviations": [],
+  "controls": [
+    "historical fact persists",
+    "non-attacker transition",
+    "immutable target",
+    "one basis breaks while another remains",
+    "F5.6 uncuttable historical basis"
+  ],
+  "validation_status": "PASS",
+  "derived_construct_policy": "development sources only; frozen F5.6 reused unchanged"
+}

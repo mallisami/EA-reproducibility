@@ -1,0 +1,15 @@
+{
+  "results_version": "4.4.0-e11",
+  "protocol_deviations": [],
+  "lag_s": [
+    0,
+    0.5,
+    1,
+    2,
+    5
+  ],
+  "semantics": "decision wall clock remains t_e; refresh values come from latest state at or before max(0,t_e-lag)",
+  "native_precondition_semantics": "atomic server-side actual commit state",
+  "raw_rows": 2320,
+  "validation_status": "PASS"
+}

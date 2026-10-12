@@ -1,0 +1,144 @@
+{
+  "by_template": {
+    "F2.2": {
+      "60": {
+        "solver_status": "EXPLOITABLE",
+        "C_star": 1,
+        "T_star_s": 2.0,
+        "defenses": {
+          "B0": {
+            "decision": "EXECUTE",
+            "unsafe_commit": true,
+            "query_cost_units": 0.0
+          },
+          "B2": {
+            "decision": "ABORT_REPLAN",
+            "unsafe_commit": false,
+            "query_cost_units": 1.0
+          },
+          "B3": {
+            "decision": "ABORT_REPLAN",
+            "unsafe_commit": false,
+            "query_cost_units": 1.0
+          },
+          "B4": {
+            "decision": "ABORT_REPLAN",
+            "unsafe_commit": false,
+            "query_cost_units": 1.0
+          },
+          "B6": {
+            "decision": "ABORT_REPLAN",
+            "unsafe_commit": false,
+            "query_cost_units": 1.0
+          }
+        }
+      },
+      "300": {
+        "solver_status": "EXPLOITABLE",
+        "C_star": 1,
+        "T_star_s": 2.0,
+        "defenses": {
+          "B0": {
+            "decision": "EXECUTE",
+            "unsafe_commit": true,
+            "query_cost_units": 0.0
+          },
+          "B2": {
+            "decision": "ABORT_REPLAN",
+            "unsafe_commit": false,
+            "query_cost_units": 1.0
+          },
+          "B3": {
+            "decision": "ABORT_REPLAN",
+            "unsafe_commit": false,
+            "query_cost_units": 1.0
+          },
+          "B4": {
+            "decision": "ABORT_REPLAN",
+            "unsafe_commit": false,
+            "query_cost_units": 1.0
+          },
+          "B6": {
+            "decision": "ABORT_REPLAN",
+            "unsafe_commit": false,
+            "query_cost_units": 1.0
+          }
+        }
+      }
+    },
+    "F4.5": {
+      "60": {
+        "solver_status": "EXPLOITABLE",
+        "C_star": 1,
+        "T_star_s": 0.8,
+        "defenses": {
+          "B0": {
+            "decision": "EXECUTE",
+            "unsafe_commit": true,
+            "query_cost_units": 0.0
+          },
+          "B2": {
+            "decision": "ABORT_REPLAN",
+            "unsafe_commit": false,
+            "query_cost_units": 1.0
+          },
+          "B4": {
+            "decision": "ABORT_REPLAN",
+            "unsafe_commit": false,
+            "query_cost_units": 1.0
+          },
+          "B6": {
+            "decision": "ABORT_REPLAN",
+            "unsafe_commit": false,
+            "query_cost_units": 1.0
+          }
+        }
+      },
+      "300": {
+        "solver_status": "EXPLOITABLE",
+        "C_star": 1,
+        "T_star_s": 0.8,
+        "defenses": {
+          "B0": {
+            "decision": "EXECUTE",
+            "unsafe_commit": true,
+            "query_cost_units": 0.0
+          },
+          "B2": {
+            "decision": "ABORT_REPLAN",
+            "unsafe_commit": false,
+            "query_cost_units": 1.0
+          },
+          "B4": {
+            "decision": "ABORT_REPLAN",
+            "unsafe_commit": false,
+            "query_cost_units": 1.0
+          },
+          "B6": {
+            "decision": "ABORT_REPLAN",
+            "unsafe_commit": false,
+            "query_cost_units": 1.0
+          }
+        }
+      }
+    }
+  },
+  "by_delay": {
+    "60": {
+      "templates": 2,
+      "exploitable": 2,
+      "B0_unsafe": 2,
+      "B2_unsafe": 0,
+      "B4_unsafe": 0,
+      "B6_unsafe": 0
+    },
+    "300": {
+      "templates": 2,
+      "exploitable": 2,
+      "B0_unsafe": 2,
+      "B2_unsafe": 0,
+      "B4_unsafe": 0,
+      "B6_unsafe": 0
+    }
+  }
+}

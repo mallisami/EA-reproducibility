@@ -1,0 +1,11 @@
+block,arm,grace_s,workload,hold_ms,cond,delta_ms,n,EXECUTED,RV_CONFLICT,RV_CONFLICT_UNATTRIBUTED,UID_CONFLICT,GATE_ABORT,UNKNOWN,INFRA_ERROR,DELETE_ERROR,pre_mark,pre_removal,contested,stale_accept,postmark_patch,postmark_persisted,p_pre_mark,p_pre_removal,wilson_lo_removal,wilson_hi_removal
+g5-ignore-serial-check,A1,5,ignore-term,0,no_write,,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0,0.0,0.0,0.5615
+g5-ignore-serial-check,A1,5,ignore-term,0,scope,0,3,3,0,0,0,0,0,0,0,3,3,0,0,0,0,1.0,1.0,0.4385,1.0
+g5-ignore-serial-check,A1,5,ignore-term,0,scope,100,3,3,0,0,0,0,0,0,0,0,3,0,0,0,0,0.0,1.0,0.4385,1.0
+g5-ignore-serial-check,A1,5,ignore-term,0,scope,4500,3,3,0,0,0,0,0,0,0,0,3,0,0,0,0,0.0,1.0,0.4385,1.0
+g5-ignore-serial-check,A1,5,ignore-term,0,scope,7000,3,3,0,0,0,0,0,0,0,0,1,0,0,0,0,0.0,0.3333,0.0615,0.7923
+g5-ignore-serial-check,A4d,5,ignore-term,0,no_write,,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0,0.0,0.0,0.5615
+g5-ignore-serial-check,A4d,5,ignore-term,0,scope,0,3,3,0,0,0,0,0,0,0,0,3,0,0,3,3,0.0,1.0,0.4385,1.0
+g5-ignore-serial-check,A4d,5,ignore-term,0,scope,100,3,3,0,0,0,0,0,0,0,0,3,0,0,3,3,0.0,1.0,0.4385,1.0
+g5-ignore-serial-check,A4d,5,ignore-term,0,scope,4500,3,3,0,0,0,0,0,0,0,0,3,0,0,3,3,0.0,1.0,0.4385,1.0
+g5-ignore-serial-check,A4d,5,ignore-term,0,scope,7000,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0,0.0,0.0,0.5615

@@ -1,0 +1,11 @@
+{
+  "schema": "a4d.guardian.v2",
+  "run_id": "a4dcr-r2-20261001",
+  "PASS": true,
+  "state": "running",
+  "n_raw_seen": 984,
+  "pending_within_grace": 0,
+  "audit_ids_seen": 13795,
+  "delete_fallbacks_used": 17,
+  "time_utc": "2026-10-01T17:04:04Z"
+}

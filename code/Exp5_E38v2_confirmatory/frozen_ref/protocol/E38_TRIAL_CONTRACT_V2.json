@@ -1,0 +1,12 @@
+{
+  "status": "PROSPECTIVE_SCHEMA_NO_TRIALS",
+  "schema_version": "2.0",
+  "required_top_level": ["trial_id","phase","method","condition","mode","load","block_id","rep_index","namespace","status","failed","events","all_requests","decision_uid"],
+  "required_for_gate_completed": ["guard_decision","oracle_gate_decision","guard","oracle_at_use","delete_sent","server_http_status","effect","gate_deadline_missed","effect_deadline_missed"],
+  "required_delete_options": "Any response DELETE contains DeleteOptions.preconditions.uid equal to decision_uid; verify actual all_requests entry, not a claimed flag.",
+  "GET_accounting": "Physical guard GETs include epoch before/after, evidence, Pod, scope and app-policy reads; one RBAC SelfSubjectAccessReview POST is counted separately.",
+  "DCJI_GETs_stable": 8,
+  "FullRefresh_GETs_stable": 11,
+  "forbidden": ["Delete after abort or UNKNOWN", "Count 409 as a deletion effect", "Drop setup failures, timeouts, reversals or invalid-state accepted effects", "Infer global Kubernetes transaction from per-object resourceVersions", "Pool modeled out-of-capability stress into primary guarantee"],
+  "note": "Original V35.12 contract is preserved in ORIGINAL_E38_TRIAL_CONTRACT.json; this revised contract adds post-gate oracle_at_use and UNKNOWN handling."
+}

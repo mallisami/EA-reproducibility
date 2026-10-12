@@ -1,0 +1,144 @@
+E38v2 RUNNER (piece 3) DESIGN NOTES
+===================================
+
+INTEGRATION CHANGES (2026-09-26, before the LOCK; supersede the offline-build statements below)
+-------------------------------------------------------------------------------------------
+I1 LIVE MODE implemented: https://127.0.0.1:<port> only (loopback rail kept; https requires a
+   pinned CA file and a bearer-token file per identity). Three ServiceAccount identities
+   (responder / writer / reset, tokens from `kubectl --context kind-e38v2 create token`), each
+   with its own persistent keep-alive connection; SelfSubjectReview confirms each username at
+   start; /version must be v1.37.*. --context must be exactly kind-e38v2; namespace must be
+   e38v2-<run_id> (never e38v2-system). A live run executes an e38v2.schedule.v1 FILE and
+   refuses to start unless protocol/lock_hash.py verifies the LOCK and the LOCK covers that exact
+   schedule file (stage 1: schedule_sha256; stage 2: stage2_schedule_sha256) -- or
+   --unlocked-smoke is given explicitly (smoke only). Resume skips trial_ids already in
+   RAW_TRIALS.jsonl (never re-runs a recorded trial). Guards: pause while MemAvailable < 2 GiB;
+   abort (exit 3) if INFRA_ERROR > 5% after >= 100 trials or 20 consecutive; STOP file.
+I2 WRITER PROCESS: the async writer runs in a persistent forked process (writer.WriterProcess),
+   forked before the parent opens connections. A busy-waiting writer THREAD would hold the GIL and
+   could delay the responder's DELETE by up to the interpreter switch interval (5 ms default), the
+   same order as the delta grid. The responder process also sets sys.setswitchinterval(5e-5).
+I3 TARGET POD: python:3.12-slim (side-loaded, imagePullPolicy Never) with a scheduling gate, so it
+   is never scheduled or started: the experiment concerns API admission and commit order of the
+   DELETE; this avoids container churn on the shared VM. gracePeriodSeconds=0 DELETE of an
+   unscheduled Pod removes it immediately (deleted-object RV = deletion revision).
+I4 A3 selection: the target Pod of A3 trials is created with label e38v2-webhook=enforce (VWC
+   objectSelector); A0-A2 Pods carry no such label. The runner cannot see the AdmissionReview uid,
+   so webhook_request_uid is null and the analysis joins the webhook log on pod_uid.
+I5 RECORD fixes: writer.new_value is the written STRING (spec: str; the oracle parses it);
+   async_evidence_last_literal cuts c and e inside reset_fixture (before the Pod replacement) and
+   initial_values records c=e="false" (the oracle requires it); uid_rebind_control records
+   uid_rebind.replacement_pod_uid (optional schema field).
+I6 SCHEDULES: --make-schedule writes e38v2.schedule.v1 {schema, run_id, schedule_seed, stage,
+   trials[...]}; --reps N builds N stage-1 blocks (smoke). Stage 2 reads analysis/stage2_topup.py
+   output (cells[].n_topup) and numbers trials from 100001 (unique across stages), one block per
+   added replicate, shuffled within block.
+I7 WRITER_OVERHEAD_S remains an ESTIMATE; the per-trial constants are replaced by values measured
+   in the live smoke run (recorded in the operations log).
+
+Scope: an OFFLINE-built, mocked-API adaptation of the frozen E38 runner. No live
+cluster is contacted. The paper's authors run it themselves after review on their
+own disposable kind cluster ("e38v2" context, "e38v2-*" namespace).
+
+FIXES APPLIED (relative to frozen_ref/src/e38_runner.py)
+-------------------------------------------------------
+(a) reset_fixture order + identity separation.
+    reset_fixture() now restores ALL ConfigMaps FIRST (evidence-a..f=true,
+    response-scope allowed=true, application-policy allowed=true, e38-epoch
+    sequence=0) and only THEN replaces the Pod (delete old uid, wait gone,
+    recreate). The reset uses a dedicated ``reset`` KubeClient identity, distinct
+    from the ``responder`` and ``writer`` identities. Each KubeClient carries its
+    own token_path/context (configurable), recorded in SESSION.identities.
+
+(b) horizon from SESSION config + fail-closed certificate.
+    e38v2_model.frozen_planner_certificate(horizon, f5_path) replaces the hard-
+    coded 5.0. It recomputes the certificate at 5/10/30/60 s AND at the requested
+    horizon, asserts each equals {a,c,e,uid,scope} and that all are identical, and
+    cross-checks the independent exhaustive minimum. Any deviation raises (fail
+    closed). The E37 F5 physical scenario JSON path is configurable (--f5-path)
+    and its sha256 is recorded in SESSION.json (f5_sha256). Verified identical at
+    5/10/30/60 s in this build.
+
+(c) no writer activity inside timed gate regions.
+    The asynchronous writer runs in its own pre-armed thread with its own keep-
+    alive connection. Inside run_gate() the ONLY writer interaction is a single
+    non-blocking writer.arm(anchor_ns) call (an event set + one assignment) done
+    immediately before the final fence read for negative delta. No PATCH/DELETE is
+    ever issued from within the gate read path.
+
+(d) no runner-side use-time oracle.
+    The frozen oracle_after_controlled_mutation() is removed. The runner logs only
+    raw facts (gate reads + resourceVersions, writer result + Audit-Id + resulting
+    resourceVersion, DELETE response + Audit-Id + deleted resourceVersion, effect
+    verification). Ground truth (INVALID_AT_USE etc.) is derived by the separate
+    offline oracle (piece 1) from the audit log + these raw facts.
+
+(e) persistent keep-alive connections + Audit-Id capture.
+    KubeClient uses http.client.HTTPConnection (HTTP/1.1 keep-alive) per identity,
+    reconnecting once on a dropped connection. Every response's ``Audit-Id`` header
+    is captured; it is stored on every mutating request result and on the DELETE.
+
+NEGATIVE-DELTA RELEASE DEFINITION (design decision)
+---------------------------------------------------
+delta_ms is defined relative to GATE END = the monotonic instant the responder
+receives the response to its FINAL FENCE READ (the e38-epoch re-read for
+DCJI/FullRefresh; the single pod read for the native-uid baseline). This equals
+gate.t_end_mono_ns.
+
+  delta_ms >= 0 : intended_release = t_end_mono_ns + delta_ms*1e6.
+      The writer is armed at gate end (anchor known); it busy-waits on
+      time.monotonic_ns() until the target and fires. ACCURATE regime: measured
+      actual - intended is a few microseconds of busy-wait jitter (see selftest
+      release_offset distribution).
+
+  delta_ms <  0 : the true "t_end - |delta|" cannot be known before the fence read
+      completes, so we anchor on the START of the final fence read
+      (t_send of that read), captured immediately before it is issued and handed
+      to the pre-armed writer via arm(). intended_release = t_final_read_start +
+      delta_ms*1e6. Because that instant is already ~|delta| ms in the past when
+      the anchor becomes known, the write is dispatched as soon as it is armed; the
+      achievable separation among {-1,-2,-5} ms is bounded below by dispatch
+      latency and they collapse toward "at the start of the fence read". This is an
+      accepted, documented limitation: negative deltas model "a write dispatched
+      at/just before the fence read". The offline oracle does NOT trust the
+      intended value for ordering; it uses the LOGGED actual_release_mono_ns and
+      the gate reads' send/recv timestamps, plus committed resourceVersions from
+      the audit log, to reconstruct the true ordering. No information is lost.
+
+The writer always logs BOTH intended_release_mono_ns and actual_release_mono_ns so
+actual - intended can be characterised for every trial.
+
+SCHEDULER
+---------
+Stage 1: 39 replicate blocks. Each block contains one instance of every async cell
+(4 arms x 3 async conditions x 12 deltas = 144), one no_write cell per arm (4), and
+-- for the first 10 blocks only -- one uid_rebind_control cell per arm (4). arm and
+delta are randomized WITHIN each block via random.Random(seed). Totals:
+async 5616, no_write 156, uid_rebind_control 40 => 5812 stage-1 trials.
+Seed 20260912 is refused (reserved for the prior locked run).
+Stage 2: --stage 2 --topup-file lists cells (arm, condition, delta_ms) with
+n_additional (or n_target, default 93) to top up cells with 0.05<p_hat<0.95.
+
+RUNTIME ESTIMATE (dry-run)
+--------------------------
+non-UID trials x 2.07 s + UID trials x 4.01 s + writer trials x WRITER_OVERHEAD_S
+(0.15 s: pre-arm connect + thread join + release busy-wait beyond the base trial;
+the release itself overlaps the trial, so this is a conservative small add-on).
+
+SAFETY RAILS
+------------
+* KubeClient accepts only an exact http://127.0.0.1:PORT loopback proxy URL.
+* namespace must start with "e38v2-"; context must be exactly "e38v2".
+* Mutations are allow-listed: PATCH only the known ConfigMaps, DELETE only the
+  target Pod WITH a uid precondition, POST only namespace/pod/cm/SSAR setup.
+* --lock verifies file sha256 hashes and refuses to run on mismatch.
+* --dry-run performs NO network access (verified in tests by monkeypatching
+  socket.socket to raise).
+* The live execution loop is intentionally disabled in this offline build; trial
+  logic is fully covered by --offline-selftest and unit tests.
+
+VALIDITY POLICY
+---------------
+J = (a&b)|(c&d)|(e&f); V_core = J & scope_ok & app_policy_allowed. uid match is a
+separate DELETE precondition. Identical formula in client gate, webhook (fake
+admission) and (piece 1) oracle.

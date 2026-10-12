@@ -1,0 +1,110 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "state.schema.json",
+  "title": "FlashIR Cyber State",
+  "type": "object",
+  "required": [
+    "timestamp_s",
+    "facts",
+    "resources",
+    "processes",
+    "network_bindings",
+    "sessions",
+    "context",
+    "evidence",
+    "queue"
+  ],
+  "properties": {
+    "timestamp_s": {
+      "type": "number",
+      "minimum": 0
+    },
+    "facts": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "resources": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "processes": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "network_bindings": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "sessions": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "context": {
+      "type": "object"
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "evidence_id",
+          "predicate",
+          "evidence_class",
+          "observed_at_s",
+          "truth_value"
+        ],
+        "properties": {
+          "evidence_id": {
+            "type": "string"
+          },
+          "predicate": {
+            "type": "string"
+          },
+          "evidence_class": {
+            "enum": [
+              "H",
+              "L",
+              "B",
+              "S"
+            ]
+          },
+          "source": {
+            "type": "string"
+          },
+          "observed_at_s": {
+            "type": "number"
+          },
+          "subject_uid": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "truth_value": {},
+          "supersedes": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "queue": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,615 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "scenario.schema.json",
+  "title": "FlashIR Scenario",
+  "type": "object",
+  "required": [
+    "scenario_id",
+    "title",
+    "family",
+    "realism_tier",
+    "development",
+    "action",
+    "attacker_capability_tier",
+    "initial_state",
+    "predicates",
+    "policy_profiles",
+    "primary_policy",
+    "transitions",
+    "worlds",
+    "parameterizations",
+    "provenance",
+    "severity",
+    "justification_bases_by_policy",
+    "refresh_model",
+    "native_controls",
+    "scenario_role"
+  ],
+  "properties": {
+    "scenario_id": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "family": {
+      "enum": [
+        "F1",
+        "F2",
+        "F3",
+        "F4",
+        "F5"
+      ]
+    },
+    "realism_tier": {
+      "enum": [
+        "R1",
+        "R2",
+        "R3",
+        "R1/R2",
+        "R2/R3"
+      ]
+    },
+    "development": {
+      "type": "boolean"
+    },
+    "action": {
+      "type": "object",
+      "required": [
+        "action_type",
+        "target_reference",
+        "target_snapshot",
+        "queue_semantics",
+        "authorization",
+        "execution_precondition"
+      ],
+      "properties": {
+        "action_type": {
+          "enum": [
+            "quarantine_workload",
+            "delete_or_stop_workload",
+            "kill_process",
+            "block_network_identity",
+            "revoke_session",
+            "restrict_scope"
+          ]
+        },
+        "target_reference": {
+          "type": "string"
+        },
+        "target_snapshot": {
+          "type": "object"
+        },
+        "queue_semantics": {
+          "const": "single_exactly_once_attempt"
+        },
+        "authorization": {
+          "type": "object",
+          "required": [
+            "predicate",
+            "must_remain_valid"
+          ],
+          "properties": {
+            "predicate": {
+              "type": "string"
+            },
+            "must_remain_valid": {
+              "const": true
+            }
+          },
+          "additionalProperties": false
+        },
+        "execution_precondition": {
+          "type": [
+            "object",
+            "boolean"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "attacker_capability_tier": {
+      "enum": [
+        "C0",
+        "C1",
+        "C2",
+        "C3"
+      ]
+    },
+    "initial_state": {
+      "type": "object"
+    },
+    "predicates": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "path",
+          "op",
+          "value"
+        ],
+        "properties": {
+          "path": {
+            "type": "string",
+            "pattern": "^/"
+          },
+          "op": {
+            "enum": [
+              "eq",
+              "ne",
+              "contains",
+              "subseteq"
+            ]
+          },
+          "value": {},
+          "evidence_class": {
+            "enum": [
+              "H",
+              "L",
+              "B",
+              "S",
+              "DERIVED"
+            ]
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "policy_profiles": {
+      "type": "object",
+      "required": [
+        "balanced"
+      ],
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "justification",
+          "binding",
+          "scope"
+        ],
+        "properties": {
+          "justification": {
+            "type": [
+              "object",
+              "boolean"
+            ]
+          },
+          "binding": {
+            "type": [
+              "object",
+              "boolean"
+            ]
+          },
+          "scope": {
+            "type": [
+              "object",
+              "boolean"
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "primary_policy": {
+      "const": "balanced"
+    },
+    "justification_bases": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "minItems": 1,
+        "items": {
+          "type": "string"
+        },
+        "uniqueItems": true
+      }
+    },
+    "transitions": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "worlds": {
+      "type": "object",
+      "required": [
+        "W0",
+        "W1",
+        "W2",
+        "W3"
+      ],
+      "properties": {
+        "W0": {
+          "type": "object",
+          "required": [
+            "commit_deadline_s",
+            "transition_path",
+            "expected_commit",
+            "expected_attack_path_completed",
+            "expected_commit_by_policy",
+            "control_semantics"
+          ],
+          "properties": {
+            "commit_deadline_s": {
+              "type": "number",
+              "minimum": 0
+            },
+            "transition_path": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "expected_commit": {
+              "enum": [
+                "EXECUTE",
+                "ABORT_REPLAN"
+              ]
+            },
+            "expected_attack_path_completed": {
+              "type": "boolean"
+            },
+            "notes": {
+              "type": "string"
+            },
+            "expected_commit_by_policy": {
+              "type": "object",
+              "minProperties": 1,
+              "additionalProperties": {
+                "enum": [
+                  "EXECUTE",
+                  "ABORT_REPLAN"
+                ]
+              }
+            },
+            "control_semantics": {
+              "enum": [
+                "adversarial_negative_control",
+                "deadline_miss",
+                "ea_toctou",
+                "irrelevant_change",
+                "stable"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "W1": {
+          "type": "object",
+          "required": [
+            "commit_deadline_s",
+            "transition_path",
+            "expected_commit",
+            "expected_attack_path_completed",
+            "expected_commit_by_policy",
+            "control_semantics"
+          ],
+          "properties": {
+            "commit_deadline_s": {
+              "type": "number",
+              "minimum": 0
+            },
+            "transition_path": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "expected_commit": {
+              "enum": [
+                "EXECUTE",
+                "ABORT_REPLAN"
+              ]
+            },
+            "expected_attack_path_completed": {
+              "type": "boolean"
+            },
+            "notes": {
+              "type": "string"
+            },
+            "expected_commit_by_policy": {
+              "type": "object",
+              "minProperties": 1,
+              "additionalProperties": {
+                "enum": [
+                  "EXECUTE",
+                  "ABORT_REPLAN"
+                ]
+              }
+            },
+            "control_semantics": {
+              "enum": [
+                "adversarial_negative_control",
+                "deadline_miss",
+                "ea_toctou",
+                "irrelevant_change",
+                "stable"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "W2": {
+          "type": "object",
+          "required": [
+            "commit_deadline_s",
+            "transition_path",
+            "expected_commit",
+            "expected_attack_path_completed",
+            "expected_commit_by_policy",
+            "control_semantics"
+          ],
+          "properties": {
+            "commit_deadline_s": {
+              "type": "number",
+              "minimum": 0
+            },
+            "transition_path": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "expected_commit": {
+              "enum": [
+                "EXECUTE",
+                "ABORT_REPLAN"
+              ]
+            },
+            "expected_attack_path_completed": {
+              "type": "boolean"
+            },
+            "notes": {
+              "type": "string"
+            },
+            "expected_commit_by_policy": {
+              "type": "object",
+              "minProperties": 1,
+              "additionalProperties": {
+                "enum": [
+                  "EXECUTE",
+                  "ABORT_REPLAN"
+                ]
+              }
+            },
+            "control_semantics": {
+              "enum": [
+                "adversarial_negative_control",
+                "deadline_miss",
+                "ea_toctou",
+                "irrelevant_change",
+                "stable"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "W3": {
+          "type": "object",
+          "required": [
+            "commit_deadline_s",
+            "transition_path",
+            "expected_commit",
+            "expected_attack_path_completed",
+            "expected_commit_by_policy",
+            "control_semantics"
+          ],
+          "properties": {
+            "commit_deadline_s": {
+              "type": "number",
+              "minimum": 0
+            },
+            "transition_path": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "expected_commit": {
+              "enum": [
+                "EXECUTE",
+                "ABORT_REPLAN"
+              ]
+            },
+            "expected_attack_path_completed": {
+              "type": "boolean"
+            },
+            "notes": {
+              "type": "string"
+            },
+            "expected_commit_by_policy": {
+              "type": "object",
+              "minProperties": 1,
+              "additionalProperties": {
+                "enum": [
+                  "EXECUTE",
+                  "ABORT_REPLAN"
+                ]
+              }
+            },
+            "control_semantics": {
+              "enum": [
+                "adversarial_negative_control",
+                "deadline_miss",
+                "ea_toctou",
+                "irrelevant_change",
+                "stable"
+              ]
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "parameterizations": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "description"
+        ],
+        "properties": {
+          "id": {
+            "enum": [
+              "P1",
+              "P2",
+              "P3",
+              "P4"
+            ]
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "required": [
+        "platform_basis",
+        "incident_basis",
+        "policy_basis",
+        "limitations"
+      ],
+      "properties": {
+        "platform_basis": {
+          "type": "string"
+        },
+        "incident_basis": {
+          "type": "string"
+        },
+        "policy_basis": {
+          "type": "string"
+        },
+        "limitations": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "severity": {
+      "enum": [
+        "S0",
+        "S1",
+        "S2",
+        "S3",
+        "S4"
+      ]
+    },
+    "notes": {
+      "type": "string"
+    },
+    "justification_bases_by_policy": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "array",
+        "minItems": 1,
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        }
+      }
+    },
+    "refresh_model": {
+      "type": "object",
+      "required": [
+        "cost_unit",
+        "query_costs",
+        "predicate_query_ids",
+        "query_observed_at_s"
+      ],
+      "properties": {
+        "cost_unit": {
+          "const": "normalized_query_unit"
+        },
+        "query_costs": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "number",
+            "minimum": 0
+          }
+        },
+        "predicate_query_ids": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "query_observed_at_s": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "number",
+            "minimum": 0
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "native_controls": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "control_id",
+          "control_type",
+          "predicate_ids",
+          "normalized_cost_units",
+          "applicable"
+        ],
+        "properties": {
+          "control_id": {
+            "type": "string"
+          },
+          "control_type": {
+            "enum": [
+              "uid_precondition",
+              "resource_version_precondition",
+              "binding_precondition",
+              "other"
+            ]
+          },
+          "predicate_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "uniqueItems": true
+          },
+          "normalized_cost_units": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Additional external query units; an atomic server-side precondition may be zero."
+          },
+          "applicable": {
+            "type": "boolean"
+          },
+          "notes": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "scenario_role": {
+      "enum": [
+        "positive_ea_toctou",
+        "negative_exploitability_control"
+      ]
+    }
+  },
+  "additionalProperties": false
+}

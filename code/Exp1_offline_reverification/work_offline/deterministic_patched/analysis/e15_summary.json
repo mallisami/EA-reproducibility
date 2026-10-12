@@ -1,0 +1,171 @@
+{
+  "by_condition": {
+    "C0_BENIGN_NOISE_ONLY": {
+      "B0": {
+        "rows": 12,
+        "invalid_state_rows": 0,
+        "unsafe_commits": 0,
+        "unsafe_commit_rate_on_invalid": null,
+        "false_aborts": 0,
+        "false_abort_rate_on_valid": 0.0,
+        "replans": 0,
+        "replan_rate": 0.0,
+        "mean_query_cost": 0.0
+      },
+      "B4": {
+        "rows": 12,
+        "invalid_state_rows": 0,
+        "unsafe_commits": 0,
+        "unsafe_commit_rate_on_invalid": null,
+        "false_aborts": 0,
+        "false_abort_rate_on_valid": 0.0,
+        "replans": 0,
+        "replan_rate": 0.0,
+        "mean_query_cost": 1.9166666666666667
+      },
+      "B6": {
+        "rows": 12,
+        "invalid_state_rows": 0,
+        "unsafe_commits": 0,
+        "unsafe_commit_rate_on_invalid": null,
+        "false_aborts": 0,
+        "false_abort_rate_on_valid": 0.0,
+        "replans": 0,
+        "replan_rate": 0.0,
+        "mean_query_cost": 1.1666666666666667
+      }
+    },
+    "C1_BENIGN_MIRROR": {
+      "B0": {
+        "rows": 12,
+        "invalid_state_rows": 11,
+        "unsafe_commits": 11,
+        "unsafe_commit_rate_on_invalid": 1.0,
+        "false_aborts": 0,
+        "false_abort_rate_on_valid": 0.0,
+        "replans": 0,
+        "replan_rate": 0.0,
+        "mean_query_cost": 0.0
+      },
+      "B4": {
+        "rows": 12,
+        "invalid_state_rows": 11,
+        "unsafe_commits": 0,
+        "unsafe_commit_rate_on_invalid": 0.0,
+        "false_aborts": 0,
+        "false_abort_rate_on_valid": 0.0,
+        "replans": 11,
+        "replan_rate": 0.9166666666666666,
+        "mean_query_cost": 1.9166666666666667
+      },
+      "B6": {
+        "rows": 12,
+        "invalid_state_rows": 11,
+        "unsafe_commits": 0,
+        "unsafe_commit_rate_on_invalid": 0.0,
+        "false_aborts": 0,
+        "false_abort_rate_on_valid": 0.0,
+        "replans": 11,
+        "replan_rate": 0.9166666666666666,
+        "mean_query_cost": 1.1666666666666667
+      }
+    },
+    "C2_ATTACK_PLUS_BENIGN_NOISE": {
+      "B0": {
+        "rows": 11,
+        "invalid_state_rows": 11,
+        "unsafe_commits": 11,
+        "unsafe_commit_rate_on_invalid": 1.0,
+        "false_aborts": 0,
+        "false_abort_rate_on_valid": null,
+        "replans": 0,
+        "replan_rate": 0.0,
+        "mean_query_cost": 0.0
+      },
+      "B4": {
+        "rows": 11,
+        "invalid_state_rows": 11,
+        "unsafe_commits": 0,
+        "unsafe_commit_rate_on_invalid": 0.0,
+        "false_aborts": 0,
+        "false_abort_rate_on_valid": null,
+        "replans": 11,
+        "replan_rate": 1.0,
+        "mean_query_cost": 2.0
+      },
+      "B6": {
+        "rows": 11,
+        "invalid_state_rows": 11,
+        "unsafe_commits": 0,
+        "unsafe_commit_rate_on_invalid": 0.0,
+        "false_aborts": 0,
+        "false_abort_rate_on_valid": null,
+        "replans": 11,
+        "replan_rate": 1.0,
+        "mean_query_cost": 1.2727272727272727
+      }
+    }
+  },
+  "by_actor_class": {
+    "controller": {
+      "B0": {
+        "rows": 21,
+        "unsafe": 14,
+        "false_abort": 0,
+        "replan": 0
+      },
+      "B4": {
+        "rows": 21,
+        "unsafe": 0,
+        "false_abort": 0,
+        "replan": 14
+      },
+      "B6": {
+        "rows": 21,
+        "unsafe": 0,
+        "false_abort": 0,
+        "replan": 14
+      }
+    },
+    "responder": {
+      "B0": {
+        "rows": 6,
+        "unsafe": 4,
+        "false_abort": 0,
+        "replan": 0
+      },
+      "B4": {
+        "rows": 6,
+        "unsafe": 0,
+        "false_abort": 0,
+        "replan": 4
+      },
+      "B6": {
+        "rows": 6,
+        "unsafe": 0,
+        "false_abort": 0,
+        "replan": 4
+      }
+    },
+    "human": {
+      "B0": {
+        "rows": 8,
+        "unsafe": 4,
+        "false_abort": 0,
+        "replan": 0
+      },
+      "B4": {
+        "rows": 8,
+        "unsafe": 0,
+        "false_abort": 0,
+        "replan": 4
+      },
+      "B6": {
+        "rows": 8,
+        "unsafe": 0,
+        "false_abort": 0,
+        "replan": 4
+      }
+    }
+  }
+}

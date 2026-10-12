@@ -1,0 +1,3 @@
+independent recomputation over 152 cells: {'k': 4471, 'n': 7594, 'n_unresolved': 0, 'n_infra': 0, 'k_alt_time': 4474}
+cells with identical INVALID_EXECUTED count k: 152/152; identical denominator n: 152/152
+descriptive: k by alternative time rule (writer RC < DELETE RC) total 4474 vs RV rule 4471

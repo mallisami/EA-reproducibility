@@ -1,0 +1,44 @@
+{
+  "package": "FlashIR-Bench",
+  "version": "8.0.0-systems-security-clean",
+  "parent_spec": "6.0.1-final-deterministic-audit",
+  "stage": "final-clean-deterministic-release-pytest-explicit-path-hardened",
+  "status": "DETERMINISTIC_RESULTS_COMPLETE_AUDITED_LOCKED",
+  "held_out_templates_encoded": true,
+  "deterministic_components": [
+    "state simulator",
+    "transition engine",
+    "policy oracle",
+    "authorization invariant",
+    "effectful-actuation predicate",
+    "DCJI optimal-path search",
+    "complete attack-goal enumeration through commit deadline",
+    "query-aware selective certificate extraction",
+    "B0 OneShot",
+    "B2 TTLGuard",
+    "B3 TargetBindingGuard",
+    "B4 FullRefresh",
+    "B5 atomic NativePrecondition model",
+    "B6 Selective DCJI-Gate",
+    "normalized physical-query cost model"
+  ],
+  "engine_frozen_from": "v2.2.1-auditfix",
+  "benchmark": {
+    "template_count": 30,
+    "development_templates": 6,
+    "heldout_templates": 24,
+    "parameterizations_per_template": 4,
+    "materialized_instances": true,
+    "heldout_defense_results_generated": true,
+    "materialized_instance_count": 120,
+    "heldout_instance_count": 96,
+    "development_instance_count": 24
+  },
+  "preanalysis_freeze_id": "FLASHIR-DET-HELDOUT-FREEZE-20260905",
+  "live_kubernetes_status": "primary external validation harness in ../live_validation/E13",
+  "release_hardening": {
+    "pytest_root_discovery": "restricted to active tests/; archived provenance tests excluded from collection",
+    "pytest_explicit_component_path": "norecursedirs excludes provenance so `pytest deterministic` cannot collect archived pre-open tests"
+  },
+  "framing": "automated cyber incident response systems security"
+}

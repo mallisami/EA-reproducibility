@@ -1,0 +1,346 @@
+{
+  "instance_id": "F4.1-P2",
+  "template_id": "F4.1",
+  "parameterization_id": "P2",
+  "split": "development",
+  "materialization_version": "3.1.0",
+  "causal_core_hash": "44d09fcf815eaf419c7ac016bb99dbc9c203b05671f20cbf8a58289dc9dfe97f",
+  "template_hash": "4c9616fc2737ec31a82483a4c7260cc4cfc7ecddd7385af6daff67b075acd72b",
+  "scenario": {
+    "scenario_id": "F4.1",
+    "title": "PodSelector Gains Benign Member",
+    "family": "F4",
+    "realism_tier": "R1",
+    "development": true,
+    "action": {
+      "action_type": "restrict_scope",
+      "target_reference": "selector/role=suspect",
+      "target_snapshot": {
+        "selector": "role=suspect",
+        "members": [
+          "U1"
+        ]
+      },
+      "queue_semantics": "single_exactly_once_attempt",
+      "authorization": {
+        "predicate": "p_authorized",
+        "must_remain_valid": true
+      },
+      "execution_precondition": true
+    },
+    "attacker_capability_tier": "C2",
+    "initial_state": {
+      "timestamp_s": 0,
+      "facts": {
+        "u1_threat_relevant": true,
+        "selector_members": [
+          "U1"
+        ],
+        "irrelevant_metric": "ok",
+        "action_authorized": true,
+        "materialization_benign_resource_count": 4,
+        "materialization_irrelevant_1": true,
+        "materialization_irrelevant_2": true,
+        "materialization_irrelevant_3": true,
+        "materialization_irrelevant_4": true
+      },
+      "resources": [
+        {
+          "kind": "Pod",
+          "namespace": "prod",
+          "name": "suspect-1",
+          "uid": "U1",
+          "labels": {
+            "role": "suspect"
+          },
+          "active": true,
+          "security_state": "compromised"
+        },
+        {
+          "kind": "Pod",
+          "namespace": "prod",
+          "name": "clean-1",
+          "uid": "U2",
+          "labels": {
+            "role": "normal"
+          },
+          "active": true,
+          "security_state": "clean"
+        },
+        {
+          "kind": "SyntheticBenignResource",
+          "name": "benign-3",
+          "uid": "BENIGN-F4.1-3",
+          "active": true,
+          "security_state": "clean",
+          "criticality": "low"
+        },
+        {
+          "kind": "SyntheticBenignResource",
+          "name": "benign-4",
+          "uid": "BENIGN-F4.1-4",
+          "active": true,
+          "security_state": "clean",
+          "criticality": "low"
+        },
+        {
+          "kind": "SyntheticBenignResource",
+          "name": "benign-5",
+          "uid": "BENIGN-F4.1-5",
+          "active": true,
+          "security_state": "clean",
+          "criticality": "low"
+        },
+        {
+          "kind": "SyntheticBenignResource",
+          "name": "benign-6",
+          "uid": "BENIGN-F4.1-6",
+          "active": true,
+          "security_state": "clean",
+          "criticality": "low"
+        }
+      ],
+      "processes": [],
+      "network_bindings": [],
+      "sessions": [],
+      "context": {
+        "materialization": {
+          "parameterization_id": "P2",
+          "template_id": "F4.1",
+          "description": "Benign distractor topology."
+        }
+      },
+      "evidence": [
+        {
+          "evidence_id": "MAT-IRR-1",
+          "predicate": "materialization_irrelevant_1",
+          "evidence_class": "S",
+          "source": "synthetic-background",
+          "observed_at_s": 0,
+          "subject_uid": null,
+          "truth_value": true,
+          "supersedes": null
+        },
+        {
+          "evidence_id": "MAT-IRR-2",
+          "predicate": "materialization_irrelevant_2",
+          "evidence_class": "S",
+          "source": "synthetic-background",
+          "observed_at_s": 0,
+          "subject_uid": null,
+          "truth_value": true,
+          "supersedes": null
+        },
+        {
+          "evidence_id": "MAT-IRR-3",
+          "predicate": "materialization_irrelevant_3",
+          "evidence_class": "S",
+          "source": "synthetic-background",
+          "observed_at_s": 0,
+          "subject_uid": null,
+          "truth_value": true,
+          "supersedes": null
+        },
+        {
+          "evidence_id": "MAT-IRR-4",
+          "predicate": "materialization_irrelevant_4",
+          "evidence_class": "S",
+          "source": "synthetic-background",
+          "observed_at_s": 0,
+          "subject_uid": null,
+          "truth_value": true,
+          "supersedes": null
+        }
+      ],
+      "queue": []
+    },
+    "predicates": {
+      "p_u1_threat": {
+        "path": "/facts/u1_threat_relevant",
+        "op": "eq",
+        "value": true,
+        "evidence_class": "H",
+        "description": "U1 is threat relevant."
+      },
+      "p_scope_safe": {
+        "path": "/facts/selector_members",
+        "op": "eq",
+        "value": [
+          "U1"
+        ],
+        "evidence_class": "DERIVED",
+        "description": "Selector affects only intended U1."
+      },
+      "p_authorized": {
+        "path": "/facts/action_authorized",
+        "op": "eq",
+        "value": true,
+        "evidence_class": "DERIVED",
+        "description": "Response executor remains technically authorized."
+      }
+    },
+    "policy_profiles": {
+      "balanced": {
+        "justification": {
+          "predicate": "p_u1_threat"
+        },
+        "binding": true,
+        "scope": {
+          "predicate": "p_scope_safe"
+        }
+      }
+    },
+    "primary_policy": "balanced",
+    "justification_bases": [
+      [
+        "p_u1_threat"
+      ]
+    ],
+    "transitions": [
+      {
+        "transition_id": "irrelevant_metric_change",
+        "title": "Unrelated monitoring change",
+        "actor": "environment",
+        "capability_tier": "NONE",
+        "duration_s": 0.1,
+        "cost_ops": 0,
+        "preconditions": true,
+        "effects": [
+          {
+            "op": "set",
+            "path": "/facts/irrelevant_metric",
+            "value": "warn"
+          }
+        ],
+        "notes": "",
+        "adversarially_induced": false,
+        "causal_parent_ids": []
+      },
+      {
+        "transition_id": "label_u2_suspect",
+        "title": "Attacker causes benign U2 to enter selector",
+        "actor": "attacker",
+        "capability_tier": "C2",
+        "duration_s": 0.8,
+        "cost_ops": 1,
+        "preconditions": true,
+        "effects": [
+          {
+            "op": "set",
+            "path": "/facts/selector_members",
+            "value": [
+              "U1",
+              "U2"
+            ]
+          },
+          {
+            "op": "set",
+            "path": "/resources/1/labels/role",
+            "value": "suspect"
+          }
+        ],
+        "notes": "",
+        "adversarially_induced": true,
+        "causal_parent_ids": []
+      }
+    ],
+    "worlds": {
+      "W0": {
+        "commit_deadline_s": 3,
+        "transition_path": [],
+        "expected_commit": "EXECUTE",
+        "expected_attack_path_completed": false,
+        "control_semantics": "stable",
+        "expected_commit_by_policy": {
+          "balanced": "EXECUTE"
+        }
+      },
+      "W1": {
+        "commit_deadline_s": 3,
+        "transition_path": [
+          "irrelevant_metric_change"
+        ],
+        "expected_commit": "EXECUTE",
+        "expected_attack_path_completed": false,
+        "control_semantics": "irrelevant_change",
+        "expected_commit_by_policy": {
+          "balanced": "EXECUTE"
+        }
+      },
+      "W2": {
+        "commit_deadline_s": 3,
+        "transition_path": [
+          "label_u2_suspect"
+        ],
+        "expected_commit": "ABORT_REPLAN",
+        "expected_attack_path_completed": true,
+        "control_semantics": "ea_toctou",
+        "expected_commit_by_policy": {
+          "balanced": "ABORT_REPLAN"
+        }
+      },
+      "W3": {
+        "commit_deadline_s": 0.5,
+        "transition_path": [
+          "label_u2_suspect"
+        ],
+        "expected_commit": "EXECUTE",
+        "expected_attack_path_completed": false,
+        "control_semantics": "deadline_miss",
+        "expected_commit_by_policy": {
+          "balanced": "EXECUTE"
+        }
+      }
+    },
+    "parameterizations": [
+      {
+        "id": "P1",
+        "description": "Minimal topology with only essential resources and evidence."
+      },
+      {
+        "id": "P2",
+        "description": "Distractor topology with benign resources and irrelevant evidence."
+      },
+      {
+        "id": "P3",
+        "description": "Noisy SOC context with non-material alerts and unrelated transitions."
+      },
+      {
+        "id": "P4",
+        "description": "High-impact variant with larger benign background or higher criticality."
+      }
+    ],
+    "provenance": {
+      "platform_basis": "Selector-scoped policy affects resources currently matching selector labels.",
+      "incident_basis": "SOC queues selector-scoped containment around a compromised workload.",
+      "policy_basis": "Scope must remain restricted to the intended threat-relevant set.",
+      "limitations": "Requires attacker capability to influence labels; this is explicit in C2."
+    },
+    "severity": "S3",
+    "notes": "Scope-drift development case.",
+    "justification_bases_by_policy": {
+      "balanced": [
+        [
+          "p_u1_threat"
+        ]
+      ]
+    },
+    "refresh_model": {
+      "cost_unit": "normalized_query_unit",
+      "query_costs": {
+        "query:/facts/selector_members": 1.0,
+        "immutable:p_u1_threat": 0.0
+      },
+      "predicate_query_ids": {
+        "p_scope_safe": "query:/facts/selector_members",
+        "p_u1_threat": "immutable:p_u1_threat"
+      },
+      "query_observed_at_s": {
+        "query:/facts/selector_members": 0.0,
+        "immutable:p_u1_threat": 0.0
+      }
+    },
+    "native_controls": [],
+    "scenario_role": "positive_ea_toctou"
+  }
+}

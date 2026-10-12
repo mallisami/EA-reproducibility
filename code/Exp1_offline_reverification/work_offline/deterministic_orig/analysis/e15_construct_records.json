@@ -1,0 +1,166 @@
+[
+  {
+    "template_id": "F1.2",
+    "benign_actor_class": "controller",
+    "base_path": [
+      "remove_original",
+      "create_successor"
+    ],
+    "benign_mirror_path": [
+      "e15_benign_01_remove_original",
+      "e15_benign_02_create_successor"
+    ],
+    "noise_transition_id": "e15_benign_noise",
+    "base_scenario_role": "positive_ea_toctou"
+  },
+  {
+    "template_id": "F1.3",
+    "benign_actor_class": "controller",
+    "base_path": [
+      "remove_original",
+      "create_successor"
+    ],
+    "benign_mirror_path": [
+      "e15_benign_01_remove_original",
+      "e15_benign_02_create_successor"
+    ],
+    "noise_transition_id": "e15_benign_noise",
+    "base_scenario_role": "positive_ea_toctou"
+  },
+  {
+    "template_id": "F2.4",
+    "benign_actor_class": "controller",
+    "base_path": [
+      "release_original",
+      "assign_successor"
+    ],
+    "benign_mirror_path": [
+      "e15_benign_01_release_original",
+      "e15_benign_02_assign_successor"
+    ],
+    "noise_transition_id": "e15_benign_noise",
+    "base_scenario_role": "positive_ea_toctou"
+  },
+  {
+    "template_id": "F2.6",
+    "benign_actor_class": "controller",
+    "base_path": [
+      "release_original",
+      "assign_successor"
+    ],
+    "benign_mirror_path": [
+      "e15_benign_01_release_original",
+      "e15_benign_02_assign_successor"
+    ],
+    "noise_transition_id": "e15_benign_noise",
+    "base_scenario_role": "positive_ea_toctou"
+  },
+  {
+    "template_id": "F3.3",
+    "benign_actor_class": "responder",
+    "base_path": [
+      "stop_original",
+      "reuse_reference"
+    ],
+    "benign_mirror_path": [
+      "e15_benign_01_stop_original",
+      "e15_benign_02_reuse_reference"
+    ],
+    "noise_transition_id": "e15_benign_noise",
+    "base_scenario_role": "positive_ea_toctou"
+  },
+  {
+    "template_id": "F3.6",
+    "benign_actor_class": "responder",
+    "base_path": [
+      "stop_original",
+      "reuse_reference"
+    ],
+    "benign_mirror_path": [
+      "e15_benign_01_stop_original",
+      "e15_benign_02_reuse_reference"
+    ],
+    "noise_transition_id": "e15_benign_noise",
+    "base_scenario_role": "positive_ea_toctou"
+  },
+  {
+    "template_id": "F4.3",
+    "benign_actor_class": "controller",
+    "base_path": [
+      "expand_scope"
+    ],
+    "benign_mirror_path": [
+      "e15_benign_01_expand_scope"
+    ],
+    "noise_transition_id": "e15_benign_noise",
+    "base_scenario_role": "positive_ea_toctou"
+  },
+  {
+    "template_id": "F4.5",
+    "benign_actor_class": "controller",
+    "base_path": [
+      "expand_scope"
+    ],
+    "benign_mirror_path": [
+      "e15_benign_01_expand_scope"
+    ],
+    "noise_transition_id": "e15_benign_noise",
+    "base_scenario_role": "positive_ea_toctou"
+  },
+  {
+    "template_id": "F5.2",
+    "benign_actor_class": "human",
+    "base_path": [
+      "cut_b1",
+      "cut_b2",
+      "cut_b3"
+    ],
+    "benign_mirror_path": [
+      "e15_benign_01_cut_b1",
+      "e15_benign_02_cut_b2",
+      "e15_benign_03_cut_b3"
+    ],
+    "noise_transition_id": "e15_benign_noise",
+    "base_scenario_role": "positive_ea_toctou"
+  },
+  {
+    "template_id": "F5.4",
+    "benign_actor_class": "human",
+    "base_path": [
+      "cut_shared_x",
+      "cut_y"
+    ],
+    "benign_mirror_path": [
+      "e15_benign_01_cut_shared_x",
+      "e15_benign_02_cut_y"
+    ],
+    "noise_transition_id": "e15_benign_noise",
+    "base_scenario_role": "positive_ea_toctou"
+  },
+  {
+    "template_id": "F5.6",
+    "benign_actor_class": "human",
+    "base_path": [
+      "remove_current_threat"
+    ],
+    "benign_mirror_path": [
+      "e15_benign_01_remove_current_threat"
+    ],
+    "noise_transition_id": "e15_benign_noise",
+    "base_scenario_role": "negative_exploitability_control"
+  },
+  {
+    "template_id": "F1.5",
+    "benign_actor_class": "controller",
+    "base_path": [
+      "remove_original",
+      "create_successor"
+    ],
+    "benign_mirror_path": [
+      "e15_benign_01_remove_original",
+      "e15_benign_02_create_successor"
+    ],
+    "noise_transition_id": "e15_benign_noise",
+    "base_scenario_role": "positive_ea_toctou"
+  }
+]

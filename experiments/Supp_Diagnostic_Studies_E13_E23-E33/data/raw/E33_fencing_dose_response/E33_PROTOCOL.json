@@ -1,0 +1,18 @@
+{
+  "experiment": "E33",
+  "title": "Fencing Mechanism Dose-Response Curve Across Contention Levels",
+  "motivation": "E24 (inter_tick_delay=0.0s, adversarial) showed the fenced double-collect mechanism never delivers within its 10-retry bound; E28 (inter_tick_delay=0.3s, moderate) showed it delivers 174/174 with 0 incoherent. These are only two points. This experiment adds two INTERMEDIATE contention levels (0.05s, 0.15s) to characterize the actual transition between the two extremes, using the identical mechanism, resources, and coherence oracle as E24/E28.",
+  "namespace": "flashir-e24",
+  "resources": ["obs-a", "obs-c", "obs-e"],
+  "proxy_port": 8001,
+  "inter_tick_delays_s": [0.05, 0.15],
+  "trial_window_s": 2.0,
+  "acquisition_methods": ["naive_sequential", "fenced_double_collect"],
+  "fenced_max_retries": 10,
+  "attempts_per_method_per_trial": 10,
+  "trials_per_method_per_delay": 15,
+  "random_seed": 20260914,
+  "primary_endpoint": "fenced_delivery_rate",
+  "secondary_endpoints": ["naive_incoherent_rate", "fenced_incoherent_rate", "mean_retries"],
+  "notes": "Preregistered post-hoc extension (E33), run outside the locked v8.1.1 package and outside all other v9 evidence. Reuses E24's namespace/ConfigMaps without modifying E24's or E28's own frozen protocols or results. Combined with E24 (delay=0.0) and E28 (delay=0.3) as the two existing endpoints, this gives a 4-point dose-response curve rather than two isolated data points."
+}

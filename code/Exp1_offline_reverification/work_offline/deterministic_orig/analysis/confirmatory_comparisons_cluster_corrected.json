@@ -1,0 +1,56 @@
+{
+  "C1": {
+    "comparison": "B6 vs B0",
+    "template_pairs": 23,
+    "n10": 0,
+    "n01": 23,
+    "discordant_templates": 23,
+    "exact_template_level_p": 2.384185791015625e-07,
+    "mean_template_risk_difference": -1.0,
+    "holm_adjusted_p": 7.152557373046875e-07
+  },
+  "C2": {
+    "comparison": "B6 vs B2",
+    "template_pairs": 23,
+    "n10": 0,
+    "n01": 0,
+    "discordant_templates": 0,
+    "exact_template_level_p": 1.0,
+    "mean_template_risk_difference": 0.0,
+    "holm_adjusted_p": 1
+  },
+  "C3": {
+    "comparison": "B6 vs B3",
+    "template_pairs": 15,
+    "n10": 0,
+    "n01": 0,
+    "discordant_templates": 0,
+    "exact_template_level_p": 1.0,
+    "mean_template_risk_difference": 0.0,
+    "holm_adjusted_p": 1
+  },
+  "C4": {
+    "template_pairs": 23,
+    "observed_B6_only_unsafe_templates": 0,
+    "observed_B4_only_unsafe_templates": 0,
+    "observed_template_risk_difference": 0.0,
+    "preregistered_empirical_cluster_bootstrap_issue": "Degenerate [0,0] because no observed discordance; not suitable as evidence that the population risk-difference upper bound is exactly zero.",
+    "supplemental_conservative_one_sided_95_upper_bound_B6_only_discordance": 0.12212338890652308,
+    "frozen_noninferiority_margin": 0.05,
+    "cluster_aware_noninferiority_established": false
+  },
+  "C5": {
+    "template_pairs": 23,
+    "mean_B6": 1.2608695652173914,
+    "mean_B4": 1.9130434782608696,
+    "mean_difference_B6_minus_B4": -0.6521739130434783,
+    "median_difference": 0.0,
+    "templates_with_lower_B6_cost": 8,
+    "templates_with_equal_cost": 15,
+    "template_level_wilcoxon_less_p": 0.004826937407846361,
+    "template_cluster_bootstrap_mean_diff_95": [
+      -1.173913043478261,
+      -0.2608695652173913
+    ]
+  }
+}

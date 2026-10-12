@@ -1,0 +1,17 @@
+{
+  "version": "3.1.0-materialized",
+  "templates": 30,
+  "instances": 120,
+  "development_instances": 24,
+  "heldout_instances": 96,
+  "parameterizations": {
+    "P1": 30,
+    "P2": 30,
+    "P3": 30,
+    "P4": 30
+  },
+  "oracle_world_checks": 480,
+  "oracle_world_failures": 0,
+  "causal_core_mutations": 0,
+  "heldout_defense_results_generated": false
+}

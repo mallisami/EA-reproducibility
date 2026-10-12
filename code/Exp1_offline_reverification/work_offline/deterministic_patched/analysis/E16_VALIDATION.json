@@ -1,0 +1,34 @@
+{
+  "freeze_id": "FLASHIR-E16-CONSEQUENCE-FREEZE-20260905",
+  "positive_templates": 23,
+  "parameterizations": [
+    "P1",
+    "P4"
+  ],
+  "instance_contexts": 46,
+  "defenses": [
+    "B0",
+    "B4",
+    "B6"
+  ],
+  "raw_rows": 138,
+  "B0_unsafe": 46,
+  "B4_unsafe": 0,
+  "B6_unsafe": 0,
+  "B0_severity_distribution": {
+    "S2": 20,
+    "S3": 20,
+    "S1": 6
+  },
+  "B4_severity_distribution": {
+    "S0": 46
+  },
+  "B6_severity_distribution": {
+    "S0": 46
+  },
+  "S4_observed": 0,
+  "S4_reason_if_zero": "No explicit persistent/destructive consequence is encoded in the frozen W2 states; E16 does not infer S4 from ambiguous action labels.",
+  "time_to_recovery_is_wall_clock": false,
+  "frozen_input_hash_mismatches": [],
+  "status": "PASS"
+}

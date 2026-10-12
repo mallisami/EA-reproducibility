@@ -1,0 +1,117 @@
+E38v2 CONFIRMATORY RERUN (e38v2r) OPERATIONS LOG (running; UTC)      operator: Claude (agent) for the paper's authors
+=====================================================================================================================
+VM azureuser@<PUBLIC_IP_REDACTED>. Rerun tree ~/e38v2r_20260926 (copy of the first run's final code), operator scripts
+~/e38v2r_ops. Protected clusters never addressed: mape-cap-confirm, mcb-k137, rev-n5. Every kubectl call:
+--kubeconfig ~/e38v2r_20260926/.kubeconfig_e38v2 --context kind-e38v2; kind create/delete only with --name e38v2 and
+the dedicated kubeconfig. No docker prune. sudo only to read/move root-owned audit files of the e38v2 cluster.
+The first run's tree ~/e38v2_20260926 and its results were not modified (its LOCK still verifies: 51 hashes OK,
+lock_sha256 15b29b6d..., checked 09:11Z).
+
+STEP 0 READ + COPY
+09:05Z  Read MORNING_SUMMARY_E38v2.txt, DEVIATIONS_E38v2.txt, LOG_E38v2_OPERATIONS_final.txt, RUNBOOK, ANALYSIS_PLAN v1.1,
+        runner/oracle/analysis/webhook code. VM: MemAvailable 10.7 GB, 93 GB disk free.
+09:11Z  cp -a src webhook deploy analysis protocol frozen_ref venv_runner venv_analysis venv_deploy -> ~/e38v2r_20260926;
+        the first run's protocol/LOCK_E38v2.json moved out of the copy (kept as ~/e38v2r_ops/FIRST_RUN_LOCK_E38v2.json.copy).
+
+STEP 1 PRE-LOCK EXPLORATION (disposable; no trial data)
+09:14Z  kind create cluster --name e38v2 (config with kube-apiserver --v=6, kubelet containerLogMaxSize 4Gi): Ready 16 s.
+        Node image content: registry.k8s.io/pause:3.10 present (image id 873ed75102791) -> target image, no pull.
+        python:3.12-slim (webhook image) imported with docker save | ctr import (as first run, D3).
+09:17Z  explore-a: 3 webhook-labelled Running pause Pods DELETEd (grace 0, UID precondition) by the responder identity.
+        kube-apiserver log per DELETE: webhook POST #1 -> store.go:1277 "Going to delete object from registry" ->
+        webhook POST #2 (full evaluation) -> store.go:452 "deletion of /registry/pods/.. failed because of a conflict,
+        going to retry" -> webhook POST #3 (terminating Pod, not evaluated). One DELETE (485 ms; node briefly contended)
+        showed store.go:660 "Going to delete object from registry, triggered by update" (the kubelet's pods/status PATCH
+        removed the object) during the responder's storage-delete phase; that DELETE returned 200 WITHOUT resourceVersion.
+09:24Z  40 labelled + 40 unlabelled DELETEs: response without resourceVersion 14/40 (webhook arm) vs 0/40; ready wait
+        median ~0.63 s; DELETE RTT median 43 ms (labelled) / 19 ms (unlabelled).
+        -> Finding F-R1: with a Running Pod the pre-registered deletion-RV sources are frequently missing in A3.
+           Fix (pre-lock, plan v1.2 (i)): pod-event recorder src/pod_watch.py + oracle fallback to the DELETED watch
+           event RV only when both sources are missing, and a cross-check otherwise.
+09:25Z  v=6 volume ~15 KB/s idle; switched to --v=3 --vmodule=store=6,round_trippers=6 (keeps the httplog HTTP line,
+        the webhook rest-client Response lines, and registry/etcd3 store.go delete lines). Cluster deleted and recreated
+        from the final deploy/kind-config.yaml (recreate_cluster.sh; exploration audit/webhook host logs parked under
+        results/_parked_explore1). 09:28Z explore-b: the same log lines appear at the targeted verbosity (2 MB total).
+
+STEP 2 CODE CHANGES (all before the LOCK)
+  runner: target Pod = registry.k8s.io/pause:3.10, imagePullPolicy Never, no scheduling gate; reset waits for
+          Running+Ready (wait_pod_ready, 20 ms polls, 90 s timeout -> reset_ok false -> INFRA_ERROR); fixture.pod_ready,
+          gate.pod_state (summarised after the DELETE is sent, not in the timed path), effect.t_gone_mono_ns/gone_polls/
+          delete_response_deletion_timestamp, uid_rebind replacement also Running+Ready; DeleteOptions unchanged
+          (gracePeriodSeconds 0 + UID precondition); seed 1772720255 refused in addition to 20260912. Schema: additive
+          optional fields. fake_api: Running/Ready Pod status.
+  new:    src/pod_watch.py (+ tests): watch of Pods in the test namespace (reset token, GET only), resourceVersion
+          continuation, GAP marker on 410; ops/podwatch.sh start|stop|status.
+  oracle v1.2 / analysis v1.2: secondary = writer RC < DELETE RC; tertiary = v1 rule (vs DELETE received) with its own
+          per-cell block, agreement, d*; deletion-RV fallback from pod_events.jsonl (plan v1.2 (i)); corrected wording of
+          the governing-evaluation comment (mechanism not assumed); FORBIDDEN_SEEDS. Tests: synth expectations for the
+          corrected secondary, EDGE_CASES_TERTIARY, pod-watch fallback/conflict tests, pipeline test with pod events.
+  protocol: ANALYSIS_PLAN v1.2 changelog (g)-(k); INTERFACE_SPEC rerun addendum; RUNBOOK rerun note; LOCK template
+          (root, pod_watch files, forbidden seeds, environment/oracle notes).
+  deploy: kind-config (paths, --v=3, --vmodule, kubelet log size); validate_deploy updated.
+~09:55Z Offline suites (VM): runner+pod_watch 44 passed; webhook 32 OK; deploy 0 failures; analysis 98 passed; lock 10 OK.
+        Edge-case fixture files regenerated with the v1.2 generator (EXPECTED.jsonl now has expected_tertiary).
+
+STEP 3 SMOKE smoke-r20260926a
+10:07Z  A first detached setup+probe chain (bash -c inside setsid nohup) left EMPTY logs; its partial actions are visible
+        in audit only (10:08:02 one kubectl --as reset DELETE of probe-reset -> 403 RBAC, before the Role existed).
+        Re-done in the foreground/with ops/bg.sh wrapper; nothing from the first attempt is used.
+10:09Z  setup_run.sh smoke-r20260926a (render, certs, ns, RBAC, webhook identical, VWC, fixtures, tokens).
+10:10Z  pod-event recorder started (pid 847883). PROBES (all OK):
+        4.3 invalid app_policy -> Running labelled Pod DELETE DENIED (403 app_policy_not_allowed), Pod still Running;
+        4.4 unlabelled -> allowed, no webhook line; 4.5 reset identity -> 200, no webhook line; 4.6 valid -> allowed,
+        followed by a system:node final delete (kubectl default grace; exempt, no webhook line); 4.7 scope / J_false DENY
+        then ALLOW. Runner identities OK; A3 invalid -> 403, valid -> 200. Audit-Id join 183/183, RV mismatches 0.
+        RUNNING-POD PROBE (runner code paths, 10 labelled + 10 unlabelled): gate view Running+Ready 20/20; CRI container
+        running before DELETE 20/20; DELETE 200 20/20; Pod object gone 20/20; container not running after the DELETE
+        20/20 (max 573 ms, crictl).
+10:17Z  smoke schedule seed 777101 (1 rep/cell, 152 trials), launched --unlocked-smoke.
+10:19Z  smoke END: 152/152 COMPLETE, 0 INFRA_ERROR, 107.7 s (0.708 s/trial). MemAvailable ~10.0 GB.
+10:21Z  smoke analysis (smoke_analyze.sh; LOCK_SMOKE from the template, --design-check off): oracle v1.2 classes
+        CORRECT_ABORT 22, INVALID_EXECUTED 92, UID_BLOCKED 4, VALID_EXECUTED 34, UNKNOWN 0. Strict design check
+        refuses the 1-rep schedule (expected).
+        QUALITY GATES: INFRA_ERROR 0.0% (<2%) PASS; audit join 152/152 DELETE, 144/144 PATCH, A3 webhook join 37/37,
+        fully joined 152/152 (>=98%) PASS; primary vs corrected secondary 152/152 = 100% (>=95%) PASS
+        [tertiary = v1 rule: 62/152 = 40.8%, reproducing the first run's 41.3%]; no_write VALID 4/4, uid_rebind UID_BLOCKED
+        4/4 PASS. Deletion RV from the pod-watch fallback in 2 accepted async trials (A3 1, A1 1); where both sources
+        exist, pod-watch DELETED RV == pre-registered deletion RV in 120/120.
+        Running Pod: ready wait median 579 ms (max 1.42 s); gate saw Running+Ready 152/152; Pod object gone after every
+        accepted DELETE (median 1.9 ms after the response). DELETE RTT median A0 13.3, A1 14.0, A2 14.5, A3 44.9 ms.
+        Mechanism map (smoke): 38 A3 DELETEs, webhook calls matched 1:1 to apiserver Response lines in 38/38.
+10:26Z  runner runtime-estimate constants re-measured from the smoke (0.578 / 1.204 / +0.122 s) -> only change
+        after the smoke (dry-run estimate only). Full offline suites on the final code: runner+pod_watch 44 passed,
+        webhook 32 OK, deploy 0 failures, analysis 98 passed, lock 10 OK. VM tree == local working copy (57 files).
+
+STEP 4 LOCK + STAGE 1
+10:32Z  run_id e38v2r-20260926t1032z, seed 154080643 (secrets.randbelow; not 20260912 / 1772720255).
+10:33Z  main_prep.sh: setup (RBAC yes no yes no yes no no), pod-event recorder started, probes ALL OK again in the
+        run namespace (deny/allow on Running Pods, unlabelled + reset bypass, Audit-Id join 193/193, RUNNING-POD PROBE
+        20/20 on every check), RV-order probe: sequential 2415/2415 concordant; concurrent 0.99760; patch-vs-delete
+        disagreement RV rule vs v1.2 secondary 4/3306 (vs v1 rule 40/3306).
+10:34Z  SCHEDULE.json sha256 eb9262b4... (5812 trials); LOCK status LOCKED-2026-09-26T10:34:43Z, 52 hashes verified,
+        lock_sha256 c4926ce2b2f3b596e46192a66dcf5d79cd135a6589b261229bb442f889e7d5cf, analysis_plan_sha256 3ea47ec2...
+10:34Z  smoke pod-event recorder stopped.
+10:36Z  stage 1 launched (setsid nohup); runner verified LOCK + schedule before any request.
+10:36-11:46Z stage 1: 5812/5812, 0 INFRA_ERROR, 4205.9 s (0.724 s/trial); MemAvailable ~9.5-9.9 GB throughout; monitored
+        with <=9-min sleeps (the agent session paused ~11:05-11:35 on an API rate limit; the detached runner was unaffected).
+11:47Z  stage1_post.sh: logs collected (audit sha256 68b7bed6..., apiserver.log 424,588 lines, pod_events snapshot
+        a30575f5...); analyze --stage 1 (strict design check): gate PASSED, confirmatory=True; primary CORRECT_ABORT 909,
+        INVALID_EXECUTED 3618, VALID_EXECUTED 1245, UID_BLOCKED 40, FALSE_ABORT 0, UNKNOWN 0, INFRA_ERROR 0.
+        stage2_topup.py: 54 cells, 2916 new trials, 0 undefined. SCHEDULE_STAGE2.json sha256 3ededba8...; lock add-stage2:
+        stage-1 lock verified first; lock_sha256 c4926ce2... -> 7672ddda...; verify OK 53 hashes.
+11:47Z  stage 2 launched (same run_id, ids from 100001); runner verified the LOCK stage-2 hash before any request.
+11:47-12:24Z stage 2: 2916/2916, 0 INFRA_ERROR, 2204 s.
+
+STEP 5 FINAL
+12:44Z  final.sh (two earlier launches at ~12:25/12:35 never started: SSH dropped before the detached job began).
+        pod-event recorder stopped (61957 events, 0 GAP, 0 ERROR); LOCK verify at export OK (53 hashes); logs collected
+        (audit sha256 486b5311..., webhook_log 09887062..., apiserver.log 8d213610..., 625,782 lines).
+        analyze --stage 2 (both schedules, pod events): gate PASSED, confirmatory=True; INVALID 4979, VALID 2632,
+        CORRECT_ABORT 1077, UID_BLOCKED 40, UNKNOWN 0, INFRA 0, FALSE_ABORT 0. Deletion RV from pod watch in 55 trials.
+        Stage-1-only re-analysis: first attempt refused (the script omitted the stage-2 schedule the LOCK requires;
+        script error, not data); rerun with both schedules: rc 0, cells identical to analysis_stage1 (S4).
+        Independent recomputation: k/n/k_sec/k_ter identical 152/152. Agreement primary vs secondary 97.8% (kappa 0.977);
+        vs tertiary 42.5%. Mechanism map, running-Pod report, first-run comparison, A3 sensitivity written.
+13:05-13:25Z export e38v2r_EXPORT_e38v2r-20260926t1032z.tar.gz (64,956,226 bytes; run dir + smoke dir, per-dir SHA256SUMS; run-dir SHA256SUMS sha256 ad773985...), sha256 ed57dd4802931e326f76e41498c66c697990a17313b192df7bfc1096e5798aa0; no tokens/keys. A direct scp stalled; copied in 8 MB parts, reassembled locally: HASH MATCH; extracted to RERUN_running_pod\extracted (154 files).
+13:30Z TEARDOWN: kind delete cluster --name e38v2 (dedicated kubeconfig). Remaining clusters mape-cap-confirm, mcb-k137, rev-n5 (identical to preflight); other containers unchanged; ~/.kube/config context still kind-rev-n5; tokens, render certs, dedicated kubeconfig removed. VM left running (MemAvailable 10.6 GB).
+NOTE: these two entries post-date the tarball (the in-tarball log ends at STEP 5).

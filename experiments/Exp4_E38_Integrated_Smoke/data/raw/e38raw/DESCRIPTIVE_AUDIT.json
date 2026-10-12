@@ -1,0 +1,1246 @@
+{
+  "phase": "smoke",
+  "planned": 56,
+  "observed": 56,
+  "complete_schedule": true,
+  "raw_sha256": "3202e3526ab2bc908886d068cb73bf5414468abbd6388560e8189533f35b9b9c",
+  "missing_scheduled_cells": 0,
+  "unexpected_cells": 0,
+  "repeated_cells": [],
+  "missing_cell_examples": [],
+  "unexpected_cell_examples": [],
+  "failed_attempts": 0,
+  "includes_all_failures": true,
+  "operator_review_required": true,
+  "conditions": [
+    {
+      "condition": "application_policy_revoke",
+      "method": "DCJI",
+      "planned_observed": 2,
+      "errors": 0,
+      "unknown": 0,
+      "complete": 2,
+      "complete_with_safety_note": 0,
+      "initial_gate_mismatch": 0,
+      "accepted_after_use_time_invalid": 0,
+      "dispatch_after_abort": 0,
+      "409_counted_as_effect": 0,
+      "verified_effects": 0,
+      "server_409": 0,
+      "GET_total": {
+        "n": 2,
+        "mean": 8.0,
+        "median": 8.0
+      },
+      "GET_evidence": {
+        "n": 2,
+        "mean": 3.0,
+        "median": 3.0
+      },
+      "refresh_ms": {
+        "n": 2,
+        "mean": 14.02759850001894,
+        "median": 14.02759850001894
+      },
+      "gate_ms": {
+        "n": 2,
+        "mean": 15.778500000014901,
+        "median": 15.778500000014901
+      },
+      "first_effect_ms": {
+        "n": 0,
+        "mean": null,
+        "median": null
+      }
+    },
+    {
+      "condition": "application_policy_revoke",
+      "method": "FullRefresh",
+      "planned_observed": 2,
+      "errors": 0,
+      "unknown": 0,
+      "complete": 2,
+      "complete_with_safety_note": 0,
+      "initial_gate_mismatch": 0,
+      "accepted_after_use_time_invalid": 0,
+      "dispatch_after_abort": 0,
+      "409_counted_as_effect": 0,
+      "verified_effects": 0,
+      "server_409": 0,
+      "GET_total": {
+        "n": 2,
+        "mean": 11.0,
+        "median": 11.0
+      },
+      "GET_evidence": {
+        "n": 2,
+        "mean": 6.0,
+        "median": 6.0
+      },
+      "refresh_ms": {
+        "n": 2,
+        "mean": 22.87409649998881,
+        "median": 22.87409649998881
+      },
+      "gate_ms": {
+        "n": 2,
+        "mean": 24.6563315000094,
+        "median": 24.6563315000094
+      },
+      "first_effect_ms": {
+        "n": 0,
+        "mean": null,
+        "median": null
+      }
+    },
+    {
+      "condition": "during_acquisition",
+      "method": "DCJI",
+      "planned_observed": 2,
+      "errors": 0,
+      "unknown": 0,
+      "complete": 2,
+      "complete_with_safety_note": 0,
+      "initial_gate_mismatch": 0,
+      "accepted_after_use_time_invalid": 0,
+      "dispatch_after_abort": 0,
+      "409_counted_as_effect": 0,
+      "verified_effects": 0,
+      "server_409": 0,
+      "GET_total": {
+        "n": 2,
+        "mean": 8.0,
+        "median": 8.0
+      },
+      "GET_evidence": {
+        "n": 2,
+        "mean": 3.0,
+        "median": 3.0
+      },
+      "refresh_ms": {
+        "n": 2,
+        "mean": 41.86535450001247,
+        "median": 41.86535450001247
+      },
+      "gate_ms": {
+        "n": 2,
+        "mean": 43.3703595000261,
+        "median": 43.3703595000261
+      },
+      "first_effect_ms": {
+        "n": 0,
+        "mean": null,
+        "median": null
+      }
+    },
+    {
+      "condition": "during_acquisition",
+      "method": "FullRefresh",
+      "planned_observed": 2,
+      "errors": 0,
+      "unknown": 0,
+      "complete": 2,
+      "complete_with_safety_note": 0,
+      "initial_gate_mismatch": 0,
+      "accepted_after_use_time_invalid": 0,
+      "dispatch_after_abort": 0,
+      "409_counted_as_effect": 0,
+      "verified_effects": 0,
+      "server_409": 0,
+      "GET_total": {
+        "n": 2,
+        "mean": 11.0,
+        "median": 11.0
+      },
+      "GET_evidence": {
+        "n": 2,
+        "mean": 6.0,
+        "median": 6.0
+      },
+      "refresh_ms": {
+        "n": 2,
+        "mean": 51.940806499973405,
+        "median": 51.940806499973405
+      },
+      "gate_ms": {
+        "n": 2,
+        "mean": 53.60515600000508,
+        "median": 53.60515600000508
+      },
+      "first_effect_ms": {
+        "n": 0,
+        "mean": null,
+        "median": null
+      }
+    },
+    {
+      "condition": "evidence_cut",
+      "method": "DCJI",
+      "planned_observed": 2,
+      "errors": 0,
+      "unknown": 0,
+      "complete": 2,
+      "complete_with_safety_note": 0,
+      "initial_gate_mismatch": 0,
+      "accepted_after_use_time_invalid": 0,
+      "dispatch_after_abort": 0,
+      "409_counted_as_effect": 0,
+      "verified_effects": 0,
+      "server_409": 0,
+      "GET_total": {
+        "n": 2,
+        "mean": 8.0,
+        "median": 8.0
+      },
+      "GET_evidence": {
+        "n": 2,
+        "mean": 3.0,
+        "median": 3.0
+      },
+      "refresh_ms": {
+        "n": 2,
+        "mean": 13.524751499993727,
+        "median": 13.524751499993727
+      },
+      "gate_ms": {
+        "n": 2,
+        "mean": 15.054476499994053,
+        "median": 15.054476499994053
+      },
+      "first_effect_ms": {
+        "n": 0,
+        "mean": null,
+        "median": null
+      }
+    },
+    {
+      "condition": "evidence_cut",
+      "method": "FullRefresh",
+      "planned_observed": 2,
+      "errors": 0,
+      "unknown": 0,
+      "complete": 2,
+      "complete_with_safety_note": 0,
+      "initial_gate_mismatch": 0,
+      "accepted_after_use_time_invalid": 0,
+      "dispatch_after_abort": 0,
+      "409_counted_as_effect": 0,
+      "verified_effects": 0,
+      "server_409": 0,
+      "GET_total": {
+        "n": 2,
+        "mean": 11.0,
+        "median": 11.0
+      },
+      "GET_evidence": {
+        "n": 2,
+        "mean": 6.0,
+        "median": 6.0
+      },
+      "refresh_ms": {
+        "n": 2,
+        "mean": 20.654846499994164,
+        "median": 20.654846499994164
+      },
+      "gate_ms": {
+        "n": 2,
+        "mean": 22.190066500013927,
+        "median": 22.190066500013927
+      },
+      "first_effect_ms": {
+        "n": 0,
+        "mean": null,
+        "median": null
+      }
+    },
+    {
+      "condition": "irrelevant",
+      "method": "DCJI",
+      "planned_observed": 2,
+      "errors": 0,
+      "unknown": 0,
+      "complete": 2,
+      "complete_with_safety_note": 0,
+      "initial_gate_mismatch": 0,
+      "accepted_after_use_time_invalid": 0,
+      "dispatch_after_abort": 0,
+      "409_counted_as_effect": 0,
+      "verified_effects": 2,
+      "server_409": 0,
+      "GET_total": {
+        "n": 2,
+        "mean": 8.0,
+        "median": 8.0
+      },
+      "GET_evidence": {
+        "n": 2,
+        "mean": 3.0,
+        "median": 3.0
+      },
+      "refresh_ms": {
+        "n": 2,
+        "mean": 16.59740550001152,
+        "median": 16.59740550001152
+      },
+      "gate_ms": {
+        "n": 2,
+        "mean": 18.149299000011524,
+        "median": 18.149299000011524
+      },
+      "first_effect_ms": {
+        "n": 2,
+        "mean": 34.825470499985386,
+        "median": 34.825470499985386
+      }
+    },
+    {
+      "condition": "irrelevant",
+      "method": "FullRefresh",
+      "planned_observed": 2,
+      "errors": 0,
+      "unknown": 0,
+      "complete": 2,
+      "complete_with_safety_note": 0,
+      "initial_gate_mismatch": 0,
+      "accepted_after_use_time_invalid": 0,
+      "dispatch_after_abort": 0,
+      "409_counted_as_effect": 0,
+      "verified_effects": 2,
+      "server_409": 0,
+      "GET_total": {
+        "n": 2,
+        "mean": 11.0,
+        "median": 11.0
+      },
+      "GET_evidence": {
+        "n": 2,
+        "mean": 6.0,
+        "median": 6.0
+      },
+      "refresh_ms": {
+        "n": 2,
+        "mean": 21.083615000039572,
+        "median": 21.083615000039572
+      },
+      "gate_ms": {
+        "n": 2,
+        "mean": 23.095530000020517,
+        "median": 23.095530000020517
+      },
+      "first_effect_ms": {
+        "n": 2,
+        "mean": 45.670871000009356,
+        "median": 45.670871000009356
+      }
+    },
+    {
+      "condition": "postgate_application_policy",
+      "method": "DCJI",
+      "planned_observed": 2,
+      "errors": 0,
+      "unknown": 0,
+      "complete": 0,
+      "complete_with_safety_note": 2,
+      "initial_gate_mismatch": 0,
+      "accepted_after_use_time_invalid": 2,
+      "dispatch_after_abort": 0,
+      "409_counted_as_effect": 0,
+      "verified_effects": 2,
+      "server_409": 0,
+      "GET_total": {
+        "n": 2,
+        "mean": 8.0,
+        "median": 8.0
+      },
+      "GET_evidence": {
+        "n": 2,
+        "mean": 3.0,
+        "median": 3.0
+      },
+      "refresh_ms": {
+        "n": 2,
+        "mean": 17.574002999986988,
+        "median": 17.574002999986988
+      },
+      "gate_ms": {
+        "n": 2,
+        "mean": 19.364709000015864,
+        "median": 19.364709000015864
+      },
+      "first_effect_ms": {
+        "n": 2,
+        "mean": 56.68699099999503,
+        "median": 56.68699099999503
+      }
+    },
+    {
+      "condition": "postgate_application_policy",
+      "method": "FullRefresh",
+      "planned_observed": 2,
+      "errors": 0,
+      "unknown": 0,
+      "complete": 0,
+      "complete_with_safety_note": 2,
+      "initial_gate_mismatch": 0,
+      "accepted_after_use_time_invalid": 2,
+      "dispatch_after_abort": 0,
+      "409_counted_as_effect": 0,
+      "verified_effects": 2,
+      "server_409": 0,
+      "GET_total": {
+        "n": 2,
+        "mean": 11.0,
+        "median": 11.0
+      },
+      "GET_evidence": {
+        "n": 2,
+        "mean": 6.0,
+        "median": 6.0
+      },
+      "refresh_ms": {
+        "n": 2,
+        "mean": 19.3646895000129,
+        "median": 19.3646895000129
+      },
+      "gate_ms": {
+        "n": 2,
+        "mean": 20.852966000005836,
+        "median": 20.852966000005836
+      },
+      "first_effect_ms": {
+        "n": 2,
+        "mean": 50.572068000008585,
+        "median": 50.572068000008585
+      }
+    },
+    {
+      "condition": "postgate_evidence",
+      "method": "DCJI",
+      "planned_observed": 2,
+      "errors": 0,
+      "unknown": 0,
+      "complete": 0,
+      "complete_with_safety_note": 2,
+      "initial_gate_mismatch": 0,
+      "accepted_after_use_time_invalid": 2,
+      "dispatch_after_abort": 0,
+      "409_counted_as_effect": 0,
+      "verified_effects": 2,
+      "server_409": 0,
+      "GET_total": {
+        "n": 2,
+        "mean": 8.0,
+        "median": 8.0
+      },
+      "GET_evidence": {
+        "n": 2,
+        "mean": 3.0,
+        "median": 3.0
+      },
+      "refresh_ms": {
+        "n": 2,
+        "mean": 13.989429500041297,
+        "median": 13.989429500041297
+      },
+      "gate_ms": {
+        "n": 2,
+        "mean": 15.562350500025786,
+        "median": 15.562350500025786
+      },
+      "first_effect_ms": {
+        "n": 2,
+        "mean": 59.85713700001361,
+        "median": 59.85713700001361
+      }
+    },
+    {
+      "condition": "postgate_evidence",
+      "method": "FullRefresh",
+      "planned_observed": 2,
+      "errors": 0,
+      "unknown": 0,
+      "complete": 0,
+      "complete_with_safety_note": 2,
+      "initial_gate_mismatch": 0,
+      "accepted_after_use_time_invalid": 2,
+      "dispatch_after_abort": 0,
+      "409_counted_as_effect": 0,
+      "verified_effects": 2,
+      "server_409": 0,
+      "GET_total": {
+        "n": 2,
+        "mean": 11.0,
+        "median": 11.0
+      },
+      "GET_evidence": {
+        "n": 2,
+        "mean": 6.0,
+        "median": 6.0
+      },
+      "refresh_ms": {
+        "n": 2,
+        "mean": 19.59548650000943,
+        "median": 19.59548650000943
+      },
+      "gate_ms": {
+        "n": 2,
+        "mean": 21.95032049997826,
+        "median": 21.95032049997826
+      },
+      "first_effect_ms": {
+        "n": 2,
+        "mean": 64.46225599996978,
+        "median": 64.46225599996978
+      }
+    },
+    {
+      "condition": "postgate_scope",
+      "method": "DCJI",
+      "planned_observed": 2,
+      "errors": 0,
+      "unknown": 0,
+      "complete": 0,
+      "complete_with_safety_note": 2,
+      "initial_gate_mismatch": 0,
+      "accepted_after_use_time_invalid": 2,
+      "dispatch_after_abort": 0,
+      "409_counted_as_effect": 0,
+      "verified_effects": 2,
+      "server_409": 0,
+      "GET_total": {
+        "n": 2,
+        "mean": 8.0,
+        "median": 8.0
+      },
+      "GET_evidence": {
+        "n": 2,
+        "mean": 3.0,
+        "median": 3.0
+      },
+      "refresh_ms": {
+        "n": 2,
+        "mean": 14.459827499988023,
+        "median": 14.459827499988023
+      },
+      "gate_ms": {
+        "n": 2,
+        "mean": 16.0003854999959,
+        "median": 16.0003854999959
+      },
+      "first_effect_ms": {
+        "n": 2,
+        "mean": 48.24241350000375,
+        "median": 48.24241350000375
+      }
+    },
+    {
+      "condition": "postgate_scope",
+      "method": "FullRefresh",
+      "planned_observed": 2,
+      "errors": 0,
+      "unknown": 0,
+      "complete": 0,
+      "complete_with_safety_note": 2,
+      "initial_gate_mismatch": 0,
+      "accepted_after_use_time_invalid": 2,
+      "dispatch_after_abort": 0,
+      "409_counted_as_effect": 0,
+      "verified_effects": 2,
+      "server_409": 0,
+      "GET_total": {
+        "n": 2,
+        "mean": 11.0,
+        "median": 11.0
+      },
+      "GET_evidence": {
+        "n": 2,
+        "mean": 6.0,
+        "median": 6.0
+      },
+      "refresh_ms": {
+        "n": 2,
+        "mean": 19.387593500025105,
+        "median": 19.387593500025105
+      },
+      "gate_ms": {
+        "n": 2,
+        "mean": 20.936097000027075,
+        "median": 20.936097000027075
+      },
+      "first_effect_ms": {
+        "n": 2,
+        "mean": 49.356036000011954,
+        "median": 49.356036000011954
+      }
+    },
+    {
+      "condition": "postgate_uid",
+      "method": "DCJI",
+      "planned_observed": 2,
+      "errors": 0,
+      "unknown": 0,
+      "complete": 2,
+      "complete_with_safety_note": 0,
+      "initial_gate_mismatch": 0,
+      "accepted_after_use_time_invalid": 0,
+      "dispatch_after_abort": 0,
+      "409_counted_as_effect": 0,
+      "verified_effects": 0,
+      "server_409": 2,
+      "GET_total": {
+        "n": 2,
+        "mean": 8.0,
+        "median": 8.0
+      },
+      "GET_evidence": {
+        "n": 2,
+        "mean": 3.0,
+        "median": 3.0
+      },
+      "refresh_ms": {
+        "n": 2,
+        "mean": 15.07394299999578,
+        "median": 15.07394299999578
+      },
+      "gate_ms": {
+        "n": 2,
+        "mean": 16.619075000024168,
+        "median": 16.619075000024168
+      },
+      "first_effect_ms": {
+        "n": 0,
+        "mean": null,
+        "median": null
+      }
+    },
+    {
+      "condition": "postgate_uid",
+      "method": "FullRefresh",
+      "planned_observed": 2,
+      "errors": 0,
+      "unknown": 0,
+      "complete": 2,
+      "complete_with_safety_note": 0,
+      "initial_gate_mismatch": 0,
+      "accepted_after_use_time_invalid": 0,
+      "dispatch_after_abort": 0,
+      "409_counted_as_effect": 0,
+      "verified_effects": 0,
+      "server_409": 2,
+      "GET_total": {
+        "n": 2,
+        "mean": 11.0,
+        "median": 11.0
+      },
+      "GET_evidence": {
+        "n": 2,
+        "mean": 6.0,
+        "median": 6.0
+      },
+      "refresh_ms": {
+        "n": 2,
+        "mean": 22.65845749998698,
+        "median": 22.65845749998698
+      },
+      "gate_ms": {
+        "n": 2,
+        "mean": 24.443311499984702,
+        "median": 24.443311499984702
+      },
+      "first_effect_ms": {
+        "n": 0,
+        "mean": null,
+        "median": null
+      }
+    },
+    {
+      "condition": "scope_expand",
+      "method": "DCJI",
+      "planned_observed": 2,
+      "errors": 0,
+      "unknown": 0,
+      "complete": 2,
+      "complete_with_safety_note": 0,
+      "initial_gate_mismatch": 0,
+      "accepted_after_use_time_invalid": 0,
+      "dispatch_after_abort": 0,
+      "409_counted_as_effect": 0,
+      "verified_effects": 0,
+      "server_409": 0,
+      "GET_total": {
+        "n": 2,
+        "mean": 8.0,
+        "median": 8.0
+      },
+      "GET_evidence": {
+        "n": 2,
+        "mean": 3.0,
+        "median": 3.0
+      },
+      "refresh_ms": {
+        "n": 2,
+        "mean": 17.861127000011038,
+        "median": 17.861127000011038
+      },
+      "gate_ms": {
+        "n": 2,
+        "mean": 19.4500415000075,
+        "median": 19.4500415000075
+      },
+      "first_effect_ms": {
+        "n": 0,
+        "mean": null,
+        "median": null
+      }
+    },
+    {
+      "condition": "scope_expand",
+      "method": "FullRefresh",
+      "planned_observed": 2,
+      "errors": 0,
+      "unknown": 0,
+      "complete": 2,
+      "complete_with_safety_note": 0,
+      "initial_gate_mismatch": 0,
+      "accepted_after_use_time_invalid": 0,
+      "dispatch_after_abort": 0,
+      "409_counted_as_effect": 0,
+      "verified_effects": 0,
+      "server_409": 0,
+      "GET_total": {
+        "n": 2,
+        "mean": 11.0,
+        "median": 11.0
+      },
+      "GET_evidence": {
+        "n": 2,
+        "mean": 6.0,
+        "median": 6.0
+      },
+      "refresh_ms": {
+        "n": 2,
+        "mean": 21.76239000001806,
+        "median": 21.76239000001806
+      },
+      "gate_ms": {
+        "n": 2,
+        "mean": 23.24842200000421,
+        "median": 23.24842200000421
+      },
+      "first_effect_ms": {
+        "n": 0,
+        "mean": null,
+        "median": null
+      }
+    },
+    {
+      "condition": "scope_shrink",
+      "method": "DCJI",
+      "planned_observed": 2,
+      "errors": 0,
+      "unknown": 0,
+      "complete": 2,
+      "complete_with_safety_note": 0,
+      "initial_gate_mismatch": 0,
+      "accepted_after_use_time_invalid": 0,
+      "dispatch_after_abort": 0,
+      "409_counted_as_effect": 0,
+      "verified_effects": 0,
+      "server_409": 0,
+      "GET_total": {
+        "n": 2,
+        "mean": 8.0,
+        "median": 8.0
+      },
+      "GET_evidence": {
+        "n": 2,
+        "mean": 3.0,
+        "median": 3.0
+      },
+      "refresh_ms": {
+        "n": 2,
+        "mean": 16.128496500023175,
+        "median": 16.128496500023175
+      },
+      "gate_ms": {
+        "n": 2,
+        "mean": 17.712358999997377,
+        "median": 17.712358999997377
+      },
+      "first_effect_ms": {
+        "n": 0,
+        "mean": null,
+        "median": null
+      }
+    },
+    {
+      "condition": "scope_shrink",
+      "method": "FullRefresh",
+      "planned_observed": 2,
+      "errors": 0,
+      "unknown": 0,
+      "complete": 2,
+      "complete_with_safety_note": 0,
+      "initial_gate_mismatch": 0,
+      "accepted_after_use_time_invalid": 0,
+      "dispatch_after_abort": 0,
+      "409_counted_as_effect": 0,
+      "verified_effects": 0,
+      "server_409": 0,
+      "GET_total": {
+        "n": 2,
+        "mean": 11.0,
+        "median": 11.0
+      },
+      "GET_evidence": {
+        "n": 2,
+        "mean": 6.0,
+        "median": 6.0
+      },
+      "refresh_ms": {
+        "n": 2,
+        "mean": 21.324923499982106,
+        "median": 21.324923499982106
+      },
+      "gate_ms": {
+        "n": 2,
+        "mean": 23.00302199998987,
+        "median": 23.00302199998987
+      },
+      "first_effect_ms": {
+        "n": 0,
+        "mean": null,
+        "median": null
+      }
+    },
+    {
+      "condition": "stable",
+      "method": "DCJI",
+      "planned_observed": 2,
+      "errors": 0,
+      "unknown": 0,
+      "complete": 2,
+      "complete_with_safety_note": 0,
+      "initial_gate_mismatch": 0,
+      "accepted_after_use_time_invalid": 0,
+      "dispatch_after_abort": 0,
+      "409_counted_as_effect": 0,
+      "verified_effects": 2,
+      "server_409": 0,
+      "GET_total": {
+        "n": 2,
+        "mean": 8.0,
+        "median": 8.0
+      },
+      "GET_evidence": {
+        "n": 2,
+        "mean": 3.0,
+        "median": 3.0
+      },
+      "refresh_ms": {
+        "n": 2,
+        "mean": 14.28071550000459,
+        "median": 14.28071550000459
+      },
+      "gate_ms": {
+        "n": 2,
+        "mean": 15.811271500017028,
+        "median": 15.811271500017028
+      },
+      "first_effect_ms": {
+        "n": 2,
+        "mean": 28.796438500023214,
+        "median": 28.796438500023214
+      }
+    },
+    {
+      "condition": "stable",
+      "method": "FullRefresh",
+      "planned_observed": 2,
+      "errors": 0,
+      "unknown": 0,
+      "complete": 2,
+      "complete_with_safety_note": 0,
+      "initial_gate_mismatch": 0,
+      "accepted_after_use_time_invalid": 0,
+      "dispatch_after_abort": 0,
+      "409_counted_as_effect": 0,
+      "verified_effects": 2,
+      "server_409": 0,
+      "GET_total": {
+        "n": 2,
+        "mean": 11.0,
+        "median": 11.0
+      },
+      "GET_evidence": {
+        "n": 2,
+        "mean": 6.0,
+        "median": 6.0
+      },
+      "refresh_ms": {
+        "n": 2,
+        "mean": 19.669098500016844,
+        "median": 19.669098500016844
+      },
+      "gate_ms": {
+        "n": 2,
+        "mean": 21.382524499989813,
+        "median": 21.382524499989813
+      },
+      "first_effect_ms": {
+        "n": 2,
+        "mean": 37.82321550001507,
+        "median": 37.82321550001507
+      }
+    },
+    {
+      "condition": "symmetric_bdf_stress",
+      "method": "DCJI",
+      "planned_observed": 2,
+      "errors": 0,
+      "unknown": 0,
+      "complete": 0,
+      "complete_with_safety_note": 2,
+      "initial_gate_mismatch": 2,
+      "accepted_after_use_time_invalid": 2,
+      "dispatch_after_abort": 0,
+      "409_counted_as_effect": 0,
+      "verified_effects": 2,
+      "server_409": 0,
+      "GET_total": {
+        "n": 2,
+        "mean": 8.0,
+        "median": 8.0
+      },
+      "GET_evidence": {
+        "n": 2,
+        "mean": 3.0,
+        "median": 3.0
+      },
+      "refresh_ms": {
+        "n": 2,
+        "mean": 13.703302500012796,
+        "median": 13.703302500012796
+      },
+      "gate_ms": {
+        "n": 2,
+        "mean": 15.155750000005355,
+        "median": 15.155750000005355
+      },
+      "first_effect_ms": {
+        "n": 2,
+        "mean": 28.81010349999997,
+        "median": 28.81010349999997
+      }
+    },
+    {
+      "condition": "symmetric_bdf_stress",
+      "method": "FullRefresh",
+      "planned_observed": 2,
+      "errors": 0,
+      "unknown": 0,
+      "complete": 2,
+      "complete_with_safety_note": 0,
+      "initial_gate_mismatch": 0,
+      "accepted_after_use_time_invalid": 0,
+      "dispatch_after_abort": 0,
+      "409_counted_as_effect": 0,
+      "verified_effects": 0,
+      "server_409": 0,
+      "GET_total": {
+        "n": 2,
+        "mean": 11.0,
+        "median": 11.0
+      },
+      "GET_evidence": {
+        "n": 2,
+        "mean": 6.0,
+        "median": 6.0
+      },
+      "refresh_ms": {
+        "n": 2,
+        "mean": 19.541565499996068,
+        "median": 19.541565499996068
+      },
+      "gate_ms": {
+        "n": 2,
+        "mean": 21.073891000036383,
+        "median": 21.073891000036383
+      },
+      "first_effect_ms": {
+        "n": 0,
+        "mean": null,
+        "median": null
+      }
+    },
+    {
+      "condition": "uid_rebind",
+      "method": "DCJI",
+      "planned_observed": 2,
+      "errors": 0,
+      "unknown": 0,
+      "complete": 2,
+      "complete_with_safety_note": 0,
+      "initial_gate_mismatch": 0,
+      "accepted_after_use_time_invalid": 0,
+      "dispatch_after_abort": 0,
+      "409_counted_as_effect": 0,
+      "verified_effects": 0,
+      "server_409": 0,
+      "GET_total": {
+        "n": 2,
+        "mean": 8.0,
+        "median": 8.0
+      },
+      "GET_evidence": {
+        "n": 2,
+        "mean": 3.0,
+        "median": 3.0
+      },
+      "refresh_ms": {
+        "n": 2,
+        "mean": 15.065645000024233,
+        "median": 15.065645000024233
+      },
+      "gate_ms": {
+        "n": 2,
+        "mean": 16.718528500030516,
+        "median": 16.718528500030516
+      },
+      "first_effect_ms": {
+        "n": 0,
+        "mean": null,
+        "median": null
+      }
+    },
+    {
+      "condition": "uid_rebind",
+      "method": "FullRefresh",
+      "planned_observed": 2,
+      "errors": 0,
+      "unknown": 0,
+      "complete": 2,
+      "complete_with_safety_note": 0,
+      "initial_gate_mismatch": 0,
+      "accepted_after_use_time_invalid": 0,
+      "dispatch_after_abort": 0,
+      "409_counted_as_effect": 0,
+      "verified_effects": 0,
+      "server_409": 0,
+      "GET_total": {
+        "n": 2,
+        "mean": 11.0,
+        "median": 11.0
+      },
+      "GET_evidence": {
+        "n": 2,
+        "mean": 6.0,
+        "median": 6.0
+      },
+      "refresh_ms": {
+        "n": 2,
+        "mean": 24.821933999977773,
+        "median": 24.821933999977773
+      },
+      "gate_ms": {
+        "n": 2,
+        "mean": 26.500071499991463,
+        "median": 26.500071499991463
+      },
+      "first_effect_ms": {
+        "n": 0,
+        "mean": null,
+        "median": null
+      }
+    },
+    {
+      "condition": "unknown_open_epoch",
+      "method": "DCJI",
+      "planned_observed": 2,
+      "errors": 0,
+      "unknown": 2,
+      "complete": 0,
+      "complete_with_safety_note": 0,
+      "initial_gate_mismatch": 0,
+      "accepted_after_use_time_invalid": 0,
+      "dispatch_after_abort": 0,
+      "409_counted_as_effect": 0,
+      "verified_effects": 0,
+      "server_409": 0,
+      "GET_total": {
+        "n": 0,
+        "mean": null,
+        "median": null
+      },
+      "GET_evidence": {
+        "n": 0,
+        "mean": null,
+        "median": null
+      },
+      "refresh_ms": {
+        "n": 0,
+        "mean": null,
+        "median": null
+      },
+      "gate_ms": {
+        "n": 0,
+        "mean": null,
+        "median": null
+      },
+      "first_effect_ms": {
+        "n": 0,
+        "mean": null,
+        "median": null
+      }
+    },
+    {
+      "condition": "unknown_open_epoch",
+      "method": "FullRefresh",
+      "planned_observed": 2,
+      "errors": 0,
+      "unknown": 2,
+      "complete": 0,
+      "complete_with_safety_note": 0,
+      "initial_gate_mismatch": 0,
+      "accepted_after_use_time_invalid": 0,
+      "dispatch_after_abort": 0,
+      "409_counted_as_effect": 0,
+      "verified_effects": 0,
+      "server_409": 0,
+      "GET_total": {
+        "n": 0,
+        "mean": null,
+        "median": null
+      },
+      "GET_evidence": {
+        "n": 0,
+        "mean": null,
+        "median": null
+      },
+      "refresh_ms": {
+        "n": 0,
+        "mean": null,
+        "median": null
+      },
+      "gate_ms": {
+        "n": 0,
+        "mean": null,
+        "median": null
+      },
+      "first_effect_ms": {
+        "n": 0,
+        "mean": null,
+        "median": null
+      }
+    }
+  ],
+  "paired_refresh": [
+    {
+      "condition": "application_policy_revoke",
+      "pairs_complete": 2,
+      "mean_DCJI_minus_FullRefresh_ms": -8.84649799996987,
+      "median_DCJI_minus_FullRefresh_ms": -8.84649799996987,
+      "individual_reversals": 0,
+      "positive_means_slower_DCJI": true
+    },
+    {
+      "condition": "during_acquisition",
+      "pairs_complete": 2,
+      "mean_DCJI_minus_FullRefresh_ms": -10.075451999960933,
+      "median_DCJI_minus_FullRefresh_ms": -10.075451999960933,
+      "individual_reversals": 0,
+      "positive_means_slower_DCJI": true
+    },
+    {
+      "condition": "evidence_cut",
+      "pairs_complete": 2,
+      "mean_DCJI_minus_FullRefresh_ms": -7.130095000000438,
+      "median_DCJI_minus_FullRefresh_ms": -7.130095000000438,
+      "individual_reversals": 0,
+      "positive_means_slower_DCJI": true
+    },
+    {
+      "condition": "irrelevant",
+      "pairs_complete": 2,
+      "mean_DCJI_minus_FullRefresh_ms": -4.486209500028053,
+      "median_DCJI_minus_FullRefresh_ms": -4.486209500028053,
+      "individual_reversals": 0,
+      "positive_means_slower_DCJI": true
+    },
+    {
+      "condition": "postgate_application_policy",
+      "pairs_complete": 2,
+      "mean_DCJI_minus_FullRefresh_ms": -1.7906865000259131,
+      "median_DCJI_minus_FullRefresh_ms": -1.7906865000259131,
+      "individual_reversals": 1,
+      "positive_means_slower_DCJI": true
+    },
+    {
+      "condition": "postgate_evidence",
+      "pairs_complete": 2,
+      "mean_DCJI_minus_FullRefresh_ms": -5.606056999968132,
+      "median_DCJI_minus_FullRefresh_ms": -5.606056999968132,
+      "individual_reversals": 0,
+      "positive_means_slower_DCJI": true
+    },
+    {
+      "condition": "postgate_scope",
+      "pairs_complete": 2,
+      "mean_DCJI_minus_FullRefresh_ms": -4.9277660000370815,
+      "median_DCJI_minus_FullRefresh_ms": -4.9277660000370815,
+      "individual_reversals": 0,
+      "positive_means_slower_DCJI": true
+    },
+    {
+      "condition": "postgate_uid",
+      "pairs_complete": 2,
+      "mean_DCJI_minus_FullRefresh_ms": -7.584514499991201,
+      "median_DCJI_minus_FullRefresh_ms": -7.584514499991201,
+      "individual_reversals": 0,
+      "positive_means_slower_DCJI": true
+    },
+    {
+      "condition": "scope_expand",
+      "pairs_complete": 2,
+      "mean_DCJI_minus_FullRefresh_ms": -3.9012630000070203,
+      "median_DCJI_minus_FullRefresh_ms": -3.9012630000070203,
+      "individual_reversals": 0,
+      "positive_means_slower_DCJI": true
+    },
+    {
+      "condition": "scope_shrink",
+      "pairs_complete": 2,
+      "mean_DCJI_minus_FullRefresh_ms": -5.1964269999589305,
+      "median_DCJI_minus_FullRefresh_ms": -5.1964269999589305,
+      "individual_reversals": 0,
+      "positive_means_slower_DCJI": true
+    },
+    {
+      "condition": "stable",
+      "pairs_complete": 2,
+      "mean_DCJI_minus_FullRefresh_ms": -5.388383000012254,
+      "median_DCJI_minus_FullRefresh_ms": -5.388383000012254,
+      "individual_reversals": 0,
+      "positive_means_slower_DCJI": true
+    },
+    {
+      "condition": "symmetric_bdf_stress",
+      "pairs_complete": 2,
+      "mean_DCJI_minus_FullRefresh_ms": -5.838262999983272,
+      "median_DCJI_minus_FullRefresh_ms": -5.838262999983272,
+      "individual_reversals": 0,
+      "positive_means_slower_DCJI": true
+    },
+    {
+      "condition": "uid_rebind",
+      "pairs_complete": 2,
+      "mean_DCJI_minus_FullRefresh_ms": -9.75628899995354,
+      "median_DCJI_minus_FullRefresh_ms": -9.75628899995354,
+      "individual_reversals": 0,
+      "positive_means_slower_DCJI": true
+    }
+  ],
+  "incomplete_pairs": 0,
+  "critical_accounting_defects": [],
+  "interpretation": "Descriptive one-host results only; non-primary stress and diagnostic baselines must not be pooled. No causal safety conclusion for uninstrumented post-gate evidence/scope changes."
+}

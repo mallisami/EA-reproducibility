@@ -1,0 +1,51 @@
+# Template: RUNID substituted by deploy/render.sh; the caBundle placeholder below by deploy/gen_certs.sh.
+# Installed once for the whole run (arms are randomised within blocks, so the webhook
+# cannot be toggled per trial). Per-trial arm selection is done by objectSelector:
+# the webhook is called ONLY for Pods labelled e38v2-webhook=enforce, which the runner
+# sets on the target Pod for A3_dcji_webhook trials only (for DELETE the selector is
+# evaluated against oldObject). A0/A1/A2 target Pods carry no such label -> no call, no latency.
+# Scope:
+#   - operations DELETE on core/v1 pods only, namespaced
+#   - namespaceSelector: exactly the test namespace (kubernetes.io/metadata.name is set by the API server)
+#   - objectSelector: e38v2-webhook=enforce
+#   - matchConditions (CEL, GA since v1.30): the webhook is NOT called for the reset identity,
+#     kubelets (final grace-0 DELETE of an already-terminating Pod) and the namespace/GC controllers,
+#     so fixture reset and namespace teardown can never be blocked by failurePolicy Fail.
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  name: e38v2-delete-revalidation
+  labels: {e38-managed: "true", e38-run-id: RUNID}
+webhooks:
+- name: delete-revalidation.e38v2.e38-managed.local
+  admissionReviewVersions: ["v1"]
+  sideEffects: None
+  failurePolicy: Fail
+  matchPolicy: Exact
+  timeoutSeconds: 5
+  clientConfig:
+    service:
+      namespace: e38v2-system
+      name: e38v2-webhook
+      path: /validate
+      port: 443
+    caBundle: CA_BUNDLE_PLACEHOLDER
+  rules:
+  - apiGroups: [""]
+    apiVersions: ["v1"]
+    operations: ["DELETE"]
+    resources: ["pods"]
+    scope: Namespaced
+  namespaceSelector:
+    matchLabels:
+      kubernetes.io/metadata.name: e38v2-RUNID
+  objectSelector:
+    matchLabels:
+      e38v2-webhook: enforce
+  matchConditions:
+  - name: exempt-reset-identity
+    expression: "request.userInfo.username != 'system:serviceaccount:e38v2-system:e38v2-reset'"
+  - name: exempt-kubelets
+    expression: "!request.userInfo.username.startsWith('system:node:')"
+  - name: exempt-namespace-and-gc-controllers
+    expression: "!(request.userInfo.username in ['system:serviceaccount:kube-system:namespace-controller', 'system:serviceaccount:kube-system:generic-garbage-collector'])"

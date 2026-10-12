@@ -1,0 +1,4 @@
+ops 847 audit-joined 847 committed 847 distinct RVs 847
+all: n=847 pairwise RV-vs-stageTimestamp concordant=358221 discordant=60 ties=0 (agreement 0.99983); adjacent concordant 788/846; patch-vs-delete primary/secondary rule disagreements 338/68796
+sequential: n=70 pairwise RV-vs-stageTimestamp concordant=2415 discordant=0 ties=0 (agreement 1.00000); adjacent concordant 69/69; patch-vs-delete primary/secondary rule disagreements 0/600
+concurrent: n=777 pairwise RV-vs-stageTimestamp concordant=301416 discordant=60 ties=0 (agreement 0.99980); adjacent concordant 718/776; patch-vs-delete primary/secondary rule disagreements 338/56376

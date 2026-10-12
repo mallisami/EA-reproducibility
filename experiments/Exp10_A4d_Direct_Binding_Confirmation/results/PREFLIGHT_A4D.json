@@ -1,0 +1,84 @@
+{
+  "schema": "a4d.preflight.v1",
+  "run_id": "a4dcr-r2-20261001",
+  "namespace": "e39-a4dcr-r2-20261001",
+  "parts": {
+    "identity": {
+      "got": {
+        "responder": "system:serviceaccount:e39-system:e39-responder",
+        "writer": "system:serviceaccount:e39-system:e39-writer",
+        "reset": "system:serviceaccount:e39-system:e39-reset",
+        "mirror": "system:serviceaccount:e39-system:e39-mirror"
+      },
+      "want": {
+        "responder": "system:serviceaccount:e39-system:e39-responder",
+        "writer": "system:serviceaccount:e39-system:e39-writer",
+        "reset": "system:serviceaccount:e39-system:e39-reset",
+        "mirror": "system:serviceaccount:e39-system:e39-mirror"
+      },
+      "PASS": true
+    },
+    "a4d": {
+      "worker_node": "a4d-worker",
+      "writer_rv": "1349",
+      "stale_status": 409,
+      "stale_message": "Operation cannot be fulfilled on Pod \"probe-a4d-audit-safe\": the ResourceVersion in the precondition (1348) does not match the ResourceVersion in record (1349). The object might have been modified",
+      "current_status": 200,
+      "PASS": true
+    }
+  },
+  "ops": [
+    {
+      "op": "create_pod",
+      "identity": "reset",
+      "status": 201,
+      "audit_id": "e5c91e40-42fd-4b91-857a-46f76c25d502",
+      "rv": "1340",
+      "t_wall_ns": 1790873703486681951,
+      "pod": "probe-a4d-audit-safe"
+    },
+    {
+      "op": "writer_patch",
+      "identity": "writer",
+      "status": 200,
+      "audit_id": "58918d7a-6c75-40cd-886a-e951b60fac3e",
+      "rv": "1349",
+      "t_wall_ns": 1790873703842400796,
+      "pod": "probe-a4d-audit-safe"
+    },
+    {
+      "op": "delete_stale_rv",
+      "identity": "responder",
+      "status": 409,
+      "audit_id": "964c60ba-446a-4c95-b9e0-3508862e918c",
+      "rv": null,
+      "t_wall_ns": 1790873703844410302,
+      "pod": "probe-a4d-audit-safe",
+      "precondition_rv": "1348",
+      "message": "Operation cannot be fulfilled on Pod \"probe-a4d-audit-safe\": the ResourceVersion in the precondition (1348) does not match the ResourceVersion in record (1349). The object might have been modified"
+    },
+    {
+      "op": "writer_restore",
+      "identity": "writer",
+      "status": 200,
+      "audit_id": "31bdb52c-d2ed-4d81-99ae-91cfc953b586",
+      "rv": "1350",
+      "t_wall_ns": 1790873703849402968,
+      "pod": "probe-a4d-audit-safe"
+    },
+    {
+      "op": "delete_current_rv",
+      "identity": "responder",
+      "status": 200,
+      "audit_id": "b38ecaab-71df-4439-823b-2b9bb2d799e2",
+      "rv": "1352",
+      "t_wall_ns": 1790873703858523047,
+      "pod": "probe-a4d-audit-safe",
+      "precondition_rv": "1350",
+      "expected_uid": "b4597877-63ce-411b-9324-01fa5aea2c0c"
+    }
+  ],
+  "t_start_wall_ns": 1790873703466708191,
+  "ALL_API_PASS": true,
+  "t_end_wall_ns": 1790873703860416437
+}

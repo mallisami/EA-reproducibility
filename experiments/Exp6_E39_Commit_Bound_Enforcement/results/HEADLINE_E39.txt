@@ -1,0 +1,66 @@
+E39 HEADLINE (run e39-20260926t1515z, seed 972231175, LOCKED 2026-09-26T15:22:23Z; final lock_sha256 36cec6d7...)
+=====================================================================================================================
+Confirmatory analysis analyze_e39.py (e39.analysis.v1), stage 2, strict design check: completeness gate PASSED,
+20,734/20,734 planned trials observed (stage 1 18,196 + E39-A stage-2 top-up 2,538 in 47 cells), 0 INFRA_ERROR.
+Primary classes: INVALID_EXECUTED 4560, VALID_EXECUTED 9906, CORRECT_ABORT 2378, UID_BLOCKED 40, FALSE_ABORT 0,
+UNKNOWN 3850 (3840 = E39-C guard-only records, by design not oracle-classified; 10 = A4m mirror_rv_not_after_source).
+Audit ids of every write/arrival/cut/mirror/action joined 45,141/45,141; primary vs secondary rule agreement 98.6 %
+(E39-A 98.45 %, kappa(INVALID) 0.981). Full per-cell tables: HEADLINE_TABLES_E39.txt; results:
+analysis_final/results_E39.json, cells_E39.csv. All intervals 95 % (Wilson unless stated), no multiplicity adjustment.
+
+E39-A commit-bound enforcement (n = 39 per cell, 93 in topped-up cells)
+  A4d (direct, DELETE with {uid, RV} bound to the gate read): P(INVALID) = 0 in all 33 async cells (each 0/39,
+      Wilson upper 0.090); pooled 0/1287; d* = 0 ms, W_A = 0 ms in all three conditions. Cost: 409 among dispatched
+      DELETEs 42/1336 = 3.1 % [2.3, 4.2] %, all attributed to the writer's commit and all CORRECT_ABORT; FALSE_ABORT
+      0/1287 async, no_write FALSE_ABORT 0/39 and 409 0/39; kubelet-status-caused 409s: 0 (probe: 0 RV changes in
+      the 3 s after Ready on 10 Running Pods, 0 in 60 s).
+  A4m (mirrored): window NOT closed - it moves to the mirror: P(INVALID) ~1 at 0-3 ms, 0.75-0.84 at 5 ms, 0.24-0.25 at
+      10 ms, 0.02-0.07 at 50-100 ms; d* = 100 / 50 / 100 ms (scope / app-policy / evidence), W_A = 15.1 / 12.2 / 15.4
+      ms. Mirror lag (mirrored before the deletion, n = 41): median 18.3 ms, p95 103 ms, max 274 ms, 1 revision; 968
+      of 1009 A4m INVALID trials had the source write not yet mirrored when the DELETE committed. 10 A4m trials
+      UNKNOWN (mirror PATCH on the terminating Pod; DEVIATIONS P1). A4m 409 0/2146.
+  A1 (DCJI gate) W_A = 15.3 / 13.2 / 18.6 ms, d* = 50 / 50 / 200 ms. A3 (A1 + webhook) closes 0-5 ms (0/39 in scope
+      and app-policy) but is exposed at 10-50 ms (e.g. scope 10 ms 69/93 = 0.74, 20 ms 64/93 = 0.69, 200 ms 3/93);
+      W_A = 31.4 / 30.5 / 39.3 ms, d* 200 / 200 / 100 ms (bootstrap not-closed fraction 0.19 / 0.26 / 0). The A3
+      evidence_last_literal fixture is exposed from 0 ms (70/93 = 0.75). uid_rebind_control: UID_BLOCKED 10/10 in
+      every arm.
+E39-B Poisson arrivals, INVALID per 1,000 responses (n = 400 per cell), lambda = 1 / 10 / 100 per s:
+  A1 30.0 [17.2, 51.7] / 227.5 [189.1, 271.1] / 545.0 [496.0, 593.1]; A2 37.5 / 202.5 / 297.5; A3 42.5 / 142.5 / 52.5;
+  A4d 0 [0, 9.5] at every lambda (A4d 409s per 1,000: 2.5 / 17.5 / 110, all CORRECT_ABORT, FALSE_ABORT 0).
+  Fitted W (binomial MLE, profile CI): A1 10.3 [9.2, 11.5] ms, A2 5.7 [5.0, 6.6], A3 2.2 [1.8, 2.7], A4d 0 [0, 0.04].
+  1 - exp(-lambda W_A) (E39-A areas; A2 external 12.39 ms from the E38v2 rerun, 0-50 ms grid) lies outside the
+  Wilson CI in 8 of the 9 A1/A2/A3 cells (inside only A3 lambda=1): it under-predicts A1/A2 at lambda 1-10 and
+  over-predicts every arm at lambda 100 (A3 also at 10); the exploratory gate-adjusted variant under-predicts at
+  lambda 100. A4d prediction 0 matches 0/400. MODEL-BASED EXTRAPOLATION (not observed), fitted W: lambda 0.1/s -> A1 1.03, A2 0.57, A3 0.22, A4d 0 per
+  1,000; lambda 0.01/s -> A1 0.10, A2 0.06, A3 0.02 per 1,000.
+E39-C read-latency cost (60 pairs per cell, HL A2 - A1 = FullRefresh minus DCJI):
+  sequential: refresh saving 4.9, 155.5, 606.7, 3007 ms at c = 0/50/200/1000 -> excess over c=0 = 3.00-3.02 c
+  (the 3c model, reported outside the [0.31c, 3c] band only because it exceeds 3c by <= 0.02c); parallel: saving
+  ~2.0-2.5 ms independent of c (excess ~0; below the 0.31c lower bound). Planning: per-incident DCJI planning costs
+  17.3 ms more than FullRefresh, so e2e A2 - A1 = -12.9 ms at c = 0 (DCJI slower) and +137.9 ms at c = 50.
+  Break-even (OLS of paired e2e difference on c): sequential per-incident c* = 4.0 ms (model 17.3/3 = 5.8 ms);
+  sequential precomputed c* < 0 (DCJI never slower); parallel: no break-even (slope ~0; DCJI -15 ms per-incident,
+  +2 ms precomputed at every c). Gate decisions ea_attack/stable per cell in results_E39.json.
+E39-D load (A1/A3, async_scope, 39 per cell, ITT): windows barely move with load: A1 W = 15.1 / 15.9 / 12.4 ms
+  (idle/moderate/high), A3 32.7 / 34.3 / 29.9 ms; gate time median 14.9 / 16.1 / 17.8 ms, DELETE RTT 21.1 / 22.4 /
+  23.2 ms. Host CPU median 42 / 45 / 53 %, max 97.7 % (1 trial > 85 %), MemAvailable >= 8.8 GB, 0 throttled.
+  Exploratory split by the user-requested stop of the other clusters at 18:40:42Z (DEVIATIONS O5; host CPU median
+  54 -> 40 % at high): pooled-over-delta P(INVALID) before vs after overlap (A1 high 0.43 vs 0.38, A3 high 0.17 vs
+  0.19) - EXPLORATORY_D_SPLIT_BY_CLUSTER_STOP.txt.
+E39-E NetworkPolicy CREATE: A1 exposed only at 0-2 ms (scope 7/39, 2/39; evidence 12/39, 3/39), W = 0.3 / 0.5 ms,
+  d* = 5 ms; A3 (webhook on CREATE) is worse: scope 10 ms 17/39, evidence 0-20 ms 30/39-39/39, W = 5.8 / 19.8 ms,
+  d* = 50 ms (A3 - A1 at 10 ms: +0.44 [0.27, 0.59] scope, +1.00 [0.87, 1.00] evidence). A4 not applicable (CREATE
+  has no precondition on the evidence) - structural limitation.
+E39-F client-go (39 per cell): A1 client-go vs python per-delta differences all include 0 (e.g. 10 ms 8/39 vs 12/39,
+  -0.10 [-0.29, 0.09]); W 18.3 vs 13.1 ms, d* 200 vs 100 ms. A4d client-go 0/312 INVALID (21 CORRECT_ABORT 409s).
+  DELETE RTT median python 14.9, go 15.9, A4d-go 15.3 ms (HL go - python 0.27 [-0.54, 1.14] ms); gate-end -> DELETE
+  send 0.081 ms python, 0.258 ms go split ops (+0.171 [0.162, 0.183] ms), 0.001 ms A4d-go combined op. client-go
+  v0.37.0.
+E39-G out-of-model (b, d, f cut before the gate): DCJI 39/39 INVALID [0.910, 1.000], FullRefresh 0/39 (39
+  CORRECT_ABORT); difference 1.000 [0.873, 1.000] (exact unconditional [0.908, 1.000]). In-model control (a, c, e):
+  both 0/39, 39/39 CORRECT_ABORT.
+Independent recomputation (standard library only): 32 cell differences, all explained trial by trial
+  (analysis_final/INDEPENDENT_DIFFERENCES_EXPLAINED.txt): 64 trials (A3 in A and B, 2 A4m, 1 B-A2) whose DELETE
+  response carried no resourceVersion and were classified by the oracle through the pre-registered pod-watch
+  fallback (plan v1.2 (i)), which the simplified recomputation does not implement (it excludes them); 10 A4m trials
+  UNKNOWN in the oracle (P1) that the recomputation counts as INVALID. No other difference.

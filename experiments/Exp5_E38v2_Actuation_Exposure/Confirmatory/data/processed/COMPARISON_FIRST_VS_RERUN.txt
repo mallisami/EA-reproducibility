@@ -1,0 +1,175 @@
+arm | condition | delta | first k/n p | rerun k/n p | diff [95% Newcombe] | CI excl 0
+A0_native_uid | no_write | NA | 0/39 0.000 | 0/39 0.000 | 0.000 [-0.090, 0.090] | 
+A0_native_uid | async_scope | -5 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A0_native_uid | async_scope | -2 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A0_native_uid | async_scope | -1 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A0_native_uid | async_scope | 0 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A0_native_uid | async_scope | 0.5 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A0_native_uid | async_scope | 1 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A0_native_uid | async_scope | 2 | 39/39 1.000 | 90/93 0.968 | -0.032 [-0.091, 0.060] | 
+A0_native_uid | async_scope | 3 | 79/93 0.849 | 86/93 0.925 | 0.075 [-0.018, 0.170] | 
+A0_native_uid | async_scope | 5 | 56/93 0.602 | 78/93 0.839 | 0.237 [0.108, 0.355] | *
+A0_native_uid | async_scope | 10 | 3/93 0.032 | 21/93 0.226 | 0.194 [0.100, 0.291] | *
+A0_native_uid | async_scope | 20 | 0/39 0.000 | 16/93 0.172 | 0.172 [0.062, 0.261] | *
+A0_native_uid | async_scope | 50 | 0/39 0.000 | 5/93 0.054 | 0.054 [-0.041, 0.120] | 
+A0_native_uid | async_app_policy | -5 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A0_native_uid | async_app_policy | -2 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A0_native_uid | async_app_policy | -1 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A0_native_uid | async_app_policy | 0 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A0_native_uid | async_app_policy | 0.5 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A0_native_uid | async_app_policy | 1 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A0_native_uid | async_app_policy | 2 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A0_native_uid | async_app_policy | 3 | 79/93 0.849 | 88/93 0.946 | 0.097 [0.008, 0.188] | *
+A0_native_uid | async_app_policy | 5 | 59/93 0.634 | 77/93 0.828 | 0.194 [0.066, 0.313] | *
+A0_native_uid | async_app_policy | 10 | 5/93 0.054 | 23/93 0.247 | 0.194 [0.093, 0.295] | *
+A0_native_uid | async_app_policy | 20 | 0/39 0.000 | 7/93 0.075 | 0.075 [-0.022, 0.147] | 
+A0_native_uid | async_app_policy | 50 | 0/39 0.000 | 4/93 0.043 | 0.043 [-0.050, 0.105] | 
+A0_native_uid | async_evidence_last_literal | -5 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A0_native_uid | async_evidence_last_literal | -2 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A0_native_uid | async_evidence_last_literal | -1 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A0_native_uid | async_evidence_last_literal | 0 | 39/39 1.000 | 38/39 0.974 | -0.026 [-0.132, 0.066] | 
+A0_native_uid | async_evidence_last_literal | 0.5 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A0_native_uid | async_evidence_last_literal | 1 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A0_native_uid | async_evidence_last_literal | 2 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A0_native_uid | async_evidence_last_literal | 3 | 81/93 0.871 | 38/39 0.974 | 0.103 [-0.016, 0.189] | 
+A0_native_uid | async_evidence_last_literal | 5 | 42/93 0.452 | 75/93 0.806 | 0.355 [0.218, 0.473] | *
+A0_native_uid | async_evidence_last_literal | 10 | 5/93 0.054 | 32/93 0.344 | 0.290 [0.180, 0.396] | *
+A0_native_uid | async_evidence_last_literal | 20 | 0/39 0.000 | 11/93 0.118 | 0.118 [0.015, 0.199] | *
+A0_native_uid | async_evidence_last_literal | 50 | 0/39 0.000 | 7/93 0.075 | 0.075 [-0.022, 0.147] | 
+A0_native_uid | uid_rebind_control | NA | 0/10 0.000 | 0/10 0.000 | 0.000 [-0.278, 0.278] | 
+A1_dcji | no_write | NA | 0/39 0.000 | 0/39 0.000 | 0.000 [-0.090, 0.090] | 
+A1_dcji | async_scope | -5 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A1_dcji | async_scope | -2 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A1_dcji | async_scope | -1 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A1_dcji | async_scope | 0 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A1_dcji | async_scope | 0.5 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A1_dcji | async_scope | 1 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A1_dcji | async_scope | 2 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A1_dcji | async_scope | 3 | 75/93 0.806 | 88/93 0.946 | 0.140 [0.045, 0.237] | *
+A1_dcji | async_scope | 5 | 53/93 0.570 | 75/93 0.806 | 0.237 [0.104, 0.358] | *
+A1_dcji | async_scope | 10 | 6/93 0.065 | 17/93 0.183 | 0.118 [0.023, 0.215] | *
+A1_dcji | async_scope | 20 | 1/39 0.026 | 12/93 0.129 | 0.103 [-0.016, 0.189] | 
+A1_dcji | async_scope | 50 | 0/39 0.000 | 5/93 0.054 | 0.054 [-0.041, 0.120] | 
+A1_dcji | async_app_policy | -5 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A1_dcji | async_app_policy | -2 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A1_dcji | async_app_policy | -1 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A1_dcji | async_app_policy | 0 | 39/39 1.000 | 38/39 0.974 | -0.026 [-0.132, 0.066] | 
+A1_dcji | async_app_policy | 0.5 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A1_dcji | async_app_policy | 1 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A1_dcji | async_app_policy | 2 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A1_dcji | async_app_policy | 3 | 81/93 0.871 | 39/39 1.000 | 0.129 [0.025, 0.212] | *
+A1_dcji | async_app_policy | 5 | 63/93 0.677 | 72/93 0.774 | 0.097 [-0.031, 0.221] | 
+A1_dcji | async_app_policy | 10 | 0/39 0.000 | 27/93 0.290 | 0.290 [0.168, 0.389] | *
+A1_dcji | async_app_policy | 20 | 0/39 0.000 | 9/93 0.097 | 0.097 [-0.004, 0.174] | 
+A1_dcji | async_app_policy | 50 | 0/39 0.000 | 6/93 0.065 | 0.065 [-0.032, 0.134] | 
+A1_dcji | async_evidence_last_literal | -5 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A1_dcji | async_evidence_last_literal | -2 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A1_dcji | async_evidence_last_literal | -1 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A1_dcji | async_evidence_last_literal | 0 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A1_dcji | async_evidence_last_literal | 0.5 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A1_dcji | async_evidence_last_literal | 1 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A1_dcji | async_evidence_last_literal | 2 | 38/39 0.974 | 39/39 1.000 | 0.026 [-0.066, 0.132] | 
+A1_dcji | async_evidence_last_literal | 3 | 82/93 0.882 | 38/39 0.974 | 0.093 [-0.025, 0.177] | 
+A1_dcji | async_evidence_last_literal | 5 | 50/93 0.538 | 77/93 0.828 | 0.290 [0.158, 0.409] | *
+A1_dcji | async_evidence_last_literal | 10 | 1/39 0.026 | 24/93 0.258 | 0.232 [0.101, 0.332] | *
+A1_dcji | async_evidence_last_literal | 20 | 1/39 0.026 | 14/93 0.151 | 0.125 [0.004, 0.214] | *
+A1_dcji | async_evidence_last_literal | 50 | 0/39 0.000 | 1/39 0.026 | 0.026 [-0.066, 0.132] | 
+A1_dcji | uid_rebind_control | NA | 0/10 0.000 | 0/10 0.000 | 0.000 [-0.278, 0.278] | 
+A2_fullrefresh | no_write | NA | 0/39 0.000 | 0/39 0.000 | 0.000 [-0.090, 0.090] | 
+A2_fullrefresh | async_scope | -5 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A2_fullrefresh | async_scope | -2 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A2_fullrefresh | async_scope | -1 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A2_fullrefresh | async_scope | 0 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A2_fullrefresh | async_scope | 0.5 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A2_fullrefresh | async_scope | 1 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A2_fullrefresh | async_scope | 2 | 39/39 1.000 | 38/39 0.974 | -0.026 [-0.132, 0.066] | 
+A2_fullrefresh | async_scope | 3 | 72/93 0.774 | 87/93 0.935 | 0.161 [0.061, 0.262] | *
+A2_fullrefresh | async_scope | 5 | 48/93 0.516 | 79/93 0.849 | 0.333 [0.202, 0.449] | *
+A2_fullrefresh | async_scope | 10 | 2/93 0.022 | 20/93 0.215 | 0.194 [0.104, 0.289] | *
+A2_fullrefresh | async_scope | 20 | 0/39 0.000 | 16/93 0.172 | 0.172 [0.062, 0.261] | *
+A2_fullrefresh | async_scope | 50 | 0/39 0.000 | 3/93 0.032 | 0.032 [-0.060, 0.091] | 
+A2_fullrefresh | async_app_policy | -5 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A2_fullrefresh | async_app_policy | -2 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A2_fullrefresh | async_app_policy | -1 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A2_fullrefresh | async_app_policy | 0 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A2_fullrefresh | async_app_policy | 0.5 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A2_fullrefresh | async_app_policy | 1 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A2_fullrefresh | async_app_policy | 2 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A2_fullrefresh | async_app_policy | 3 | 78/93 0.839 | 89/93 0.957 | 0.118 [0.031, 0.210] | *
+A2_fullrefresh | async_app_policy | 5 | 51/93 0.548 | 81/93 0.871 | 0.323 [0.195, 0.437] | *
+A2_fullrefresh | async_app_policy | 10 | 3/93 0.032 | 35/93 0.376 | 0.344 [0.235, 0.448] | *
+A2_fullrefresh | async_app_policy | 20 | 0/39 0.000 | 10/93 0.108 | 0.108 [0.006, 0.187] | *
+A2_fullrefresh | async_app_policy | 50 | 0/39 0.000 | 10/93 0.108 | 0.108 [0.006, 0.187] | *
+A2_fullrefresh | async_evidence_last_literal | -5 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A2_fullrefresh | async_evidence_last_literal | -2 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A2_fullrefresh | async_evidence_last_literal | -1 | 39/39 1.000 | 38/39 0.974 | -0.026 [-0.132, 0.066] | 
+A2_fullrefresh | async_evidence_last_literal | 0 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A2_fullrefresh | async_evidence_last_literal | 0.5 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A2_fullrefresh | async_evidence_last_literal | 1 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A2_fullrefresh | async_evidence_last_literal | 2 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A2_fullrefresh | async_evidence_last_literal | 3 | 38/39 0.974 | 85/93 0.914 | -0.060 [-0.138, 0.054] | 
+A2_fullrefresh | async_evidence_last_literal | 5 | 56/93 0.602 | 72/93 0.774 | 0.172 [0.039, 0.297] | *
+A2_fullrefresh | async_evidence_last_literal | 10 | 1/39 0.026 | 21/93 0.226 | 0.200 [0.071, 0.297] | *
+A2_fullrefresh | async_evidence_last_literal | 20 | 0/39 0.000 | 12/93 0.129 | 0.129 [0.025, 0.212] | *
+A2_fullrefresh | async_evidence_last_literal | 50 | 0/39 0.000 | 1/39 0.026 | 0.026 [-0.066, 0.132] | 
+A2_fullrefresh | uid_rebind_control | NA | 0/10 0.000 | 0/10 0.000 | 0.000 [-0.278, 0.278] | 
+A3_dcji_webhook | no_write | NA | 0/39 0.000 | 0/39 0.000 | 0.000 [-0.090, 0.090] | 
+A3_dcji_webhook | async_scope | -5 | 0/39 0.000 | 0/39 0.000 | 0.000 [-0.090, 0.090] | 
+A3_dcji_webhook | async_scope | -2 | 0/39 0.000 | 0/39 0.000 | 0.000 [-0.090, 0.090] | 
+A3_dcji_webhook | async_scope | -1 | 0/39 0.000 | 0/39 0.000 | 0.000 [-0.090, 0.090] | 
+A3_dcji_webhook | async_scope | 0 | 0/39 0.000 | 0/39 0.000 | 0.000 [-0.090, 0.090] | 
+A3_dcji_webhook | async_scope | 0.5 | 0/39 0.000 | 0/39 0.000 | 0.000 [-0.090, 0.090] | 
+A3_dcji_webhook | async_scope | 1 | 0/39 0.000 | 0/39 0.000 | 0.000 [-0.090, 0.090] | 
+A3_dcji_webhook | async_scope | 2 | 0/39 0.000 | 0/39 0.000 | 0.000 [-0.090, 0.090] | 
+A3_dcji_webhook | async_scope | 3 | 0/39 0.000 | 0/39 0.000 | 0.000 [-0.090, 0.090] | 
+A3_dcji_webhook | async_scope | 5 | 0/39 0.000 | 0/39 0.000 | 0.000 [-0.090, 0.090] | 
+A3_dcji_webhook | async_scope | 10 | 75/93 0.806 | 49/93 0.527 | -0.280 [-0.401, -0.145] | *
+A3_dcji_webhook | async_scope | 20 | 68/93 0.731 | 74/93 0.796 | 0.065 [-0.058, 0.185] | 
+A3_dcji_webhook | async_scope | 50 | 0/39 0.000 | 21/93 0.226 | 0.226 [0.110, 0.321] | *
+A3_dcji_webhook | async_app_policy | -5 | 0/39 0.000 | 0/39 0.000 | 0.000 [-0.090, 0.090] | 
+A3_dcji_webhook | async_app_policy | -2 | 0/39 0.000 | 0/39 0.000 | 0.000 [-0.090, 0.090] | 
+A3_dcji_webhook | async_app_policy | -1 | 0/39 0.000 | 0/39 0.000 | 0.000 [-0.090, 0.090] | 
+A3_dcji_webhook | async_app_policy | 0 | 0/39 0.000 | 0/39 0.000 | 0.000 [-0.090, 0.090] | 
+A3_dcji_webhook | async_app_policy | 0.5 | 0/39 0.000 | 0/39 0.000 | 0.000 [-0.090, 0.090] | 
+A3_dcji_webhook | async_app_policy | 1 | 0/39 0.000 | 0/39 0.000 | 0.000 [-0.090, 0.090] | 
+A3_dcji_webhook | async_app_policy | 2 | 0/39 0.000 | 0/39 0.000 | 0.000 [-0.090, 0.090] | 
+A3_dcji_webhook | async_app_policy | 3 | 0/39 0.000 | 0/39 0.000 | 0.000 [-0.090, 0.090] | 
+A3_dcji_webhook | async_app_policy | 5 | 0/39 0.000 | 0/39 0.000 | 0.000 [-0.090, 0.090] | 
+A3_dcji_webhook | async_app_policy | 10 | 68/93 0.731 | 18/93 0.194 | -0.538 [-0.642, -0.403] | *
+A3_dcji_webhook | async_app_policy | 20 | 71/93 0.763 | 75/93 0.806 | 0.043 [-0.075, 0.160] | 
+A3_dcji_webhook | async_app_policy | 50 | 0/39 0.000 | 26/93 0.280 | 0.280 [0.159, 0.378] | *
+A3_dcji_webhook | async_evidence_last_literal | -5 | 1/39 0.026 | 0/39 0.000 | -0.026 [-0.132, 0.066] | 
+A3_dcji_webhook | async_evidence_last_literal | -2 | 0/39 0.000 | 1/39 0.026 | 0.026 [-0.066, 0.132] | 
+A3_dcji_webhook | async_evidence_last_literal | -1 | 1/39 0.026 | 4/93 0.043 | 0.017 [-0.092, 0.083] | 
+A3_dcji_webhook | async_evidence_last_literal | 0 | 74/93 0.796 | 60/93 0.645 | -0.151 [-0.273, -0.021] | *
+A3_dcji_webhook | async_evidence_last_literal | 0.5 | 84/93 0.903 | 79/93 0.849 | -0.054 [-0.151, 0.043] | 
+A3_dcji_webhook | async_evidence_last_literal | 1 | 89/93 0.957 | 72/93 0.774 | -0.183 [-0.281, -0.087] | *
+A3_dcji_webhook | async_evidence_last_literal | 2 | 90/93 0.968 | 38/39 0.974 | 0.007 [-0.102, 0.069] | 
+A3_dcji_webhook | async_evidence_last_literal | 3 | 87/93 0.935 | 89/93 0.957 | 0.022 [-0.050, 0.095] | 
+A3_dcji_webhook | async_evidence_last_literal | 5 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A3_dcji_webhook | async_evidence_last_literal | 10 | 39/39 1.000 | 39/39 1.000 | 0.000 [-0.090, 0.090] | 
+A3_dcji_webhook | async_evidence_last_literal | 20 | 58/93 0.624 | 81/93 0.871 | 0.247 [0.124, 0.362] | *
+A3_dcji_webhook | async_evidence_last_literal | 50 | 0/39 0.000 | 17/93 0.183 | 0.183 [0.072, 0.273] | *
+A3_dcji_webhook | uid_rebind_control | NA | 0/10 0.000 | 0/10 0.000 | 0.000 [-0.278, 0.278] | 
+cells compared 152 CI excludes 0 in 37
+
+EXPOSURE d* (primary): first -> rerun  [rerun bootstrap 95%]
+  A0_native_uid async_scope: 10 -> not_closed [50, not_closed]; last exposed 5 -> 50
+  A0_native_uid async_app_policy: 20 -> 50 [20, not_closed]; last exposed 10 -> 20
+  A0_native_uid async_evidence_last_literal: 20 -> not_closed [50, not_closed]; last exposed 10 -> 50
+  A1_dcji async_scope: 20 -> not_closed [50, not_closed]; last exposed 10 -> 50
+  A1_dcji async_app_policy: 10 -> not_closed [50, not_closed]; last exposed 5 -> 50
+  A1_dcji async_evidence_last_literal: 10 -> 50 [50, not_closed]; last exposed 5 -> 20
+  A2_fullrefresh async_scope: 10 -> 50 [50, not_closed]; last exposed 5 -> 20
+  A2_fullrefresh async_app_policy: 10 -> not_closed [not_closed, not_closed]; last exposed 5 -> 50
+  A2_fullrefresh async_evidence_last_literal: 10 -> 50 [50, not_closed]; last exposed 5 -> 20
+  A3_dcji_webhook async_scope: 50 -> not_closed [not_closed, not_closed]; last exposed 20 -> 50
+  A3_dcji_webhook async_app_policy: 50 -> not_closed [not_closed, not_closed]; last exposed 20 -> 50
+  A3_dcji_webhook async_evidence_last_literal: 50 -> not_closed [not_closed, not_closed]; last exposed 20 -> 50
+
+DELETE RTT (no_write, accepted) median ms: first -> rerun
+  A0_native_uid: 8.97959 -> 14.1021  (HL  [, ] ->  [, ])
+  A1_dcji: 9.3146 -> 12.663  (HL  [, ] ->  [, ])
+  A2_fullrefresh: 10.167 -> 14.3303  (HL  [, ] ->  [, ])
+  A3_dcji_webhook: 32.0121 -> 43.5215  (HL  [, ] ->  [, ])
+  A3_minus_A1: 22.6975 -> 30.8584  (HL 21.3172 [16.4453, 24.7904] -> 30.0135 [23.2165, 33.8548])

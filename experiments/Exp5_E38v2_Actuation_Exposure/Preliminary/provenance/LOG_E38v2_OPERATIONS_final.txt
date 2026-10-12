@@ -1,0 +1,191 @@
+E38v2 OPERATIONS LOG (running; UTC)            operator: Claude (agent) for the paper's authors
+=====================================================================================================
+VM azureuser@<PUBLIC_IP_REDACTED>, workspace ~/e38v2_20260926. Protected clusters never addressed:
+mape-cap-confirm, mcb-k137, rev-n5. All kubectl calls: --kubeconfig ~/e38v2_20260926/.kubeconfig_e38v2
+--context kind-e38v2. sudo used only to read/copy audit files.
+
+2026-09-26T06:53Z  Read spec, RUNBOOK, ANALYSIS_PLAN, DESIGN_NOTES; VM state: 10.6 GB available, 94 GB disk free.
+2026-09-26T07:0xZ  Backup of pre-integration code: ~/e38v2_ops/backup_pre_integration.tgz
+                   sha256 3276497c1970e4fc14a7d84423d285123b21bd6ceff2f7e950a9a68d7137f353
+
+STEP 1 INTEGRATION (offline)
+  Lead decisions applied:
+   - PRIMARY denominator = n_analyzable + fail-closed (gate UNKNOWN_COHERENCE, never dispatched) as
+     non-events; INFRA_ERROR + other UNKNOWN excluded; old primary -> sensitivity S2 "exclude fail-closed"
+     (analysis/analyze_e38v2.py _rule_block, missingness, exposure bootstrap; ANALYSIS_PLAN v1.1).
+   - webhook/server.py logs t_send_wall_ns / t_recv_wall_ns per read; oracle webhook-deny time rule uses
+     the send time of the read of the written object (received_wall_ns only as flagged fallback).
+   - uid_rebind_control logs uid_rebind.replacement_pod_uid (optional schema field).
+   - A3: runner labels target Pod e38v2-webhook=enforce at fixture creation (A3 only); oracle joins the
+     webhook log on pod_uid == delete.expected_uid (webhook_request_uid null in RAW), column
+     webhook_request_uid filled in oracle output.
+  Integration bugs found and fixed (genuine format mismatches between pieces):
+   I-1 runner logged writer.new_value as a dict; spec/oracle require the string -> every async trial
+       would have been UNKNOWN (writer_value_unparseable). Fixed (runner + schema).
+   I-2 async_evidence_last_literal: runner cut c,e after reset but initial_values still said true ->
+       oracle UNKNOWN (fixture_condition_mismatch) for the whole condition. Fixed: cut inside
+       reset_fixture before Pod replacement, initial_values records c=e=false.
+   I-3 runner schedule/LOCK formats did not match analysis (bare list; file_sha256 relative to src/);
+       stage-2 trial ids restarted at 1 (collide with stage 1). Fixed: e38v2.schedule.v1 documents,
+       stage-2 ids from 100001, stage-2 consumes stage2_topup.py output (cells[].n_topup).
+   I-4 protocol/lock_hash.py vs analysis LOCK format: fill now also writes status "LOCKED-<utc>",
+       top-level schedule_seed, run_id, schedule_path/sha256, analysis_plan_path/sha256; new
+       add-stage2 command; analysis accepts the lock_hash list format; template: removed nonexistent
+       protocol/PROTOCOL_E38v2.txt, added src/schema.py, src/e38_independent_offline_oracle.py,
+       src/fake_api.py, src/test_e38v2.py, src/DESIGN_NOTES.txt, analysis/e38v2_common.py,
+       analysis/fixtures/synth.py, protocol/ANALYSIS_PLAN_E38v2.txt.
+   I-5 runner live mode implemented (was stubbed): https://127.0.0.1:<port> + pinned CA + SA bearer
+       tokens (responder/writer/reset), SelfSubjectReview identity check, keep-alive per identity,
+       Audit-Id capture, context kind-e38v2 / namespace e38v2-<run_id> rails, LOCK+schedule check,
+       resume without re-running recorded trials, memory pause (<2 GiB), INFRA_ERROR abort guard.
+   I-6 writer moved to a persistent forked process (WriterProcess): a busy-waiting writer thread holds
+       the CPython GIL and could delay the responder's DELETE by up to the 5 ms switch interval
+       (same order as the delta grid). Responder process uses sys.setswitchinterval(5e-5).
+   I-7 target Pod image nginx (not present, no pulls allowed) -> python:3.12-slim with a scheduling
+       gate (never scheduled/started); see deviation D2.
+   I-8 fake apiserver: webhook selected by Pod label + reset exempt (as the VWC), emits audit events
+       and webhook entries (with per-read stamps) so the offline end-to-end test exercises the real
+       analysis path.
+   I-9 synth fixture reused one Pod UID across edge-case scenarios (impossible live) which broke the
+       pod_uid join in one test; scenario() now derives distinct Pod UIDs; fixtures regenerated.
+  Offline tests (VM, 2026-09-26T07:2xZ): runner 37 passed (31 original, updated for live CLI/lock
+  format, + new); webhook 32 OK; deploy validate OK (0 failures); analysis 94 passed (89 + 3 oracle
+  join/time-rule tests + 2 end-to-end runner->oracle->analysis tests); lock 10 OK (8 + 2).
+  End-to-end offline: runner --offline-selftest (152 trials, 1 rep/cell, fake apiserver emitting audit
+  + webhook logs) -> oracle -> analyze_e38v2 --design-check off: gate PASSED; every DELETE/PATCH joined
+  its audit event; A3 joined by pod_uid; no_write VALID_EXECUTED and uid control UID_BLOCKED in all arms;
+  strict design check correctly REFUSES a 1-rep schedule.
+
+STEP 2 LIVE BRING-UP
+2026-09-26T07:35Z  preflight: clusters mape-cap-confirm, mcb-k137, rev-n5 (e38v2 absent); 10.6 GB avail;
+                   images kindest/node:v1.37.0 sha256:a1ed56cf..., python:3.12-slim sha256:2f17fc04...;
+                   kind v0.33.0, kubectl v1.37.0; E37 F5 sha256 c54f4331... OK.
+2026-09-26T07:36Z  kind create cluster --name e38v2 --config deploy/kind-config.yaml
+                   --kubeconfig ~/e38v2_20260926/.kubeconfig_e38v2 (Ready after 17 s). Global
+                   ~/.kube/config current-context stayed kind-rev-n5 (deviation D1).
+2026-09-26T07:37Z  kind load docker-image failed (ctr: content digest not found; docker 29 containerd
+                   image store, multi-platform index). Loaded linux/amd64 only via
+                   docker save --platform linux/amd64 | ctr -n k8s.io images import --platform linux/amd64
+                   (deviation D3). Audit flags present in kube-apiserver manifest (blocking, json, 200MBx30).
+2026-09-26T07:38Z  setup smoke-20260926a: render + certs, namespace/rbac, webhook code (server.py,
+                   policy.py identical to workspace), VWC (Fail, 5 s, objectSelector e38v2-webhook=enforce).
+                   RBAC checks yes/no/yes/no/yes/no/no as expected. Fixture ConfigMaps created. Tokens 24h.
+2026-09-26T07:40Z  PROBES (all passed):
+                   - invalid app_policy -> labelled pod DELETE DENIED (403, "deny: app_policy_not_allowed")
+                   - response-scope false -> DENY scope_not_allowed; a,c,e false -> DENY J_false; valid -> ALLOW
+                   - unlabelled pod DELETE in invalid state allowed, NO webhook log line
+                   - reset identity DELETE in invalid state allowed (matchConditions), NO webhook log line
+                   - runner identities (SelfSubjectReview): responder/writer/reset usernames as expected;
+                     A3-labelled target: invalid -> 403 from webhook, valid -> 200
+                   - audit: only ResponseComplete, level RequestResponse; configmap patch + pod delete events
+                     in test ns; 403 denials recorded with the webhook message
+                   - Audit-Id join 1087/1087 client responses -> exactly one ResponseComplete event, RV equal
+                   - FINDING: a PATCH that does not change the value is a no-op and returns the OLD RV (no
+                     etcd commit). The experiment's writer always changes true->false, so its RV is a real
+                     commit; reset no-op patches are irrelevant. DELETE response RV = deletion revision
+                     (0/89 deletes below RV of earlier-completed writes).
+                   - RV order vs ResponseComplete stageTimestamp (value-changing writes + deletes, 1022 ops):
+                     sequential 2415/2415 pairs concordant; concurrent (2 writers + deleter, 3 s)
+                     452593 concordant / 83 discordant (0.99982); patch-vs-delete primary/secondary rule
+                     disagreements 397/85951 (0.46%) under concurrency, 0/600 sequential.
+
+STEP 3 SMOKE
+2026-09-26T07:46Z  smoke-20260926a (seed 777001, 152 trials = 1 rep/cell + 4 uid controls, --unlocked-smoke):
+                   152 COMPLETE, 0 INFRA_ERROR, 0.079 s/trial; audit joins 100% (152 DELETE, 144 PATCH).
+                   ANOMALIES found:
+                   (1) A3 accepted DELETE RTT ~60-125 ms vs ~10 ms other arms; webhook evaluation itself ~11 ms.
+                   (2) 6 A3 trials UNKNOWN "webhook_log_conflicting_entries": 2 webhook evaluations per DELETE
+                       with different decisions, DELETE accepted.
+                   (3) primary/secondary rule agreement 68/146 = 47%.
+                   Diagnosis (evidence in smoke-20260926b webhook log with pod_resource_version):
+                   - Pod DELETE (grace 0) is two storage phases: update (sets deletionTimestamp; webhook
+                     consulted) then removal (webhook consulted again). In the removal phase the apiserver may
+                     validate a stale pre-update copy (same pod RV as the first call, no deletionTimestamp):
+                     the webhook then fully re-evaluates; if that stale re-evaluation denies, the apiserver
+                     refreshes and retries (terminating Pod -> webhook allows without evaluation) and the
+                     DELETE is ACCEPTED. Example trial 8 (smoke b): allow rv=5876 @+1.7 ms, deny rv=5876
+                     @+23.2 ms, terminating call rv=5878 @+37.3 ms, HTTP 200.
+                   - Webhook responses were written as two TLS writes (headers, body) -> Nagle/delayed-ACK
+                     stall (~40 ms) on allow responses.
+                   - Rule disagreement: DELETE service time (receipt -> commit) is ~10-40 ms on this VM (two
+                     etcd writes with fsync; writer PATCH RTT ~5-7 ms). The secondary rule compares writer
+                     completion with DELETE RECEIPT, the primary with DELETE COMMIT; writes that commit while
+                     the DELETE is in flight are INVALID by the primary and not by the secondary rule. This is
+                     a property of the pre-registered rule definitions, not a data defect; the RV ordering
+                     itself agrees with the audit timestamp order (probe: 99.98% of pairs).
+                   FIXES (pre-LOCK, documented):
+                   F1 webhook/server.py: buffered single-write response (wbufsize 64 KiB) + TCP_NODELAY;
+                      log every invocation incl. unevaluated terminating-Pod calls; log pod_resource_version and
+                      pod_terminating (webhook tests updated: 32 OK).
+                   F2 analysis/oracle.py: governing webhook evaluation by outcome (accepted: earliest evaluated
+                      allow; denied: last evaluated deny); ignore terminating calls; flag multiple/differing
+                      evaluations instead of UNKNOWN (ANALYSIS_PLAN v1.1 (f); new test; 95 passed).
+                   Oracle/primary and secondary rule DEFINITIONS left unchanged (see STEP 3 note (3)).
+2026-09-26T08:02Z  re-setup (webhook redeployed with F1) + probes re-run: all OK (smoke-20260926b).
+2026-09-26T08:03Z  smoke-20260926b (seed 777002, 152 trials): 152 COMPLETE, 0 INFRA_ERROR (0.0%); 0.121 s/trial;
+                   audit join 152/152 DELETE, 144/144 PATCH; webhook join A3 37/37; A0-A2 with webhook entry 0;
+                   0 UNKNOWN; rules agree 63/152 = 41% (see note (3)).
+                   Outcomes: no_write VALID_EXECUTED in all 4 arms; uid_rebind_control UID_BLOCKED (409) in all 4;
+                   A3 CORRECT_ABORT for async_scope/app_policy at -5..5 ms; 50 ms VALID in all arms.
+                   Writer release error (actual-intended): delta>=0 median 1.0 us, p95 127 us, max 3977 us,
+                   >100 us 9.3%, >500 us 1.9%; delta<0 median 2.06 ms (by design: released when armed at the
+                   start of the fence read). Gate-end -> DELETE send (writer trials) median 41 us, p95 81 us
+                   (no GIL coupling). DELETE RTT median: A0 11.1, A1 12.3, A2 13.4, A3 38.3 ms.
+                   Measured s/trial: no_write 0.074, uid 0.140, writer 0.122 -> constants replaced in the runner
+                   (WRITER_OVERHEAD_S = 0.048 s, estimate); stage-1 estimate 702 s.
+2026-09-26T08:10Z  full offline suites on final code: runner 37 passed, webhook 32 OK, deploy OK (0 failures),
+                   analysis 95 passed, lock 10 OK.
+
+STEP 4 STAGE 1
+2026-09-26T08:13Z  run_id e38v2-20260926t0813z, namespace e38v2-e38v2-20260926t0813z; seed 1772720255 (fresh,
+                   secrets.randbelow; != 20260912). setup (webhook identical, VWC -> new ns, RBAC as expected),
+                   probes all OK; ordering probe: sequential 2415/2415 concordant, concurrent 0.99980.
+2026-09-26T08:17Z  SCHEDULE.json sha256 478ecd47ec9fc01596d16d123f8190e6b52dac22b4177f075640832c6546f468 (5812 trials);
+                   LOCK protocol/LOCK_E38v2.json status LOCKED-2026-09-26T08:17:00Z, 50 hashes verified,
+                   lock_sha256 ff63337dcacc2bba25c29ed00a5e605c2b5b0552b94cf59941aab14377294ffb,
+                   analysis_plan_sha256 6397ad46b5c99f5990fed838f6fdd609a036075828895aee62edc41eee6f60ad.
+2026-09-26T08:17Z  stage 1 launched (setsid nohup), runner verified LOCK + schedule before any request.
+2026-09-26T08:19Z  monitor: 1400/5812, infra 0, 0.074 s/trial, MemAvailable ~9.9 GB, host CPU 60% idle,
+                   e38v2 node ~1.1 cores, other clusters normal.
+2026-09-26T08:24Z  stage 1 END: 5812/5812 written, 0 INFRA_ERROR, 432.9 s (0.074 s/trial). MemAvailable ~9.9 GB throughout.
+
+STEP 5 STAGE 2
+2026-09-26T08:25Z  logs collected (webhook_log sha256 da20926c..., audit.log sha256 c70d19e1...; copies with
+                   SHA256SUMS in stage1_inputs/). analyze_e38v2 --stage 1 (strict design check, B=2000): gate
+                   PASSED, confirmatory=True; primary classes: CORRECT_ABORT 857, INVALID_EXECUTED 3371,
+                   VALID_EXECUTED 1544, UID_BLOCKED 40, FALSE_ABORT 0, UNKNOWN 0, INFRA_ERROR 0.
+                   stage2_topup.py: 33 cells, 1782 new trials (0 undefined cells). SCHEDULE_STAGE2.json sha256
+                   d58313bf79cc6246cffb18714a106f25f45b93c272df1ff2dbeb13070424f501 (ids 100001..101782, same seed).
+                   lock_hash.py add-stage2: stage-1 lock verified first; lock_sha256 ff63337d... -> 15b29b6d...
+                   (lock_sha256_stage1 kept); verify OK 51 hashes.
+2026-09-26T08:25Z  stage 2 launched; runner verified LOCK stage2_schedule_sha256 before any request.
+2026-09-26T08:27Z  stage 2 END: 1782/1782, 0 INFRA_ERROR, 129.5 s.
+
+STEP 6 FINAL
+2026-09-26T08:28Z  LOCK verify at export OK (51 hashes). Logs re-collected (webhook_log sha256 d0e0fad9...,
+                   audit.log sha256 12e3d33a..., 98377 events, no rotation). analyze_e38v2 --stage 2 with both
+                   schedules: gate PASSED (7594 planned = observed, strict design check incl. stage-2 top-up rule
+                   recomputation), confirmatory=True. Primary: INVALID_EXECUTED 4471, VALID_EXECUTED 2182,
+                   CORRECT_ABORT 901, UID_BLOCKED 40, FALSE_ABORT 0, UNKNOWN 0, INFRA_ERROR 0. No fail-closed
+                   (UNKNOWN_COHERENCE) trials occurred, so primary == S2 in every cell.
+                   Stage-1-only analysis on the final files (both schedules, --stage 1): cells identical to the
+                   stage-1 analysis (S4).
+                   Oracle agreement (primary vs secondary): 3136/7594 = 41.3%, kappa(INVALID) 0.009;
+                   2x2: both 48, primary-only 4423, secondary-only 0, neither 3123 (see D9).
+                   Independent recomputation (ops/independent_recompute.py, no analysis imports; RAW + audit
+                   only): INVALID_EXECUTED count k identical in 152/152 cells, denominator n identical in 152/152;
+                   descriptive alternative time rule (writer RC < DELETE RC): 4474 vs RV rule 4471.
+                   A3 multiple webhook evaluations: 667 of 1993 dispatched A3 trials, differing decisions in 523
+                   (all classified INVALID_EXECUTED under v1.1 (f)); v1-rule sensitivity in
+                   A3_MULTI_EVAL_SENSITIVITY.txt (A3 10-20 ms cells remain 0.27-0.63).
+2026-09-26T08:31Z  EXPORT results/e38v2_EXPORT_e38v2-20260926t0813z.tar.gz (19,431,542 bytes; run dir + both smoke
+                   dirs, per-dir SHA256SUMS; run-dir SHA256SUMS sha256 7610fb0f331f6ebc89ac00d6a5055e2286dce1b7a5f219b8dbb0a7caf1675689)
+                   tarball sha256 1a3cb076d7e74fbd87442fe8a2d38ab0a8428da5c94d0b312aa2e219bf32f355; no tokens/keys inside.
+2026-09-26T08:33Z  copied to D:\Papers\JCP_COMPLETE_RESEARCH_AND_SUBMISSION_PACKAGE\05_E38v2_RESULTS\ ; local sha256
+                   identical (HASH MATCH); 160 archive entries; extracted copy in ...\05_E38v2_RESULTS\extracted\.
+2026-09-26T08:35Z  TEARDOWN: kind delete cluster --name e38v2 (--kubeconfig dedicated file). Remaining clusters
+                   mape-cap-confirm, mcb-k137, rev-n5 (identical to preflight); non-e38v2 containers identical to
+                   preflight; ~/.kube/config current-context still kind-rev-n5; tokens, render certs and the
+                   dedicated kubeconfig removed. Root-owned audit files in results/_audit_host left as is (no chown:
+                   sudo was used only to read). VM left running (MemAvailable 10.7 GB).
+                   NOTE: this entry post-dates the tarball; this file is saved beside it as LOG_E38v2_OPERATIONS_final.txt.

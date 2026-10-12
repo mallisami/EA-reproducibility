@@ -1,0 +1,271 @@
+E39 PRE-REGISTERED ANALYSIS PLAN                         version 1.0, 2026-09-26 (pre-LOCK, no E39 data exist)
+===================================================================================================
+Applies to: E39 (follow-up of E38v2: evidence-to-action TOCTOU in automated Kubernetes incident response),
+run by the paper's authors on their own disposable kind cluster "e39" on their own VM. Offline analysis
+of copied files only; nothing in the analysis contacts a cluster.
+Governing documents: protocol/E39_DESIGN_SPEC.txt (v1) + E39-F addendum (client-go responder, added by the
+study coordinator 2026-09-26 before any LOCK), protocol/E39_RECORD_SCHEMA.json (e39.trial.v1).
+Carried over unchanged from the E38v2 confirmatory rerun plan (ANALYSIS_PLAN_E38v2.txt v1.2): validity policy,
+primary commit-order rule, secondary rule = v1.2 ResponseComplete order, tertiary rule = v1/v1.1 rule
+(transparency only), denominators with fail-closed trials as non-events, sensitivities S1/S2, governing
+webhook evaluation rule, pod-watch deletion-RV fallback, Wilson intervals, d* definition, bootstrap design.
+Implementation (hashed in the LOCK): analysis/e39_common.py, analysis/oracle_e39.py (e39.oracle.v1),
+analysis/analyze_e39.py (e39.analysis.v1), analysis/stage2_topup_e39.py, analysis/recompute_independent_e39.py
+(e39.independent.v1), tests + synthetic simulator under analysis/tests, analysis/fixtures.
+Base code copied read-only to analysis/base_e38v2r/ (SHA-256 list in analysis/base_e38v2r/BASE_SHA256.txt).
+
+---------------------------------------------------------------------------------------------------
+1. DATA SOURCES AND JOINS
+---------------------------------------------------------------------------------------------------
+  results/<run_id>/RAW_TRIALS.jsonl   e39.trial.v1 (one record per scheduled trial, all sub-experiments)
+  results/<run_id>/audit.log          audit.k8s.io/v1 Event lines (ResponseComplete used)
+  results/<run_id>/webhook_log.jsonl  webhook decisions (A3; Pod DELETE and NetworkPolicy CREATE)
+  results/<run_id>/pod_events.jsonl   optional pod-watch log (plan v1.2 (i) fallback only)
+  results/<run_id>/SCHEDULE.json      stage 1 (all sub-experiments); SCHEDULE_STAGE2.json (E39-A only)
+  protocol/LOCK_E39.json              one LOCK covering A-G (hashes, seed, forbidden seeds)
+  Joins: audit auditID == writer / arrival / cut / delete / netpol / mirror audit_id. Webhook entries:
+  request_uid when the trial carries one, else pod_uid == delete.expected_uid, else object_name ==
+  netpol.name (E39-E). Canonical names: arms A1_dcji, A2_fullrefresh, A3_dcji_webhook, A4d_commit_direct,
+  A4m_commit_mirror, A1_dcji_go / A4d_commit_direct_go (client-go); conditions poisson_scope == async_scope
+  (E39-B), out_of_model_bdf, in_model_ace (E39-G), stable / ea_attack (E39-C).
+
+---------------------------------------------------------------------------------------------------
+2. GROUND-TRUTH ORACLE (independent of the runner's own belief)
+---------------------------------------------------------------------------------------------------
+2.1 Validity. J = (a AND b) OR (c AND d) OR (e AND f); V_core = J AND scope_ok AND app_policy_allowed. Values
+    parsed strictly (true/allowed/yes/1 vs false/"not allowed"/denied/no/0; anything else -> UNKNOWN).
+    For A4d/A4m the Pod annotations e38.evidence/a..f, e38.scope, e38.app-policy carry the same values.
+2.2 State S0 = fixture.initial_values (after reset). Must satisfy V_core, except E39-G, whose runner records
+    the intended PRE-GATE state (cut applied): accepted iff exactly the cut objects ({b,d,f} resp. {a,c,e})
+    are false and restoring them gives a valid state; then S0 := restored state (flag
+    fixture_state_recorded_post_cut). If no cut writes are recorded, the cut counts as committed before every
+    read and the action (flag pre_gate_cut_in_fixture).
+2.3 Writes. W = all committed writes of the trial: the single async writer (A, D, E, F), every Poisson arrival
+    (B), every pre-gate cut write (G). A write is committed iff HTTP 2xx; its revision rv(w) = audit
+    responseObject resourceVersion (fallback trial resulting_resource_version; both present -> must agree).
+    Audit status / verb / resource / object / value must agree with the record, else UNKNOWN.
+    Special cases (pre-registered):
+    (a) A4d writes PATCH the Pod: HTTP 404 = Pod already gone, nothing committed; consistent only with an
+        ACCEPTED DELETE (else INFRA_ERROR writer_404_but_action_not_accepted; a 404 completing before the
+        DELETE was received -> UNKNOWN).
+    (b) Different writes returning the SAME resourceVersion with identical (object, value) are one commit (a
+        no-op merge-PATCH; flag noop_patch_same_rv); different content at one revision -> UNKNOWN.
+    (c) One PATCH may set several annotations ("pod-annotations:k1,k2,..."): one revision, several objects.
+    (d) E39-B arrival records without new_value use the design value; when the record's object is the Pod
+        name (A4d) the object is the condition's object (flag arrival_object_inferred); the audit
+        responseObject cross-checks the value whenever present.
+    (e) Other non-2xx writes -> INFRA_ERROR (B arrivals included: the arrival process was not realised).
+    (f) [pre-LOCK, 2026-09-26, found in the e39 smoke] A4d Pod PATCH answered 2xx with a responseObject that
+        carries metadata.deletionTimestamp: the PATCH was applied to a Pod already marked for deletion (grace 0)
+        by the accepted DELETE, and kube-apiserver removed the object during that update (apiserver log
+        "Going to delete object from registry, triggered by update"; pod watch: MODIFIED with deletionTimestamp
+        at the returned revision, then DELETED). The annotation is never persisted and the returned
+        resourceVersion is the DELETE's deletion-mark revision, so the write is NOT committed (flag
+        <role>_on_terminating_pod); consistent only with an ACCEPTED DELETE (else UNKNOWN
+        write_on_terminating_pod_but_action_not_accepted). Same rule in the independent recomputation.
+    A4m: the SOURCE ConfigMap commit is the truth. Mirror = trial.mirror {source_commit_rv, mirror_commit_rv,
+    *_wall_ns, mirror_audit_id}; mirror RV must exceed the source RV (else UNKNOWN). Mirror lag = mirror RV -
+    source RV (revisions) and mirror ResponseComplete - source ResponseComplete (ms; record wall stamps as
+    fallback). mirror_commit_rv null = not mirrored when the record was closed.
+2.4 Action. Pod DELETE (gracePeriodSeconds 0; uid precondition; A4d/A4m also resourceVersion precondition =
+    Pod RV read at the gate) or NetworkPolicy CREATE (E39-E). Action commit revision rv(action) = audit
+    responseObject RV (fallback delete.deleted_object_resource_version / netpol.created_resource_version;
+    both present -> must agree; plan v1.2 (i) pod-watch DELETED-event fallback for DELETE only when both are
+    missing).
+2.5 PRIMARY rule (commit order). Accepted action (DELETE 200/202, CREATE 200/201):
+      state(action) = S0 + {w in W : rv(w) < rv(action)} applied in revision order;
+      any rv(w) == rv(action) -> UNKNOWN rv_tie;
+      INVALID_EXECUTED iff V_core(state(action)) is false, else VALID_EXECUTED.
+    Denial (decider = gate ABORT_REPLAN without dispatch; webhook deny = 4xx + governing deny entry;
+    rv_precondition = HTTP 409 whose apiserver message names the resourceVersion precondition):
+      the decider's read of object o at revision R_o; for rv_precondition R_o = Y for all objects, Y =
+      "ResourceVersion in object meta" of the 409 message (Pod revision at the precondition check).
+      A write is SEEN iff repr(w) <= R_o, repr = rv(w) for ConfigMap writes and A4d Pod writes, = mirror RV for
+      A4m when the decider reads the Pod (gate or precondition). Objects the decider did not read: R = the
+      decider's largest read revision (flag decider_unread_object). Recorded read values must be consistent
+      with the seen state, else UNKNOWN. state(seen) = S0 + seen writes.
+      CORRECT_ABORT iff V_core(state(seen)) false, else FALSE_ABORT (no_write: every denial is FALSE_ABORT; a
+      409 caused by another Pod update, e.g. a kubelet status write, is FALSE_ABORT, flag
+      conflict_from_other_pod_update). Every 409 is ATTRIBUTED from the audit log to the Pod write that committed
+      revision Y (user / subresource): writer, mirror_controller, kubelet_status_update (system:node:* or pods/
+      status), reset_identity, other, or unattributed(no_audit_event); 409 FALSE_ABORTs caused by kubelet status
+      updates (possible in no_write) are an AVAILABILITY COST, reported separately per arm x population
+      (5.A). The audit policy must log pods update/patch incl. status for this. A 409 whose message cannot be parsed: primary UNKNOWN
+      (precondition_current_rv_unavailable); secondary still computed.
+      HTTP 409 naming the UID precondition (or an unparseable 409 in a non-A4 arm) -> UID_BLOCKED.
+      No automatic retry on 409 (E39-A); a 409 is a denial, not a failure.
+    Gate UNKNOWN_COHERENCE (not dispatched) -> UNKNOWN gate_unknown_coherence = FAIL-CLOSED (non-event).
+2.6 SECONDARY rule (plan v1.2): as 2.5 with ResponseComplete stageTimestamps instead of revisions: accepted
+    action -> writes completing before the action's ResponseComplete; gate denial -> before the gate's read
+    send time (mono mapped to wall with the gate anchor); webhook -> before the webhook read's t_send_wall_ns;
+    rv_precondition -> before the DELETE's ResponseComplete. Equal stamps -> UNKNOWN (time_tie).
+    TERTIARY rule (v1/v1.1, transparency only): accepted action vs action requestReceivedTimestamp.
+2.7 uid_rebind_control: 409 (UID) -> UID_BLOCKED; accepted DELETE of a different UID -> INVALID_EXECUTED.
+2.8 Outcome classes: VALID_EXECUTED, INVALID_EXECUTED (failure of interest), CORRECT_ABORT, FALSE_ABORT,
+    UID_BLOCKED, UNKNOWN (always with reason), INFRA_ERROR (runner INFRA_ERROR, reset failed, write not
+    committed). NetworkPolicy CREATE 409 (AlreadyExists) -> UNKNOWN; A4 arm with CREATE -> UNKNOWN.
+2.9 E39-C records are classified by the same rules when they carry the full trial structure; the C
+    endpoints are latencies (section 5.C) and do not depend on the oracle class.
+2.10 Limitations: resourceVersion is opaque per Kubernetes API conventions; numeric ordering relies on the
+    etcd-revision implementation of v1.37.0 (validated by rule agreement, reported). The rv_precondition rule
+    relies on the apiserver precondition message format (storage.Preconditions.Check); unparseable messages
+    are UNKNOWN, never guessed. Mirror lag in ms uses audit stamps (microsecond resolution).
+
+---------------------------------------------------------------------------------------------------
+3. DATA-COMPLETENESS GATE (REFUSE: exit 2, only REFUSED_E39.json written, stale results removed)
+---------------------------------------------------------------------------------------------------
+  - an input missing; RAW / webhook / audit / pod-event lines unparseable;
+  - schema != e39.trial.v1; several run_ids; run_id differs from SCHEDULE or LOCK;
+  - planned trial (analysed experiments, stage <= s) missing from RAW; RAW trial in no schedule; duplicate id;
+  - any of experiment, stage, block, arm, condition, delta_ms, rep, schedule_seed and (when scheduled)
+    lambda_per_s, injected_latency_ms, acquisition_mode, planning_mode, load_level, action_type, client_impl,
+    pair_id, guard_order differs between RAW and SCHEDULE. Exception (E39-D load guard): a recorded load_level
+    BELOW the scheduled one is accepted only for a throttled trial (host.load_throttled) or when the
+    record's nominal/requested level equals the schedule; the trial stays in its SCHEDULED cell (ITT);
+  - a stage uses several seeds; seed != LOCK seed; seed in {20260912, 1772720255, 154080643 (E38v2 rerun)};
+  - LOCK status not LOCKED*, any LOCK hash mismatch (files, schedule, stage-2 schedule, analysis plan), no
+    verifiable hash, or a stage-2 schedule without stage2_schedule_sha256;
+  - a stage-2 trial that is not E39-A;
+  - strict design check (default): stage-1 cell counts differ from the pre-registered design:
+      A 4 arms x (3 async conditions x 11 deltas x 39 + no_write 39 + uid_rebind 10)           = 5344
+        (deltas {0,0.5,1,2,3,5,10,20,50,100,200} ms; 100/200 added 2026-09-26 before LOCK: the E38v2
+        running-Pod rerun showed the window not closed at 50 ms in 8/12 series)
+      B 4 arms x lambda {1,10,100}/s x 400                                                     = 4800
+      C 2 arms x c {0,50,200,1000} ms x {sequential,parallel} x {stable,ea_attack} x
+        {precomputed,per_incident} x 60 pairs (each pair = one A1 + one A2 trial)              = 3840
+      D 2 arms x {idle,moderate,high} x deltas {0,2,5,10,20,50,100,200} x 39                   = 1872
+      E 2 arms x {async_scope, async_evidence_last_literal} x 8 deltas x 39                    = 1248
+      F {A1 python, A1 client-go, A4d client-go} x async_scope x 8 deltas x 39                =  936
+      G 2 arms x {out_of_model_bdf, in_model_ace} x 39                                         =  156
+    every C pair_id must hold exactly one A1 and one A2 trial; the stage-2 schedule must equal the top-up list
+    recomputed from stage-1 data (section 6).
+  UNKNOWN / INFRA_ERROR trials are present-but-unclassifiable data, not missing data. --design-check off is
+  for pilots/smoke only (confirmatory=false, never reported as E39 results). --experiments restricts the
+  analysis (and the gate) to named sub-experiments, e.g. when a sub-experiment is analysed after its run.
+
+---------------------------------------------------------------------------------------------------
+4. DENOMINATORS, UNKNOWN AND INFRA_ERROR
+---------------------------------------------------------------------------------------------------
+  Primary denominator per cell: n = n_analyzable + n_fail_closed (fail-closed = gate UNKNOWN_COHERENCE,
+  never dispatched, counted as non-event); other UNKNOWN and all INFRA_ERROR excluded, always counted and
+  reported with reasons. S1: every non-fail-closed UNKNOWN counted as INVALID_EXECUTED (worst case).
+  S2: fail-closed excluded. S3: secondary oracle for every primary endpoint. S4: stage-1-only (E39-A).
+  S5 (E39-D): throttled trials excluded (per protocol). HIGH_MISSINGNESS flag if (UNKNOWN - fail-closed +
+  INFRA_ERROR)/n_observed > 10%; flag reported, never used to drop data. No imputation; no re-running of
+  individual trials; a failed run is reported as such.
+  E39-B: "per 1,000 responses" = 1000 x k / n with the primary denominator; Wilson bounds x 1000.
+
+---------------------------------------------------------------------------------------------------
+5. ENDPOINTS (primary per sub-experiment first; all intervals 95%)
+---------------------------------------------------------------------------------------------------
+A  Commit-bound enforcement.
+   PRIMARY: P(INVALID_EXECUTED) per arm x condition x delta (Wilson). Arms A1, A3, A4d, A4m.
+   Secondary: d* per arm x condition (smallest grid delta with p_hat <= 0.05 there and at all larger deltas;
+   not closed if p_hat(200) > 0.05, i.e. at the largest grid delta) with bootstrap (B = 2000, stratified by delta, numpy default_rng seeded
+   [3902026, 1, group index]); window area W_A = trapezoidal area under p_hat(delta) over the grid 0-200 ms (used for B);
+   availability cost of A4: FALSE_ABORT rate and 409 rate in no_write (Wilson), FALSE_ABORT (and via 409)
+   rate over async cells, 409 rate among dispatched DELETEs; A4m mirror lag (revisions, ms): distribution
+   overall, by outcome class and per delta, number of INVALID_EXECUTED explained by mirror-after-action
+   (source committed before the DELETE, mirror after it) or not mirrored, W_A of A4m next to the median / p95
+   mirror lag; uid_rebind_control counts; rule agreement (secondary, tertiary; kappa).
+B  Poisson arrivals.
+   PRIMARY: INVALID_EXECUTED per 1,000 responses per arm x lambda (Wilson x 1000). Arms A1, A2, A3, A4d.
+   Secondary: W per arm = binomial MLE of W in p = 1 - exp(-lambda W) pooled over lambda, 95% profile-
+   likelihood CI (chi2_1); per-lambda inversion -ln(1 - p_hat)/lambda; prediction 1 - exp(-lambda W_A) with
+   W_A from the E39-A async_scope curve of the same arm (A2 has no E39-A curve: W from the E38v2 rerun
+   A2_fullrefresh async_scope curve area, supplied as --w-external A2=<ms> and labelled external); whether the
+   prediction lies in the Wilson CI; EXPLORATORY gate-adjusted prediction exp(-lambda G) (1 - exp(-lambda W_A))
+   with G = median gate duration of the arm (arrivals start at gate start). Extrapolation to lambda in
+   {0.01, 0.1}/s from the fitted W (and CI) and from W_A: labelled MODEL-BASED EXTRAPOLATION, never reported
+   as observed. A4d availability: FALSE_ABORT and 409 per 1,000 responses.
+C  Cost of selective revalidation (paired).
+   PRIMARY: paired Hodges-Lehmann shift (median of Walsh averages) of refresh latency A2 - A1 (FullRefresh
+   minus DCJI) per c x acquisition x condition x planning, percentile bootstrap CI over pairs (B = 2000,
+   seed [3902026, 7, cell, metric]). Secondary: same for gate latency (planning + reads) and end-to-end
+   decision-to-action latency including planning (acquisition start -> DELETE send; guard-only runs: gate
+   latency incl. planning, labelled). Cost model: excess over c = 0, HL(c) - HL(0), vs sequential prediction
+   3c and parallel bounds [0.31c, 3c] (reported as inside/outside and as excess/c). Break-even: OLS of the
+   per-pair end-to-end difference on c per acquisition x condition x planning, c* = -alpha/beta; model-based
+   sequential c* = (median planning A1 - median planning A2)/3. ea_attack: gate decisions / justified counts
+   per arm (descriptive).
+D  Load sensitivity.
+   PRIMARY: P(INVALID_EXECUTED) per arm x load x delta (Wilson) by SCHEDULED level (ITT).
+   Secondary: d* per arm x load (bootstrap seed [3902026, 4, group]); host CPU% / free RAM per level (median,
+   p05, p95, max/min), trials with CPU > 85% or free RAM < 2 GB, throttled trials and effective levels; S5.
+E  Second action (NetworkPolicy CREATE).
+   PRIMARY: P(INVALID_EXECUTED) per arm x condition x delta, A1 vs A3. Secondary: d*; A3 - A1 per delta with
+   Newcombe hybrid-score CI. A4 is structurally not applicable (CREATE carries no precondition on the
+   evidence) - reported as a limitation, not as data.
+F  Client implementation (added before LOCK).
+   PRIMARY: P(INVALID_EXECUTED) per (arm, client_impl) x delta: A1/python, A1/client-go, A4d/client-go.
+   Secondary: d* per (arm, impl) (seed [3902026, 6, group]); DELETE round trip and gate-end -> DELETE-send
+   latency per arm (accepted DELETEs, analyzable): two-sample HL with bootstrap CI (independent resampling,
+   B = 2000, seed [3902026, 60, comparison, metric]) for A1/go vs A1/python and A4d/go vs A1/go; A4d/go (F)
+   vs A4d/python async_scope (E39-A, same deltas) labelled CROSS-BLOCK; A1 go - python difference per delta
+   (Newcombe); go_client_version reported.
+G  Live out-of-model mutation.
+   PRIMARY: invalid-executed proportion per arm (A1 DCJI, A2 FullRefresh) x condition (Wilson).
+   Secondary: difference DCJI - FullRefresh per condition with the Newcombe (1998) method-10 hybrid-score CI
+   ("Newcombe" in the spec; it is closed-form, not exact) and, as sensitivity, an exact unconditional CI
+   (Santner-Snell tail method, nuisance maximised on a 1001-point grid). Expected: out_of_model DCJI ~ 1,
+   FullRefresh ~ 0; in_model control both ~ 0 (CORRECT_ABORT).
+
+---------------------------------------------------------------------------------------------------
+6. STAGE-2 TOP-UP (E39-A ONLY)
+---------------------------------------------------------------------------------------------------
+  After stage 1 (analysis --stage 1 --experiments A... strict, gate passed), every E39-A async-condition cell
+  with 0.05 < p_hat(INVALID_EXECUTED, primary) < 0.95 (strict) is topped up to 93 (54 new trials).
+  Undefined p_hat -> not topped up (listed). Controls and B-G never. Ordered by arm, condition, delta
+  (stage2_topup_e39.py). Stage-2 trial ids >= 100001; the stage-2 schedule hash is appended to the LOCK by
+  protocol/lock_hash_e39.py add-stage2 (refuses non-A trials). Pooled estimates are slightly biased toward
+  (0.05, 0.95) in topped-up cells; S4 stage-1-only estimates are reported next to pooled ones.
+
+---------------------------------------------------------------------------------------------------
+7. INDEPENDENT RECOMPUTATION
+---------------------------------------------------------------------------------------------------
+  analysis/recompute_independent_e39.py (standard library only; imports nothing from the analysis code)
+  recomputes k = #INVALID_EXECUTED and n = primary denominator per cell for A, B, E, F, G from RAW + audit and
+  compares with results_E39.json (exit 3 on any difference). It uses simplified exclusion rules (section 2
+  paraphrased), so edge-case UNKNOWNs may differ; every difference is reported and explained, never used to
+  change the pre-registered results.
+
+---------------------------------------------------------------------------------------------------
+8. MULTIPLICITY
+---------------------------------------------------------------------------------------------------
+  E39 is an estimation study. All intervals are descriptive per-cell / per-comparison 95% intervals without
+  multiplicity adjustment; no family of hypothesis tests is defined, no p-values are computed or used for
+  claims. Cross-cell statements are made from the pre-specified estimates and their intervals. Model-based
+  quantities (B predictions and extrapolations, C cost model and break-even) are labelled as such.
+
+---------------------------------------------------------------------------------------------------
+9. DEVIATIONS
+---------------------------------------------------------------------------------------------------
+  Any deviation (code change after LOCK, schedule change, design-check off, a sub-experiment not run or run
+  partially) is recorded in a dated deviation note and reported with the results; the LOCK hash check makes
+  silent changes to locked files impossible to pass unnoticed.
+
+---------------------------------------------------------------------------------------------------
+10. SPEC AMBIGUITIES RESOLVED BEFORE LOCK
+---------------------------------------------------------------------------------------------------
+  (1) A4m ground truth = the ConfigMap (source) commit; the mirror only determines whether the precondition
+      can see the write. (2) A 409 is attributed via the apiserver's "ResourceVersion in object meta" value;
+      denial correctness uses the E38v2 "decider saw the write" semantics. (3) E39-B "first arrival
+      invalidates" is implemented generally: state at the action commit = all arrivals committed before it.
+      (4) E39-G cuts are pre-gate writes judged by commit order; fixture records holding the post-cut state
+      are accepted (2.2). (5) "exact difference CI (Newcombe)" = Newcombe method 10 (primary difference CI) +
+      exact unconditional (sensitivity). (6) E39-B W_A = area under the E39-A curve (0-200 ms); W for A2 from
+      the E38v2 rerun (external, labelled). (7) E39-C parallel bounds are taken as given ([0.31c, 3c]) and
+      compared with the excess over c = 0. (8) E39-D cells use the scheduled level; throttled trials stay in
+      it (S5 excludes them). (9) E39-F design: A1/python is re-run inside F as the concurrent control;
+      the A4d/python comparison uses E39-A data and is labelled cross-block.
+  (10) [pre-LOCK correction 2026-09-26, found by the e39 cluster probe RUNBOOK 4.2] kube-apiserver v1.37 words
+      the storage precondition failure as 'Operation cannot be fulfilled on Pod "<n>": the ResourceVersion in
+      the precondition (<p>) does not match the ResourceVersion in record (<c>). ...' (UID: '... the UID in the
+      precondition (<p>) does not match the UID in record (<c>) ...'), not 'Precondition failed: ResourceVersion
+      in precondition: <p>, ResourceVersion in object meta: <c>'. Throughout this plan "ResourceVersion in object
+      meta" denotes <c>, the stored object's revision at the check. The parser (e39_common.
+      parse_precondition_message) accepts both wordings; any other 409 text stays unparsed (UNKNOWN), never guessed.
+      No rule, endpoint or denominator changes.
+  (11) [pre-LOCK 2026-09-26] rule 2.3 (f) added after the smoke showed 17 A4d/A4d-go trials in which the
+      writer's Pod PATCH returned the DELETE's own deletion-mark revision (primary INVALID vs secondary VALID);
+      smoke data are never analysed as E39 results.

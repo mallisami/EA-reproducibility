@@ -1,0 +1,12 @@
+{
+  "frozen_input_hash_mismatches": [],
+  "control_count": 5,
+  "expected_control_count": 5,
+  "all_oracle_valid": true,
+  "all_oracle_attack_goal_false": true,
+  "total_unsafe_defense_outcomes": 0,
+  "total_false_abort_defense_outcomes": 0,
+  "derived_constructs_use_development_sources_only": true,
+  "heldout_modified": false,
+  "status": "PASS"
+}

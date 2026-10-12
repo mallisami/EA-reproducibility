@@ -1,0 +1,13 @@
+{
+  "phase": "pilot",
+  "independent_analysis_accepted": false,
+  "run_id": null,
+  "raw_sha256": null,
+  "planned_attempts_accounted_for": false,
+  "mean_latency_precision_target_ms": null,
+  "sample_size_basis_and_schedule": null,
+  "operator": null,
+  "reviewer": null,
+  "date_utc": null,
+  "note": "Fill from physically separate calibration data, not from confirmatory outcomes."
+}

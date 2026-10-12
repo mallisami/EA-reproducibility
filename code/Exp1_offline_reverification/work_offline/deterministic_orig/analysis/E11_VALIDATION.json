@@ -1,0 +1,10 @@
+{
+  "rows": 2320,
+  "p1_rows": 580,
+  "p1_p4_mismatch_count": 0,
+  "positive_template_defense_lag_rows": 560,
+  "negative_template_defense_lag_rows": 20,
+  "frozen_hash_mismatches": [],
+  "B5_positive_unsafe": 0,
+  "F5.6_unsafe": 0
+}

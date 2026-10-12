@@ -1,0 +1,14 @@
+{
+  "phase": "smoke",
+  "engineering_acceptance_signed": false,
+  "run_id": null,
+  "raw_sha256": null,
+  "planned_attempts_accounted_for": false,
+  "UID_precondition_verified_on_real_server": false,
+  "coherence_unknown_fail_closed_verified": false,
+  "all_expected_safe_and_negative_controls_inspected": false,
+  "operator": null,
+  "date_utc": null,
+  "note": "Fill only from actual smoke results; this template is NOT acceptance.",
+  "reviewer": null
+}

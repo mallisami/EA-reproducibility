@@ -1,0 +1,5 @@
+design,n_per_cell,topup_delta_points,n_topup,main_trials,topup_trials,stable_ctrl,uid_ctrl,total_trials,est_hours,est_hours_with_15pct_overhead
+uniform_hw<=0.15,39,0,,4212,0,117,90,4419,2.589255524140937,2.9776438527620774
+uniform_hw<=0.10,93,0,,10044,0,279,90,10413,6.035548111186562,6.940880327864546
+"two_stage: hw<=0.15 all, top-up to hw<=0.10 at 3 transition deltas",39,3,93.0,4212,1458,117,90,5877,3.427542910179062,3.941674346705921
+minimal: user grid 8 deltas (0..50) hw<=0.15,39,0,,2808,0,117,90,3015,1.782015819067187,2.049318191927265

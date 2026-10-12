@@ -1,0 +1,204 @@
+{
+ "audit_events_total": 512,
+ "events_in_ns": 512,
+ "stages": [
+  "ResponseComplete"
+ ],
+ "levels": [
+  "RequestResponse"
+ ],
+ "ns_seen": [
+  "e39-smoke-e39-20260926a"
+ ],
+ "coverage": {
+  "create networkpolicies sa:e39-responder": {
+   "n": 3,
+   "level": [
+    "RequestResponse"
+   ],
+   "with_responseObject": 3,
+   "codes": [
+    201,
+    403
+   ]
+  },
+  "delete networkpolicies sa:e39-reset": {
+   "n": 3,
+   "level": [
+    "RequestResponse"
+   ],
+   "with_responseObject": 3,
+   "codes": [
+    200,
+    404
+   ]
+  },
+  "delete pods sa:e39-reset": {
+   "n": 15,
+   "level": [
+    "RequestResponse"
+   ],
+   "with_responseObject": 15,
+   "codes": [
+    200
+   ]
+  },
+  "delete pods sa:e39-responder": {
+   "n": 17,
+   "level": [
+    "RequestResponse"
+   ],
+   "with_responseObject": 17,
+   "codes": [
+    200,
+    403,
+    409
+   ]
+  },
+  "patch configmaps kubernetes-admin": {
+   "n": 10,
+   "level": [
+    "RequestResponse"
+   ],
+   "with_responseObject": 10,
+   "codes": [
+    200
+   ]
+  },
+  "patch configmaps sa:e39-reset": {
+   "n": 80,
+   "level": [
+    "RequestResponse"
+   ],
+   "with_responseObject": 80,
+   "codes": [
+    200
+   ]
+  },
+  "patch configmaps sa:e39-writer": {
+   "n": 284,
+   "level": [
+    "RequestResponse"
+   ],
+   "with_responseObject": 284,
+   "codes": [
+    200
+   ]
+  },
+  "patch pods sa:e39-mirror": {
+   "n": 12,
+   "level": [
+    "RequestResponse"
+   ],
+   "with_responseObject": 12,
+   "codes": [
+    200
+   ]
+  },
+  "patch pods sa:e39-writer": {
+   "n": 4,
+   "level": [
+    "RequestResponse"
+   ],
+   "with_responseObject": 4,
+   "codes": [
+    200
+   ]
+  },
+  "patch pods/status system:node:e39-control-plane": {
+   "n": 84,
+   "level": [
+    "RequestResponse"
+   ],
+   "with_responseObject": 84,
+   "codes": [
+    200,
+    404
+   ]
+  }
+ },
+ "delete_409_messages": [
+  [
+   "probe-a4",
+   "Operation cannot be fulfilled on Pod \"probe-a4\": the ResourceVersion in the precondition (1293) does not match the ResourceVersion in record (1294). The object might have been modified"
+  ],
+  [
+   "probe-a4",
+   "Operation cannot be fulfilled on Pod \"probe-a4\": the UID in the precondition (00000000-0000-0000-0000-000000000000) does not match the UID in record (50683df6-746a-49db-a629-b3d6ce96e3c0). The object might have been deleted and then recreated"
+  ],
+  [
+   "probe-go3",
+   "Operation cannot be fulfilled on Pod \"probe-go3\": the ResourceVersion in the precondition (1323) does not match the ResourceVersion in record (1330). The object might have been modified"
+  ],
+  [
+   "probe-a4",
+   "Operation cannot be fulfilled on Pod \"probe-a4\": the ResourceVersion in the precondition (2523) does not match the ResourceVersion in record (2524). The object might have been modified"
+  ],
+  [
+   "probe-a4",
+   "Operation cannot be fulfilled on Pod \"probe-a4\": the UID in the precondition (00000000-0000-0000-0000-000000000000) does not match the UID in record (8769b9aa-ad37-4cce-bbc8-2e8f7064697c). The object might have been deleted and then recreated"
+  ],
+  [
+   "probe-go3",
+   "Operation cannot be fulfilled on Pod \"probe-go3\": the ResourceVersion in the precondition (2555) does not match the ResourceVersion in record (2561). The object might have been modified"
+  ]
+ ],
+ "audit_join": {
+  "ops_with_audit_id": 11,
+  "matched": 11,
+  "rv_mismatch": 0,
+  "misses": []
+ },
+ "ops_without_audit_id": [],
+ "rv_time_order": {
+  "n": 0,
+  "pairwise_concordant": 0,
+  "discordant": 0,
+  "ties": 0,
+  "adjacent_nondecreasing": 0,
+  "adjacent_total": 0,
+  "seq_only_adjacent_nondecreasing": 0,
+  "seq_only_n": 0
+ },
+ "pods_status_writes_per_pod": {
+  "e39-target": 3,
+  "probe-a4": 6,
+  "probe-go1": 7,
+  "probe-go2": 6,
+  "probe-go3": 6,
+  "probe-kl-00": 4,
+  "probe-kl-01": 3,
+  "probe-kl-02": 4,
+  "probe-kl-03": 4,
+  "probe-kl-04": 4,
+  "probe-kl-05": 4,
+  "probe-kl-06": 4,
+  "probe-kl-07": 3,
+  "probe-kl-08": 4,
+  "probe-kl-09": 4,
+  "probe-kl-long": 4,
+  "probe-wh-deny": 4,
+  "probe-wh-nolabel": 3,
+  "probe-wh-reset": 3,
+  "probe-wh-scope": 4
+ },
+ "pods_status_users": [
+  "system:node:e39-control-plane"
+ ],
+ "checks": {
+  "configmaps_patch_RR": true,
+  "pods_patch_writer_RR": true,
+  "pods_patch_mirror_RR": true,
+  "pods_status_kubelet_RR": true,
+  "pods_delete_200": true,
+  "pods_delete_409": true,
+  "pods_delete_403": true,
+  "netpol_create_RR": true,
+  "no_RequestReceived": true,
+  "no_load_ns_events": true,
+  "no_system_ns_events": true,
+  "delete_409_message_in_audit": true,
+  "audit_join_all": true
+ },
+ "PASS": true
+}

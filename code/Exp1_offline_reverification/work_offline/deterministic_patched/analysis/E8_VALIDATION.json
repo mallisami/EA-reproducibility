@@ -1,0 +1,10 @@
+{
+  "rows": 384,
+  "heldout_templates": 24,
+  "positive_W2_templates": 23,
+  "negative_control_templates": 1,
+  "full_DCIJ_W2_unsafe": 0,
+  "full_DCIJ_control_false_abort": 0,
+  "negative_control_unsafe_all_variants": 0,
+  "status": "PASS"
+}

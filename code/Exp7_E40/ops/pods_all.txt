@@ -1,0 +1,19 @@
+NAMESPACE     NAME                                            READY   STATUS     RESTARTS   AGE   IP             NODE                                NOMINATED NODE   READINESS GATES
+e40-smoke1    e40-target                                      1/1     Running    0          31m   10.244.0.176   aks-nodepool1-22627011-vmss000000   <none>           <none>
+e40-system    e40-prepull                                     1/2     NotReady   0          39m   10.244.0.107   aks-nodepool1-22627011-vmss000000   <none>           <none>
+e40-system    e40-runner-8t2ww                                1/1     Running    0          39m   10.244.0.185   aks-nodepool1-22627011-vmss000000   <none>           <none>
+e40-system    e40-webhook-7ccf998498-75p24                    1/1     Running    0          29m   10.244.0.144   aks-nodepool1-22627011-vmss000000   <none>           <none>
+kube-system   azure-cns-c6svd                                 2/2     Running    0          41m   10.224.0.4     aks-nodepool1-22627011-vmss000000   <none>           <none>
+kube-system   azure-ip-masq-agent-p9ksm                       1/1     Running    0          41m   10.224.0.4     aks-nodepool1-22627011-vmss000000   <none>           <none>
+kube-system   cloud-node-manager-ptd8p                        1/1     Running    0          41m   10.224.0.4     aks-nodepool1-22627011-vmss000000   <none>           <none>
+kube-system   coredns-5c949dd7f8-4swpn                        1/1     Running    0          42m   10.244.0.248   aks-nodepool1-22627011-vmss000000   <none>           <none>
+kube-system   coredns-5c949dd7f8-kckbl                        1/1     Running    0          41m   10.244.0.245   aks-nodepool1-22627011-vmss000000   <none>           <none>
+kube-system   coredns-autoscaler-675fd9dd89-7gxxd             1/1     Running    0          42m   10.244.0.181   aks-nodepool1-22627011-vmss000000   <none>           <none>
+kube-system   csi-azuredisk-node-r6xh5                        3/3     Running    0          41m   10.224.0.4     aks-nodepool1-22627011-vmss000000   <none>           <none>
+kube-system   csi-azurefile-node-swspr                        4/4     Running    0          41m   10.224.0.4     aks-nodepool1-22627011-vmss000000   <none>           <none>
+kube-system   konnectivity-agent-85c9d74d74-c6r6f             1/1     Running    0          42m   10.244.0.143   aks-nodepool1-22627011-vmss000000   <none>           <none>
+kube-system   konnectivity-agent-85c9d74d74-r9rx5             1/1     Running    0          41m   10.244.0.169   aks-nodepool1-22627011-vmss000000   <none>           <none>
+kube-system   konnectivity-agent-autoscaler-666855b49-kfs4s   1/1     Running    0          42m   10.244.0.233   aks-nodepool1-22627011-vmss000000   <none>           <none>
+kube-system   kube-proxy-qtqmm                                1/1     Running    0          41m   10.224.0.4     aks-nodepool1-22627011-vmss000000   <none>           <none>
+kube-system   metrics-server-7f586f5f4-492vj                  2/2     Running    0          41m   10.244.0.95    aks-nodepool1-22627011-vmss000000   <none>           <none>
+kube-system   metrics-server-7f586f5f4-9zzdj                  2/2     Running    0          41m   10.244.0.195   aks-nodepool1-22627011-vmss000000   <none>           <none>

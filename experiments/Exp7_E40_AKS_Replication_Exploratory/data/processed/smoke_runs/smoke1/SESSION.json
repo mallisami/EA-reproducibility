@@ -1,0 +1,131 @@
+{
+  "schema": "e39.session.v1",
+  "created_wall": "2026-09-26T17:42:02Z",
+  "clock_anchor": {
+    "mono_ns": 657656148196,
+    "wall_ns": 1790444522584156226
+  },
+  "file_sha256": {
+    "action_netpol.py": "5f7aa59260637524fef8ea465456ed916716552520a67ddcbed80e26bad8542c",
+    "arms_commit.py": "b29d2379d7fa5061502e9a4fb487dbde3832f492b1bae65e65148f0c79b05692",
+    "conditions_e39.py": "21401c30fea4922875605f1c49c37cb9201d0020b1c09be007547bad57ff927d",
+    "e38_independent_offline_oracle.py": "43a709db2581cffbcf8ca0ccd7c3d6ff4aa46e03bf8c5e77298c604897e2eea8",
+    "e38v2_model.py": "4d880ea659d16760f5e4a0424eee23b39ff59c7f3ee098a5ca0998a49f1150b7",
+    "e38v2_runner.py": "693f8cbcf8220aff410190be47ef24e2cb3d3f4bed5d52b5bbb2c58c68b59cc9",
+    "e39_fragments.py": "438ead8dbd030062a9e03bada045275acc180c488ac699f332a5b9adca6e7eef",
+    "e39_kube.py": "616fe3fb1cd608089bdc99809bf1062bc8653bcb77ada50600192621efd49c75",
+    "e39_runner.py": "31f290416883e093e7e210af6586f183c19b0ee6de2b966d322e21b391bbf098",
+    "fake_api.py": "2ed92bc0e798c56543e720cdbfc917338a1f88551ed8592db7e6495c12ffa078",
+    "harness_arrivals.py": "d2e4c04b10216165b7356498be3af64f01f003c214ea1f9e3082c9d720aea7a1",
+    "harness_delay_proxy.py": "6d2f9cfafbdf376568cc08838115ce2ae6a559ec9492a571516e012a28657848",
+    "harness_load.py": "055d104f563c1e07f1a74baf4a6a1b22f17116b08f8b12e249c63867315cef21",
+    "harness_util.py": "79376c42f0c10f20767ab1e92a5c0738574c70b9ece54920f04ef6349e90404e",
+    "mirror_controller.py": "c633081e07fb0099b2b95e339ff7811702e137df3aca2edfd6f7fdcf2a4aab4b",
+    "pod_watch.py": "7818fbdf98771e08f1ff85abed64b0e006909a9bb052b8ca1cfd96dda0763f08",
+    "schema.py": "7d2cb085cd7c0d826f96fd17c4d4f1cfee905bb29438516bee0b7008c8c11c40",
+    "schema_e39.py": "8d0604c0fb78064004a4160ff958b7b3dbbd794ca4a71d8e071fb8fb3e2c14ae",
+    "test_e38v2.py": "a1c739437642fd18e97727a287c34c678e5ed0cdb6923f776dbd14969c4e4743",
+    "test_e39_commit.py": "994fc1df14680a80896ba8a2a0e160f93ff327305965ce98df7f2df4cba3c47b",
+    "test_e39_mirror.py": "36efd6d039586d88368e1ae7b2c193dfe1dc24478cfc461dd731fc38c35cb507",
+    "test_e39_netpol_conditions.py": "054a1e8f91ce7c79f2428f597f78025e173ecc735758c73af800ae9546fc3979",
+    "test_e39_runner.py": "652c6821aac06530fe0e254a16976fff951d581b8c177dba9625d47ca4db0bce",
+    "test_goclient_bridge.py": "244d6b60d2f40410164ee123a121065b97cbec0132e3326d35b92107104e770f",
+    "test_pod_watch.py": "a10fd569d52a2e95e4b6942ecb4d7b1533b27b927faaab5a172da62011989f76",
+    "writer.py": "fe93f55ce961679ba2e7b1dd84ab31b8d8122216e5d6d43f2d2130b66d17138c",
+    "flashir_core/__init__.py": "4b5ae5eaf5a4abb7261b679c773c843c2c1907204347c65b7eee62391c1e5550",
+    "flashir_core/dcji.py": "adec97f6e46cbe006510f8fbabeed3dbfe94422f8226dfa3ae48dc68a788eb77",
+    "flashir_core/defenses.py": "7d02941bdcc830cda3883ef4a546e75910383741d6baa9882c2ce88ab246838b",
+    "flashir_core/engine.py": "a7227732ab7d30a1cecd61b622c6ec51d5c3c7768293c63d29bdafd34b9a943d",
+    "flashir_core/expr.py": "f3e0aabf853755e7e2be6c77391022977c81220185b30bbbfe20d2a73c856a25",
+    "flashir_core/io.py": "229fdc6186185a7318c535f3d5fee1a4379054bcf2751dc052b4cf7f44ab4fcd",
+    "flashir_core/refresh.py": "444bc1c10e95bdcb07ea5204cbf8c82d57f113413e82bb72addb30a13330cc05"
+  },
+  "python": "3.12.14",
+  "switchinterval_s": 4.9999999999999996e-05,
+  "mirror": {
+    "started_only_for": "A4m trials",
+    "resync_s": 3600.0,
+    "wait_for_propagation_s": 2.0
+  },
+  "runtime_model": {
+    "sec_per_running_pod_delete_trial_measured_smoke": 0.77,
+    "uid_rebind_extra_s_smoke": 0.8,
+    "a4m_mirror_extra_s_smoke": 0.1,
+    "b_arrival_tail_s": 0.05,
+    "e_netpol_cleanup_s_smoke": 0.0,
+    "c_overhead_s_smoke": 0.05,
+    "c_reads": "sequential: n_reads x c (A1 3, A2 6); parallel: c",
+    "c_planning_s_estimate": 0.01,
+    "d_level_settle_s": 10.0,
+    "note": "constants measured in the e39 smoke run smoke-e40-20260926a (budget 5 h, Amendment 1)"
+  },
+  "run_id": "smoke1",
+  "stage": 1,
+  "schedule_seed": 40926017,
+  "namespace": "e40-smoke1",
+  "context": "aks-incluster",
+  "experiments": [
+    "A"
+  ],
+  "e40": true,
+  "identities": {
+    "responder": {
+      "username": "system:serviceaccount:e40-system:e40-responder"
+    },
+    "writer": {
+      "username": "system:serviceaccount:e40-system:e40-writer"
+    },
+    "reset": {
+      "username": "system:serviceaccount:e40-system:e40-reset"
+    },
+    "mirror": {
+      "username": "system:serviceaccount:e40-system:e40-mirror"
+    }
+  },
+  "api_server": "https://10.0.0.1:443",
+  "ca_sha256": "bd8118f52f63a549e6fbd1f68227e6e9179f2787c648ffb3da59769ab3466fa5",
+  "apiserver_version": "v1.36.3",
+  "certificate": [
+    "a",
+    "c",
+    "e",
+    "scope",
+    "uid"
+  ],
+  "f5_sha256": "c54f4331cf0d73e7cde1b5da564480bb4911d4889b4f06c9670e1da4efd3cb2f",
+  "schedule_file": "/out/smoke1/SCHEDULE.json",
+  "schedule_sha256": "1949975ed16f996e2fd6e90af28c29760846395545193acef53a99090d4ddd96",
+  "n_scheduled": 54,
+  "lock_file": null,
+  "lock_status": null,
+  "unlocked_smoke": true,
+  "cluster_created_epoch": 1790443722.0,
+  "time_box_s": 9600.0,
+  "node_name": "aks-nodepool1-22627011-vmss000000",
+  "pod_name": "e40-runner-8t2ww",
+  "design_subset": {
+    "arms": [
+      "A1_dcji",
+      "A3_dcji_webhook",
+      "A4d_commit_direct"
+    ],
+    "conditions": [
+      "async_scope",
+      "async_evidence_last_literal"
+    ],
+    "deltas_ms": [
+      0.0,
+      2.0,
+      5.0,
+      10.0,
+      20.0,
+      50.0,
+      100.0,
+      200.0
+    ]
+  },
+  "mem_guards_kb": {
+    "pause_below": 524288,
+    "abort_below": 262144
+  }
+}
