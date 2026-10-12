@@ -1,6 +1,6 @@
 # Freshness Is Not Binding — reproducibility package
 
-This package accompanies **Freshness Is Not Binding: Evidence-to-Action Races and Conditional Enforcement in Kubernetes Incident Response**. It uses **Discover_Computing_Journal_Figures_2_5_2026-10-12_V3.zip** as the current paper reference and **V3(1).zip** as the source of experimental evidence. The paper and Supplement are not included and have not been edited.
+This reproducibility package accompanies the manuscript *Freshness Is Not Binding: Evidence-to-Action Races and Conditional Enforcement in Kubernetes Incident Response*. It contains the experimental evidence, analysis code, verification routines, and provenance materials supporting the results reported in the manuscript and Supplement.
 
 The package preserves the supplied scientific source, inputs, protocols, schedules, raw observations, canonical results, and documented deviations. Editorial/reviewer audits, manuscript builders, obsolete publication snapshots, packaging history, Python caches and disposable console/test output are excluded. Numerical plotting sources and integrity metadata remain because they support reproduction.
 
@@ -99,4 +99,4 @@ The E39 wrapper hashes the complete extracted audit member before analysis and s
 - Recorded planner timing and the earlier supplemental live/diagnostic studies are retained. The portable default does not rerun expensive uncapped planner-scaling cells or reconstruct new physical measurements. Historical scaling scripts describe their host-specific setup.
 - Historical validation scripts may reference older, broader frozen-result inventories. Current package checks and paper-relevant replay commands above define this release's verified scope; see `docs/verification_summary.json`.
 
-No published scientific claim, input observation or canonical result was altered during cleanup. License selection and publication identifiers remain author-controlled; the supplied private-review licensing status is preserved in `LICENSE_STATUS.txt`.
+No published scientific claim, input observation or canonical result was altered during cleanup. Released software code and scripts are licensed under the MIT License; experimental data, figures, and documentation are licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0) License; see LICENSE.txt.
